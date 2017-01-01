@@ -9,29 +9,29 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <deploy-repo-url>maven-repo.basic-utils.schinzel.io</deploy-repo-url>
+        <repo-schinzel>maven-repo.schinzel.io</repo-schinzel>
     </properties>
     
     <distributionManagement>
         <snapshotRepository>
-            <id>${deploy-repo-url}</id>
-            <url>s3://${deploy-repo-url}/snapshot</url>
+            <id>${repo-schinzel}</id>
+            <url>s3://${repo-schinzel}/snapshot</url>
         </snapshotRepository>
         <repository>
-            <id>${deploy-repo-url}</id>
-            <url>s3://${deploy-repo-url}/release</url>
+            <id>${repo-schinzel}</id>
+            <url>s3://${repo-schinzel}/release</url>
         </repository>
     </distributionManagement>
     
     <repositories>
-        <repository>
-            <id>${deploy-repo-url}</id>
-            <url>s3://${deploy-repo-url}</url>
+       <repository>
+            <id>${repo-schinzel}</id>
+            <url>s3://${repo-schinzel}/snapshot</url>
         </repository>
-        <repository>
-            <id>maven-repo.json-ordered.schinzel.io</id>
-            <url>http://maven-repo.json-ordered.schinzel.io/snapshot</url>
-        </repository>
+        <!--<repository>
+            <id>maven-repo.schinzel.io</id>
+            <url>http://maven-repo.schinzel.io/snapshot</url>
+        </repository>-->
     </repositories>    
     
     <build>
