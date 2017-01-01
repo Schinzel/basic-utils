@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
-import org.json.JSONObject;
+import io.schinzel.json.JSONObject;
 
 /**
  * The purpose of this class is for measuring the time a one or several lines
