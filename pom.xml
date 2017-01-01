@@ -12,13 +12,38 @@
         <deploy-repo-url>maven-repo.basic-utils.schinzel.io</deploy-repo-url>
     </properties>
     
+    <distributionManagement>
+        <snapshotRepository>
+            <id>${deploy-repo-url}</id>
+            <url>s3://${deploy-repo-url}/snapshot</url>
+        </snapshotRepository>
+        <repository>
+            <id>${deploy-repo-url}</id>
+            <url>s3://${deploy-repo-url}/release</url>
+        </repository>
+    </distributionManagement>
+    
     <repositories>
+        <repository>
+            <id>${deploy-repo-url}</id>
+            <url>s3://${deploy-repo-url}</url>
+        </repository>
         <repository>
             <id>maven-repo.json-ordered.schinzel.io</id>
             <url>http://maven-repo.json-ordered.schinzel.io/snapshot</url>
         </repository>
-    </repositories>       
-
+    </repositories>    
+    
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.kuali.maven.wagons</groupId>
+                <artifactId>maven-s3-wagon</artifactId>
+                <version>1.2.1</version>
+            </extension>
+        </extensions>
+    </build>        
+    
     <dependencies>
         <dependency>
             <groupId>io.schinzel</groupId>
