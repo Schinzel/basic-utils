@@ -15,7 +15,7 @@
     <repositories>
         <repository>
             <id>maven-repo.json-ordered.schinzel.io</id>
-            <url>http://maven-repo.json-ordered.schinzel.io</url>
+            <url>http://maven-repo.json-ordered.schinzel.io/snapshot</url>
         </repository>
     </repositories>       
 
