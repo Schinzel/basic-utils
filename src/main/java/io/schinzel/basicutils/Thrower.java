@@ -1,6 +1,7 @@
 package io.schinzel.basicutils;
 
 /**
+ * The purpose of this class is to offer less verbose error throwing.
  *
  * @author schinzel
  */
@@ -17,18 +18,6 @@ public class Thrower {
             throw new RuntimeException("Argument '" + argName + "' cannot be empty");
         }
     }
-    /**
-     * Throws error if the argument value with the argument name is empty.
-     *
-     * @param argValue The value to check
-     * @param argName The name of the value to check
-     */
-    /* public static void throwErrorIfEmpty(AbstractValue argValue, String argName) {
-    if ((argValue == null || argValue.mName == null || argValue.mName.length() == 0)) {
-    throw new RuntimeException("Argument '" + argName + "' cannot be empty");
-    }
-    }
-     */
 
     /**
      * Throw error if the argument object is null
@@ -81,5 +70,5 @@ public class Thrower {
     public static void throwErrorIfTrue(boolean expression, String errorMessage) {
         throwErrorIfFalse(!expression, errorMessage);
     }
-    
+
 }
