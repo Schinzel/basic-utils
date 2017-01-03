@@ -23,13 +23,6 @@
         </repository>
     </distributionManagement>
     
-    <repositories>
-       <repository>
-            <id>maven-repo.schinzel.io</id>
-            <url>http://maven-repo.schinzel.io/snapshot</url>
-        </repository>
-    </repositories>    
-    
     <build>
         <extensions>
             <extension>
@@ -39,7 +32,15 @@
             </extension>
         </extensions>
     </build>        
+
+    <repositories>
+       <repository>
+            <id>maven-repo.schinzel.io</id>
+            <url>http://maven-repo.schinzel.io/snapshot</url>
+        </repository>
+    </repositories>    
     
+            
     <dependencies>
         <dependency>
             <groupId>io.schinzel</groupId>
