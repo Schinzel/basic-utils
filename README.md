@@ -4,4 +4,6 @@
 
 [ ![Codeship Status for Schinzel/basic-utils](https://app.codeship.com/projects/742c59b0-b3aa-0134-6585-2a924262b5e8/status?branch=master)](https://app.codeship.com/projects/193508)
 
+[![Coverage Status](https://coveralls.io/repos/github/Schinzel/basic-utils/badge.svg?branch=master)](https://coveralls.io/github/Schinzel/basic-utils?branch=master)
+
 Some basic utilities I tend to use in projects
