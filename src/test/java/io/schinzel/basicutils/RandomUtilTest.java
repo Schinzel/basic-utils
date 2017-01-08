@@ -237,10 +237,9 @@ public class RandomUtilTest {
                 0);
     }
 
-    
+
     /**
-     * Make sure that the random doubles are less than max
-     * and more than min.
+     * Make sure that the random doubles are less than max and more than min.
      */
     @Test
     public void testGetDouble_MaxMin() {
@@ -252,6 +251,16 @@ public class RandomUtilTest {
             assertThat(number, Matchers.greaterThanOrEqualTo(min));
             assertThat(number, Matchers.lessThanOrEqualTo(max));
         }
+    }
+
+
+    @Test
+    public void testGetPaddedInt() {
+        assertEquals("8", RandomUtil.create(1234).getPaddedInt(0, 9, 1));
+        assertEquals("08", RandomUtil.create(1234).getPaddedInt(0, 9, 2));
+        assertEquals("008", RandomUtil.create(1234).getPaddedInt(0, 9, 3));
+        assertEquals("0008", RandomUtil.create(1234).getPaddedInt(0, 9, 4));
+        assertEquals("0000000008", RandomUtil.create(1234).getPaddedInt(0, 9, 10));
     }
 
 
