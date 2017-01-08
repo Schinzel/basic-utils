@@ -33,5 +33,10 @@ public class EmptyObjects {
      * An empty map.
      */
     public static final Map EMPTY_MAP = Collections.emptyMap();
+
+    /**
+     * Package private constructor as this class should not be instantiated. 
+     */
+    EmptyObjects(){}
    
 }
