@@ -1,7 +1,9 @@
 package io.schinzel.basicutils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -10,6 +12,15 @@ import org.junit.Test;
  * @author schinzel
  */
 public class CheckerTest {
+
+    @Test
+    public void testIsEmptyMap() {
+        assertTrue(Checker.isEmpty(EmptyObjects.EMPTY_MAP));
+        Map<String, String> map = new HashMap<>();
+        map.put("a", "b");
+        assertFalse(Checker.isEmpty(map));
+    }
+
 
     @Test
     public void testIsEmptyList() {
@@ -106,6 +117,7 @@ public class CheckerTest {
         arr = new ArbitraryObjectForTestingIsEmpty[]{new ArbitraryObjectForTestingIsEmpty()};
         assertFalse(Checker.isEmpty(arr));
     }
+
 
     static class ArbitraryObjectForTestingIsEmpty {
     }
