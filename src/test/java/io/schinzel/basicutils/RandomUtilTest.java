@@ -5,9 +5,6 @@ import java.util.Set;
 import java.util.regex.Pattern;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -70,7 +67,7 @@ public class RandomUtilTest {
         for (int j = 0; j < sequence.length; j++) {
             rand = RandomUtil.create(seed);
             for (int i = 0; i < sequence.length; i++) {
-                assertEquals(sequence[i], rand.getInt(min, max));
+                Assert.assertEquals(sequence[i], rand.getInt(min, max));
             }
         }
     }
@@ -85,20 +82,20 @@ public class RandomUtilTest {
         arraySum = 100;
         arraySize = 5;
         result = mRand.getIntArray(arraySize, arraySum);
-        assertEquals(arraySum, sumArray(result));
-        assertEquals(arraySize, result.length);
+        Assert.assertEquals(arraySum, sumArray(result));
+        Assert.assertEquals(arraySize, result.length);
         //Test one elem
         arraySum = 100;
         arraySize = 1;
         result = mRand.getIntArray(arraySize, arraySum);
-        assertEquals(arraySum, sumArray(result));
-        assertEquals(arraySize, result.length);
+        Assert.assertEquals(arraySum, sumArray(result));
+        Assert.assertEquals(arraySize, result.length);
         //Test when sum is only slightly larger than size
         arraySum = 6;
         arraySize = 5;
         result = mRand.getIntArray(arraySize, arraySum);
-        assertEquals(arraySum, sumArray(result));
-        assertEquals(arraySize, result.length);
+        Assert.assertEquals(arraySum, sumArray(result));
+        Assert.assertEquals(arraySize, result.length);
     }
 
 
@@ -141,26 +138,26 @@ public class RandomUtilTest {
         max = 10;
         for (int i = 0; i < 100; i++) {
             result = RandomUtil.getRandomNumber(min, max);
-            assertTrue((result >= min) && (result <= max));
+            Assert.assertTrue((result >= min) && (result <= max));
         }
         min = 10000;
         max = 10010;
         for (int i = 0; i < 100; i++) {
             result = RandomUtil.getRandomNumber(min, max);
-            assertTrue((result >= min) && (result <= max));
+            Assert.assertTrue((result >= min) && (result <= max));
         }
 
         min = 1;
         max = 2;
         for (int i = 0; i < 100; i++) {
             result = RandomUtil.getRandomNumber(min, max);
-            assertTrue((result >= min) && (result <= max));
+            Assert.assertTrue((result >= min) && (result <= max));
         }
         min = Integer.MAX_VALUE - 1;
         max = Integer.MAX_VALUE;
         for (int i = 0; i < 100; i++) {
             result = RandomUtil.getRandomNumber(min, max);
-            assertTrue((result >= min) && (result <= max));
+            Assert.assertTrue((result >= min) && (result <= max));
         }
     }
 
@@ -174,8 +171,8 @@ public class RandomUtilTest {
         int max = 5;
         for (int i = 0; i < 1000; i++) {
             int number = RandomUtil.getRandomNumber(min, max);
-            assertThat(number, Matchers.greaterThanOrEqualTo(min));
-            assertThat(number, Matchers.lessThanOrEqualTo(max));
+            Assert.assertThat(number, Matchers.greaterThanOrEqualTo(min));
+            Assert.assertThat(number, Matchers.lessThanOrEqualTo(max));
         }
     }
 
@@ -184,7 +181,7 @@ public class RandomUtilTest {
     public void testGetRandomNumberException() {
         RandomUtil.getRandomNumber(100, 1);
         // Exception should be thrown before this line
-        assertTrue(false);
+        Assert.assertTrue(false);
     }
 
 
@@ -193,17 +190,17 @@ public class RandomUtilTest {
         String randomString;
         //Test that length is correct
         randomString = RandomUtil.getRandomString(5);
-        assertTrue(randomString.length() == 5);
+        Assert.assertTrue(randomString.length() == 5);
         //Test short 
         randomString = RandomUtil.getRandomString(1);
-        assertTrue(randomString.length() == 1);
+        Assert.assertTrue(randomString.length() == 1);
         //Test long
         randomString = RandomUtil.getRandomString(400);
-        assertTrue(randomString.length() == 400);
+        Assert.assertTrue(randomString.length() == 400);
         //Test that only alphnum chars lower case
         randomString = RandomUtil.getRandomString(100);
         Pattern pattern = Pattern.compile("^[a-z0-9]*");
-        assertTrue(pattern.matcher(randomString).matches());
+        Assert.assertTrue(pattern.matcher(randomString).matches());
     }
 
 
@@ -231,18 +228,18 @@ public class RandomUtilTest {
             double min = 0d;
             double max = 1000d;
             double number = rand.getDouble(min, max);
-            assertThat(number, Matchers.greaterThanOrEqualTo(min));
-            assertThat(number, Matchers.lessThanOrEqualTo(max));
+            Assert.assertThat(number, Matchers.greaterThanOrEqualTo(min));
+            Assert.assertThat(number, Matchers.lessThanOrEqualTo(max));
         }
     }
 
 
     @Test
     public void testGetPaddedInt() {
-        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
-        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
-        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
-        assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
+        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
+        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
+        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
+        Assert.assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
     }
 
 
@@ -251,10 +248,10 @@ public class RandomUtilTest {
      */
     @Test
     public void testGetPaddedInt_paddingShorterThanNumber() {
-        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
-        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
-        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
-        assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
+        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
+        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
+        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
+        Assert.assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
     }
 
 
