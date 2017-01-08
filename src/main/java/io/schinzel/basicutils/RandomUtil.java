@@ -2,6 +2,7 @@ package io.schinzel.basicutils;
 
 import java.time.Instant;
 import java.time.temporal.ChronoField;
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -161,18 +162,20 @@ public class RandomUtil {
      */
     public int[] getIntArray(int arraySize, int arraySum) {
         Thrower.throwErrorIfOutsideRange(arraySize, "arraySize", 1, Integer.MAX_VALUE);
-        if (arraySum <= arraySize) {
+        int sum = arraySum;
+        if (sum <= arraySize) {
             throw new RuntimeException("Array size needs to be larger than sum");
         }
+        
         int vals[] = new int[arraySize];
-        arraySum -= arraySize;
+        sum -= arraySize;
 
         for (int i = 0; i < arraySize - 1; ++i) {
-            vals[i] = mRandom.nextInt(arraySum);
+            vals[i] = mRandom.nextInt(sum);
         }
-        vals[arraySize - 1] = arraySum;
+        vals[arraySize - 1] = sum;
 
-        java.util.Arrays.sort(vals);
+        Arrays.sort(vals);
         for (int i = arraySize - 1; i > 0; --i) {
             vals[i] -= vals[i - 1];
         }
