@@ -3,8 +3,10 @@ package io.schinzel.basicutils;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Pattern;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,9 +17,9 @@ import org.junit.rules.ExpectedException;
  * @author schinzel
  */
 public class RandomUtilTest {
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
-
 
     @Test
     public void testGetSeed() {
@@ -219,7 +221,38 @@ public class RandomUtilTest {
         randomString = RandomUtil.getRandomString(100);
         Pattern pattern = Pattern.compile("^[a-z0-9]*");
         assertTrue(pattern.matcher(randomString).matches());
-
     }
+
+
+    /**
+     * Two instances with the same seed should generated the same doubles
+     */
+    @Test
+    public void testGetDouble_SameSeed() {
+        RandomUtil instance1 = RandomUtil.create(1234);
+        RandomUtil instance2 = RandomUtil.create(1234);
+        Assert.assertEquals(
+                instance1.getDouble(0, 10d),
+                instance2.getDouble(0, 10d),
+                0);
+    }
+
+    
+    /**
+     * Make sure that the random doubles are less than max
+     * and more than min.
+     */
+    @Test
+    public void testGetDouble_MaxMin() {
+        RandomUtil rand = RandomUtil.create(1234);
+        for (int i = 0; i < 1000; i++) {
+            double min = 0d;
+            double max = 1000d;
+            double number = rand.getDouble(min, max);
+            assertThat(number, Matchers.greaterThanOrEqualTo(min));
+            assertThat(number, Matchers.lessThanOrEqualTo(max));
+        }
+    }
+
 
 }
