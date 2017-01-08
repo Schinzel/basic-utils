@@ -6,6 +6,8 @@ import java.util.HashMap;
  * The purpose of this class is to offer a HashMap that supports chaining.
  *
  * @author Schinzel
+ * @param <K> the type of keys
+ * @param <V> the type of mapped values
  */
 public class ChainedHashMap<K, V>  extends HashMap<K, V> {
     /**
