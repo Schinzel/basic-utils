@@ -1,6 +1,5 @@
 package io.schinzel.basicutils;
 
-import io.schinzel.basicutils.Checker;
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.Assert.*;

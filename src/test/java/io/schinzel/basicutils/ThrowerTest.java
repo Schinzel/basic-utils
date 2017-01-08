@@ -1,8 +1,7 @@
 package io.schinzel.basicutils;
 
-import io.schinzel.basicutils.Thrower;
-import org.junit.Test;
 import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**

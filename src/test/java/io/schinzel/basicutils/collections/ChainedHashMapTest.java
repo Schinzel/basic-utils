@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.collections;
 
-import io.schinzel.basicutils.collections.ChainedHashMap;
 import static org.junit.Assert.*;
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +15,7 @@ public class ChainedHashMapTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    public void testBooleans(){
+    public void testBooleans() {
         ChainedHashMap<String, Boolean> map = new ChainedHashMap<>();
         map.add("k1", true);
         map.add("k2", false);
@@ -26,8 +25,6 @@ public class ChainedHashMapTest {
         map.add("k1", false);
         assertFalse(map.get("k1"));
     }
- 
-    
 
     @Test
     public void testAdd() {
@@ -48,14 +45,12 @@ public class ChainedHashMapTest {
         assertEquals("v2b", map.get("k2"));
     }
 
-
     @Test
     public void testNullKey() {
         exception.expect(RuntimeException.class);
         ChainedHashMap map = new ChainedHashMap();
         map.add(null, "v1");
     }
-
 
     @Test
     public void testNullValue() {

@@ -1,6 +1,5 @@
 package io.schinzel.basicutils;
 
-import io.schinzel.basicutils.MiscUtil;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
