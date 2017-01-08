@@ -8,6 +8,11 @@ package io.schinzel.basicutils;
 public class Thrower {
 
     /**
+     * Private constructor as this class should not be instantiated. 
+     */
+    private Thrower(){}
+    
+    /**
      * Throws error if the argument value with the argument name is empty.
      *
      * @param argValue The value to check
