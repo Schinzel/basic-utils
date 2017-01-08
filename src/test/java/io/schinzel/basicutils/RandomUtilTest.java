@@ -170,30 +170,13 @@ public class RandomUtilTest {
      */
     @Test
     public void testRandomNumberRange() {
-        boolean hit3 = false;
-        boolean hit4 = false;
-        boolean hit5 = false;
-
+        int min = 3;
+        int max = 5;
         for (int i = 0; i < 1000; i++) {
-            int number = RandomUtil.getRandomNumber(3, 5);
-            if (number == 3) {
-                hit3 = true;
-            } else if (number == 4) {
-                hit4 = true;
-            } else if (number == 5) {
-                hit5 = true;
-            } else {
-                //Should never get here. 
-                assertTrue(false);
-            }
-            if (hit3 && hit4 && hit5) {
-                assertTrue(true);
-                return;
-            }
+            int number = RandomUtil.getRandomNumber(min, max);
+            assertThat(number, Matchers.greaterThanOrEqualTo(min));
+            assertThat(number, Matchers.lessThanOrEqualTo(max));
         }
-        //If got here, we have gone through all itterations without hitting 
-        //all numbers in range
-        assertTrue(false);
     }
 
 
@@ -282,11 +265,13 @@ public class RandomUtilTest {
         RandomUtil.create(1234).getPaddedInt(100, 200, 0);
     }
 
+
     @Test
     public void testGetPaddedInt_incorrectPaddingArgToLarge() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Requested value ");
         RandomUtil.create(1234).getPaddedInt(100, 200, 1000);
     }
+
 
 }
