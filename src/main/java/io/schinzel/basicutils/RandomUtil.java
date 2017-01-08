@@ -11,12 +11,12 @@ import java.util.Random;
  * @author schinzel
  */
 public class RandomUtil {
+
     private final Random mRandom;
     /**
      * Holds the chars that can be a part of the random string.
      */
     private static final char[] SYMBOLS;
-
 
     /**
      * Set up the chars that can be used in the random string.
@@ -61,7 +61,7 @@ public class RandomUtil {
 
 
     /**
-     * The returned seed is compiled from the nano time. 
+     * The returned seed is compiled from the nano time.
      *
      * @return A seed.
      */
@@ -128,15 +128,25 @@ public class RandomUtil {
 
 
     /**
-     * For example, min=1 and max=9 and padding 2 yields
-     * a string "04" for example.
+     * Adds leading zeros to returned number so that returned string always is
+     * same or larger than the argument padding.
+     *
+     * For example, min=1 and max=9 and padding 2 yields a string "04" for
+     * example.
+     *
+     * If padding is smaller than the length of the returned value, the value is
+     * returned as is. For example, the random generated is 123 and the padding
+     * argument is 1, then "123" will be returned.
+     *
      *
      * @param min
      * @param max
-     * @param padding
+     * @param padding The returned string will at least have this length. Min 1
+     * and max 100.
      * @return A padded int as a string.
      */
     public String getPaddedInt(int min, int max, int padding) {
+        Thrower.throwErrorIfOutsideRange(padding, "padding", 1, 100);
         String paddingFormat = "%0" + padding + "d";
         return String.format(paddingFormat, this.getInt(min, max));
     }
@@ -195,5 +205,6 @@ public class RandomUtil {
     public static String getRandomString(int length) {
         return RandomUtil.create().getString(length);
     }
+
 
 }

@@ -256,12 +256,37 @@ public class RandomUtilTest {
 
     @Test
     public void testGetPaddedInt() {
-        assertEquals("8", RandomUtil.create(1234).getPaddedInt(0, 9, 1));
-        assertEquals("08", RandomUtil.create(1234).getPaddedInt(0, 9, 2));
-        assertEquals("008", RandomUtil.create(1234).getPaddedInt(0, 9, 3));
-        assertEquals("0008", RandomUtil.create(1234).getPaddedInt(0, 9, 4));
-        assertEquals("0000000008", RandomUtil.create(1234).getPaddedInt(0, 9, 10));
+        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
+        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
+        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
+        assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
     }
 
+
+    /**
+     * Test when padding is smaller than length of returned value.
+     */
+    @Test
+    public void testGetPaddedInt_paddingShorterThanNumber() {
+        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
+        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
+        assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
+        assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
+    }
+
+
+    @Test
+    public void testGetPaddedInt_incorrectPaddingArgToSmall() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Requested value ");
+        RandomUtil.create(1234).getPaddedInt(100, 200, 0);
+    }
+
+    @Test
+    public void testGetPaddedInt_incorrectPaddingArgToLarge() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Requested value ");
+        RandomUtil.create(1234).getPaddedInt(100, 200, 1000);
+    }
 
 }
