@@ -1,10 +1,6 @@
 package io.schinzel.basicutils.collections;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -12,22 +8,6 @@ import org.junit.Test;
  * @author schinzel
  */
 public class StringMapTest {
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of create method, of class StringMap.
@@ -38,6 +18,7 @@ public class StringMapTest {
         assertEquals(StringMap.class.getSimpleName(), map.getClass().getSimpleName());
         assertEquals(0, map.size());
     }
+
 
     /**
      * Test of create method, of class StringMap.
@@ -51,6 +32,7 @@ public class StringMapTest {
         assertEquals(value, map.get(key));
     }
 
+
     /**
      * Test of add method, of class StringMap.
      */
@@ -63,5 +45,6 @@ public class StringMapTest {
         assertEquals("theValue", map.get("theKey"));
         assertEquals("theValue2", map.get("theKey2"));
     }
+
 
 }
