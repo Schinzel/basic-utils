@@ -1,6 +1,8 @@
 package io.schinzel.basicutils;
 
 import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.Set;
 import org.junit.Assert;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -13,9 +15,6 @@ import org.junit.Test;
  * @author schinzel
  */
 public class CacheTest {
-
-
-    
 
     @Test
     public void testOverwrite() {
@@ -100,6 +99,7 @@ public class CacheTest {
         assertEquals(3, intCache.get("key3").intValue());
     }
 
+
     @Test
     public void testIntKeys() {
         Cache<Integer, Integer> IntIntCache = new Cache<>();
@@ -122,5 +122,19 @@ public class CacheTest {
         assertEquals("value3", intStringCache.get(3));
         assertEquals(3, intStringCache.cacheSize());
         assertEquals(3, intStringCache.cacheHits());
-    }    
+    }
+
+
+    @Test
+    public void testGetKeys(){
+        Cache<String, Integer> cache = new Cache<>();
+        cache.put("monkey", 1);
+        cache.put("bear", 2);
+        cache.put("bird", 2);
+        Set<String> set = new HashSet<>();
+        set.add("bear");
+        set.add("monkey");
+        set.add("bird");
+        assertEquals(set, cache.getKeys());
+    }
 }
