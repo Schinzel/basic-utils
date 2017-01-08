@@ -1,6 +1,5 @@
 package io.schinzel.basicutils;
 
-import io.schinzel.basicutils.Cache;
 import java.nio.charset.Charset;
 import org.junit.Assert;
 import static org.junit.Assert.assertArrayEquals;
@@ -15,9 +14,8 @@ import org.junit.Test;
  */
 public class CacheTest {
 
-    public CacheTest() {
-    }
 
+    
 
     @Test
     public void testOverwrite() {
