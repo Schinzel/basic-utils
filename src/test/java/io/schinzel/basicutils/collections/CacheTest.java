@@ -1,4 +1,4 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.collections;
 
 import java.nio.charset.Charset;
 import java.util.HashSet;

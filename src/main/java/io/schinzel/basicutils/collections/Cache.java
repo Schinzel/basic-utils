@@ -1,4 +1,4 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.collections;
 
 import java.util.Map;
 import java.util.Set;
