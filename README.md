@@ -7,3 +7,20 @@
 [![Coverage Status](https://coveralls.io/repos/github/Schinzel/basic-utils/badge.svg?branch=master)](https://coveralls.io/github/Schinzel/basic-utils?branch=master)
 
 Some basic utilities I tend to use in projects
+
+```xml
+<repositories>
+	<repository>
+		<id>maven-repo.schinzel.io</id>
+		<url>http://maven-repo.schinzel.io/snapshot</url>
+	</repository>
+</repositories>    
+
+<dependencies>
+	<dependency>
+		<groupId>io.schinzel</groupId>
+		<artifactId>basic-utils</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</dependency>
+</dependencies>    
+```
