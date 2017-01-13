@@ -20,7 +20,7 @@ Some basic utilities I tend to use in projects
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 	</dependency>
 </dependencies>    
 ```
