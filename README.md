@@ -12,7 +12,7 @@ Some basic utilities I tend to use in projects
 <repositories>
 	<repository>
 		<id>maven-repo.schinzel.io</id>
-		<url>http://maven-repo.schinzel.io/snapshot</url>
+		<url>http://maven-repo.schinzel.io/release</url>
 	</repository>
 </repositories>    
 
