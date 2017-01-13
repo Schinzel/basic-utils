@@ -250,4 +250,54 @@ public class SubStringerTest {
         SubStringer.create(input).toString();
     }
 
+
+    @Test
+    public void testStart_emptyString() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Start delimiter cannot be set to empty value");
+        SubStringer.create("any input").start("");
+    }
+
+
+    @Test
+    public void testStart_nullString() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Start delimiter cannot be set to empty value");
+        SubStringer.create("any input").start(null);
+    }
+
+
+    @Test
+    public void testEnd_emptyString() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("End delimiter cannot be set to empty value");
+        SubStringer.create("any input").end("");
+    }
+
+
+    @Test
+    public void testEnd_nullString() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("End delimiter cannot be set to empty value");
+        SubStringer.create("any input").end(null);
+    }
+
+
+    @Test
+    public void testStart_setStartTwice() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Start delimiter already set once");
+        SubStringer.create("any input")
+                .start("start").start("start2");
+    }
+
+
+    @Test
+    public void testEnd_setStartTwice() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("End delimiter already set once");
+        SubStringer.create("any input")
+                .end("start").end("start2");
+    }
+
 }
