@@ -82,7 +82,7 @@ Map<String, Integer> map = MapBuilder.create()
 ### Thrower
 Less verbose way to throw exceptions. Throws well formulated messages.
 ```java
-Thrower.throwErrorIfOutsideRange(value, valueName, min, max);
-Thrower.throwErrorIfEmpty(value, valueName);
-Thrower.throwErrorIfFalse(true, "Error message");
+Thrower.throwIfOutsideRange(value, valueName, min, max);
+Thrower.throwIfEmpty(value, valueName);
+Thrower.throwIfFalse(true, "An message");
 ```
