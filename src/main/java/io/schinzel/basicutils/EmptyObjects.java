@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- * These empty objects exists more efficiently use of RAM.
+ * These empty objects exists to more efficiently use RAM.
  *
  * @author Schinzel
  */

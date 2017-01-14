@@ -154,7 +154,7 @@ public class RandomUtil {
 
 
     /**
-     * Populates an integer array with random value.
+     * Populates an integer array with random values.
      *
      * @param arraySize The number of elements in the returned array.
      * @param arraySum The sum of the values in the returned array.
