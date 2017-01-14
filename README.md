@@ -6,7 +6,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/Schinzel/basic-utils/badge.svg?branch=master)](https://coveralls.io/github/Schinzel/basic-utils?branch=master)
 
-Some basic utilities I tend to use in projects.
+Some basic utilities I tend to use in projects. Most commonly less verbose version of common code snippets.
 
 ```xml
 <repositories>
@@ -27,30 +27,38 @@ Some basic utilities I tend to use in projects.
 
 ## Sample code
 ### SubStringer
+Get the string in the string.
 ```java
 String input = "http://www.example.com/index.html?key1=val1&key2=val2";
 //Get everything after question mark
 String queryString = SubStringer.create(input)
-				.start("?")
-				.toString();
+	.start("?")
+	.toString();
 //Get everything before question mark
 String url = SubStringer.create(input)
-				.end("?")
-				.toString();
+	.end("?")
+	.toString();
 //Get host
 String host = SubStringer.create(input)
-				.start("http://")
-				.end("/index")
-				.toString();
+	.start("http://")
+	.end("/index")
+	.toString();
+String page = SubStringer.create(input)
+	.start("//").end("?")
+	.getSubStringer()
+	.start("/")
+	.toString();				
 ```
 
 ### Checker
+A less verbose way to check for null and empty variable for a set of data types.
 ```java
 if (Checker.isEmpty(str)) {
 }
 ```
 
 ### MiscUtil
+A less verbose version of sleep.
 ```java
 MiscUtil.snooze(100);
 ```
@@ -63,14 +71,16 @@ int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ```
 
 ### MapBuilder
+A less verbose version to create a map with an initial set of values.
 ```java
 Map<String, Integer> map = MapBuilder.create()
-				.add("a", 1)
-				.add("b", 2)
-				.getMap();
+	.add("a", 1)
+	.add("b", 2)
+	.getMap();
 ```
 
 ### Thrower
+Less verbose way to throw exceptions. Throws well formulated messages.
 ```java
 Thrower.throwErrorIfOutsideRange(value, valueName, min, max);
 Thrower.throwErrorIfEmpty(value, valueName);
