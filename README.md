@@ -6,7 +6,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/Schinzel/basic-utils/badge.svg?branch=master)](https://coveralls.io/github/Schinzel/basic-utils?branch=master)
 
-Some basic utilities I tend to use in projects
+Some basic utilities I tend to use in projects.
 
 ```xml
 <repositories>
@@ -23,4 +23,56 @@ Some basic utilities I tend to use in projects
 		<version>1.0</version>
 	</dependency>
 </dependencies>    
+```
+
+## Sample code
+### SubStringer
+```java
+String input = "http://www.example.com/index.html?key1=val1&key2=val2";
+//Get everything after question mark
+String queryString = SubStringer.create(input)
+				.start("?")
+				.toString();
+//Get everything before question mark
+String url = SubStringer.create(input)
+				.end("?")
+				.toString();
+//Get host
+String host = SubStringer.create(input)
+				.start("http://")
+				.end("/index")
+				.toString();
+```
+
+### Checker
+```java
+if (Checker.isEmpty(str)) {
+}
+```
+
+### MiscUtil
+```java
+MiscUtil.snooze(100);
+```
+
+### RandomUtil
+```java
+String str = RandomUtil.getRandomString(stringLength);
+str = RandomUtil.create(seed).getPaddedInt(min, max, padding);
+int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
+```
+
+### MapBuilder
+```java
+Map<String, Integer> map = MapBuilder.create()
+				.add("a", 1)
+				.add("b", 2)
+				.getMap();
+```
+
+### Thrower
+```java
+Thrower.throwErrorIfOutsideRange(value, valueName, min, max);
+Thrower.throwErrorIfEmpty(value, valueName);
+Thrower.throwErrorIfFalse(true, "Error message");
 ```
