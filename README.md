@@ -6,7 +6,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/Schinzel/basic-utils/badge.svg?branch=master)](https://coveralls.io/github/Schinzel/basic-utils?branch=master)
 
-Some basic utilities I tend to use in projects. Most commonly less verbose version of common code snippets.
+Some basic utilities I tend to use in projects. Most commonly less verbose versions of common code snippets.
 
 ```xml
 <repositories>
