@@ -1,61 +1,69 @@
 package io.schinzel.basicutils;
 
 /**
- * The purpose of this class is to offer less verbose error throwing.
+ * The purpose of this class is to offer less verbose exception throwing. 
  *
  * @author schinzel
  */
 public class Thrower {
 
     /**
-     * Private constructor as this class should not be instantiated. 
+     * Private constructor as this class should not be instantiated.
      */
-    private Thrower(){}
-    
+    private Thrower() {
+    }
+
+
     /**
-     * Throws error if the argument value with the argument name is empty.
+     * Throws runtime exception if the argument value with the argument name is
+     * empty.
      *
      * @param argValue The value to check
      * @param argName The name of the value to check
      */
-    public static void throwErrorIfEmpty(String argValue, String argName) {
+    public static void throwIfEmpty(String argValue, String argName) {
         if (Checker.isEmpty(argValue)) {
             throw new RuntimeException("Argument '" + argName + "' cannot be empty");
         }
     }
 
+
     /**
-     * Throw error if the argument object is null
+     * Throw runtime exception if the argument object is null
      *
      * @param o The argument to check
-     * @param errorMessage The error message to throw.
+     * @param message The exception message
      */
-    public static void throwErrorIfEmpty(Object o, String errorMessage) {
+    public static void throwIfEmpty(Object o, String message) {
         if (o == null) {
-            throw new RuntimeException(errorMessage);
+            throw new RuntimeException(message);
         }
     }
 
+
     /**
-     * Throw error if argument expression is false.
+     * Throw runtime exception if argument expression is false.
      *
      * @param expression
-     * @param errorMessage The error message to throw
+     * @param message The exception message
      */
-    public static void throwErrorIfFalse(boolean expression, String errorMessage) {
+    public static void throwIfFalse(boolean expression, String message) {
         if (!expression) {
-            throw new RuntimeException(errorMessage);
+            throw new RuntimeException(message);
         }
     }
 
+
     /**
-     *
+     * Throw runtime exception if argument value is less than argument min or 
+     * larger than argument max. 
+     * 
      * @param value The value to check
      * @param valueName The name of the value to check
      * @param min The minimum allowed value that the argument value can have
      * @param max The maximum allowed value that the argument value can have
      */
-    public static void throwErrorIfOutsideRange(int value, String valueName, int min, int max) {
+    public static void throwIfOutsideRange(int value, String valueName, int min, int max) {
         if (max < min) {
             throw new RuntimeException("Error using method. Max cannot be smaller than min");
         }
@@ -66,14 +74,16 @@ public class Thrower {
         }
     }
 
+
     /**
-     * Throw error if argument expression is true.
+     * Throw if argument expression is true.
      *
      * @param expression
-     * @param errorMessage The error message to throw
+     * @param message The exception message
      */
-    public static void throwErrorIfTrue(boolean expression, String errorMessage) {
-        throwErrorIfFalse(!expression, errorMessage);
+    public static void throwIfTrue(boolean expression, String message) {
+        throwIfFalse(!expression, message);
     }
+
 
 }

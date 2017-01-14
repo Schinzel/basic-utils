@@ -15,19 +15,19 @@ public class ThrowerTest {
 
     @Test
     public void testCheckEmptyArgumentString() {
-        Thrower.throwErrorIfEmpty("monkey", "argumentName");
+        Thrower.throwIfEmpty("monkey", "argumentName");
         exception.expect(RuntimeException.class);
         exception.expectMessage("Argument 'argumentName' cannot be empty");
-        Thrower.throwErrorIfEmpty("", "argumentName");
+        Thrower.throwIfEmpty("", "argumentName");
     }
 
     @Test
     public void testCheckEmptyArgumentStringNull() {
-        Thrower.throwErrorIfEmpty("monkey", "argumentName");
+        Thrower.throwIfEmpty("monkey", "argumentName");
         String s = null;
         exception.expect(RuntimeException.class);
         exception.expectMessage("Argument 'argumentName' cannot be empty");
-        Thrower.throwErrorIfEmpty(s, "argumentName");
+        Thrower.throwIfEmpty(s, "argumentName");
     }
 
     @Test
@@ -36,65 +36,65 @@ public class ThrowerTest {
         String errorMessage = "my error message";
         exception.expect(RuntimeException.class);
         exception.expectMessage(errorMessage);
-        Thrower.throwErrorIfEmpty(object, errorMessage);
+        Thrower.throwIfEmpty(object, errorMessage);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange() {
-        Thrower.throwErrorIfOutsideRange(1, null, 1, 1);
-        Thrower.throwErrorIfOutsideRange(1, null, 1, 10);
-        Thrower.throwErrorIfOutsideRange(-1000, null, -1000, 10);
-        Thrower.throwErrorIfOutsideRange(10, null, 1, 10);
-        Thrower.throwErrorIfOutsideRange(-1000, null, -2000, -1000);
+        Thrower.throwIfOutsideRange(1, null, 1, 1);
+        Thrower.throwIfOutsideRange(1, null, 1, 10);
+        Thrower.throwIfOutsideRange(-1000, null, -1000, 10);
+        Thrower.throwIfOutsideRange(10, null, 1, 10);
+        Thrower.throwIfOutsideRange(-1000, null, -2000, -1000);
         exception.expect(RuntimeException.class);
         exception.expectMessage("Error using method.");
-        Thrower.throwErrorIfOutsideRange(-1000, null, 100, 10);
+        Thrower.throwIfOutsideRange(-1000, null, 100, 10);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange2() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Requested value ");
-        Thrower.throwErrorIfOutsideRange(0, null, 1, 10);
+        Thrower.throwIfOutsideRange(0, null, 1, 10);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange3() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Requested value ");
-        Thrower.throwErrorIfOutsideRange(11, null, 1, 10);
+        Thrower.throwIfOutsideRange(11, null, 1, 10);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange4() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Requested value ");
-        Thrower.throwErrorIfOutsideRange(-101, null, -100, -10);
+        Thrower.throwIfOutsideRange(-101, null, -100, -10);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange5() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Requested value ");
-        Thrower.throwErrorIfOutsideRange(-9, null, -100, -10);
+        Thrower.throwIfOutsideRange(-9, null, -100, -10);
     }
 
     @Test
     public void testTrowErrorIfTrue() {
-        Thrower.throwErrorIfTrue(false, null);
+        Thrower.throwIfTrue(false, null);
         String errorMessage = "my error message";
         exception.expect(RuntimeException.class);
         exception.expectMessage(errorMessage);
-        Thrower.throwErrorIfTrue(true, errorMessage);
+        Thrower.throwIfTrue(true, errorMessage);
     }
 
     @Test
     public void testTrowErrorIfFalse() {
-        Thrower.throwErrorIfFalse(true, null);
+        Thrower.throwIfFalse(true, null);
         String errorMessage = "my error message";
         exception.expect(RuntimeException.class);
         exception.expectMessage(errorMessage);
-        Thrower.throwErrorIfFalse(false, errorMessage);
+        Thrower.throwIfFalse(false, errorMessage);
     }
 
 }
