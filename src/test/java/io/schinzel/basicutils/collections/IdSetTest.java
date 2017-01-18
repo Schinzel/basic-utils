@@ -36,6 +36,17 @@ public class IdSetTest {
 
 
     @Test
+    public void testAdd_sameIdTwice() {
+        IdSet<MyVal> coll = IdSet.create()
+                .add(new MyVal("MyName1"))
+                .add(new MyVal("MyName2"))
+                .add(new MyVal("MyName3"));
+        exception.expect(RuntimeException.class);
+        coll.add(new MyVal("MyName2"));
+    }
+
+
+    @Test
     public void testSize() {
         IdSet<MyVal> coll = IdSet.create();
         assertEquals(0, coll.size());
@@ -156,11 +167,11 @@ public class IdSetTest {
                 .add(moon1);
         List<MyVal> actual, expected;
         //
-        actual = coll.get(Arrays.asList("Man1"), true);
+        actual = coll.get(Arrays.asList("Man1"));
         expected = Arrays.asList(man1);
         Assert.assertThat(actual, is(expected));
         //
-        actual = coll.get(Arrays.asList("Bird2", "Man1"), true);
+        actual = coll.get(Arrays.asList("Bird2", "Man1"));
         expected = Arrays.asList(bird2, man1);
         Assert.assertThat(actual, is(expected));
     }
@@ -168,6 +179,28 @@ public class IdSetTest {
 
     @Test
     public void testGetList_throwErrorArg() {
-
+        MyVal man1 = new MyVal("Man1");
+        MyVal man2 = new MyVal("Man2");
+        MyVal bird1 = new MyVal("Bird1");
+        MyVal bird2 = new MyVal("Bird2");
+        MyVal moon1 = new MyVal("Moon1");
+        IdSet<MyVal> coll = IdSet.create()
+                .add(man1)
+                .add(man2)
+                .add(bird1)
+                .add(bird2)
+                .add(moon1);
+        List<MyVal> actual, expected;
+        //
+        actual = coll.get(Arrays.asList("Bird2", "Man1"), true);
+        expected = Arrays.asList(bird2, man1);
+        Assert.assertThat(actual, is(expected));
+        //
+        actual = coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), false);
+        expected = Arrays.asList(bird2, man1);
+        Assert.assertThat(actual, is(expected));
+        //
+        exception.expect(RuntimeException.class);
+        coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), true);
     }
 }

@@ -134,6 +134,19 @@ public class IdSet<V extends IValue> {
     /**
      *
      * @param ids
+     * @return A list of values that have the argument identifiers. If one or
+     * several of the argument names are not present in this collection, no
+     * value are returned for these. The elements are returned in the order
+     * of the argument list.
+     */
+    public List<V> get(List<String> ids) {
+        return this.get(ids, false);
+    }
+
+
+    /**
+     *
+     * @param ids
      * @param throwErrorIfNotFound If true, throws an error is one or more
      * argument identifiers are missing.
      * @return A list of values that have the argument identifiers. If one or
