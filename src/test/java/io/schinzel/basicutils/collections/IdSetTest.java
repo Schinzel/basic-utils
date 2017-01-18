@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.collections;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.hamcrest.Matchers.is;
@@ -202,5 +203,18 @@ public class IdSetTest {
         //
         exception.expect(RuntimeException.class);
         coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), true);
+    }
+
+    @Test
+    public void testGet_emptyList(){
+        IdSet<MyVal> coll = IdSet.create()
+                .add(new MyVal("MyName1"))
+                .add(new MyVal("MyName2"))
+                .add(new MyVal("MyName3"));
+        List<MyVal> result = coll.get((List<String>)null);
+        Assert.assertTrue(result.isEmpty());
+        result = coll.get(new ArrayList<>(0));
+        Assert.assertTrue(result.isEmpty());
+
     }
 }

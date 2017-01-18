@@ -3,6 +3,7 @@ package io.schinzel.basicutils.collections;
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -156,7 +157,7 @@ public class IdSet<V extends IValue> {
      */
     public List<V> get(List<String> ids, boolean throwErrorIfNotFound) {
         if (Checker.isEmpty(ids)) {
-            return new ArrayList<>(0);
+            return Collections.emptyList();
         }
         List<V> values = new ArrayList<>(ids.size());
         for (String id : ids) {
