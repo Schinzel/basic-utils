@@ -10,15 +10,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * The purpose of this class is offer a collection that stores values where
- * the values have unique identifiers.
+ * The purpose of this class is offer a collection that stores values where the
+ * values have unique identifiers.
  *
- * A more succinct and easier-on-the-eyes version of storing values
- * with identifiers.
+ * A more succinct and easier-on-the-eyes version of storing values with
+ * identifiers.
  *
- * Map<String, MyValue> myMap = new HashMap<<();
- * MyValue myValue = new MyValue("ABC");
- * myMap.add(myValue.getStringId, myValue);
+ * Map<String, MyValue> myMap = new HashMap<<(); MyValue myValue = new
+ * MyValue("ABC"); myMap.add(myValue.getStringId, myValue);
  *
  * IdSet<MyValue> mySet = IdSet.create().add(new MyValue("ABC");
  *
@@ -31,7 +30,6 @@ public class IdSet<V extends IValue> implements Iterable<V> {
      * The internal storage. Set key sort order to be compareToIgnoreCase.
      */
     private final TreeMap<String, V> mMap = new TreeMap<>(String::compareToIgnoreCase);
-
 
     //*************************************************************************
     //* CONSTURCTION
@@ -63,6 +61,17 @@ public class IdSet<V extends IValue> implements Iterable<V> {
         Thrower.throwIfTrue(this.contains(id), "A value with id '" + id + "' cannot be added as one already exists");
         mMap.put(id, value);
         return this;
+    }
+
+
+    /**
+     * 
+     * @param value
+     * @return The argument id if it was added.
+     */
+    public V addAndReturn(V value) {
+        this.add(value);
+        return value;
     }
 
 
@@ -143,8 +152,8 @@ public class IdSet<V extends IValue> implements Iterable<V> {
      * @param ids
      * @return A list of values that have the argument identifiers. If one or
      * several of the argument names are not present in this collection, no
-     * value are returned for these. The elements are returned in the order
-     * of the argument list.
+     * value are returned for these. The elements are returned in the order of
+     * the argument list.
      */
     public List<V> get(List<String> ids) {
         return this.get(ids, false);
@@ -158,8 +167,8 @@ public class IdSet<V extends IValue> implements Iterable<V> {
      * argument identifiers are missing.
      * @return A list of values that have the argument identifiers. If one or
      * several of the argument names are not present in this collection, no
-     * value are returned for these. The elements are returned in the order
-     * of the argument list.
+     * value are returned for these. The elements are returned in the order of
+     * the argument list.
      */
     public List<V> get(List<String> ids, boolean throwErrorIfNotFound) {
         if (Checker.isEmpty(ids)) {
@@ -193,5 +202,6 @@ public class IdSet<V extends IValue> implements Iterable<V> {
         }
         return values;
     }
+
 
 }
