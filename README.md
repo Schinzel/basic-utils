@@ -20,12 +20,56 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.1</version>
+		<version>1.2</version>
 	</dependency>
 </dependencies>    
 ```
 
 ## Sample code
+
+
+### Checker
+A less verbose way to check for null and empty variable for a set of data types.
+```java
+if (Checker.isEmpty(str)) {
+}
+```
+
+### IdSet
+A more succinct and easier-on-the-eyes version of storing values with identifiers.
+Elements are returned in alphabetical orders. Supports wild card look ups.
+ ```java
+IdSet<MyValue> mySet = IdSet.create()
+	.add(new MyValue("A"))
+	.add(new MyValue("B"));
+
+MyValue myVal = mySet.get("A");
+```
+
+
+### MapBuilder
+A less verbose version to create a map with an initial set of values.
+```java
+Map<String, Integer> map = MapBuilder.create()
+	.add("a", 1)
+	.add("b", 2)
+	.getMap();
+```
+
+### MiscUtil
+A less verbose version of sleep.
+```java
+MiscUtil.snooze(100);
+```
+
+### RandomUtil
+```java
+String str = RandomUtil.getRandomString(stringLength);
+str = RandomUtil.create(seed).getPaddedInt(min, max, padding);
+int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
+```
+
+
 ### SubStringer
 Get the string in the string.
 ```java
@@ -50,39 +94,10 @@ String page = SubStringer.create(input)
 	.toString();				
 ```
 
-### Checker
-A less verbose way to check for null and empty variable for a set of data types.
-```java
-if (Checker.isEmpty(str)) {
-}
-```
-
-### MiscUtil
-A less verbose version of sleep.
-```java
-MiscUtil.snooze(100);
-```
-
-### RandomUtil
-```java
-String str = RandomUtil.getRandomString(stringLength);
-str = RandomUtil.create(seed).getPaddedInt(min, max, padding);
-int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
-```
-
-### MapBuilder
-A less verbose version to create a map with an initial set of values.
-```java
-Map<String, Integer> map = MapBuilder.create()
-	.add("a", 1)
-	.add("b", 2)
-	.getMap();
-```
-
 ### Thrower
 Less verbose way to throw exceptions. Throws well formulated messages.
 ```java
 Thrower.throwIfOutsideRange(value, valueName, min, max);
 Thrower.throwIfEmpty(value, valueName);
-Thrower.throwIfFalse(true, "An message");
+Thrower.throwIfFalse(true, "A message");
 ```

@@ -13,7 +13,7 @@ import java.util.TreeMap;
  * The purpose of this class is offer a collection that stores values where
  * the values have unique identifiers.
  *
- * This yields a more succinct and easier-on-the-eyes version of storing values
+ * A more succinct and easier-on-the-eyes version of storing values
  * with identifiers.
  *
  * Map<String, MyValue> myMap = new HashMap<<();
