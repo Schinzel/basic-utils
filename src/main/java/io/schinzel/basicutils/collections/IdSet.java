@@ -10,21 +10,20 @@ import java.util.Map;
 import java.util.TreeMap;
 
 /**
- * The purpose of this class is offer a collection that stores value with
- * identifiers.
+ * The purpose of this class is offer a collection that stores values where
+ * the values have unique identifiers.
  *
- * I.e. instead of the more succinct and easier on-the-eye-version of:
+ * This yields a more succinct and easier-on-the-eyes version of storing values
+ * with identifiers.
  *
  * Map<String, MyValue> myMap = new HashMap<<();
  * MyValue myValue = new MyValue("ABC");
  * myMap.add(myValue.getStringId, myValue);
- * MyValue has to have boilerplate getString-implementation
  *
- * IdSet<MyValue> mySet = IdSet.create()
- * .add(new MyValye("ABC");
+ * IdSet<MyValue> mySet = IdSet.create().add(new MyValue("ABC");
  *
  * @author schinzel
- * @param <V>
+ * @param <V> The type of element to store in the collection.
  */
 public class IdSet<V extends IValue> implements Iterable<V> {
 
