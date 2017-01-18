@@ -4,6 +4,7 @@ import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -25,12 +26,12 @@ import java.util.TreeMap;
  * @author schinzel
  * @param <V>
  */
-public class IdSet<V extends IValue> {
+public class IdSet<V extends IValue> implements Iterable<V> {
 
     /**
-     * The internal storage.
+     * The internal storage. Set key sort order to be compareToIgnoreCase.
      */
-    private final TreeMap<String, V> mMap = new TreeMap<>();
+    private final TreeMap<String, V> mMap = new TreeMap<>(String::compareToIgnoreCase);
 
 
     //*************************************************************************
@@ -99,6 +100,12 @@ public class IdSet<V extends IValue> {
      */
     public boolean contains(String id) {
         return mMap.containsKey(id);
+    }
+
+
+    @Override
+    public Iterator<V> iterator() {
+        return mMap.values().iterator();
     }
 
 
@@ -187,4 +194,5 @@ public class IdSet<V extends IValue> {
         }
         return values;
     }
+
 }

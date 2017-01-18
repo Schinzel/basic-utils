@@ -2,6 +2,7 @@ package io.schinzel.basicutils.collections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import static org.hamcrest.Matchers.is;
 import org.junit.Assert;
@@ -205,16 +206,37 @@ public class IdSetTest {
         coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), true);
     }
 
+
     @Test
-    public void testGet_emptyList(){
+    public void testGet_emptyList() {
         IdSet<MyVal> coll = IdSet.create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
-        List<MyVal> result = coll.get((List<String>)null);
+        List<MyVal> result = coll.get((List<String>) null);
         Assert.assertTrue(result.isEmpty());
         result = coll.get(new ArrayList<>(0));
         Assert.assertTrue(result.isEmpty());
+    }
 
+
+    /**
+     * Test that the elements are returned in order.
+     */
+    @Test
+    public void testOrder() {
+        IdSet<MyVal> coll = IdSet.create()
+                .add(new MyVal("MyName2"))
+                .add(new MyVal("myName1"))
+                .add(new MyVal("MyName3"))
+                .add(new MyVal("myName4"))
+                .add(new MyVal("C"))
+                .add(new MyVal("A"))
+                .add(new MyVal("B"));
+        List<String> expected = Arrays.asList("A", "B", "C", "myName1", "MyName2", "MyName3", "myName4");
+        Iterator<String> it = expected.iterator();
+        for (MyVal myVal : coll) {
+            Assert.assertEquals(it.next(), myVal.getid());
+        }
     }
 }
