@@ -3,6 +3,7 @@ package io.schinzel.basicutils.collections;
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,7 @@ public class IdSet<V extends IValue> implements Iterable<V> {
      * The internal storage. Set key sort order to be compareToIgnoreCase.
      */
     private final TreeMap<String, V> mMap = new TreeMap<>(String::compareToIgnoreCase);
+
 
     //*************************************************************************
     //* CONSTURCTION
@@ -65,7 +67,7 @@ public class IdSet<V extends IValue> implements Iterable<V> {
 
 
     /**
-     * 
+     *
      * @param value
      * @return The argument id if it was added.
      */
@@ -203,5 +205,13 @@ public class IdSet<V extends IValue> implements Iterable<V> {
         return values;
     }
 
+
+    /**
+     *
+     * @return The values held.
+     */
+    public Collection<V> getValues() {
+        return mMap.values();
+    }
 
 }

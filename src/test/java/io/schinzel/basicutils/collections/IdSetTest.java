@@ -2,6 +2,7 @@ package io.schinzel.basicutils.collections;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import static org.hamcrest.Matchers.is;
@@ -238,5 +239,22 @@ public class IdSetTest {
         for (MyVal myVal : coll) {
             Assert.assertEquals(it.next(), myVal.getid());
         }
+    }
+
+
+    @Test
+    public void testGetValues(){
+        MyVal val1 = new MyVal("C");
+        MyVal val2 = new MyVal("A");
+        MyVal val3 = new MyVal("B");
+        IdSet<MyVal> coll = IdSet.create()
+                .add(val1)
+                .add(val2)
+                .add(val3);
+        Collection<MyVal> values = coll.getValues();
+        Assert.assertEquals(3, values.size());
+        Assert.assertTrue(values.contains(val1));
+        Assert.assertTrue(values.contains(val2));
+        Assert.assertTrue(values.contains(val3));
     }
 }
