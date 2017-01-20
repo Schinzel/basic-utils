@@ -243,7 +243,7 @@ public class IdSetTest {
 
 
     @Test
-    public void testGetValues(){
+    public void testValues(){
         MyVal val1 = new MyVal("C");
         MyVal val2 = new MyVal("A");
         MyVal val3 = new MyVal("B");
@@ -251,7 +251,7 @@ public class IdSetTest {
                 .add(val1)
                 .add(val2)
                 .add(val3);
-        Collection<MyVal> values = coll.getValues();
+        Collection<MyVal> values = coll.values();
         Assert.assertEquals(3, values.size());
         Assert.assertTrue(values.contains(val1));
         Assert.assertTrue(values.contains(val2));

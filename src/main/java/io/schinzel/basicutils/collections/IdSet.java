@@ -210,7 +210,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      *
      * @return The values held.
      */
-    public Collection<V> getValues() {
+    public Collection<V> values() {
         return mMap.values();
     }
 
