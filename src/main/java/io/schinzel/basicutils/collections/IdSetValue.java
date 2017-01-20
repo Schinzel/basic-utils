@@ -6,7 +6,7 @@ package io.schinzel.basicutils.collections;
  *
  * @author schinzel
  */
-public interface IValue extends Comparable<IValue> {
+public interface IdSetValue extends Comparable<IdSetValue> {
 
     /**
      *
@@ -16,7 +16,7 @@ public interface IValue extends Comparable<IValue> {
 
 
     @Override
-    default int compareTo(IValue o) {
+    default int compareTo(IdSetValue o) {
         return this.getid().compareToIgnoreCase(o.getid());
     }
 

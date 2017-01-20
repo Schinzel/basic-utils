@@ -25,7 +25,7 @@ import java.util.TreeMap;
  * @author schinzel
  * @param <V> The type of element to store in the collection.
  */
-public class IdSet<V extends IValue> implements Iterable<V> {
+public class IdSet<V extends IdSetValue> implements Iterable<V> {
 
     /**
      * The internal storage. Set key sort order to be compareToIgnoreCase.

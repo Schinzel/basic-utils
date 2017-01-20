@@ -21,7 +21,7 @@ public class IdSetTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    class MyVal implements IValue {
+    class MyVal implements IdSetValue {
 
         private final String mId;
 
