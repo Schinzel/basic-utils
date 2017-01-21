@@ -303,7 +303,33 @@ public class IdSetTest {
         IdSet<MyVal> coll = IdSet.create().add(new MyVal("A")).add(new MyVal("B"));
         exception.expect(RuntimeException.class);
         coll.addAlias("A", "B");
-        
+    }
+
+
+    @Test
+    public void getAlias_differentGetMethods() {
+        MyVal valC = new MyVal("C");
+        MyVal valA = new MyVal("A");
+        MyVal valB = new MyVal("B");
+        IdSet<MyVal> coll = IdSet.create()
+                .add(valC)
+                .add(valA)
+                .add(valB)
+                .addAlias("A", "alias1")
+                .addAlias("A", "alias2")
+                .addAlias("B", "alias3");
+        Assert.assertEquals(valA, coll.get("A", true));
+        Assert.assertEquals(valA, coll.get("A", false));
+        Assert.assertEquals(valA, coll.get("alias1", true));
+        Assert.assertEquals(valA, coll.get("alias1", false));
+        //
+        List<MyVal> list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"));
+        List<MyVal> expected = Arrays.asList(valA, valA, valB, valB);
+        Assert.assertThat(list, is(expected));
+        //
+        list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"), true);
+        expected = Arrays.asList(valA, valA, valB, valB);
+        Assert.assertThat(list, is(expected));
     }
 
 
