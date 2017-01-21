@@ -25,7 +25,6 @@ public class IdSetTest {
 
         private final String mId;
 
-
         MyVal(String id) {
             mId = id;
         }
@@ -35,8 +34,9 @@ public class IdSetTest {
         public String getid() {
             return mId;
         }
-    }
 
+
+    }
 
     @Test
     public void testAdd_sameIdTwice() {
@@ -243,7 +243,7 @@ public class IdSetTest {
 
 
     @Test
-    public void testValues(){
+    public void testValues() {
         MyVal val1 = new MyVal("C");
         MyVal val2 = new MyVal("A");
         MyVal val3 = new MyVal("B");
@@ -257,4 +257,54 @@ public class IdSetTest {
         Assert.assertTrue(values.contains(val2));
         Assert.assertTrue(values.contains(val3));
     }
+
+
+    @Test
+    public void testAlias() {
+        MyVal valC = new MyVal("C");
+        MyVal valA = new MyVal("A");
+        MyVal valB = new MyVal("B");
+        IdSet<MyVal> coll = IdSet.create()
+                .add(valC)
+                .add(valA)
+                .add(valB)
+                .addAlias("A", "alias1")
+                .addAlias("A", "alias2")
+                .addAlias("B", "alias3");
+        Assert.assertEquals(3, coll.values().size());
+        Assert.assertEquals(valA, coll.get("A"));
+        Assert.assertEquals(valA, coll.get("alias1"));
+        Assert.assertEquals(valA, coll.get("alias2"));
+        Assert.assertEquals(valB, coll.get("B"));
+        Assert.assertEquals(valB, coll.get("alias3"));
+        Assert.assertEquals(valC, coll.get("C"));
+    }
+
+
+    @Test
+    public void testAlias_addAliasIdExists() {
+        IdSet<MyVal> coll = IdSet.create().add(new MyVal("A")).add(new MyVal("B"));
+        exception.expect(RuntimeException.class);
+        coll.addAlias("B", "A");
+    }
+
+
+    @Test
+    public void testAlias_addSameAliasTwice() {
+        IdSet<MyVal> coll = IdSet.create().add(new MyVal("A")).add(new MyVal("B"));
+        coll.addAlias("B", "alias1");
+        exception.expect(RuntimeException.class);
+        coll.addAlias("A", "alias1");
+    }
+
+
+    @Test
+    public void testAlias_addValueWhenThereExistsValueWithId() {
+        IdSet<MyVal> coll = IdSet.create().add(new MyVal("A")).add(new MyVal("B"));
+        exception.expect(RuntimeException.class);
+        coll.addAlias("A", "B");
+        
+    }
+
+
 }

@@ -5,6 +5,7 @@ import io.schinzel.basicutils.Thrower;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +32,11 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * The internal storage. Set key sort order to be compareToIgnoreCase.
      */
     private final TreeMap<String, V> mMap = new TreeMap<>(String::compareToIgnoreCase);
-
+    /**
+     * Holds a set of aliases. I.e. more than one id can be used to look up a
+     * value.
+     */
+    private final Map<String, String> mAliasMap = new HashMap<>();
 
     //*************************************************************************
     //* CONSTURCTION
@@ -60,8 +65,36 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public IdSet add(V value) {
         Thrower.throwIfEmpty(value, "value");
         String id = value.getid();
+        Thrower.throwIfTrue(mAliasMap.containsKey(id), "A value with id '" + id + "' cannot be added as there exists an alias with the same key.");
         Thrower.throwIfTrue(this.contains(id), "A value with id '" + id + "' cannot be added as one already exists");
         mMap.put(id, value);
+        return this;
+    }
+
+    
+    /**
+     * Adds an alias for an id. 
+     * For example:
+     * Lets assume there is an object "thing" that returns the id "theid".
+     * The thing is added to the collection with a couple of aliases
+     * idSet.add(thing).addAlias("a", "theId").addAlias("b", "theId");
+     * 
+     * Then all three below would return the thing: 
+     * idSet.get("theId")
+     * idSet.get("a")
+     * idSet.get("b")
+     * 
+     * 
+     * @param id
+     * @param alias
+     * @return This for chaining. 
+     */
+    public IdSet addAlias(String id, String alias) {
+        Thrower.throwIfTrue(!this.contains(id), "An alias '" + alias + "' for a id '" + id + "' cannot be added as there exist no value with this id in collection.");
+        //if the argument value exists in the alias set        
+        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "An alias'" + alias + "' cannot be added as there already exists such an alias.");
+        Thrower.throwIfTrue(this.contains(alias), "An alias '" + alias + "' cannot be added as there exists a value with the same id.");
+        mAliasMap.put(alias, id);
         return this;
     }
 
@@ -128,6 +161,11 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return The value with the argument id.
      */
     public V get(String id) {
+        //If there exists an alias for argument id
+        if (mAliasMap.containsKey(id)){
+            //Set the id to be the alias
+            id = mAliasMap.get(id);
+        }
         return this.get(id, false);
     }
 
@@ -213,5 +251,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public Collection<V> values() {
         return mMap.values();
     }
+
 
 }
