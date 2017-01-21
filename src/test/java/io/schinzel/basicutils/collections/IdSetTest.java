@@ -333,4 +333,27 @@ public class IdSetTest {
     }
 
 
+    @Test
+    public void alias_testRemove() {
+        MyVal valC = new MyVal("C");
+        MyVal valA = new MyVal("A");
+        MyVal valB = new MyVal("B");
+        IdSet<MyVal> coll = IdSet.create()
+                .add(valC)
+                .add(valA)
+                .add(valB)
+                .addAlias("A", "alias1")
+                .addAlias("A", "alias2")
+                .addAlias("B", "alias3");
+        //Should also remove alias1 and alias2
+        coll.remove("A");
+        //If alias1 and alias2 are remove, it should be possible to use them again
+        coll.addAlias("C", "alias1");
+        coll.addAlias("C", "alias2");
+        //But adding the alias again should yield an error
+        exception.expect(RuntimeException.class);
+        coll.addAlias("B", "alias1");
+    }
+
+
 }

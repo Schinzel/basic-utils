@@ -119,6 +119,8 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      */
     public IdSet remove(String id) {
         Thrower.throwIfFalse(this.contains(id), "Cannot remove value with id '" + id + "' as no such value exists.");
+        //Remove all entries in alias map with argument id.
+        while (mAliasMap.values().remove(id));
         mMap.remove(id);
         return this;
     }
