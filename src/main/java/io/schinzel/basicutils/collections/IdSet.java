@@ -71,27 +71,27 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return this;
     }
 
-    
+
     /**
-     * Adds an alias for an id. 
+     * Adds an alias for an id.
      * For example:
      * Lets assume there is an object "thing" that returns the id "theid".
      * The thing is added to the collection with a couple of aliases
      * idSet.add(thing).addAlias("a", "theId").addAlias("b", "theId");
-     * 
-     * Then all three below would return the thing: 
+     *
+     * Then all three below would return the thing:
      * idSet.get("theId")
      * idSet.get("a")
      * idSet.get("b")
-     * 
-     * 
+     *
+     *
      * @param id
      * @param alias
-     * @return This for chaining. 
+     * @return This for chaining.
      */
     public IdSet addAlias(String id, String alias) {
         Thrower.throwIfTrue(!this.contains(id), "An alias '" + alias + "' for a id '" + id + "' cannot be added as there exist no value with this id in collection.");
-        //if the argument value exists in the alias set        
+        //if the argument value exists in the alias set
         Thrower.throwIfTrue(mAliasMap.containsKey(alias), "An alias'" + alias + "' cannot be added as there already exists such an alias.");
         Thrower.throwIfTrue(this.contains(alias), "An alias '" + alias + "' cannot be added as there exists a value with the same id.");
         mAliasMap.put(alias, id);
@@ -135,6 +135,15 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      */
     public int size() {
         return mMap.size();
+    }
+
+
+    /**
+     *
+     * @return True if there are no values in this set.
+     */
+    public boolean isEmpty(){
+        return mMap.isEmpty();
     }
 
 

@@ -25,6 +25,7 @@ public class IdSetTest {
 
         private final String mId;
 
+
         MyVal(String id) {
             mId = id;
         }
@@ -35,8 +36,8 @@ public class IdSetTest {
             return mId;
         }
 
-
     }
+
 
     @Test
     public void testAdd_sameIdTwice() {
@@ -356,4 +357,15 @@ public class IdSetTest {
     }
 
 
+    @Test
+    public void testIsEmpty() {
+        IdSet<MyVal> coll = IdSet.create();
+        Assert.assertTrue(coll.isEmpty());
+        coll.add(new MyVal("A"));
+        Assert.assertFalse(coll.isEmpty());
+        coll.remove("A");
+        Assert.assertTrue(coll.isEmpty());
+    }
 }
+
+
