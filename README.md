@@ -64,8 +64,13 @@ MiscUtil.snooze(100);
 
 ### RandomUtil
 ```java
-String str = RandomUtil.getRandomString(stringLength);
-str = RandomUtil.create(seed).getPaddedInt(min, max, padding);
+//Get a random string with the length 12
+String str = RandomUtil.getRandomString(12);
+//Get a random number between 1-200 as a string padded to length 3
+//E.g. "009", "175", "035"
+str = RandomUtil.create(seed).getPaddedInt(1, 200, 3);
+//An array that has the argument number of cells which will be filled with
+//random numbers that will sum to the argument sum
 int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ```
 
@@ -74,19 +79,20 @@ int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 Get the string in the string.
 ```java
 String input = "http://www.example.com/index.html?key1=val1&key2=val2";
-//Get everything after question mark
+//Get everything after question mark, i.e. "key1=val1&key2=val2"
 String queryString = SubStringer.create(input)
 	.start("?")
 	.toString();
-//Get everything before question mark
+//Get everything before question mark, i.e. "http://www.example.com/index.html"
 String url = SubStringer.create(input)
 	.end("?")
 	.toString();
-//Get host
+//Get host, i.e. "www.example.com"
 String host = SubStringer.create(input)
 	.start("http://")
 	.end("/index")
 	.toString();
+//First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
 String page = SubStringer.create(input)
 	.start("//").end("?")
 	.getSubStringer()

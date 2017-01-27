@@ -19,6 +19,7 @@ public class RandomUtil {
      */
     private static final char[] SYMBOLS;
 
+
     /**
      * Set up the chars that can be used in the random string.
      */
@@ -35,7 +36,7 @@ public class RandomUtil {
 
     //*************************************************************************
     //* Construction
-    //*************************************************************************    
+    //*************************************************************************
 
     private RandomUtil(long seed) {
         mRandom = new Random(seed);
@@ -68,7 +69,7 @@ public class RandomUtil {
      */
     static long generateSeed() {
         long seed = 1;
-        //Get nanos 
+        //Get nanos
         long nanos = System.nanoTime();
         long divider = 1000000;
         if (nanos > divider * 1000) {
@@ -84,11 +85,11 @@ public class RandomUtil {
 
     //*************************************************************************
     //* Random methods
-    //*************************************************************************    
+    //*************************************************************************
     /**
      *
-     * @param min The min value of the returned number
-     * @param max The max value of the returned number
+     * @param min The min (inclusive) of the returned number
+     * @param max The max (inclusive) of the returned number
      * @return A random number
      */
     public int getInt(int min, int max) {
@@ -104,9 +105,9 @@ public class RandomUtil {
     /**
      * Randomize a double
      *
-     * @param min The min of returned value
-     * @param max The max of returned value
-     * @return
+     * @param min The min (inclusive) of returned value
+     * @param max The max (inclusive) of returned value
+     * @return A random number
      */
     public double getDouble(double min, double max) {
         return min + (max - min) * mRandom.nextDouble();
@@ -166,7 +167,7 @@ public class RandomUtil {
         if (sum <= arraySize) {
             throw new RuntimeException("Array size needs to be larger than sum");
         }
-        
+
         int vals[] = new int[arraySize];
         sum -= arraySize;
 
@@ -188,7 +189,7 @@ public class RandomUtil {
 
     //*************************************************************************
     //* Static Random methods
-    //*************************************************************************    
+    //*************************************************************************
     /**
      *
      * @param min The min value of the returned number
@@ -208,6 +209,5 @@ public class RandomUtil {
     public static String getRandomString(int length) {
         return RandomUtil.create().getString(length);
     }
-
 
 }
