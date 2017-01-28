@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.status;
 
-import com.google.common.base.Joiner;
 import io.schinzel.basicutils.Thrower;
 import java.text.NumberFormat;
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ import java.util.Map;
  */
 public class Status {
 
-    final Map<String, String> mProperties;
+    final Map<String, Object> mProperties;
     List<Status> mChildren = new ArrayList<>();
 
     //*************************************************************************
@@ -36,7 +35,7 @@ public class Status {
 
     public static class Builder {
 
-        Map<String, String> mProperties = new LinkedHashMap<>();
+        Map<String, Object> mProperties = new LinkedHashMap<>();
 
         public Builder add(String key, String val) {
             Thrower.throwIfEmpty(key, "key");
@@ -80,13 +79,18 @@ public class Status {
         }
 
 
+        public Status build() {
+            return new Status(this);
+        }
+
+
     }
 
     //*************************************************************************
     //* MISC
     //*************************************************************************
-    Status addChild(Status status) {
-        mChildren.add(status);
+    Status addChild(Status child) {
+        mChildren.add(child);
         return this;
     }
 
@@ -94,31 +98,8 @@ public class Status {
     //*************************************************************************
     //* GET PROPERTIES
     //*************************************************************************
-    @Override
-    public String toString() {
-        return this.getResultTree(0);
-    }
-
-
-    /**
-     *
-     * @param intendation How many level the tree is this lap..
-     * @return The result of this lap and all its sub laps.
-     */
-    String getResultTree(int intendation) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < intendation; i++) {
-            sb.append("--");
-        }
-        sb.append(" ")
-                .append(Joiner.on(" ")
-                        .withKeyValueSeparator(":")
-                        .join(mProperties))
-                .append("\n");
-        for (Status status : mChildren) {
-            sb.append(status.getResultTree(intendation + 1));
-        }
-        return sb.toString();
+    Map<String, Object> getProps() {
+        return mProperties;
     }
 
 
