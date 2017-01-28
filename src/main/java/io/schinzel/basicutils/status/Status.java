@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.status;
 
 import io.schinzel.basicutils.Thrower;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -37,6 +36,10 @@ public class Status {
 
         Map<String, Object> mProperties = new LinkedHashMap<>();
 
+        Builder() {
+        }
+
+
         public Builder add(String key, String val) {
             Thrower.throwIfEmpty(key, "key");
             Thrower.throwIfEmpty(val, "val");
@@ -46,14 +49,12 @@ public class Status {
 
 
         public Builder add(String key, int value) {
-            String strVal = NumberFormat.getIntegerInstance().format(value);
-            return this.add(key, strVal);
+            return this.add(key, NumberFormatter.format(value));
         }
 
 
         public Builder add(String key, long value) {
-            String strVal = NumberFormat.getIntegerInstance().format(value);
-            return this.add(key, strVal);
+            return this.add(key, NumberFormatter.format(value));
         }
 
 
@@ -63,8 +64,7 @@ public class Status {
 
 
         public Builder add(String key, double value, int numOfDecimals) {
-            String strVal = String.format("%." + numOfDecimals + "f", value);
-            return this.add(key, strVal);
+            return this.add(key, NumberFormatter.format(value, numOfDecimals));
         }
 
 
@@ -74,8 +74,7 @@ public class Status {
 
 
         public Builder add(String key, float value, int numOfDecimals) {
-            String strVal = String.format("%." + numOfDecimals + "f", value);
-            return this.add(key, strVal);
+            return this.add(key, NumberFormatter.format(value, numOfDecimals));
         }
 
 
@@ -85,15 +84,6 @@ public class Status {
 
 
     }
-
-    //*************************************************************************
-    //* MISC
-    //*************************************************************************
-    Status addChild(Status child) {
-        mChildren.add(child);
-        return this;
-    }
-
 
     //*************************************************************************
     //* GET PROPERTIES

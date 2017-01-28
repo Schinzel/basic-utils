@@ -13,6 +13,9 @@ import org.json.JSONArray;
  */
 public interface IStatusNode {
 
+    //*************************************************************************
+    //* METHODS TO IMPLEMENT
+    //*************************************************************************
     Status getStatus();
 
 
@@ -21,28 +24,27 @@ public interface IStatusNode {
     }
 
 
-    default Status getStatusTree() {
-        Status status = this.getStatus();
-        for (IStatusNode child : this.getChildren()) {
-            status.addChild(child.getStatusTree());
-        }
-        return status;
-    }
-
-
-    default String getString() {
-        return this.getResultTree(0);
+    //*************************************************************************
+    //* DEFAULT METHODS
+    //*************************************************************************
+    /**
+     *
+     * @return The status of this object and all it's sub-objects as a human
+     * readable hierarchical string.
+     */
+    default String getStatusAsString() {
+        return this.getStatusAsString(0);
     }
 
 
     /**
      *
-     * @param intendation How many level the tree is this lap..
-     * @return The result of this lap and all its sub laps.
+     * @param depth How many level down in the tree is this request.
+     * @return
      */
-    default String getResultTree(int intendation) {
+    default String getStatusAsString(int depth) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < intendation; i++) {
+        for (int i = 0; i < depth; i++) {
             sb.append("--");
         }
         sb.append(" ")
@@ -51,13 +53,13 @@ public interface IStatusNode {
                         .join(this.getStatus().getProps()))
                 .append("\n");
         for (IStatusNode statusNode : this.getChildren()) {
-            sb.append(statusNode.getResultTree(intendation + 1));
+            sb.append(statusNode.getStatusAsString(depth + 1));
         }
         return sb.toString();
     }
 
 
-    default JsonOrdered getJson() {
+    default JsonOrdered getStatusAsJson() {
         JsonOrdered json = new JsonOrdered(this.getStatus().getProps());
         if (!this.getChildren().isEmpty()) {
             JSONArray ja = new JSONArray();
