@@ -23,11 +23,11 @@ public class NumberFormatterTest {
 
     @Test
     public void testFormat_decimalNumbers() {
-        Assert.assertEquals("123 456 789.12", NumberFormatter.format(123456789.12345678d));
-        Assert.assertEquals("1 234.46", NumberFormatter.format(1234.456f));
-        Assert.assertEquals("1 234.45", NumberFormatter.format(1234.454f));
-        Assert.assertEquals("1 234.50", NumberFormatter.format(1234.5));
-        Assert.assertEquals("1 234.00", NumberFormatter.format(1234f));
+        Assert.assertEquals("123 456 789.12", NumberFormatter.format(123456789.12345678d, 2));
+        Assert.assertEquals("1 234.46", NumberFormatter.format(1234.456f, 2));
+        Assert.assertEquals("1 234.45", NumberFormatter.format(1234.454f, 2));
+        Assert.assertEquals("1 234.50", NumberFormatter.format(1234.5, 2));
+        Assert.assertEquals("1 234.00", NumberFormatter.format(1234f, 2));
         Assert.assertEquals("1.1235", NumberFormatter.format(1.123456f, 4));
         Assert.assertEquals("1.123", NumberFormatter.format(1.123456f, 3));
         Assert.assertEquals("1.12", NumberFormatter.format(1.123456f, 2));
