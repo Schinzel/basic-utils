@@ -38,7 +38,7 @@ public interface IStatusNode {
             while (it.hasNext()) {
                 ja.put(it.next().getStatusAsJson());
             }
-            json.put("children", ja);
+            json.put("children", ja);            
         }
         return json;
     }
