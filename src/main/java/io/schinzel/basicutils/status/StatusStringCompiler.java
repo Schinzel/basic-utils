@@ -2,6 +2,7 @@ package io.schinzel.basicutils.status;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
+import java.util.Iterator;
 
 /**
  * The purpose of this class transform status nodes to human readily human
@@ -39,8 +40,9 @@ class StatusStringCompiler {
                 .append(" ")
                 .append(getStatusNodeAsString(statusNode))
                 .append("\n");
-        for (IStatusNode child : statusNode.getStatusChildren()) {
-            StatusStringCompiler.getStatusTreeAsString(child, depth + 1, sb);
+        Iterator<IStatusNode> it = statusNode.getStatusChildren();
+        while (it.hasNext()) {
+            StatusStringCompiler.getStatusTreeAsString(it.next(), depth + 1, sb);
         }
         return sb;
     }

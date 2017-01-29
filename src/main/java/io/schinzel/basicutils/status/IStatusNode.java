@@ -2,23 +2,21 @@ package io.schinzel.basicutils.status;
 
 import io.schinzel.json.JsonOrdered;
 import java.util.Collections;
-import java.util.List;
+import java.util.Iterator;
 import org.json.JSONArray;
 
 /**
- * The purpose of this interface is to generate a 
+ * The purpose of this interface is to generate a
  *
  * @author schinzel
  */
 public interface IStatusNode {
 
-    
     Status getStatus();
 
 
-    
-    default List<IStatusNode> getStatusChildren() {
-        return Collections.EMPTY_LIST;
+    default Iterator<IStatusNode> getStatusChildren() {
+        return Collections.EMPTY_LIST.iterator();
     }
 
 
@@ -34,10 +32,11 @@ public interface IStatusNode {
 
     default JsonOrdered getStatusAsJson() {
         JsonOrdered json = new JsonOrdered(this.getStatus().getProps());
-        if (!this.getStatusChildren().isEmpty()) {
+        Iterator<IStatusNode> it = this.getStatusChildren();
+        if (it.hasNext()) {
             JSONArray ja = new JSONArray();
-            for (IStatusNode statusNode : this.getStatusChildren()) {
-                ja.put(statusNode.getStatusAsJson());
+            while (it.hasNext()) {
+                ja.put(it.next().getStatusAsJson());
             }
             json.put("children", ja);
         }
