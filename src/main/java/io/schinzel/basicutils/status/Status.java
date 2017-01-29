@@ -1,9 +1,7 @@
 package io.schinzel.basicutils.status;
 
 import io.schinzel.basicutils.Thrower;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,7 +12,6 @@ import java.util.Map;
 public class Status {
 
     final Map<String, Object> mProperties;
-    List<Status> mChildren = new ArrayList<>();
 
     //*************************************************************************
     //* CONSTRUCTORS
@@ -28,10 +25,10 @@ public class Status {
         return new Builder();
     }
 
+
     //*************************************************************************
     //* BUILDER
     //*************************************************************************
-
     public static class Builder {
 
         Map<String, Object> mProperties = new LinkedHashMap<>();
