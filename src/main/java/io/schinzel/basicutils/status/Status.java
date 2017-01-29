@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * The purpose of this class ...
+ * The purpose of this class to hold a set of properties. 
  *
  * @author schinzel
  */

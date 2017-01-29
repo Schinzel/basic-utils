@@ -3,13 +3,13 @@ package io.schinzel.basicutils.status;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.Test;
 
 /**
+ * The purpose of this class ...
  *
  * @author schinzel
  */
-public class IStatusNodeTest {
+public class REMOVE_ME {
 
     class TestClass implements IStatusNode {
 
@@ -35,8 +35,7 @@ public class IStatusNodeTest {
 
     }
 
-    @Test
-    public void testSomeMethod() {
+    void doIt() {
         TestClass t = new TestClass("A1");
         t.mChildren.add(new TestClass(("B1")));
         TestClass b2 = new TestClass("B2");
@@ -48,7 +47,13 @@ public class IStatusNodeTest {
         t.mChildren.add(new TestClass(("B3")));
         String s = t.getStatusAsString();
         System.out.println(s);
-        
+        System.out.println(t.getStatusAsJson().toString(3));
+
+    }
+
+
+    public static void main(String[] args) {
+        new REMOVE_ME().doIt();
     }
 
 
