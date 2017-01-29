@@ -24,7 +24,7 @@ public class StatusTest {
                 .add("float not rounded", 0.5555f)
                 .add("float rounded", 0.6666f, 3)
                 .build()
-                .getProps();
+                .getProperties();
         Assert.assertEquals("a string", props.get("string"));
         Assert.assertEquals("777", props.get("int"));
         Assert.assertEquals("123 456 789", props.get("large int"));

@@ -22,7 +22,7 @@ public interface IStatusNode {
 
     /**
      * This methods should be overridden to return the logical status-children
-     * of the implementing object if there are any. If the implementing object
+     * of the implementing object, if there are any. If the implementing object
      * does not have any logical status-children this method should not be
      * overridden.
      *
@@ -49,7 +49,7 @@ public interface IStatusNode {
      * object.
      */
     default JsonOrdered getStatusAsJson() {
-        JsonOrdered json = new JsonOrdered(this.getStatus().getProps());
+        JsonOrdered json = new JsonOrdered(this.getStatus().getProperties());
         Iterator<IStatusNode> it = this.getStatusChildren();
         if (it.hasNext()) {
             JSONArray ja = new JSONArray();

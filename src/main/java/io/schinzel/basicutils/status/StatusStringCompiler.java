@@ -54,7 +54,7 @@ class StatusStringCompiler {
     private static String getStatusNodeAsString(IStatusNode statusNode) {
         return Joiner.on(" ")
                 .withKeyValueSeparator(":")
-                .join(statusNode.getStatus().getProps());
+                .join(statusNode.getStatus().getProperties());
     }
 
 

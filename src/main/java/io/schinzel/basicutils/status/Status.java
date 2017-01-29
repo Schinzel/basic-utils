@@ -5,12 +5,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * The purpose of this class to hold a set of properties. 
+ * The purpose of this class to hold a set of properties.
  *
  * @author schinzel
  */
 public class Status {
 
+    /**
+     * Holds the properties.
+     */
     final Map<String, Object> mProperties;
 
     //*************************************************************************
@@ -85,7 +88,11 @@ public class Status {
     //*************************************************************************
     //* GET PROPERTIES
     //*************************************************************************
-    Map<String, Object> getProps() {
+    /**
+     *
+     * @return The properties held by this object.
+     */
+    Map<String, Object> getProperties() {
         return mProperties;
     }
 

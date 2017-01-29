@@ -10,6 +10,11 @@ import java.util.Locale;
  * @author schinzel
  */
 class NumberFormatter {
+    
+    /**
+     * Private constructor as this class should not be instantiated. 
+     */
+    private NumberFormatter(){}
 
     /**
      *
