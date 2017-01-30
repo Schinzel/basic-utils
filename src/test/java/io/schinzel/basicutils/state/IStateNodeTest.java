@@ -1,8 +1,8 @@
 package io.schinzel.basicutils.state;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import io.schinzel.json.JsonOrdered;
+import org.json.JSONArray;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -10,30 +10,6 @@ import org.junit.Test;
  * @author schinzel
  */
 public class IStateNodeTest {
-
-    class TestClass implements IStateNode {
-
-        final String mName;
-        List<IStateNode> mChildren = new ArrayList<>();
-
-        TestClass(String name) {
-            mName = name;
-        }
-
-
-        @Override
-        public State getState() {
-            return State.getBuilder().add("Name", mName).build();
-        }
-
-
-        @Override
-        public Iterator<IStateNode> getStateChildren() {
-            return mChildren.iterator();
-        }
-
-
-    }
 
     @Test
     public void testSomeMethod() {
@@ -46,9 +22,18 @@ public class IStateNodeTest {
         b2.mChildren.add(new TestClass("C3"));
         b2.mChildren.add(new TestClass("C4"));
         t.mChildren.add(new TestClass(("B3")));
-        String s = t.getStateAsString();
-        System.out.println(s);
-        
+        JsonOrdered json = t.getStateAsJson();
+        Assert.assertEquals("A1", json.get("Name"));
+        JSONArray a1Children = json.getJSONArray("children");
+        Assert.assertEquals(3, a1Children.length());
+        Assert.assertEquals("B1", a1Children.getJSONObject(0).get("Name"));
+        Assert.assertEquals("B2", a1Children.getJSONObject(1).get("Name"));
+        Assert.assertEquals("B3", a1Children.getJSONObject(2).get("Name"));
+        JSONArray b2children = a1Children.getJSONObject(1).getJSONArray("children");
+        Assert.assertEquals("C1", b2children.getJSONObject(0).get("Name"));
+        Assert.assertEquals("C2", b2children.getJSONObject(1).get("Name"));
+        Assert.assertEquals("C3", b2children.getJSONObject(2).get("Name"));
+        Assert.assertEquals("C4", b2children.getJSONObject(3).get("Name"));
     }
 
 
