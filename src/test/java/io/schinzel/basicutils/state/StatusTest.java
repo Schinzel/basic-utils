@@ -1,5 +1,6 @@
-package io.schinzel.basicutils.status;
+package io.schinzel.basicutils.state;
 
+import io.schinzel.basicutils.state.State;
 import java.util.Map;
 import static org.hamcrest.Matchers.greaterThan;
 import org.junit.Assert;
@@ -13,7 +14,7 @@ public class StatusTest {
 
     @Test
     public void testSomeMethod() {
-        Map<String, Object> props = Status.getBuilder()
+        Map<String, Object> props = State.getBuilder()
                 .add("string", "a string")
                 .add("int", 777)
                 .add("large int", 123456789)
@@ -38,7 +39,7 @@ public class StatusTest {
 
     @Test
     public void testOrder() {
-        Map<String, Object> props = Status.getBuilder()
+        Map<String, Object> props = State.getBuilder()
                 .add("A", 1)
                 .add("B", 2)
                 .add("C", 3)

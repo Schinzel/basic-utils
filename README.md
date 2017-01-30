@@ -73,7 +73,18 @@ str = RandomUtil.create(seed).getPaddedInt(1, 200, 3);
 //random numbers that will sum to the argument sum
 int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ```
-
+### Status
+Solved the problem of getting a snapshot state of a system or a sub-system. 
+```java
+Name:Music countOfSomething:123 someValue:17.14
+-- Name:A countOfSomething:123 someValue:17.14
+---- Name:George countOfSomething:55 someValue:7.40
+---- Name:Ringo countOfSomething:44 someValue:1.88
+---- Name:Paul countOfSomething:132 someValue:99.30
+-- Name:B countOfSomething:12 312 someValue:67.84
+---- Name:Lou countOfSomething:3 345 someValue:56 465.74
+---- Name:Velvet countOfSomething:368 977 someValue:787.20
+```
 
 ### SubStringer
 Get the string in the string.

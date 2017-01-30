@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.status;
+package io.schinzel.basicutils.state;
 
 import io.schinzel.basicutils.Thrower;
 import java.util.LinkedHashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author schinzel
  */
-public class Status {
+public class State {
 
     /**
      * Holds the properties.
@@ -19,7 +19,7 @@ public class Status {
     //*************************************************************************
     //* CONSTRUCTORS
     //*************************************************************************
-    private Status(Builder builder) {
+    private State(Builder builder) {
         mProperties = builder.mProperties;
     }
 
@@ -78,8 +78,8 @@ public class Status {
         }
 
 
-        public Status build() {
-            return new Status(this);
+        public State build() {
+            return new State(this);
         }
 
 

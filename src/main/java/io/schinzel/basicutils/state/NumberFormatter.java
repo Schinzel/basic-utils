@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.status;
+package io.schinzel.basicutils.state;
 
 import java.util.Locale;
 

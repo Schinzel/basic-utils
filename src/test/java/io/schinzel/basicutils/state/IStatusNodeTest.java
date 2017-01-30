@@ -1,9 +1,11 @@
-package io.schinzel.basicutils.status;
+package io.schinzel.basicutils.state;
 
+import io.schinzel.basicutils.state.State;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.Test;
+import io.schinzel.basicutils.state.IStateNode;
 
 /**
  *
@@ -11,10 +13,10 @@ import org.junit.Test;
  */
 public class IStatusNodeTest {
 
-    class TestClass implements IStatusNode {
+    class TestClass implements IStateNode {
 
         final String mName;
-        List<IStatusNode> mChildren = new ArrayList<>();
+        List<IStateNode> mChildren = new ArrayList<>();
 
         TestClass(String name) {
             mName = name;
@@ -22,13 +24,13 @@ public class IStatusNodeTest {
 
 
         @Override
-        public Status getStatus() {
-            return Status.getBuilder().add("Name", mName).build();
+        public State getState() {
+            return State.getBuilder().add("Name", mName).build();
         }
 
 
         @Override
-        public Iterator<IStatusNode> getStatusChildren() {
+        public Iterator<IStateNode> getStateChildren() {
             return mChildren.iterator();
         }
 
@@ -46,7 +48,7 @@ public class IStatusNodeTest {
         b2.mChildren.add(new TestClass("C3"));
         b2.mChildren.add(new TestClass("C4"));
         t.mChildren.add(new TestClass(("B3")));
-        String s = t.getStatusAsString();
+        String s = t.getStateAsString();
         System.out.println(s);
         
     }
