@@ -39,6 +39,11 @@ if (Checker.isEmpty(str)) {
 A more succinct and easier-on-the-eyes version of storing values with identifiers.
 Elements are returned in alphabetical orders. Supports wild card look ups.
  ```java
+class MyValue implements IdSetValue {
+	[...]
+	public String getId() { return id; }
+}
+
 IdSet<MyValue> mySet = IdSet.create()
 	.add(new MyValue("A"))
 	.add(new MyValue("B"));
@@ -76,7 +81,7 @@ int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ### State
 Solves the problem of getting an overview of a state of a system or a sub-system. The state can be returned as a human readable string or a JSON object.
 
-Interface to implement
+Interface to implement:
 ```java
 public interface IStateNode {
 	State getState();
@@ -84,7 +89,7 @@ public interface IStateNode {
 }
 ```
 
- Sample output
+ Sample output:
 ```java
 Name:Music countOfSomething:123 someValue:17.14
 -- Name:A countOfSomething:123 someValue:17.14
