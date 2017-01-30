@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  * @author schinzel
  */
-public class StatusTest {
+public class StateTest {
 
     @Test
     public void testSomeMethod() {

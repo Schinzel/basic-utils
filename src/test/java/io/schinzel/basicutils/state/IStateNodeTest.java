@@ -9,7 +9,7 @@ import org.junit.Test;
  *
  * @author schinzel
  */
-public class IStatusNodeTest {
+public class IStateNodeTest {
 
     class TestClass implements IStateNode {
 
