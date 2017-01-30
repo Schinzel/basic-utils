@@ -11,8 +11,12 @@ import org.junit.Test;
  */
 public class IStateNodeTest {
 
+    /**
+     * Method tests that the JSON returned has all the values 
+     * and that are returned in the right order. 
+     */
     @Test
-    public void testSomeMethod() {
+    public void testGetStateAsJson() {
         TestClass t = new TestClass("A1");
         t.mChildren.add(new TestClass(("B1")));
         TestClass b2 = new TestClass("B2");
