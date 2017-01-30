@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.state.NumberFormatter;
 import org.junit.Assert;
 import org.junit.Test;
 

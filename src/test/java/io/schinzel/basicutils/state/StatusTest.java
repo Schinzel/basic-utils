@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.state.State;
 import java.util.Map;
 import static org.hamcrest.Matchers.greaterThan;
 import org.junit.Assert;
