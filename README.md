@@ -73,8 +73,18 @@ str = RandomUtil.create(seed).getPaddedInt(1, 200, 3);
 //random numbers that will sum to the argument sum
 int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ```
-### Status
-Solved the problem of getting a snapshot state of a system or a sub-system. 
+### State
+Solves the problem of getting an overview of a state of a system or a sub-system. The state can be returned as a human readable string or a JSON object.
+
+Interface to implement
+```java
+public interface IStateNode {
+	State getState();
+	Iterator<IStateNode> getStateChildren();
+}
+```
+
+ Sample output
 ```java
 Name:Music countOfSomething:123 someValue:17.14
 -- Name:A countOfSomething:123 someValue:17.14
