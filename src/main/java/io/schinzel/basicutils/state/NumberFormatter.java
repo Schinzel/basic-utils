@@ -10,11 +10,13 @@ import java.util.Locale;
  * @author schinzel
  */
 class NumberFormatter {
-    
+
     /**
-     * Private constructor as this class should not be instantiated. 
+     * Private constructor as this class should not be instantiated.
      */
-    private NumberFormatter(){}
+    private NumberFormatter() {
+    }
+
 
     /**
      *
@@ -22,7 +24,7 @@ class NumberFormatter {
      * @return The argument value with space as thousands separator.
      */
     static String format(int value) {
-        return String.format(Locale.US, "%,d", value).replace(",", " ");
+        return NumberFormatter.format((long) value);
     }
 
 
@@ -44,8 +46,7 @@ class NumberFormatter {
      * the argument number of decimals.
      */
     static String format(float value, int numOfDecimals) {
-        return String.format(Locale.US, "%,." + numOfDecimals + "f", value)
-                .replace(",", " ");
+        return NumberFormatter.format((double) value, numOfDecimals);
     }
 
 
