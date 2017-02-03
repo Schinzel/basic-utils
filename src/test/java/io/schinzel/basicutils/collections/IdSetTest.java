@@ -5,9 +5,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import static org.hamcrest.Matchers.is;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
-import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -53,19 +52,19 @@ public class IdSetTest {
     @Test
     public void testSize() {
         IdSet<MyVal> coll = IdSet.create();
-        assertEquals(0, coll.size());
+        Assert.assertEquals(0, coll.size());
         coll.add(new MyVal("MyName1"));
-        assertEquals(1, coll.size());
+        Assert.assertEquals(1, coll.size());
         coll.add(new MyVal("MyName2"));
-        assertEquals(2, coll.size());
+        Assert.assertEquals(2, coll.size());
         coll.add(new MyVal("MyName3"));
-        assertEquals(3, coll.size());
+        Assert.assertEquals(3, coll.size());
         coll.remove("MyName3");
-        assertEquals(2, coll.size());
+        Assert.assertEquals(2, coll.size());
         coll.remove("MyName1");
-        assertEquals(1, coll.size());
+        Assert.assertEquals(1, coll.size());
         coll.remove("MyName2");
-        assertEquals(0, coll.size());
+        Assert.assertEquals(0, coll.size());
     }
 
 
@@ -76,7 +75,7 @@ public class IdSetTest {
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
         MyVal myValue = coll.get("MyName2");
-        assertEquals("MyName2", myValue.getid());
+        Assert.assertEquals("MyName2", myValue.getid());
         myValue = coll.get("no name");
         Assert.assertNull(myValue);
     }
@@ -89,9 +88,9 @@ public class IdSetTest {
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
         MyVal myValue = coll.get("MyName2", true);
-        assertEquals("MyName2", myValue.getid());
+        Assert.assertEquals("MyName2", myValue.getid());
         myValue = coll.get("MyName2", false);
-        assertEquals("MyName2", myValue.getid());
+        Assert.assertEquals("MyName2", myValue.getid());
         myValue = coll.get("no name", false);
         Assert.assertNull(myValue);
         exception.expect(RuntimeException.class);
@@ -116,23 +115,23 @@ public class IdSetTest {
         //
         actual = coll.getUsingWildCards("Ma*");
         expected = Arrays.asList(man1, man2);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.getUsingWildCards("Man*");
         expected = Arrays.asList(man1, man2);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.getUsingWildCards("Man2*");
         expected = Arrays.asList(man2);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.getUsingWildCards("M*n*");
         expected = Arrays.asList(man1, man2, moon1);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.getUsingWildCards("*1");
         expected = Arrays.asList(bird1, man1, moon1);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
     }
 
 
@@ -152,7 +151,7 @@ public class IdSetTest {
         List<MyVal> actual, expected;
         actual = coll.getUsingWildCards("*");
         expected = Arrays.asList(bird1, bird2, man1, man2, moon1);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
     }
 
 
@@ -173,11 +172,11 @@ public class IdSetTest {
         //
         actual = coll.get(Arrays.asList("Man1"));
         expected = Arrays.asList(man1);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.get(Arrays.asList("Bird2", "Man1"));
         expected = Arrays.asList(bird2, man1);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
     }
 
 
@@ -198,11 +197,11 @@ public class IdSetTest {
         //
         actual = coll.get(Arrays.asList("Bird2", "Man1"), true);
         expected = Arrays.asList(bird2, man1);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), false);
         expected = Arrays.asList(bird2, man1);
-        Assert.assertThat(actual, is(expected));
+        Assert.assertThat(actual, Matchers.is(expected));
         //
         exception.expect(RuntimeException.class);
         coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), true);
@@ -326,11 +325,11 @@ public class IdSetTest {
         //
         List<MyVal> list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"));
         List<MyVal> expected = Arrays.asList(valA, valA, valB, valB);
-        Assert.assertThat(list, is(expected));
+        Assert.assertThat(list, Matchers.is(expected));
         //
         list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"), true);
         expected = Arrays.asList(valA, valA, valB, valB);
-        Assert.assertThat(list, is(expected));
+        Assert.assertThat(list, Matchers.is(expected));
     }
 
 
