@@ -8,7 +8,7 @@ import org.junit.Test;
  *
  * @author schinzel
  */
-public class EmptyObjectsTest {
+public class EmptyObjectsTest extends EmptyObjects {
 
 
     @Test

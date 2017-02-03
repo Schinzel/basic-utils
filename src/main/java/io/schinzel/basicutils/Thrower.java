@@ -1,16 +1,16 @@
 package io.schinzel.basicutils;
 
 /**
- * The purpose of this class is to offer less verbose exception throwing. 
+ * The purpose of this class is to offer less verbose exception throwing.
  *
  * @author schinzel
  */
 public class Thrower {
 
     /**
-     * Private constructor as this class should not be instantiated.
+     * Package private constructor as this class should not be instantiated.
      */
-    private Thrower() {
+    Thrower() {
     }
 
 
@@ -55,9 +55,9 @@ public class Thrower {
 
 
     /**
-     * Throw runtime exception if argument value is less than argument min or 
-     * larger than argument max. 
-     * 
+     * Throw runtime exception if argument value is less than argument min or
+     * larger than argument max.
+     *
      * @param value The value to check
      * @param valueName The name of the value to check
      * @param min The minimum allowed value that the argument value can have
@@ -84,6 +84,5 @@ public class Thrower {
     public static void throwIfTrue(boolean expression, String message) {
         throwIfFalse(!expression, message);
     }
-
 
 }

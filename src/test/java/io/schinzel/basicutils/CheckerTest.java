@@ -11,7 +11,7 @@ import org.junit.Test;
  *
  * @author schinzel
  */
-public class CheckerTest {
+public class CheckerTest extends Checker {
 
     @Test
     public void testIsEmptyMap() {
