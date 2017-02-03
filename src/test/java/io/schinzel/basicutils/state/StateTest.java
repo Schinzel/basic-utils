@@ -13,7 +13,7 @@ public class StateTest {
 
     @Test
     public void testSomeMethod() {
-        Map<String, Object> props = State.getBuilder()
+        Map<String, Object> props = State.create()
                 .add("string", "a string")
                 .add("int", 777)
                 .add("large int", 123456789)
@@ -23,7 +23,6 @@ public class StateTest {
                 .add("large double rounded", 123456.4444d, 2)
                 .add("float not rounded", 0.5555f)
                 .add("float rounded", 0.6666f, 3)
-                .build()
                 .getProperties();
         Assert.assertEquals("a string", props.get("string"));
         Assert.assertEquals("777", props.get("int"));
@@ -38,13 +37,13 @@ public class StateTest {
 
     @Test
     public void testOrder() {
-        Map<String, Object> props = State.getBuilder()
+        Map<String, Object> props = State.create()
                 .add("A", 1)
                 .add("B", 2)
                 .add("C", 3)
                 .add("D", 4)
                 .add("E", 5)
-                .build().mProperties;
+                .mProperties;
         String prevValue = "0";
         for (Object o : props.values()) {
             Assert.assertThat("value", Integer.valueOf(o.toString()),

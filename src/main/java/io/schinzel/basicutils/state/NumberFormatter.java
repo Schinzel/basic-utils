@@ -12,9 +12,9 @@ import java.util.Locale;
 class NumberFormatter {
 
     /**
-     * Private constructor as this class should not be instantiated.
+     * Package private constructor as this class should not be instantiated.
      */
-    private NumberFormatter() {
+    NumberFormatter() {
     }
 
 
@@ -61,6 +61,5 @@ class NumberFormatter {
         return String.format(Locale.US, "%,." + numOfDecimals + "f", value)
                 .replace(",", " ");
     }
-
 
 }

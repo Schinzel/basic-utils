@@ -7,7 +7,7 @@ import org.junit.Test;
  *
  * @author schinzel
  */
-public class NumberFormatterTest {
+public class NumberFormatterTest extends NumberFormatter {
 
     @Test
     public void testFormat_wholeNumbers() {

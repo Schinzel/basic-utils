@@ -366,6 +366,13 @@ public class IdSetTest {
         coll.remove("A");
         Assert.assertTrue(coll.isEmpty());
     }
+
+
+    @Test
+    public void testAddAndReturn() {
+        IdSet<MyVal> coll = IdSet.create();
+        MyVal myVal = new MyVal("A");
+        MyVal myVal2 = coll.addAndReturn(myVal);
+        Assert.assertEquals(myVal2, myVal);
+    }
 }
-
-

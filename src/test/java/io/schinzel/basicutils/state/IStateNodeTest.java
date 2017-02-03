@@ -12,8 +12,8 @@ import org.junit.Test;
 public class IStateNodeTest {
 
     /**
-     * Method tests that the JSON returned has all the values 
-     * and that are returned in the right order. 
+     * Method tests that the JSON returned has all the values
+     * and that are returned in the right order.
      */
     @Test
     public void testGetStateAsJson() {
@@ -26,7 +26,7 @@ public class IStateNodeTest {
         b2.mChildren.add(new TestClass("C3"));
         b2.mChildren.add(new TestClass("C4"));
         t.mChildren.add(new TestClass(("B3")));
-        JsonOrdered json = t.getStateAsJson();
+        JsonOrdered json = t.getState().getJson();
         Assert.assertEquals("A1", json.get("Name"));
         JSONArray a1Children = json.getJSONArray("children");
         Assert.assertEquals(3, a1Children.length());

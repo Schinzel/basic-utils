@@ -11,6 +11,13 @@ import java.util.Map;
 public class Checker {
 
     /**
+     * Package private constructor as this class should not be instantiated.
+     */
+    Checker() {
+    }
+
+
+    /**
      *
      * @param argValue
      * @return True if argument is null, else false.
@@ -52,7 +59,7 @@ public class Checker {
     //*************************************************************************
     //* Array of Primitives
     //*************************************************************************
-    
+
     /**
      *
      * @param argValue
@@ -75,7 +82,7 @@ public class Checker {
     //*************************************************************************
     //* Array of Objects
     //*************************************************************************
-    
+
     /**
      * Check if an array of objects is null or empty
      *

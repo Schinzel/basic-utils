@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.state;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,13 +20,9 @@ class TestClass implements IStateNode {
 
     @Override
     public State getState() {
-        return State.getBuilder().add("Name", mName).build();
-    }
-
-
-    @Override
-    public Iterator<IStateNode> getStateChildren() {
-        return mChildren.iterator();
+        return State.create()
+                .add("Name", mName)
+                .addChildren(mChildren.iterator());
     }
 
 
