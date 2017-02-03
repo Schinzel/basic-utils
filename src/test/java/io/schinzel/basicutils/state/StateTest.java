@@ -42,8 +42,7 @@ public class StateTest {
                 .add("B", 2)
                 .add("C", 3)
                 .add("D", 4)
-                .add("E", 5)
-                .mProperties;
+                .add("E", 5).mProperties;
         String prevValue = "0";
         for (Object o : props.values()) {
             Assert.assertThat("value", Integer.valueOf(o.toString()),
@@ -53,4 +52,44 @@ public class StateTest {
     }
 
 
+    @Test
+    public void testGetPropsAsString() {
+        String result = State.create()
+                .add("A", 1)
+                .add("B", 2)
+                .getPropsAsString();
+        String expected = "A:1 B:2";
+        Assert.assertEquals(expected, result);
+    }
+
+
+    @Test
+    public void testAddChild() {
+        TestClass a1 = new TestClass("A1");
+        TestClass b2 = new TestClass("B2");
+        State state = State.create()
+                .add("A", 1)
+                .add("B", 2)
+                .addChild(a1)
+                .addChild(b2);
+        Assert.assertEquals(a1, state.mChildren.get(0));
+        Assert.assertEquals(b2, state.mChildren.get(1));
+    }
+
+
+    @Test
+    public void testToString() {
+        TestClass a1 = new TestClass("A1");
+        a1.mChildren.add(new TestClass(("B1")));
+        TestClass b2 = new TestClass("B2");
+        b2.mChildren.add(new TestClass(("B2X")));
+        a1.mChildren.add(b2);
+        System.out.println(a1.toString());
+        String expected = " Name:A1\n"
+                + "-- Name:B1\n"
+                + "-- Name:B2\n"
+                + "---- Name:B2X\n";
+        String result = a1.toString();
+        Assert.assertEquals(expected, result);
+    }
 }

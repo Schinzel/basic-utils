@@ -129,7 +129,11 @@ public class State {
     }
 
 
-    private String getPropsAsString() {
+    /**
+     *
+     * @return The properties as a string.
+     */
+    String getPropsAsString() {
         return Joiner.on(" ")
                 .withKeyValueSeparator(":")
                 .join(this.getProperties());

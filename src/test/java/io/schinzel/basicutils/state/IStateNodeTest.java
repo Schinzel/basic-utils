@@ -17,16 +17,16 @@ public class IStateNodeTest {
      */
     @Test
     public void testGetStateAsJson() {
-        TestClass t = new TestClass("A1");
-        t.mChildren.add(new TestClass(("B1")));
+        TestClass a1 = new TestClass("A1");
+        a1.mChildren.add(new TestClass(("B1")));
         TestClass b2 = new TestClass("B2");
-        t.mChildren.add(b2);
+        a1.mChildren.add(b2);
         b2.mChildren.add(new TestClass("C1"));
         b2.mChildren.add(new TestClass("C2"));
         b2.mChildren.add(new TestClass("C3"));
         b2.mChildren.add(new TestClass("C4"));
-        t.mChildren.add(new TestClass(("B3")));
-        JsonOrdered json = t.getState().getJson();
+        a1.mChildren.add(new TestClass(("B3")));
+        JsonOrdered json = a1.getState().getJson();
         Assert.assertEquals("A1", json.get("Name"));
         JSONArray a1Children = json.getJSONArray("children");
         Assert.assertEquals(3, a1Children.length());

@@ -25,5 +25,9 @@ class TestClass implements IStateNode {
                 .addChildren(mChildren.iterator());
     }
 
+    @Override
+    public String toString(){
+        return this.getState().toString();
+    }
 
 }
