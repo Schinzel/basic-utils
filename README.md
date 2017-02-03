@@ -85,7 +85,19 @@ Interface to implement:
 ```java
 public interface IStateNode {
 	State getState();
-	Iterator<IStateNode> getStateChildren();
+}
+
+class MyClass implements IStateNode{
+	[...]
+	public State getState(){
+		return State.create()
+			.add("Name", this.name)
+			.add("countOfSomething", this.count)
+			//Round to two decimals
+			.add("someValue", this.val, 2)
+			//Add a set of children that will be rendered as a sub tree
+			.addChildren(stuff.iterator());
+	}
 }
 ```
 
