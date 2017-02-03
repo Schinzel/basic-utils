@@ -8,7 +8,7 @@ import org.junit.rules.ExpectedException;
  *
  * @author schinzel
  */
-public class ThrowerTest {
+public class ThrowerTest extends Thrower {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();

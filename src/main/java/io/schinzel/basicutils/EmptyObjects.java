@@ -9,6 +9,12 @@ import java.util.Map;
  * @author Schinzel
  */
 public class EmptyObjects {
+
+    /**
+     * Package private constructor as this class should not be instantiated.
+     */
+    EmptyObjects() {
+    }
     /**
      * An empty byte array.
      */
@@ -34,9 +40,4 @@ public class EmptyObjects {
      */
     public static final Map EMPTY_MAP = Collections.emptyMap();
 
-    /**
-     * Private constructor as this class should not be instantiated. 
-     */
-    private EmptyObjects(){}
-   
 }

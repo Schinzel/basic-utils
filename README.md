@@ -39,6 +39,11 @@ if (Checker.isEmpty(str)) {
 A more succinct and easier-on-the-eyes version of storing values with identifiers.
 Elements are returned in alphabetical orders. Supports wild card look ups.
  ```java
+class MyValue implements IdSetValue {
+	[...]
+	public String getId() { return id; }
+}
+
 IdSet<MyValue> mySet = IdSet.create()
 	.add(new MyValue("A"))
 	.add(new MyValue("B"));
@@ -73,7 +78,40 @@ str = RandomUtil.create(seed).getPaddedInt(1, 200, 3);
 //random numbers that will sum to the argument sum
 int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ```
+### State
+Solves the problem of getting an overview of a state of a system or a sub-system. The state can be returned as a human readable string or a JSON object.
 
+Interface to implement:
+```java
+public interface IStateNode {
+	State getState();
+}
+
+class MyClass implements IStateNode{
+	[...]
+	public State getState(){
+		return State.create()
+			.add("Name", this.name)
+			.add("countOfSomething", this.count)
+			//Round to two decimals
+			.add("someValue", this.val, 2)
+			//Add a set of children that will be rendered as a sub tree
+			.addChildren(stuff.iterator());
+	}
+}
+```
+
+ Sample output:
+```java
+Name:Music countOfSomething:123 someValue:17.14
+-- Name:A countOfSomething:123 someValue:17.14
+---- Name:George countOfSomething:55 someValue:7.40
+---- Name:Ringo countOfSomething:44 someValue:1.88
+---- Name:Paul countOfSomething:132 someValue:99.30
+-- Name:B countOfSomething:12 312 someValue:67.84
+---- Name:Lou countOfSomething:3 345 someValue:56 465.74
+---- Name:Velvet countOfSomething:368 977 someValue:787.20
+```
 
 ### SubStringer
 Get the string in the string.
