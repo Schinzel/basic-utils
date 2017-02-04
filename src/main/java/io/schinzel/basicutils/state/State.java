@@ -21,7 +21,6 @@ public class State {
     Map<String, Object> mProperties = new LinkedHashMap<>();
     List<IStateNode> mChildren = new ArrayList<>();
 
-
     private State() {
     }
 
@@ -61,6 +60,20 @@ public class State {
 
     public State add(String key, float value) {
         return this.add(key, value, 2);
+    }
+
+
+    public State add(String key, Map map) {
+        String val = "{" + Joiner.on(",")
+                .withKeyValueSeparator(":")
+                .join(map) + "}";
+        return this.add(key, val);
+    }
+
+
+    public State add(String key, List list) {
+        String val = "{" + Joiner.on(",").join(list) + "}";
+        return this.add(key, val);
     }
 
 
@@ -159,5 +172,6 @@ public class State {
         return json;
 
     }
+
 
 }
