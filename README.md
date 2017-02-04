@@ -20,7 +20,7 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.5</version>
+		<version>1.6</version>
 	</dependency>
 </dependencies>    
 ```
