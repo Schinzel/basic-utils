@@ -3,18 +3,22 @@ package io.schinzel.basicutils.collections;
 import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.Set;
-import org.junit.Assert;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  *
  * @author schinzel
  */
 public class CacheTest {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void testOverwrite() {
@@ -31,23 +35,12 @@ public class CacheTest {
         Cache<String, String> cache = new Cache();
         assertEquals(0, cache.cacheHits());
         cache.put("key1", "val1");
-        cache.get("key2");
-        assertEquals(0, cache.cacheHits());
         cache.get("key1");
         assertEquals(1, cache.cacheHits());
         cache.get("key1");
         cache.get("key1");
         cache.get("key1");
         assertEquals(4, cache.cacheHits());
-    }
-
-
-    @Test
-    public void testNoHit() {
-        Cache<String, String> cache = new Cache();
-        cache.put("key1", "val1");
-        String result = cache.get("key77777");
-        Assert.assertNull(result);
     }
 
 
@@ -126,7 +119,7 @@ public class CacheTest {
 
 
     @Test
-    public void testGetKeys(){
+    public void testGetKeys() {
         Cache<String, Integer> cache = new Cache<>();
         cache.put("monkey", 1);
         cache.put("bear", 2);
@@ -136,5 +129,20 @@ public class CacheTest {
         set.add("monkey");
         set.add("bird");
         assertEquals(set, cache.getKeys());
+        exception.expect(RuntimeException.class);
+        cache.get("I_do_not_exist");
     }
+
+
+    @Test
+    public void testPutAndGet() {
+        Cache<String, String> cache = new Cache<>();
+        assertEquals("val1", cache.putAndGet("key1", "val1"));
+        assertEquals(1, cache.cacheSize());
+        assertEquals(0, cache.cacheHits());
+        assertEquals("val1", cache.get("key1"));
+        assertEquals(1, cache.cacheHits());
+    }
+
+
 }
