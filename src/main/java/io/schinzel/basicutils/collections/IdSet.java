@@ -66,7 +66,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         Thrower.throwIfEmpty(value, "value");
         String id = value.getid();
         Thrower.throwIfTrue(mAliasMap.containsKey(id), "A value with id '" + id + "' cannot be added as there exists an alias with the same key.");
-        Thrower.throwIfTrue(this.contains(id), "A value with id '" + id + "' cannot be added as one already exists");
+        Thrower.throwIfTrue(this.has(id), "A value with id '" + id + "' cannot be added as one already exists");
         mMap.put(id, value);
         return this;
     }
@@ -90,10 +90,10 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return This for chaining.
      */
     public IdSet addAlias(String id, String alias) {
-        Thrower.throwIfTrue(!this.contains(id), "An alias '" + alias + "' for a id '" + id + "' cannot be added as there exist no value with this id in collection.");
+        Thrower.throwIfTrue(!this.has(id), "An alias '" + alias + "' for a id '" + id + "' cannot be added as there exist no value with this id in collection.");
         //if the argument value exists in the alias set
         Thrower.throwIfTrue(mAliasMap.containsKey(alias), "An alias'" + alias + "' cannot be added as there already exists such an alias.");
-        Thrower.throwIfTrue(this.contains(alias), "An alias '" + alias + "' cannot be added as there exists a value with the same id.");
+        Thrower.throwIfTrue(this.has(alias), "An alias '" + alias + "' cannot be added as there exists a value with the same id.");
         mAliasMap.put(alias, id);
         return this;
     }
@@ -118,7 +118,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return This of chaining.
      */
     public IdSet remove(String id) {
-        Thrower.throwIfFalse(this.contains(id), "Cannot remove value with id '" + id + "' as no such value exists.");
+        Thrower.throwIfFalse(this.has(id), "Cannot remove value with id '" + id + "' as no such value exists.");
         //Remove all entries in alias map with argument id.
         while (mAliasMap.values().remove(id));
         mMap.remove(id);
@@ -152,7 +152,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param id
      * @return True if value with argument id is present in set.
      */
-    public boolean contains(String id) {
+    public boolean has(String id) {
         return mMap.containsKey(id);
     }
 
