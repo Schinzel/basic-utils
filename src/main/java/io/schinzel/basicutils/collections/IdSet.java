@@ -75,7 +75,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     /**
      * Adds an alias for an id.
      * For example:
-     * Lets assume there is an object "thing" that returns the id "theid".
+     * Lets assume there is an object "thing" that returns the id "theId".
      * The thing is added to the collection with a couple of aliases
      * idSet.add(thing).addAlias("a", "theId").addAlias("b", "theId");
      *
