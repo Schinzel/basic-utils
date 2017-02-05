@@ -12,18 +12,19 @@ import java.util.concurrent.ConcurrentHashMap;
  * @param <V>
  */
 public class Cache<K, V> {
+
     /**
      * Holds the data cached.
      */
     private final Map<K, V> mCache = new ConcurrentHashMap<>();
     /**
-     * The number of times this cache has returned a cached value. Useful for 
-     * testing. 
+     * The number of times this cache has returned a cached value. Useful for
+     * testing.
      */
     private long mHits;
-    
-    
+
     /**
+     * If no key exists an error is thrown.
      *
      * @param key
      * @return The value with the argument key.
@@ -33,17 +34,18 @@ public class Cache<K, V> {
             mHits++;
             return mCache.get(key);
         }
-
-        return null;
+        throw new RuntimeException("Tried to get value for key '" + key + "' that does not exist in cache");
     }
 
+
     /**
-     * 
-     * @return Get the keys held by this cache. 
+     *
+     * @return Get the keys held by this cache.
      */
     public Set<K> getKeys() {
         return mCache.keySet();
     }
+
 
     /**
      * Check if map contains key
@@ -54,6 +56,7 @@ public class Cache<K, V> {
     public boolean has(K key) {
         return mCache.containsKey(key);
     }
+
 
     /**
      * Add the argument key and value to cache.
@@ -67,6 +70,7 @@ public class Cache<K, V> {
         return this;
     }
 
+
     /**
      * Clears all data from cache. Held values and stats.
      */
@@ -74,6 +78,7 @@ public class Cache<K, V> {
         mCache.clear();
         mHits = 0;
     }
+
 
     /**
      * Get number of key/value pairs help by cache.
@@ -84,6 +89,7 @@ public class Cache<K, V> {
         return mCache.size();
     }
 
+
     /**
      * Number of cache hits.
      *
@@ -92,5 +98,6 @@ public class Cache<K, V> {
     public long cacheHits() {
         return mHits;
     }
+
 
 }
