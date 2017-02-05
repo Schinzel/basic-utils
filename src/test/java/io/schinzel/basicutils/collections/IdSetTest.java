@@ -24,7 +24,6 @@ public class IdSetTest {
 
         private final String mId;
 
-
         MyVal(String id) {
             mId = id;
         }
@@ -35,8 +34,8 @@ public class IdSetTest {
             return mId;
         }
 
-    }
 
+    }
 
     @Test
     public void testAdd_sameIdTwice() {
@@ -76,25 +75,8 @@ public class IdSetTest {
                 .add(new MyVal("MyName3"));
         MyVal myValue = coll.get("MyName2");
         Assert.assertEquals("MyName2", myValue.getid());
-        myValue = coll.get("no name");
-        Assert.assertNull(myValue);
-    }
-
-
-    @Test
-    public void testGetBooleanArg() {
-        IdSet<MyVal> coll = IdSet.create()
-                .add(new MyVal("MyName1"))
-                .add(new MyVal("MyName2"))
-                .add(new MyVal("MyName3"));
-        MyVal myValue = coll.get("MyName2", true);
-        Assert.assertEquals("MyName2", myValue.getid());
-        myValue = coll.get("MyName2", false);
-        Assert.assertEquals("MyName2", myValue.getid());
-        myValue = coll.get("no name", false);
-        Assert.assertNull(myValue);
         exception.expect(RuntimeException.class);
-        coll.get("no name", true);
+        coll.get("no name");
     }
 
 
@@ -195,16 +177,12 @@ public class IdSetTest {
                 .add(moon1);
         List<MyVal> actual, expected;
         //
-        actual = coll.get(Arrays.asList("Bird2", "Man1"), true);
-        expected = Arrays.asList(bird2, man1);
-        Assert.assertThat(actual, Matchers.is(expected));
-        //
-        actual = coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), false);
+        actual = coll.get(Arrays.asList("Bird2", "Man1"));
         expected = Arrays.asList(bird2, man1);
         Assert.assertThat(actual, Matchers.is(expected));
         //
         exception.expect(RuntimeException.class);
-        coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"), true);
+        coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"));
     }
 
 
@@ -318,16 +296,15 @@ public class IdSetTest {
                 .addAlias("A", "alias1")
                 .addAlias("A", "alias2")
                 .addAlias("B", "alias3");
-        Assert.assertEquals(valA, coll.get("A", true));
-        Assert.assertEquals(valA, coll.get("A", false));
-        Assert.assertEquals(valA, coll.get("alias1", true));
-        Assert.assertEquals(valA, coll.get("alias1", false));
+        Assert.assertEquals(valA, coll.get("A"));
+        Assert.assertEquals(valA, coll.get("alias1"));
+        Assert.assertEquals(valA, coll.get("alias1"));
         //
         List<MyVal> list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"));
         List<MyVal> expected = Arrays.asList(valA, valA, valB, valB);
         Assert.assertThat(list, Matchers.is(expected));
         //
-        list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"), true);
+        list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"));
         expected = Arrays.asList(valA, valA, valB, valB);
         Assert.assertThat(list, Matchers.is(expected));
     }
@@ -374,4 +351,6 @@ public class IdSetTest {
         MyVal myVal2 = coll.addAndReturn(myVal);
         Assert.assertEquals(myVal2, myVal);
     }
+
+
 }

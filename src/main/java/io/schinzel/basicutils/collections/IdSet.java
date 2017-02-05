@@ -73,16 +73,13 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
 
 
     /**
-     * Adds an alias for an id.
-     * For example:
-     * Lets assume there is an object "thing" that returns the id "theId".
-     * The thing is added to the collection with a couple of aliases
-     * idSet.add(thing).addAlias("a", "theId").addAlias("b", "theId");
+     * Adds an alias for an id. For example: Lets assume there is an object
+     * "thing" that returns the id "theId". The thing is added to the collection
+     * with a couple of aliases idSet.add(thing).addAlias("a",
+     * "theId").addAlias("b", "theId");
      *
-     * Then all three below would return the thing:
-     * idSet.get("theId")
-     * idSet.get("a")
-     * idSet.get("b")
+     * Then all three below would return the thing: idSet.get("theId")
+     * idSet.get("a") idSet.get("b")
      *
      *
      * @param id
@@ -142,7 +139,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      *
      * @return True if there are no values in this set.
      */
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return mMap.isEmpty();
     }
 
@@ -172,28 +169,16 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return The value with the argument id.
      */
     public V get(String id) {
-        return this.get(id, false);
-    }
-
-
-    /**
-     *
-     * @param id
-     * @param throwErrorIfNotFound If true, an exception is thrown if argument
-     * id is not present.
-     * @return The value with the argument id.
-     */
-    public V get(String id, boolean throwErrorIfNotFound) {
         Thrower.throwIfEmpty(id, "id");
         //If there exists an alias for argument id
-        if (mAliasMap.containsKey(id)){
+        if (mAliasMap.containsKey(id)) {
             //Set the id to be the alias
             id = mAliasMap.get(id);
         }
+        //Get the value of the argument id
         V value = mMap.get(id);
-        if (throwErrorIfNotFound) {
-            Thrower.throwIfEmpty(value, "'" + id + "' not found in set.");
-        }
+        //If no value was found, throw error. 
+        Thrower.throwIfEmpty(value, "'" + id + "' not found in set.");
         return value;
     }
 
@@ -202,32 +187,17 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      *
      * @param ids
      * @return A list of values that have the argument identifiers. If one or
-     * several of the argument names are not present in this collection, no
-     * value are returned for these. The elements are returned in the order of
-     * the argument list.
+     * several of the argument names are not present in this collection, an
+     * exception is thrown. The elements are returned in the order of the
+     * argument list.
      */
     public List<V> get(List<String> ids) {
-        return this.get(ids, false);
-    }
-
-
-    /**
-     *
-     * @param ids
-     * @param throwErrorIfNotFound If true, throws an error is one or more
-     * argument identifiers are missing.
-     * @return A list of values that have the argument identifiers. If one or
-     * several of the argument names are not present in this collection, no
-     * value are returned for these. The elements are returned in the order of
-     * the argument list.
-     */
-    public List<V> get(List<String> ids, boolean throwErrorIfNotFound) {
         if (Checker.isEmpty(ids)) {
             return Collections.emptyList();
         }
         List<V> values = new ArrayList<>(ids.size());
         for (String id : ids) {
-            V val = this.get(id, throwErrorIfNotFound);
+            V val = this.get(id);
             if (val != null) {
                 values.add(val);
             }
