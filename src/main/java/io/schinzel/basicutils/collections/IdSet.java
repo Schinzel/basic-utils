@@ -184,7 +184,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return The value with the argument id.
      */
     public V get(String id, boolean throwErrorIfNotFound) {
-        Thrower.throwIfEmpty(id, "name");
+        Thrower.throwIfEmpty(id, "id");
         //If there exists an alias for argument id
         if (mAliasMap.containsKey(id)){
             //Set the id to be the alias
