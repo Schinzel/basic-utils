@@ -20,7 +20,7 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.6</version>
+		<version>1.8</version>
 	</dependency>
 </dependencies>    
 ```
@@ -28,7 +28,7 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 ## Sample code
 
 ### Cache
-A simple cache with hits statistics for unit tests. 
+A simple cache with hits statistics for unit tests.
 
 
 ### Checker
