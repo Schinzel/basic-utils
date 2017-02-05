@@ -65,7 +65,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public IdSet add(V value) {
         Thrower.throwIfEmpty(value, "value");
         String id = value.getid();
-        Thrower.throwIfTrue(mAliasMap.containsKey(id), "A value with id '" + id + "' cannot be added as there exists an alias with the same key.");
+        Thrower.throwIfTrue(mAliasMap.containsKey(id), "A value with id '" + id + "' cannot be added as there exists an alias with the same id.");
         Thrower.throwIfTrue(this.has(id), "A value with id '" + id + "' cannot be added as one already exists");
         mMap.put(id, value);
         return this;
@@ -99,9 +99,9 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     /**
      *
      * @param value
-     * @return The argument id if it was added.
+     * @return The argument value.
      */
-    public V addAndReturn(V value) {
+    public V addAndGet(V value) {
         this.add(value);
         return value;
     }
@@ -167,6 +167,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      *
      * @param id
      * @return The value with the argument id.
+     * @throws RuntimeException If there is no value with argument id.
      */
     public V get(String id) {
         Thrower.throwIfEmpty(id, "id");
@@ -186,10 +187,10 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     /**
      *
      * @param ids
-     * @return A list of values that have the argument identifiers. If one or
-     * several of the argument names are not present in this collection, an
-     * exception is thrown. The elements are returned in the order of the
-     * argument list.
+     * @return A list of values that have the argument identifiers. The elements
+     * are returned in the order of the argument list.
+     * @throws RuntimeException If one or more of the argument identifiers do
+     * not exist exist.
      */
     public List<V> get(List<String> ids) {
         if (Checker.isEmpty(ids)) {

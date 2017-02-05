@@ -27,6 +27,9 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 
 ## Sample code
 
+### Cache
+A simple cache with hits statistics for unit tests. 
+
 
 ### Checker
 A less verbose way to check for null and empty variable for a set of data types.
@@ -38,6 +41,7 @@ if (Checker.isEmpty(str)) {
 ### IdSet
 A more succinct and easier-on-the-eyes version of storing values with identifiers.
 Elements are returned in alphabetical orders. Supports wild card look ups.
+Note that uses fail-fast and throws exceptions instead of returning null.
  ```java
 class MyValue implements IdSetValue {
 	[...]

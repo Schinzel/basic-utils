@@ -5,11 +5,12 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The purpose of this class is to cache data.
+ * The purpose of this class is to cache data and offer hits statistics to 
+ * facilitate unit tests. 
  *
  * @author schinzel
- * @param <K>
- * @param <V>
+ * @param <K> the type of keys maintained by this cache
+ * @param <V> the type of mapped values
  */
 public class Cache<K, V> {
 
@@ -48,10 +49,9 @@ public class Cache<K, V> {
 
 
     /**
-     * Check if map contains key
      *
      * @param key
-     * @return True if this contains argument key. Else false.
+     * @return True if contains argument key. Else false.
      */
     public boolean has(K key) {
         return mCache.containsKey(key);
@@ -72,7 +72,19 @@ public class Cache<K, V> {
 
 
     /**
-     * Clears all data from cache. Held values and stats.
+     *
+     * @param key
+     * @param value
+     * @return The argument value.
+     */
+    public V putAndGet(K key, V value) {
+        this.put(key, value);
+        return value;
+    }
+
+
+    /**
+     * Clears all data from cache. Held values and statistics.
      */
     public void invalidate() {
         mCache.clear();
