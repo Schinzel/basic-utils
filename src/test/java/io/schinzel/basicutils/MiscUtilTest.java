@@ -14,15 +14,26 @@ public class MiscUtilTest extends MiscUtil {
 
     @Test
     public void testSnooze() {
-        int snoozeTime = 100;
+        int snoozeTimeInMillis = 100;
         //Test the snooze 10 times
         for (int i = 0; i < 10; i++) {
             LocalDateTime start = LocalDateTime.now();
-            MiscUtil.snooze(snoozeTime);
-            //Check that the snooze does not differ more than 20% of the request snooze time.
+            MiscUtil.snooze(snoozeTimeInMillis);
+            //Check that the snooze does not differ more than 20 ms of the requested snooze time.
             assertThat(LocalDateTime.now(),
-                    within(20, ChronoUnit.MILLIS, start.plus(snoozeTime, ChronoUnit.MILLIS)));
+                    within(20, ChronoUnit.MILLIS, start.plus(snoozeTimeInMillis, ChronoUnit.MILLIS)));
         }
+    }
+
+
+    @Test
+    public void testSnoozeSeconds() {
+        int snoozeTimeInSeconds = 1;
+        LocalDateTime start = LocalDateTime.now();
+        MiscUtil.snoozeSeconds(snoozeTimeInSeconds);
+        //Check that the snooze does not differ more than 20 ms of the requested snooze time.
+        assertThat(LocalDateTime.now(),
+                within(20, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
     }
 
 }
