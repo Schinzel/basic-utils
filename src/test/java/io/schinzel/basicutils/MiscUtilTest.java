@@ -4,13 +4,19 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
 import static org.junit.Assert.*;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 /**
  *
  * @author schinzel
  */
 public class MiscUtilTest extends MiscUtil {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
 
     @Test
     public void testSnooze() {
@@ -36,4 +42,17 @@ public class MiscUtilTest extends MiscUtil {
                 within(20, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
     }
 
+
+    @Test
+    public void testSnoozeWithInterrupt() {
+        Thread t1 = new Thread(() -> {
+            exception.expect(RuntimeException.class);
+            exception.expectMessage("Snooze interrupted");
+            MiscUtil.snooze(100);
+        });
+        t1.start();
+        //Interrupt the snooze in the thread and thus trigger exception
+        t1.interrupt();
+
+    }
 }

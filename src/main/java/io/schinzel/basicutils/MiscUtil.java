@@ -26,7 +26,7 @@ public class MiscUtil {
         try {
             TimeUnit.MILLISECONDS.sleep(millisToSnooze);
         } catch (final InterruptedException e) {
-            throw new RuntimeException("InterruptedException " + e.toString());
+            throw new RuntimeException("Snooze interrupted " + e.toString());
         }
     }
 
