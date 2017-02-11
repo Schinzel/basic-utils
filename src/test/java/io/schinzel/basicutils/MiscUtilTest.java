@@ -1,5 +1,8 @@
 package io.schinzel.basicutils;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -8,28 +11,18 @@ import org.junit.Test;
  * @author schinzel
  */
 public class MiscUtilTest extends MiscUtil {
-    
 
     @Test
     public void testSnooze() {
-        int nrOfItterations = 20;
         int snoozeTime = 100;
-        long start = System.nanoTime();
-        for (int i = 0; i < nrOfItterations; i++) {
-            MiscUtil.snooze(snoozeTime);            
+        //Test the snooze 10 times
+        for (int i = 0; i < 10; i++) {
+            LocalDateTime start = LocalDateTime.now();
+            MiscUtil.snooze(snoozeTime);
+            //Check that the snooze does not differ more than 20% of the request snooze time.
+            assertThat(LocalDateTime.now(),
+                    within(20, ChronoUnit.MILLIS, start.plus(snoozeTime, ChronoUnit.MILLIS)));
         }
-        long end = System.nanoTime();
-        //Calc the time to do all iterations
-        long executionTimeInMS = (end-start)/1000000;
-        //Calc the actual average snooze time
-        long averageSnoozeTime = executionTimeInMS/nrOfItterations;
-        //True if average snooze time is less than requestion snooze time +10%
-        boolean notTenPercentOver = (averageSnoozeTime < (snoozeTime+snoozeTime/10));
-        //True if average snooze time is more than requestion snooze time -10%
-        boolean notTenPercentUnder = (averageSnoozeTime > (snoozeTime-snoozeTime/10));
-        //Assert that snooze time is withint plus minus 10%
-        assertTrue(notTenPercentOver && notTenPercentUnder);
-        
     }
-    
+
 }
