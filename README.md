@@ -31,12 +31,14 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 A simple cache with hits statistics for unit tests.
 
 
+
 ### Checker
 A less verbose way to check for null and empty variable for a set of data types.
 ```java
 if (Checker.isEmpty(str)) {
 }
 ```
+
 
 ### IdSet
 A more succinct and easier-on-the-eyes version of storing values with identifiers.
@@ -71,6 +73,7 @@ A less verbose version of sleep.
 MiscUtil.snooze(100);
 ```
 
+
 ### RandomUtil
 ```java
 //Get a random string with the length 12
@@ -82,6 +85,8 @@ str = RandomUtil.create(seed).getPaddedInt(1, 200, 3);
 //random numbers that will sum to the argument sum
 int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ```
+
+
 ### State
 Solves the problem of getting an overview of a state of a system or a sub-system. The state can be returned as a human readable string or a JSON object.
 
@@ -117,6 +122,8 @@ Name:Music countOfSomething:123 someValue:17.14
 ---- Name:Velvet countOfSomething:368 977 someValue:787.20
 ```
 
+
+
 ### SubStringer
 Get the string in the string.
 ```java
@@ -141,6 +148,59 @@ String page = SubStringer.create(input)
 	.start("/")
 	.toString();				
 ```
+
+
+
+## Timekeeper
+Timekeeper is used to find bottlenecks by offering a lightweight way to measure time consumed by lines.
+
+Finding bottlenecks often involves drilling further and further down in the code until one finds the line or block of code that is the culprit. To facilitate this the timekeeper structures the code blocks measured as a tree and for each measurement reports:
+* % of time of whole (root)
+* % of time of immediate parent
+* Total time in milliseconds
+* Average time per iteration in milliseconds
+* Number of times this block of code was hit
+
+```java
+//Get the timekeeper. There is also a create method if one does not want
+//to use a singleton.
+Timekeeper timekeeper = Timekeeper.getSingleton();
+timekeeper.startLap("A");
+//Some code runs here that will be measured as lap A
+timekeeper.stopLap();
+timekeeper.startLap("B");
+for (int i = 0; i < 10; i++) {
+	//Start lab B1. As lap B is running, B1 will be a sub-lap to B.
+	timekeeper.startLap("B1");
+	MiscUtil.snooze(1);
+	timekeeper.stopLap();
+}
+for (int i = 0; i < 5; i++) {
+	//Start lab B2. As lap B is running, B2 will be a sub-lap to B.
+	timekeeper.startLap("B2");
+	MiscUtil.snooze(20);
+	timekeeper.stopLap();
+}
+timekeeper.stopLap();
+timekeeper.startLap("C");
+//Some code runs here that will be measured as lap C
+MiscUtil.snooze(10);
+timekeeper.stopLap();
+//Stop the whole stopwatch
+timekeeper.stop();
+```
+
+Sample output of above. Results also available as JSON.
+```
+ Name:root Tot:141ms Avg:141.35ms Hits:1
+-- Name:A Root:0% Parent:0% Tot:0ms Avg:0.01ms Hits:1
+-- Name:B Root:91% Parent:91% Tot:128ms Avg:128.50ms Hits:1
+---- Name:B1 Root:10% Parent:11% Tot:14ms Avg:1.46ms Hits:10
+---- Name:B2 Root:80% Parent:88% Tot:113ms Avg:22.70ms Hits:5
+-- Name:C Root:9% Parent:9% Tot:12ms Avg:12.69ms Hits:1
+```
+
+
 
 ### Thrower
 Less verbose way to throw exceptions. Throws well formulated messages.
