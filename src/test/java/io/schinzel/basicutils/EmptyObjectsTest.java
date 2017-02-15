@@ -1,5 +1,6 @@
 package io.schinzel.basicutils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import org.junit.Test;
  */
 public class EmptyObjectsTest extends EmptyObjects {
 
-
     @Test
     public void testSomeMethod() {
         Assert.assertArrayEquals(new byte[0], EmptyObjects.EMPTY_BYTE_ARRAY);
@@ -18,7 +18,8 @@ public class EmptyObjectsTest extends EmptyObjects {
         Assert.assertArrayEquals(new String[0], EmptyObjects.EMPTY_STRING_ARRAY);
         Assert.assertArrayEquals(new Object[0], EmptyObjects.EMPTY_OBJECT_ARRAY);
         Assert.assertEquals("", EmptyObjects.EMPTY_STRING);
-        Assert.assertEquals(new HashMap<>().size(),EmptyObjects.EMPTY_MAP.size());
+        Assert.assertEquals(new HashMap<>().size(), EmptyObjects.EMPTY_MAP.size());
+        Assert.assertEquals(new ArrayList<>().size(), EmptyObjects.EMPTY_LIST.size());
     }
 
 }

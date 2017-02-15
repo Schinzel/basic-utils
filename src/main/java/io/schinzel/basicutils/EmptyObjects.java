@@ -1,6 +1,7 @@
 package io.schinzel.basicutils;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,5 +40,9 @@ public class EmptyObjects {
      * An empty map.
      */
     public static final Map EMPTY_MAP = Collections.emptyMap();
+    /**
+     * An empty list.
+     */
+    public static final List EMPTY_LIST = Collections.EMPTY_LIST;
 
 }
