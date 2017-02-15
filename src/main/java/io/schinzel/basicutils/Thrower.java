@@ -55,22 +55,51 @@ public class Thrower {
 
 
     /**
-     * Throw runtime exception if argument value is less than argument min or
+     * Throws runtime exception if argument value is less than argument min or
      * larger than argument max.
      *
      * @param value The value to check
-     * @param valueName The name of the value to check
+     * @param variable The name of the variable that holds the value. Used to
+     * create more useful exception message.
      * @param min The minimum allowed value that the argument value can have
      * @param max The maximum allowed value that the argument value can have
      */
-    public static void throwIfOutsideRange(int value, String valueName, int min, int max) {
-        if (max < min) {
-            throw new RuntimeException("Error using method. Max cannot be smaller than min");
+    public static void throwIfOutsideRange(int value, String variable, int min, int max) {
+        Thrower.throwIfTrue((max < min), "Error using method. Max cannot be smaller than min.");
+        Thrower.throwIfEmpty(variable, "variable");
+        Thrower.throwIfTooSmall(value, variable, min);
+        Thrower.throwIfTooLarge(value, variable, max);
+    }
+
+
+    /**
+     * Throws a runtime exception if argument value is less than argument min.
+     *
+     * @param value The value to check.
+     * @param variable The name of the variable that holds the value. Used to
+     * create more useful exception message.
+     * @param min The min value the argument value should not be less than.
+     */
+    public static void throwIfTooSmall(int value, String variable, int min) {
+        if (value < min) {
+            String message = String.format("The value %1$d in variable '%2$s' is too small. Min value is %3$d.", value, variable, min);
+            throw new RuntimeException(message);
         }
-        if (value < min || value > max) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Requested value ").append(value).append(" for '").append(valueName).append("' is not allowed. Min value is ").append(min).append(" and max value is ").append(max).append(".");
-            throw new RuntimeException(sb.toString());
+    }
+
+
+    /**
+     * Throws a runtime exception if argument value is less than argument min.
+     *
+     * @param value The value to check.
+     * @param variable The name of the variable that holds the value. Used to
+     * create more useful exception message.
+     * @param max The max value the argument value should not be larger than.
+     */
+    public static void throwIfTooLarge(int value, String variable, int max) {
+        if (value > max) {
+            String message = String.format("The value %1$d in variable '%2$s' is too large. Max value is %3$d.", value, variable, max);
+            throw new RuntimeException(message);
         }
     }
 

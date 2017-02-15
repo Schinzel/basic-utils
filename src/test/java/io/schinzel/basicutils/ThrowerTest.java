@@ -41,42 +41,51 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void testThrowErrorIfOutsideRange() {
-        Thrower.throwIfOutsideRange(1, null, 1, 1);
-        Thrower.throwIfOutsideRange(1, null, 1, 10);
-        Thrower.throwIfOutsideRange(-1000, null, -1000, 10);
-        Thrower.throwIfOutsideRange(10, null, 1, 10);
-        Thrower.throwIfOutsideRange(-1000, null, -2000, -1000);
+        Thrower.throwIfOutsideRange(1, "varre", 1, 1);
+        Thrower.throwIfOutsideRange(1, "varre", 1, 10);
+        Thrower.throwIfOutsideRange(-1000, "varre", -1000, 10);
+        Thrower.throwIfOutsideRange(10, "varre", 1, 10);
+        Thrower.throwIfOutsideRange(-1000, "varre", -2000, -1000);
         exception.expect(RuntimeException.class);
         exception.expectMessage("Error using method.");
         Thrower.throwIfOutsideRange(-1000, null, 100, 10);
     }
 
+    
+    @Test
+    public void testThrowErrorIfOutsideRange_testFullMessage() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("The value 0 in variable 'varre' is too small. Min value is 1.");
+        Thrower.throwIfOutsideRange(0, "varre", 1, 10);
+    }
+    
+    
     @Test
     public void testThrowErrorIfOutsideRange2() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Requested value ");
-        Thrower.throwIfOutsideRange(0, null, 1, 10);
+        exception.expectMessage("The value ");
+        Thrower.throwIfOutsideRange(0, "varre", 1, 10);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange3() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Requested value ");
-        Thrower.throwIfOutsideRange(11, null, 1, 10);
+        exception.expectMessage("The value ");
+        Thrower.throwIfOutsideRange(11, "varre", 1, 10);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange4() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Requested value ");
-        Thrower.throwIfOutsideRange(-101, null, -100, -10);
+        exception.expectMessage("The value ");
+        Thrower.throwIfOutsideRange(-101, "varre", -100, -10);
     }
 
     @Test
     public void testThrowErrorIfOutsideRange5() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Requested value ");
-        Thrower.throwIfOutsideRange(-9, null, -100, -10);
+        exception.expectMessage("The value ");
+        Thrower.throwIfOutsideRange(-9, "varre", -100, -10);
     }
 
     @Test
