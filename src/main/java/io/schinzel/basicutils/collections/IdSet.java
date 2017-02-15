@@ -18,10 +18,10 @@ import java.util.TreeMap;
  * A more succinct and easier-on-the-eyes version of storing values with
  * identifiers.
  *
- * Map<String, MyValue> myMap = new HashMap<<(); MyValue myValue = new
+ * {@literal (Map<String, MyValue> myMap = new HashMap<<(); MyValue myValue = new
  * MyValue("ABC"); myMap.add(myValue.getStringId, myValue);
  *
- * IdSet<MyValue> mySet = IdSet.create().add(new MyValue("ABC");
+ * IdSet<MyValue> mySet = IdSet.create().add(new MyValue("ABC");}
  *
  * @author schinzel
  * @param <V> The type of element to store in the collection.
@@ -44,7 +44,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     private IdSet() {
     }
 
-
     /**
      *
      * @return A freshly minted instance.
@@ -52,7 +51,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public static IdSet create() {
         return new IdSet();
     }
-
 
     //*************************************************************************
     //* ADD REMOVE
@@ -70,7 +68,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         mMap.put(id, value);
         return this;
     }
-
 
     /**
      * Adds an alias for an id. For example: Lets assume there is an object
@@ -95,7 +92,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return this;
     }
 
-
     /**
      *
      * @param value
@@ -105,7 +101,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         this.add(value);
         return value;
     }
-
 
     /**
      * Removes argument id from collection. If no value with argument id exists
@@ -122,7 +117,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return this;
     }
 
-
     //*************************************************************************
     //* UTIL
     //*************************************************************************
@@ -134,7 +128,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return mMap.size();
     }
 
-
     /**
      *
      * @return True if there are no values in this set.
@@ -142,7 +135,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public boolean isEmpty() {
         return mMap.isEmpty();
     }
-
 
     /**
      *
@@ -153,12 +145,10 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return mMap.containsKey(id);
     }
 
-
     @Override
     public Iterator<V> iterator() {
         return mMap.values().iterator();
     }
-
 
     //*************************************************************************
     //* GET VALUES
@@ -183,7 +173,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return value;
     }
 
-
     /**
      *
      * @param ids
@@ -206,7 +195,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return values;
     }
 
-
     /**
      * Example: Collection: "A1, A2, B1, B2, C1, C"" Argument: "B*" Output: "B1,
      * B2"
@@ -225,7 +213,6 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return values;
     }
 
-
     /**
      *
      * @return The values held.
@@ -233,6 +220,5 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public Collection<V> values() {
         return mMap.values();
     }
-
 
 }
