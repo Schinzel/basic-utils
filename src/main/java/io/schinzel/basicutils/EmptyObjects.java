@@ -12,11 +12,6 @@ import java.util.Map;
 public class EmptyObjects {
 
     /**
-     * Package private constructor as this class should not be instantiated.
-     */
-    EmptyObjects() {
-    }
-    /**
      * An empty byte array.
      */
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
@@ -44,5 +39,12 @@ public class EmptyObjects {
      * An empty list.
      */
     public static final List EMPTY_LIST = Collections.EMPTY_LIST;
+
+
+    /**
+     * Package private constructor as this class should not be instantiated.
+     */
+    EmptyObjects() {
+    }
 
 }
