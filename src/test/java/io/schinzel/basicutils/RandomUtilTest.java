@@ -258,7 +258,6 @@ public class RandomUtilTest {
     @Test
     public void testGetPaddedInt_incorrectPaddingArgToSmall() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Requested value ");
         RandomUtil.create(1234).getPaddedInt(100, 200, 0);
     }
 
@@ -266,7 +265,6 @@ public class RandomUtilTest {
     @Test
     public void testGetPaddedInt_incorrectPaddingArgToLarge() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Requested value ");
         RandomUtil.create(1234).getPaddedInt(100, 200, 1000);
     }
 
