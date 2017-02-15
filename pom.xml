@@ -4,7 +4,7 @@
     <artifactId>basic-utils</artifactId>
     <packaging>jar</packaging>
     <groupId>io.schinzel</groupId>
-    <version>1.10</version>
+    <version>1.10-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,6 +25,22 @@
     </distributionManagement>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <!-- Plug in for attaching sources to deploys -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.0.4</version>
+                </plugin>
+                <plugin>
+                    <!-- Plug in for java doc to deploys -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>        
         <extensions>
             <!-- Enables communication between Maven and Amazon S3.
             Used to transfer deploys to maven repo. -->
@@ -35,9 +51,9 @@
             </extension>
         </extensions>
         <plugins>
-            <!-- Used on Codeship to generate test reports.
-            These are then sent to Coveralls.io. -->
             <plugin>
+                <!-- Used on Codeship to generate test reports.
+                These are then sent to Coveralls.io. -->
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <!--2.7 does not work with Netbeans code coverage.-->
@@ -51,22 +67,48 @@
                     </formats>
                 </configuration>
                 <dependencies>
-                    <!--Cobertura 2.0.3 depends on ASM 4.1, which doesn't support Java 8.-->
                     <dependency>
+                        <!--Cobertura 2.0.3 depends on ASM 4.1, which doesn't support Java 8.-->
                         <groupId>org.ow2.asm</groupId>
                         <artifactId>asm</artifactId>
                         <version>5.0.3</version>
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- Used on Codeship to send reports to Coveralls.io. -->
             <plugin>
+                <!-- Used on Codeship to send reports to Coveralls.io. -->
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>4.3.0</version>
                 <configuration>
                     <repoToken>${env.COVERALLS_REPO_TOKEN}</repoToken>
                 </configuration>
+            </plugin>
+            <plugin>
+                <!-- Attach soruces --> 
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- Attach java doc --> 
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
