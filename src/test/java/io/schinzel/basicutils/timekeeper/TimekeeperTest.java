@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.timekeeper;
 
-import io.schinzel.basicutils.timekeeper.Timekeeper;
 import io.schinzel.json.JsonOrdered;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -146,14 +145,14 @@ public class TimekeeperTest {
         JSONArray secondLevelChildren = B.getJSONArray("children");
         JSONObject B1 = secondLevelChildren.getJSONObject(0);
         JSONObject B2 = secondLevelChildren.getJSONObject(1);
-        //Check that B1's total time is between 100 and 120 ms
+        //Check that B1's total time is between 100 and 130 ms
         Double b1Tot = B1.getDouble("Tot");
         assertThat(b1Tot, greaterThanOrEqualTo(100d));
-        assertThat(b1Tot, lessThan(120d));
-        //Check that B2's total times is between 100 and 120 ms
+        assertThat(b1Tot, lessThan(130d));
+        //Check that B2's total times is between 100 and 130 ms
         Double b2Tot = B2.getDouble("Tot");
         assertThat(b2Tot, greaterThanOrEqualTo(100d));
-        assertThat(b2Tot, lessThan(120d));
+        assertThat(b2Tot, lessThan(130d));
     }
     
     
