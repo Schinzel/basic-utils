@@ -23,7 +23,7 @@ class NumberFormatter {
      * @param value
      * @return The argument value with space as thousands separator.
      */
-    static String format(int value) {
+    public static String format(int value) {
         return NumberFormatter.format((long) value);
     }
 
@@ -33,7 +33,7 @@ class NumberFormatter {
      * @param value
      * @return he argument value with space as thousands separator.
      */
-    static String format(long value) {
+    public static String format(long value) {
         return String.format(Locale.US, "%,d", value).replace(",", " ");
     }
 
@@ -45,7 +45,7 @@ class NumberFormatter {
      * @return he argument value with space as thousands separator rounded to
      * the argument number of decimals.
      */
-    static String format(float value, int numOfDecimals) {
+    public static String format(float value, int numOfDecimals) {
         return NumberFormatter.format((double) value, numOfDecimals);
     }
 
@@ -57,7 +57,7 @@ class NumberFormatter {
      * @return he argument value with space as thousands separator rounded to
      * the argument number of decimals.
      */
-    static String format(double value, int numOfDecimals) {
+    public static String format(double value, int numOfDecimals) {
         return String.format(Locale.US, "%,." + numOfDecimals + "f", value)
                 .replace(",", " ");
     }

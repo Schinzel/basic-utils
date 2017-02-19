@@ -8,10 +8,10 @@ import java.util.List;
  *
  * @author schinzel
  */
-class TestClass implements IStateNode {
+class TestClass implements IStateReturner {
 
     final String mName;
-    List<IStateNode> mChildren = new ArrayList<>();
+    List<IStateReturner> mChildren = new ArrayList<>();
 
     TestClass(String name) {
         mName = name;
@@ -20,9 +20,11 @@ class TestClass implements IStateNode {
 
     @Override
     public State getState() {
-        return State.create()
+        return State.getBuilder()
                 .add("Name", mName)
-                .addChildren(mChildren.iterator());
+                .addChildren("mykids", mChildren.iterator())
+                .build();
+                
     }
 
     @Override

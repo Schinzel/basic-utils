@@ -1,8 +1,9 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Thrower;
-import io.schinzel.basicutils.state.IStateNode;
+import io.schinzel.basicutils.state.IStateReturner;
 import io.schinzel.basicutils.state.State;
+import io.schinzel.basicutils.state.StateBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -12,7 +13,7 @@ import java.util.Map;
  *
  * @author schinzel
  */
-class Lap implements IStateNode {
+class Lap implements IStateReturner {
 
     /**
      * The name of this alp.
@@ -30,6 +31,7 @@ class Lap implements IStateNode {
      * Measures the time.
      */
     private final StopWatch mStopWatch = StopWatch.create();
+
 
     /**
      *
@@ -136,7 +138,7 @@ class Lap implements IStateNode {
     @Override
     public State getState() {
         Thrower.throwIfTrue(mStopWatch.isStarted(), "Cannot get results for '" + mName + "' as has not been stopped.");
-        State state = State.create()
+        StateBuilder state = State.getBuilder()
                 .add("Name", mName);
         if (mParent != null) {
             state.add("Root", this.getPercentOfRoot(), 0);
@@ -146,11 +148,10 @@ class Lap implements IStateNode {
                 .add("Avg", mStopWatch.getAvgInMs(), 2)
                 .add("Hits", mStopWatch.getLaps());
         if (!mChildren.isEmpty()) {
-            state.addChildren(mChildren.values().iterator());
+            state.addChildren("sublaps", mChildren.values().iterator());
         }
-        return state;
+        return state.build();
 
     }
-
 
 }

@@ -1,177 +1,150 @@
 package io.schinzel.basicutils.state;
 
-import com.google.common.base.Joiner;
 import com.google.common.base.Strings;
-import io.schinzel.basicutils.Thrower;
 import io.schinzel.json.JsonOrdered;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import org.json.JSONArray;
 
 /**
- * The purpose of this class to hold a set of properties.
+ * The purpose of this class give a snapshot state of the object returning this
+ * object and all its children.
  *
  * @author schinzel
  */
 public class State {
 
-    Map<String, Object> mProperties = new LinkedHashMap<>();
-    List<IStateNode> mChildren = new ArrayList<>();
-
-    private State() {
-    }
-
-
-    public static State create() {
-        return new State();
-    }
-
-
-    public State add(String key, String val) {
-        Thrower.throwIfEmpty(key, "key");
-        Thrower.throwIfEmpty(val, "val");
-        mProperties.put(key, val);
-        return this;
-    }
-
-
-    public State add(String key, int value) {
-        return this.add(key, NumberFormatter.format(value));
-    }
-
-
-    public State add(String key, long value) {
-        return this.add(key, NumberFormatter.format(value));
-    }
-
-
-    public State add(String key, double value) {
-        return this.add(key, value, 2);
-    }
-
-
-    public State add(String key, double value, int numOfDecimals) {
-        return this.add(key, NumberFormatter.format(value, numOfDecimals));
-    }
-
-
-    public State add(String key, float value) {
-        return this.add(key, value, 2);
-    }
-
-
-    public State add(String key, Map map) {
-        String val = "{" + Joiner.on(",")
-                .withKeyValueSeparator(":")
-                .join(map) + "}";
-        return this.add(key, val);
-    }
-
-
-    public State add(String key, List list) {
-        String val = "{" + Joiner.on(",").join(list) + "}";
-        return this.add(key, val);
-    }
-
-
-    public State add(String key, float value, int numOfDecimals) {
-        return this.add(key, NumberFormatter.format(value, numOfDecimals));
-    }
-
-
-    public State addChild(IStateNode iStateNode) {
-        mChildren.add(iStateNode);
-        return this;
-    }
-
-
-    public State addChildren(Iterator children) {
-        while (children.hasNext()) {
-            mChildren.add((IStateNode) children.next());
-        }
-        return this;
-    }
-
-
-    //*************************************************************************
-    //* GET PROPERTIES
-    //*************************************************************************
     /**
-     *
-     * @return The properties held by this object.
+     * A list of properties.
      */
-    Map<String, Object> getProperties() {
-        return mProperties;
-    }
-
-
-    List<IStateNode> getChildren() {
-        return mChildren;
-    }
-
-
+    final List<Property> mProperties;
     /**
-     *
-     * @return The argument node and all its sub-nodes as a human readable
-     * string.
+     * Named children of this state object.
      */
-    @Override
-    public String toString() {
-        return this.getStateTreeAsString(0, new StringBuilder()).toString();
-    }
-
-
+    final Map<String, State> mChildren;
     /**
-     *
-     * @param depth The current depth in the tree to render.
-     * @param sb The generated string is added to this string builder.
-     * @return The argument node and all its sub-nodes as a human readable
-     * string.
+     * Named lists of children of this state object.
      */
-    private StringBuilder getStateTreeAsString(int depth, StringBuilder sb) {
-        sb.append(Strings.repeat("--", depth))
-                .append(" ")
-                .append(this.getPropsAsString())
-                .append("\n");
-        this.getChildren().forEach(child
-                -> child.getState().getStateTreeAsString(depth + 1, sb));
-        return sb;
-    }
+    final Map<String, List<State>> mChildLists;
 
 
+    //------------------------------------------------------------------------
+    // CONSTRUCTION
+    //------------------------------------------------------------------------
     /**
      *
-     * @return The properties as a string.
+     * @return A builder to construct a state object.
      */
-    String getPropsAsString() {
-        return Joiner.on(" ")
-                .withKeyValueSeparator(":")
-                .join(this.getProperties());
-
+    public static StateBuilder getBuilder() {
+        return new StateBuilder();
     }
 
 
     /**
      *
-     * @return The state of this object and all it's sub-objects as a JSON
-     * object.
+     * @param stateBuilder A state builder.
+     */
+    State(StateBuilder stateBuilder) {
+        mProperties = stateBuilder.mProperties;
+        mChildren = stateBuilder.mChildren;
+        mChildLists = stateBuilder.mChildLists;
+    }
+
+
+    //------------------------------------------------------------------------
+    // PUBLIC
+    //------------------------------------------------------------------------
+    /**
+     *
+     * @return A snapshot of the state of this object and its children.
+     */
+    public String getString() {
+        return Str.create().a(this.getPropertiesAsString()).nl()
+                .a(this.getChildrenAsString(0)).toString();
+    }
+
+
+    /**
+     *
+     * @return A snapshot of the state of this object and its children.
      */
     public JsonOrdered getJson() {
-        JsonOrdered json = new JsonOrdered(this.getProperties());
-        List<IStateNode> children = this.getChildren();
-        if (!children.isEmpty()) {
+        JsonOrdered json = JsonOrdered.create();
+        //Add all properties to return
+        mProperties.forEach((prop) -> {
+            json.put(prop.getKey(), prop.getObject());
+        });
+        //Add all children and their children recursivly
+        mChildren.forEach((key, childState) -> {
+            json.put(key, childState.getJson());
+        });
+        //Add all child-lists and their children recursivly
+        mChildLists.forEach((key, siblings) -> {
             JSONArray ja = new JSONArray();
-            for (IStateNode child : children) {
-                ja.put(child.getState().getJson());
-            }
-            json.put("children", ja);
-        }
+            siblings.forEach((childState) -> {
+                ja.put(childState.getJson());
+            });
+            json.put(key, ja);
+        });
         return json;
-
     }
 
+
+    //------------------------------------------------------------------------
+    // PACKAGE PRIVATE 
+    //------------------------------------------------------------------------
+    /**
+     *
+     * @return The properties - but not its children - as a string.
+     */
+    String getPropertiesAsString() {
+        return "(" + mProperties
+                .stream()
+                .map(Property::getString)
+                .collect(Collectors.joining(" ")) + ")";
+    }
+
+
+    /**
+     *
+     * @param depth The depth in the tree.
+     * @return A string representation of this node's children.
+     */
+    Str getChildrenAsString(int depth) {
+        Str str = Str.create();
+        //Add all children and their children recursivly
+        mChildren.forEach((key, child) -> {
+            str.a(indentation(depth)).a(key).a(":")
+                    //Get the str representation of current child's preoperties
+                    .a(child.getPropertiesAsString()).nl()
+                    //Get the str represention of current child's children
+                    .a(child.getChildrenAsString(depth + 1));
+        });
+        //Add all child-lists and their children recursivly
+        mChildLists.forEach((key, childList) -> {
+            //Add key for current child list
+            str.a(indentation(depth)).a(key).a(":").nl();
+            //For each list in child list
+            childList.forEach(child -> {
+                str.a(indentation(depth))
+                        //Get the str representation of current child's preoperties
+                        .a(child.getPropertiesAsString()).nl()
+                        //Get the str represention of current child's children
+                        .a(child.getChildrenAsString(depth + 1));
+            });
+        });
+        return str;
+    }
+
+
+    /**
+     *
+     * @param depth The depth to get an indentation for.
+     * @return The indentation of the argument depth.
+     */
+    static String indentation(int depth) {
+        return Strings.repeat("   ", depth);
+    }
 
 }
