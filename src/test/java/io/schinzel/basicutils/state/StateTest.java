@@ -55,17 +55,18 @@ public class StateTest {
 
     @Test
     public void testOrder() {
-        Map<String, Object> props = State.create()
+        List<Property> props = State.getBuilder()
                 .add("A", 1)
                 .add("B", 2)
                 .add("C", 3)
                 .add("D", 4)
-                .add("E", 5).mProperties;
-        String prevValue = "0";
-        for (Object o : props.values()) {
-            Assert.assertThat("value", Integer.valueOf(o.toString()),
-                    greaterThan(Integer.valueOf(prevValue)));
-            prevValue = o.toString();
+                .add("E", 5)
+                .build().mProperties;
+        Long prevValue = 0l;
+        for (Property prop : props) {
+            Assert.assertThat("value", (Long)prop.getObject(),
+                    greaterThan(prevValue));
+            prevValue = (Long)prop.getObject();
         }
     }
 
