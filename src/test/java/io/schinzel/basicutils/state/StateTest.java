@@ -32,13 +32,13 @@ public class StateTest {
         Assert.assertEquals("a string", props.get(0).getObject());
         //Check int        
         Assert.assertEquals("the_int", props.get(1).mKey);
-        Assert.assertEquals("123456789", props.get(1).mValueAsString);
-        Assert.assertEquals("the_int:123456789", props.get(1).getString());
+        Assert.assertEquals("123 456 789", props.get(1).mValueAsString);
+        Assert.assertEquals("the_int:123 456 789", props.get(1).getString());
         Assert.assertEquals(new Long(123456789), props.get(1).getObject());
         //Check long
         Assert.assertEquals("the_long", props.get(2).mKey);
-        Assert.assertEquals("1234567890", props.get(2).mValueAsString);
-        Assert.assertEquals("the_long:1234567890", props.get(2).getString());
+        Assert.assertEquals("1 234 567 890", props.get(2).mValueAsString);
+        Assert.assertEquals("the_long:1 234 567 890", props.get(2).getString());
         Assert.assertEquals(new Long(1234567890), props.get(2).getObject());
         //Check double
         Assert.assertEquals("the_double", props.get(3).mKey);

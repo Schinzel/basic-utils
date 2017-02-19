@@ -84,7 +84,7 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, long val) {
-        String valAsStr = String.valueOf(val);
+        String valAsStr = NumberFormatter.format(val);        
         mProperties.add(new Property(key, valAsStr, val));
         return this;
     }
