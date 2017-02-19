@@ -95,11 +95,12 @@ public class StateTest {
 
     @Test
     public void testGetPropsAsString() {
-        String result = State.create()
+        String result = State.getBuilder()
                 .add("A", 1)
                 .add("B", 2)
-                .getPropsAsString();
-        String expected = "A:1 B:2";
+                .build()
+                .getString();
+        String expected = "(A:1 B:2)\n";
         Assert.assertEquals(expected, result);
     }
 
