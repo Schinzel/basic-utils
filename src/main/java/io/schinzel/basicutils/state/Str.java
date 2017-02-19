@@ -6,7 +6,7 @@ package io.schinzel.basicutils.state;
  *
  * @author schinzel
  */
-public class Str {
+class Str {
 
     /**
      * New line delimiter.

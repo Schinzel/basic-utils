@@ -142,7 +142,7 @@ public class StateBuilder {
      * @param child The child to add.
      * @return This for chaining.
      */
-    public StateBuilder addChild(String key, IStateReturner child) {
+    public StateBuilder addChild(String key, IStateNode child) {
         mChildren.put(key, child.getState());
         return this;
     }
@@ -156,9 +156,9 @@ public class StateBuilder {
      * @param children The children to add.
      * @return This for chaining.
      */
-    public StateBuilder addChildren(String key, Iterator<? extends IStateReturner> children) {
+    public StateBuilder addChildren(String key, Iterator<? extends IStateNode> children) {
         List<State> childList = Streams.stream(children)
-                .map(IStateReturner::getState)
+                .map(IStateNode::getState)
                 .collect(Collectors.toList());
         mChildLists.put(key, childList);
         return this;

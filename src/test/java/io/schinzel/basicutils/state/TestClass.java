@@ -8,10 +8,10 @@ import java.util.List;
  *
  * @author schinzel
  */
-class TestClass implements IStateReturner {
+class TestClass implements IStateNode {
 
     final String mName;
-    List<IStateReturner> mChildren = new ArrayList<>();
+    List<IStateNode> mChildren = new ArrayList<>();
 
     TestClass(String name) {
         mName = name;

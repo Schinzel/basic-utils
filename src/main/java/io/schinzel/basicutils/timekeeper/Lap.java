@@ -1,11 +1,11 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Thrower;
-import io.schinzel.basicutils.state.IStateReturner;
 import io.schinzel.basicutils.state.State;
 import io.schinzel.basicutils.state.StateBuilder;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import io.schinzel.basicutils.state.IStateNode;
 
 /**
  * The purpose of this class be a lap in a tree of laps. The laps knows it's
@@ -13,7 +13,7 @@ import java.util.Map;
  *
  * @author schinzel
  */
-class Lap implements IStateReturner {
+class Lap implements IStateNode {
 
     /**
      * The name of this alp.

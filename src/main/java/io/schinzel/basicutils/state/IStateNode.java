@@ -6,7 +6,7 @@ package io.schinzel.basicutils.state;
  *
  * @author schinzel
  */
-public interface IStateReturner {
+public interface IStateNode {
 
     State getState();
 
