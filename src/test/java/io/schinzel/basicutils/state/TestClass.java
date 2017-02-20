@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.RandomUtil;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,10 +11,12 @@ import java.util.List;
 class TestClass implements IStateNode {
 
     final String mName;
+    final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();
 
-    TestClass(String name) {
+    TestClass(String name, int cost) {
         mName = name;
+        mCost = cost;
     }
 
 
@@ -23,7 +24,7 @@ class TestClass implements IStateNode {
     public State getState() {
         return State.getBuilder()
                 .add("Name", mName)
-                .add("Cost", RandomUtil.getRandomNumber(10, 99))
+                .add("Cost", mCost)
                 .addChildren("mykids", mChildren.iterator())
                 .build();
                 

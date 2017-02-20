@@ -105,36 +105,23 @@ public class StateTest {
     }
 
 
-    /*@Test
-    public void testAddChild() {
-        TestClass a1 = new TestClass("A1");
-        TestClass b2 = new TestClass("B2");
-        State state = State.getBuilder()
-                .add("A", 1)
-                .add("B", 2)
-                .addChild("name1", a1)
-                .addChild("name2", b2)
-                .build();
-        Object o = state.mChildren.get("name1");
-        Assert.assertEquals(a1.getState(), o);
-        //Assert.assertEquals(b2, state.mChildren.get("name2"));
-    }*/
-
-
     @Test
     public void testGetString() {
-        TestClass a1 = new TestClass("A1");
-        a1.mChildren.add(new TestClass(("B1")));
-        TestClass b2 = new TestClass("B2");
-        b2.mChildren.add(new TestClass(("B2X")));
+        TestClass a1 = new TestClass("A1", 10);
+        a1.mChildren.add(new TestClass("B1", 17));
+        TestClass b2 = new TestClass("B2", 18);
+        b2.mChildren.add(new TestClass("B2X", 99));
         a1.mChildren.add(b2);
         String s = a1.getState().getString();
         System.out.println(s);
-        String expected = " Name:A1\n"
-                + "-- Name:B1\n"
-                + "-- Name:B2\n"
-                + "---- Name:B2X\n";
-        String result = a1.toString();
+        String expected = "Name:A1 Cost:10\n"
+                + "mykids\n"
+                + "┗━ Name:B1 Cost:17\n"
+                + "┗━ Name:B2 Cost:18\n"
+                + "   ┗━ mykids\n"
+                + "      ┗━ Name:B2X Cost:99\n"
+                + "";
+        String result = a1.getState().getString();
         Assert.assertEquals(expected, result);
     }
 
