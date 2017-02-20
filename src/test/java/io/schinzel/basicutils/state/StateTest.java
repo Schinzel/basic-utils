@@ -1,10 +1,6 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.collections.MapBuilder;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import org.hamcrest.CoreMatchers;
 import static org.hamcrest.Matchers.greaterThan;
 import org.junit.Assert;
 import org.junit.Test;
@@ -100,7 +96,7 @@ public class StateTest {
                 .add("B", 2)
                 .build()
                 .getString();
-        String expected = "(A:1 B:2)\n";
+        String expected = "A:1 B:2\n";
         Assert.assertEquals(expected, result);
     }
 
@@ -112,8 +108,6 @@ public class StateTest {
         TestClass b2 = new TestClass("B2", 18);
         b2.mChildren.add(new TestClass("B2X", 99));
         a1.mChildren.add(b2);
-        String s = a1.getState().getString();
-        System.out.println(s);
         String expected = "Name:A1 Cost:10\n"
                 + "mykids\n"
                 + "┗━ Name:B1 Cost:17\n"
@@ -123,28 +117,6 @@ public class StateTest {
                 + "";
         String result = a1.getState().getString();
         Assert.assertEquals(expected, result);
-    }
-
-
-    @Test
-    public void testAddMap() {
-        Map<String, Integer> map = MapBuilder.create()
-                .add("A", 1)
-                .add("B", 2)
-                .add("C", 3)
-                .getMap();
-        String result = State.create().add("akey", map).toString();
-        String expected = "{A:1,B:2,C:3}";
-        Assert.assertThat(result, CoreMatchers.containsString(expected));
-    }
-
-
-    @Test
-    public void testAddList() {
-        List<String> list = Arrays.asList(new String[]{"A", "B", "C"});
-        String result = State.create().add("a_key", list).toString();
-        String expected = "{A,B,C}";
-        Assert.assertThat(result, CoreMatchers.containsString(expected));
     }
 
 }
