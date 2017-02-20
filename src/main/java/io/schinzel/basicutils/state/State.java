@@ -99,10 +99,10 @@ public class State {
      * @return The properties - but not its children - as a string.
      */
     String getPropertiesAsString() {
-        return "(" + mProperties
+        return mProperties
                 .stream()
                 .map(Property::getString)
-                .collect(Collectors.joining(" ")) + ")";
+                .collect(Collectors.joining(" "));
     }
 
 
@@ -115,7 +115,7 @@ public class State {
         Str str = Str.create();
         //Add all children and their children recursivly
         mChildren.forEach((key, child) -> {
-            str.a(indentation(depth)).a(key).a(":")
+            str.a(indentation(depth)).a(key)
                     //Get the str representation of current child's preoperties
                     .a(child.getPropertiesAsString()).nl()
                     //Get the str represention of current child's children
@@ -124,14 +124,14 @@ public class State {
         //Add all child-lists and their children recursivly
         mChildLists.forEach((key, childList) -> {
             //Add key for current child list
-            str.a(indentation(depth)).a(key).a(":").nl();
+            str.a(indentation(depth)).a(key).nl();
             //For each list in child list
             childList.forEach(child -> {
-                str.a(indentation(depth))
+                str.a(indentation(depth+1))
                         //Get the str representation of current child's preoperties
                         .a(child.getPropertiesAsString()).nl()
                         //Get the str represention of current child's children
-                        .a(child.getChildrenAsString(depth + 1));
+                        .a(child.getChildrenAsString(depth + 2));
             });
         });
         return str;
@@ -144,7 +144,7 @@ public class State {
      * @return The indentation of the argument depth.
      */
     static String indentation(int depth) {
-        return Strings.repeat("   ", depth);
+        return depth == 0 ? "" : Strings.repeat("   ", depth-1) + "┗━ ";
     }
 
 }

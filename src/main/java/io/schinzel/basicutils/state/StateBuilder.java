@@ -84,7 +84,7 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, long val) {
-        String valAsStr = NumberFormatter.format(val);        
+        String valAsStr = NumberFormatter.format(val);
         mProperties.add(new Property(key, valAsStr, val));
         return this;
     }
@@ -95,7 +95,7 @@ public class StateBuilder {
      * @param key The key of the argument value.
      * @param val The value to add.
      * @param numOfDecimals The number of decimals to display in the string
-     * representation of the argument value. 
+     * representation of the argument value.
      * @return This for chaining.
      */
     public StateBuilder add(String key, float val, int numOfDecimals) {
@@ -108,7 +108,7 @@ public class StateBuilder {
      * @param key The key of the argument value.
      * @param val The value to add.
      * @param numOfDecimals The number of decimals to display in the string
-     * representation of the argument value. 
+     * representation of the argument value.
      * @return This for chaining.
      */
     public StateBuilder add(String key, double val, int numOfDecimals) {
@@ -160,7 +160,9 @@ public class StateBuilder {
         List<State> childList = Streams.stream(children)
                 .map(IStateNode::getState)
                 .collect(Collectors.toList());
-        mChildLists.put(key, childList);
+        if (!childList.isEmpty()) {
+            mChildLists.put(key, childList);
+        }
         return this;
     }
 
