@@ -27,7 +27,7 @@ public class MiscUtilTest extends MiscUtil {
             MiscUtil.snooze(snoozeTimeInMillis);
             //Check that the snooze does not differ more than 20 ms of the requested snooze time.
             assertThat(LocalDateTime.now(),
-                    within(20, ChronoUnit.MILLIS, start.plus(snoozeTimeInMillis, ChronoUnit.MILLIS)));
+                    within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInMillis, ChronoUnit.MILLIS)));
         }
     }
 
@@ -39,7 +39,7 @@ public class MiscUtilTest extends MiscUtil {
         MiscUtil.snoozeSeconds(snoozeTimeInSeconds);
         //Check that the snooze does not differ more than 20 ms of the requested snooze time.
         assertThat(LocalDateTime.now(),
-                within(20, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
+                within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
     }
 
 
