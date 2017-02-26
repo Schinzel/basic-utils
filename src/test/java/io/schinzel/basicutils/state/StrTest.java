@@ -3,6 +3,9 @@ package io.schinzel.basicutils.state;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.Assert.*;
 
 /**
@@ -34,5 +37,15 @@ public class StrTest {
         Assert.assertEquals("1.1", Str.create().a(1.123456f, 1).toString());
         Assert.assertEquals("1", Str.create().a(1.123456f, 0).toString());
         Assert.assertEquals("1,234.12346", Str.create().a(1234.123456789d, 5).toString());
+    }
+
+
+    @Test
+    public void testPln() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        Str.create().a("Monkey!").pln();
+        assertEquals("Monkey!\n", outContent.toString());
+        System.setOut(null);
     }
 }
