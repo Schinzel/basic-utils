@@ -8,13 +8,13 @@ import java.util.List;
  *
  * @author schinzel
  */
-class TestClass implements IStateNode {
+class MyClass implements IStateNode {
 
     final String mName;
     final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();
 
-    TestClass(String name, int cost) {
+    MyClass(String name, int cost) {
         mName = name;
         mCost = cost;
     }

@@ -107,10 +107,10 @@ public class StateTest {
 
     @Test
     public void testGetString() {
-        TestClass a1 = new TestClass("A1", 10);
-        TestClass b1 = new TestClass("B1", 17);
-        TestClass b2 = new TestClass("B2", 18);
-        TestClass b2x = new TestClass("B2X", 99);
+        MyClass a1 = new MyClass("A1", 10);
+        MyClass b1 = new MyClass("B1", 17);
+        MyClass b2 = new MyClass("B2", 18);
+        MyClass b2x = new MyClass("B2X", 99);
         a1.mChildren.add(b1);
         a1.mChildren.add(b2);
         b2.mChildren.add(b2x);
@@ -128,10 +128,10 @@ public class StateTest {
 
     @Test
     public void testGetJson() {
-        TestClass a1 = new TestClass("A1", 10);
-        TestClass b1 = new TestClass("B1", 17);
-        TestClass b2 = new TestClass("B2", 18);
-        TestClass b2x = new TestClass("B2X", 99);
+        MyClass a1 = new MyClass("A1", 10);
+        MyClass b1 = new MyClass("B1", 17);
+        MyClass b2 = new MyClass("B2", 18);
+        MyClass b2x = new MyClass("B2X", 99);
         a1.mChildren.add(b1);
         a1.mChildren.add(b2);
         b2.mChildren.add(b2x);
