@@ -76,6 +76,17 @@ public class StateTest {
 
 
     @Test
+    public void testBooleanProperty() {
+        List<Property> props = State.getBuilder()
+                .add("the_true", true)
+                .add("the_false", false)
+                .build().mProperties;
+        Assert.assertEquals("true", props.get(0).mValueAsString);
+        Assert.assertEquals("false", props.get(1).mValueAsString);
+    }
+
+
+    @Test
     public void testOrder() {
         List<Property> props = State.getBuilder()
                 .add("A", 1)
