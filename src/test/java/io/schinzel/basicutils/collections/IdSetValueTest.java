@@ -45,8 +45,6 @@ public class IdSetValueTest {
                 new MyClass(0, "-")
         );
         list = list.stream().sorted().collect(toList());
-        String s = list.stream().map(MyClass::getid).collect(joining(","));
-        System.out.println(s);
         int prev = -100;
         for(MyClass myClass: list){
             int current = myClass.mOrder;

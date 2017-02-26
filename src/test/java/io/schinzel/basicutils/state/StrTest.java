@@ -11,13 +11,13 @@ import static org.junit.Assert.*;
 public class StrTest {
     @Test
     public void testFormat_wholeNumbers() {
-        Assert.assertEquals("1", Str.create().a(1));
-        Assert.assertEquals("123", Str.create().a(123));
-        Assert.assertEquals("123,456", Str.create().a(123456));
-        Assert.assertEquals("-1,234", Str.create().a(-1234));
-        Assert.assertEquals("123,456", Str.create().a(123456l));
-        Assert.assertEquals("123", Str.create().a(Integer.valueOf(123)));
-        Assert.assertEquals("123,456,789,123,456,789", Str.create().a(Long.valueOf("123456789123456789")));
+        Assert.assertEquals("1", Str.create().a(1).toString());
+        Assert.assertEquals("123", Str.create().a(123).toString());
+        Assert.assertEquals("123,456", Str.create().a(123456).toString());
+        Assert.assertEquals("-1,234", Str.create().a(-1234).toString());
+        Assert.assertEquals("123,456", Str.create().a(123456l).toString());
+        Assert.assertEquals("123", Str.create().a(Integer.valueOf(123)).toString());
+        Assert.assertEquals("123,456,789,123,456,789", Str.create().a(Long.valueOf("123456789123456789")).toString());
     }
 
 
