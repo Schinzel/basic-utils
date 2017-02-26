@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
+import io.schinzel.basicutils.MiscUtil;
 import io.schinzel.json.JsonOrdered;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -49,8 +50,8 @@ public class TimekeeperTest {
                 .startLap("C").stopLap().stop();
         String str = tk.toString();
         int result = str.split("\n").length;
-        int expected = 4;
-        Assert.assertEquals(result, expected);
+        int expected = 5;
+        Assert.assertEquals(expected, result);
         tk.reset();
         tk = Timekeeper.getSingleton();
         tk.startLap("A");
@@ -60,7 +61,7 @@ public class TimekeeperTest {
         tk.stop();
         str = tk.toString();
         result = str.split("\n").length;
-        expected = 3;
+        expected = 4;
         Assert.assertEquals(expected, result);
     }
 
@@ -70,19 +71,22 @@ public class TimekeeperTest {
      */
     @Test
     public void testToJson() {
-        Timekeeper tk = Timekeeper
-                .getSingleton()
-                .startLap("A").stopLap()
-                .startLap("B").stopLap()
-                .startLap("C").stopLap().stop();
+        Timekeeper tk = Timekeeper.getSingleton();
+        tk.startLap("A");
+        MiscUtil.snooze(100);
+        tk.stopLap().startLap("B");
+        MiscUtil.snooze(100);
+        tk.stopLap().startLap("C");
+        MiscUtil.snooze(100);
+        tk.stopLap().stop();
         JsonOrdered json = tk.toJson();
         //Check that are 5 attributes "name", "tot", "avg" and so forth
         Assert.assertEquals(5, json.length());
         //Check that has 3 children
-        Assert.assertEquals(3, json.getJSONArray("children").length());
+        Assert.assertEquals(3, json.getJSONArray("sublaps").length());
         //Check that has 3 children
-        Assert.assertEquals(3, json.getJSONArray("children").length());
-        JSONObject firstChild = json.getJSONArray("children").getJSONObject(0);
+        Assert.assertEquals(3, json.getJSONArray("sublaps").length());
+        JSONObject firstChild = json.getJSONArray("sublaps").getJSONObject(0);
         //Check that child has 6 attributes. Same as root not plus "root"
         Assert.assertEquals(6, firstChild.length());
         Assert.assertEquals("A", firstChild.getString("Name"));
@@ -99,11 +103,11 @@ public class TimekeeperTest {
         Timekeeper timekeeper = TimekeeperUtil.getTimekeeper();
         JsonOrdered json = timekeeper.toJson();
         //Extract children
-        JSONArray firstLevelChildren = json.getJSONArray("children");
+        JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject A = firstLevelChildren.getJSONObject(0);
         JSONObject B = firstLevelChildren.getJSONObject(1);
         JSONObject C = firstLevelChildren.getJSONObject(2);
-        JSONArray secondLevelChildren = B.getJSONArray("children");
+        JSONArray secondLevelChildren = B.getJSONArray("sublaps");
         JSONObject B1 = secondLevelChildren.getJSONObject(0);
         JSONObject B2 = secondLevelChildren.getJSONObject(1);
         //Check hits
@@ -120,9 +124,9 @@ public class TimekeeperTest {
     public void testAvg() {
         JsonOrdered json = TimekeeperUtil.getTimekeeper().toJson();
         //Extract children
-        JSONArray firstLevelChildren = json.getJSONArray("children");
+        JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
-        JSONArray secondLevelChildren = B.getJSONArray("children");
+        JSONArray secondLevelChildren = B.getJSONArray("sublaps");
         JSONObject B1 = secondLevelChildren.getJSONObject(0);
         JSONObject B2 = secondLevelChildren.getJSONObject(1);
         //Check that B1's average is between 20 and 25 ms
@@ -140,9 +144,9 @@ public class TimekeeperTest {
     public void testTot() {
         JsonOrdered json = TimekeeperUtil.getTimekeeper().toJson();
         //Extract children
-        JSONArray firstLevelChildren = json.getJSONArray("children");
+        JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
-        JSONArray secondLevelChildren = B.getJSONArray("children");
+        JSONArray secondLevelChildren = B.getJSONArray("sublaps");
         JSONObject B1 = secondLevelChildren.getJSONObject(0);
         JSONObject B2 = secondLevelChildren.getJSONObject(1);
         //Check that B1's total time is between 100 and 130 ms

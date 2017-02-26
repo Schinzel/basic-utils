@@ -1,12 +1,16 @@
 package io.schinzel.basicutils.state;
 
 import java.util.List;
+
 import static org.hamcrest.Matchers.greaterThan;
+
+import io.schinzel.json.JsonOrdered;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *
  * @author schinzel
  */
 public class StateTest {
@@ -104,10 +108,12 @@ public class StateTest {
     @Test
     public void testGetString() {
         TestClass a1 = new TestClass("A1", 10);
-        a1.mChildren.add(new TestClass("B1", 17));
+        TestClass b1 = new TestClass("B1", 17);
         TestClass b2 = new TestClass("B2", 18);
-        b2.mChildren.add(new TestClass("B2X", 99));
+        TestClass b2x = new TestClass("B2X", 99);
+        a1.mChildren.add(b1);
         a1.mChildren.add(b2);
+        b2.mChildren.add(b2x);
         String expected = "Name:A1 Cost:10\n"
                 + "mykids\n"
                 + "┗━ Name:B1 Cost:17\n"
@@ -118,5 +124,41 @@ public class StateTest {
         String result = a1.getState().getString();
         Assert.assertEquals(expected, result);
     }
+
+
+    @Test
+    public void testGetJson() {
+        TestClass a1 = new TestClass("A1", 10);
+        TestClass b1 = new TestClass("B1", 17);
+        TestClass b2 = new TestClass("B2", 18);
+        TestClass b2x = new TestClass("B2X", 99);
+        a1.mChildren.add(b1);
+        a1.mChildren.add(b2);
+        b2.mChildren.add(b2x);
+        String expected = "Name:A1 Cost:10\n"
+                + "mykids\n"
+                + "┗━ Name:B1 Cost:17\n"
+                + "┗━ Name:B2 Cost:18\n"
+                + "   ┗━ mykids\n"
+                + "      ┗━ Name:B2X Cost:99\n"
+                + "";
+        JsonOrdered a1json = a1.getState().getJson();
+        Assert.assertEquals("A1", a1json.getString("Name"));
+        Assert.assertEquals(10, a1json.getInt("Cost"));
+        JSONArray a1kids = a1json.getJSONArray("mykids");
+        Assert.assertEquals(2, a1kids.length());
+        JSONObject b1json = a1kids.getJSONObject(0);
+        Assert.assertEquals("B1", b1json.getString("Name"));
+        Assert.assertEquals(17, b1json.getInt("Cost"));
+        JSONObject b2json = a1kids.getJSONObject(1);
+        Assert.assertEquals("B2", b2json.getString("Name"));
+        Assert.assertEquals(18, b2json.getInt("Cost"));
+        JSONArray b2kids = b2json.getJSONArray("mykids");
+        Assert.assertEquals(1, b2kids.length());
+        JSONObject b2xjson = b2kids.getJSONObject(0);
+        Assert.assertEquals("B2X", b2xjson.getString("Name"));
+        Assert.assertEquals(99, b2xjson.getInt("Cost"));
+    }
+
 
 }

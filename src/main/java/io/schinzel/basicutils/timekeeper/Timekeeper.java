@@ -95,7 +95,7 @@ public class Timekeeper {
      */
     @Override
     public String toString() {
-        return mCurrentLap.getRoot().getState().toString();
+        return mCurrentLap.getRoot().getState().getString();
     }
 
 
