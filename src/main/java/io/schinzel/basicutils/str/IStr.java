@@ -14,4 +14,7 @@ interface IStr<T extends IStr<T>>{
 
     Locale getLocale();
 
+
+    String getString();
+
 }

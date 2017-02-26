@@ -39,7 +39,8 @@ public class Str implements StrNumbers<Str>, StrWhitespace<Str> {
     }
 
 
-    public String toString() {
+    @Override
+    public String getString() {
         return sb.toString();
     }
 }
