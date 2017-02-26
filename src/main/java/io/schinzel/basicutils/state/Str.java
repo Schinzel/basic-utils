@@ -12,7 +12,7 @@ class Str {
     /**
      * Locale used to transform numbers to strings.
      */
-    private static final Locale LOCALE = Locale.US;
+    private static final Locale STR_LOCALE = Locale.US;
 
     /**
      * Enum for whitespaces.
@@ -138,7 +138,7 @@ class Str {
      * @return This for chaining,
      */
     public Str a(double d, int numOfDecimals) {
-        String s = String.format(Locale.US, "%,." + numOfDecimals + "f", d);
+        String s = String.format(STR_LOCALE, "%,." + numOfDecimals + "f", d);
         mSb.append(s);
         return this;
     }
@@ -162,7 +162,7 @@ class Str {
      * @return This for chaining.
      */
     public Str a(long l) {
-        String s = String.format(Locale.US, "%,d", l);
+        String s = String.format(STR_LOCALE, "%,d", l);
         mSb.append(s);
         return this;
     }
