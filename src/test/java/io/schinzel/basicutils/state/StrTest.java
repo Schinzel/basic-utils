@@ -6,7 +6,6 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
 
 /**
  * Created by schinzel on 2017-02-26.
@@ -45,7 +44,7 @@ public class StrTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         Str.create().a("Monkey!").pln();
-        assertEquals("Monkey!\n", outContent.toString());
+        Assert.assertEquals("Monkey!\n", outContent.toString());
         System.setOut(null);
     }
 }
