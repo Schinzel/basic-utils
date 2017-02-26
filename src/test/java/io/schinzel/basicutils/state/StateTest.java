@@ -60,7 +60,7 @@ public class StateTest {
 
 
     @Test
-    public void testFloagProperty() {
+    public void testFloatProperty() {
         List<Property> props = State.getBuilder()
                 .add("the_float", 12356.6666f, 3)
                 .build().mProperties;
