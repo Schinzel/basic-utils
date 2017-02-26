@@ -33,8 +33,8 @@ public class StateTest {
                 .add("the_int", 123456789)
                 .build().mProperties;
         Assert.assertEquals("the_int", props.get(0).mKey);
-        Assert.assertEquals("123 456 789", props.get(0).mValueAsString);
-        Assert.assertEquals("the_int:123 456 789", props.get(0).getString());
+        Assert.assertEquals("123,456,789", props.get(0).mValueAsString);
+        Assert.assertEquals("the_int:123,456,789", props.get(0).getString());
         Assert.assertEquals(new Long(123456789), props.get(0).getObject());
     }
 
@@ -45,8 +45,8 @@ public class StateTest {
                 .add("the_long", 1234567890l)
                 .build().mProperties;
         Assert.assertEquals("the_long", props.get(0).mKey);
-        Assert.assertEquals("1 234 567 890", props.get(0).mValueAsString);
-        Assert.assertEquals("the_long:1 234 567 890", props.get(0).getString());
+        Assert.assertEquals("1,234,567,890", props.get(0).mValueAsString);
+        Assert.assertEquals("the_long:1,234,567,890", props.get(0).getString());
         Assert.assertEquals(new Long(1234567890), props.get(0).getObject());
     }
 
@@ -69,8 +69,8 @@ public class StateTest {
                 .add("the_float", 12356.6666f, 3)
                 .build().mProperties;
         Assert.assertEquals("the_float", props.get(0).mKey);
-        Assert.assertEquals("12 356.667", props.get(0).mValueAsString);
-        Assert.assertEquals("the_float:12 356.667", props.get(0).getString());
+        Assert.assertEquals("12,356.667", props.get(0).mValueAsString);
+        Assert.assertEquals("the_float:12,356.667", props.get(0).getString());
         Assert.assertEquals(new Double(12356.6666f), props.get(0).getObject());
     }
 
@@ -126,7 +126,6 @@ public class StateTest {
                 + "      ┗━ Name:B2X Cost:99\n"
                 + "";
         String result = a1.getState().getString();
-        a1.getState().getStr().pln();
         Assert.assertEquals(expected, result);
     }
 

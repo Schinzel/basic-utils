@@ -84,7 +84,7 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, long val) {
-        String valAsStr = NumberFormatter.format(val);
+        String valAsStr = Str.create().a(val).toString();
         mProperties.add(new Property(key, valAsStr, val));
         return this;
     }
@@ -112,7 +112,7 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, double val, int numOfDecimals) {
-        String valAsStr = NumberFormatter.format(val, numOfDecimals);
+        String valAsStr = Str.create().a(val, numOfDecimals).toString();
         mProperties.add(new Property(key, valAsStr, val));
         return this;
     }
