@@ -4,9 +4,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
 import static org.junit.Assert.*;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 /**
  *
@@ -14,8 +12,6 @@ import org.junit.rules.ExpectedException;
  */
 public class MiscUtilTest extends MiscUtil {
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Test
@@ -27,7 +23,7 @@ public class MiscUtilTest extends MiscUtil {
             MiscUtil.snooze(snoozeTimeInMillis);
             //Check that the snooze does not differ more than 20 ms of the requested snooze time.
             assertThat(LocalDateTime.now(),
-                    within(20, ChronoUnit.MILLIS, start.plus(snoozeTimeInMillis, ChronoUnit.MILLIS)));
+                    within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInMillis, ChronoUnit.MILLIS)));
         }
     }
 
@@ -39,20 +35,23 @@ public class MiscUtilTest extends MiscUtil {
         MiscUtil.snoozeSeconds(snoozeTimeInSeconds);
         //Check that the snooze does not differ more than 20 ms of the requested snooze time.
         assertThat(LocalDateTime.now(),
-                within(20, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
+                within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
     }
 
 
     @Test
     public void testSnoozeWithInterrupt() {
         Thread t1 = new Thread(() -> {
-            exception.expect(RuntimeException.class);
-            exception.expectMessage("Snooze interrupted");
-            MiscUtil.snooze(100);
+            boolean gotException = false;
+            try {
+                MiscUtil.snooze(100);
+            }catch (RuntimeException e){
+                gotException = true;
+            }
+            assertTrue("Got an interrupted exception", gotException);
         });
         t1.start();
         //Interrupt the snooze in the thread and thus trigger exception
         t1.interrupt();
-
     }
 }

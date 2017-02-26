@@ -1,121 +1,184 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.collections.MapBuilder;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import org.hamcrest.CoreMatchers;
+
 import static org.hamcrest.Matchers.greaterThan;
+
+import io.schinzel.json.JsonOrdered;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- *
  * @author schinzel
  */
 public class StateTest {
 
     @Test
-    public void testSomeMethod() {
-        Map<String, Object> props = State.create()
+    public void testStringProperty() {
+        List<Property> props = State.getBuilder()
                 .add("string", "a string")
-                .add("int", 777)
-                .add("large int", 123456789)
-                .add("long", 1234567890l)
-                .add("double not rounded", 0.3333d)
-                .add("double rounded", 0.4444d, 3)
-                .add("large double rounded", 123456.4444d, 2)
-                .add("float not rounded", 0.5555f)
-                .add("float rounded", 0.6666f, 3)
-                .getProperties();
-        Assert.assertEquals("a string", props.get("string"));
-        Assert.assertEquals("777", props.get("int"));
-        Assert.assertEquals("123 456 789", props.get("large int"));
-        Assert.assertEquals("1 234 567 890", props.get("long"));
-        Assert.assertEquals("0.33", props.get("double not rounded"));
-        Assert.assertEquals("0.444", props.get("double rounded"));
-        Assert.assertEquals("0.56", props.get("float not rounded"));
-        Assert.assertEquals("0.667", props.get("float rounded"));
+                .build().mProperties;
+        Assert.assertEquals("string", props.get(0).mKey);
+        Assert.assertEquals("a string", props.get(0).mValueAsString);
+        Assert.assertEquals("string:a string", props.get(0).getString());
+        Assert.assertEquals("a string", props.get(0).getObject());
+    }
+
+
+    @Test
+    public void testIntProperty() {
+        List<Property> props = State.getBuilder()
+                .add("the_int", 123456789)
+                .build().mProperties;
+        Assert.assertEquals("the_int", props.get(0).mKey);
+        Assert.assertEquals("123,456,789", props.get(0).mValueAsString);
+        Assert.assertEquals("the_int:123,456,789", props.get(0).getString());
+        Assert.assertEquals(new Long(123456789), props.get(0).getObject());
+    }
+
+
+    @Test
+    public void testLongProperty() {
+        List<Property> props = State.getBuilder()
+                .add("the_long", 1234567890l)
+                .build().mProperties;
+        Assert.assertEquals("the_long", props.get(0).mKey);
+        Assert.assertEquals("1,234,567,890", props.get(0).mValueAsString);
+        Assert.assertEquals("the_long:1,234,567,890", props.get(0).getString());
+        Assert.assertEquals(new Long(1234567890), props.get(0).getObject());
+    }
+
+
+    @Test
+    public void testDoubleProperty() {
+        List<Property> props = State.getBuilder()
+                .add("the_double", 0.4444d, 2)
+                .build().mProperties;
+        Assert.assertEquals("the_double", props.get(0).mKey);
+        Assert.assertEquals("0.44", props.get(0).mValueAsString);
+        Assert.assertEquals("the_double:0.44", props.get(0).getString());
+        Assert.assertEquals(new Double(0.4444d), props.get(0).getObject());
+    }
+
+
+    @Test
+    public void testFloatProperty() {
+        List<Property> props = State.getBuilder()
+                .add("the_float", 12356.6666f, 3)
+                .build().mProperties;
+        Assert.assertEquals("the_float", props.get(0).mKey);
+        Assert.assertEquals("12,356.667", props.get(0).mValueAsString);
+        Assert.assertEquals("the_float:12,356.667", props.get(0).getString());
+        Assert.assertEquals(new Double(12356.6666f), props.get(0).getObject());
+    }
+
+
+    @Test
+    public void testBooleanProperty() {
+        List<Property> props = State.getBuilder()
+                .add("the_true", true)
+                .add("the_false", false)
+                .build().mProperties;
+        Assert.assertEquals("true", props.get(0).mValueAsString);
+        Assert.assertEquals("false", props.get(1).mValueAsString);
     }
 
 
     @Test
     public void testOrder() {
-        Map<String, Object> props = State.create()
+        List<Property> props = State.getBuilder()
                 .add("A", 1)
                 .add("B", 2)
                 .add("C", 3)
                 .add("D", 4)
-                .add("E", 5).mProperties;
-        String prevValue = "0";
-        for (Object o : props.values()) {
-            Assert.assertThat("value", Integer.valueOf(o.toString()),
-                    greaterThan(Integer.valueOf(prevValue)));
-            prevValue = o.toString();
+                .add("E", 5)
+                .build().mProperties;
+        Long prevValue = 0l;
+        for (Property prop : props) {
+            Assert.assertThat("value", (Long) prop.getObject(),
+                    greaterThan(prevValue));
+            prevValue = (Long) prop.getObject();
         }
     }
 
 
     @Test
     public void testGetPropsAsString() {
-        String result = State.create()
+        String result = State.getBuilder()
                 .add("A", 1)
                 .add("B", 2)
-                .getPropsAsString();
-        String expected = "A:1 B:2";
+                .build()
+                .getString();
+        String expected = "A:1 B:2\n";
         Assert.assertEquals(expected, result);
     }
 
 
     @Test
-    public void testAddChild() {
-        TestClass a1 = new TestClass("A1");
-        TestClass b2 = new TestClass("B2");
-        State state = State.create()
-                .add("A", 1)
-                .add("B", 2)
-                .addChild(a1)
-                .addChild(b2);
-        Assert.assertEquals(a1, state.mChildren.get(0));
-        Assert.assertEquals(b2, state.mChildren.get(1));
-    }
-
-
-    @Test
-    public void testToString() {
-        TestClass a1 = new TestClass("A1");
-        a1.mChildren.add(new TestClass(("B1")));
-        TestClass b2 = new TestClass("B2");
-        b2.mChildren.add(new TestClass(("B2X")));
+    public void testGetString() {
+        MyClass a1 = new MyClass("A1", 10);
+        MyClass b1 = new MyClass("B1", 17);
+        MyClass b2 = new MyClass("B2", 18);
+        MyClass b2x = new MyClass("B2X", 99);
+        a1.mChildren.add(b1);
         a1.mChildren.add(b2);
-        String expected = " Name:A1\n"
-                + "-- Name:B1\n"
-                + "-- Name:B2\n"
-                + "---- Name:B2X\n";
-        String result = a1.toString();
+        b2.mChildren.add(b2x);
+        b2.mLeft = new MyClass("Left", 111);
+        b2.mRight = new MyClass("Right", 222);
+        String expected = "Name:A1 Cost:10\n"
+                + "mykids\n"
+                + "┗━ Name:B1 Cost:17\n"
+                + "┗━ Name:B2 Cost:18\n"
+                + "   ┗━ Left Name:Left Cost:111\n"
+                + "   ┗━ Right Name:Right Cost:222\n"
+                + "   ┗━ mykids\n"
+                + "      ┗━ Name:B2X Cost:99\n"
+                + "";
+        String result = a1.getState().getString();
         Assert.assertEquals(expected, result);
     }
 
 
     @Test
-    public void testAddMap() {
-        Map<String, Integer> map = MapBuilder.create()
-                .add("A", 1)
-                .add("B", 2)
-                .add("C", 3)
-                .getMap();
-        String result = State.create().add("akey", map).toString();
-        String expected = "{A:1,B:2,C:3}";
-        Assert.assertThat(result, CoreMatchers.containsString(expected));
-    }
+    public void testGetJson() {
+        MyClass a1 = new MyClass("A1", 10);
+        MyClass b1 = new MyClass("B1", 17);
+        MyClass b2 = new MyClass("B2", 18);
+        MyClass b2x = new MyClass("B2X", 99);
+        a1.mChildren.add(b1);
+        a1.mChildren.add(b2);
+        b2.mChildren.add(b2x);
+        b2.mLeft = new MyClass("Left", 111);
+        b2.mRight = new MyClass("Right", 222);
+        JsonOrdered a1json = a1.getState().getJson();
+        Assert.assertEquals("A1", a1json.getString("Name"));
+        Assert.assertEquals(10, a1json.getInt("Cost"));
+        JSONArray a1kids = a1json.getJSONArray("mykids");
+        Assert.assertEquals(2, a1kids.length());
+        JSONObject b1json = a1kids.getJSONObject(0);
+        Assert.assertEquals("B1", b1json.getString("Name"));
+        Assert.assertEquals(17, b1json.getInt("Cost"));
+        JSONObject b2json = a1kids.getJSONObject(1);
+        Assert.assertEquals("B2", b2json.getString("Name"));
+        Assert.assertEquals(18, b2json.getInt("Cost"));
+        //Check a child list
+        JSONArray b2kids = b2json.getJSONArray("mykids");
+        Assert.assertEquals(1, b2kids.length());
+        //Check a node in the child list
+        JSONObject b2xjson = b2kids.getJSONObject(0);
+        Assert.assertEquals("B2X", b2xjson.getString("Name"));
+        Assert.assertEquals(99, b2xjson.getInt("Cost"));
+        //Check individual children
+        JSONObject leftie = b2json.getJSONObject("Left");
+        Assert.assertEquals("Left", leftie.getString("Name"));
+        Assert.assertEquals(111, leftie.getInt("Cost"));
+        //Check individual children
+        JSONObject righty = b2json.getJSONObject("Right");
+        Assert.assertEquals("Right", righty.getString("Name"));
+        Assert.assertEquals(222, righty.getInt("Cost"));
 
-
-    @Test
-    public void testAddList() {
-        List<String> list = Arrays.asList(new String[]{"A", "B", "C"});
-        String result = State.create().add("a_key", list).toString();
-        String expected = "{A,B,C}";
-        Assert.assertThat(result, CoreMatchers.containsString(expected));
     }
 
 
