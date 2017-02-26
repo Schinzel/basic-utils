@@ -1,5 +1,7 @@
 package io.schinzel.basicutils.state;
 
+import java.util.Locale;
+
 /**
  * The purpose of this class is to offer a less verbose version of a
  * StringBuilder. For internal usage only for now.
@@ -7,6 +9,10 @@ package io.schinzel.basicutils.state;
  * @author schinzel
  */
 class Str {
+    /**
+     * Locale used to transform numbers to strings.
+     */
+    private static final Locale LOCALE = Locale.US;
 
     /**
      * Enum for whitespaces.
@@ -23,7 +29,8 @@ class Str {
             mWhitespace = whitespace;
         }
 
-        public String toString(){
+
+        public String toString() {
             return mWhitespace;
         }
     }
@@ -31,7 +38,7 @@ class Str {
     /**
      * Holds the string itself.
      */
-    StringBuilder sb = new StringBuilder();
+    StringBuilder mSb = new StringBuilder();
 
 
     /**
@@ -56,7 +63,7 @@ class Str {
      * @return This for chaining.
      */
     public Str a(String s) {
-        sb.append(s);
+        mSb.append(s);
         return this;
     }
 
@@ -68,9 +75,12 @@ class Str {
      * @return This for chaining.
      */
     public Str a(Str s) {
-        sb.append(s.sb);
+        mSb.append(s.mSb);
         return this;
     }
+    //------------------------------------------------------------------------
+    // WHITE SPACES
+    //------------------------------------------------------------------------
 
 
     /**
@@ -80,7 +90,7 @@ class Str {
      * @return This for chaining.
      */
     public Str aws(WS whitespace) {
-        sb.append(whitespace.toString());
+        mSb.append(whitespace.toString());
         return this;
     }
 
@@ -103,6 +113,71 @@ class Str {
     public Str asp() {
         return this.aws(WS.SPACE);
     }
+    //------------------------------------------------------------------------
+    // NUMBERS
+    //------------------------------------------------------------------------
+
+
+    /**
+     * The argument value is added with a thousand separator for readability.
+     *
+     * @param f             The float to add
+     * @param numOfDecimals The number of decimals to display.
+     * @return This for chaining,
+     */
+    public Str a(float f, int numOfDecimals) {
+        return this.a((double) f, numOfDecimals);
+    }
+
+
+    /**
+     * The argument value is added with a thousand separator for readability.
+     *
+     * @param d             The double to add
+     * @param numOfDecimals The number of decimals to display.
+     * @return This for chaining,
+     */
+    public Str a(double d, int numOfDecimals) {
+        String s = String.format(Locale.US, "%,." + numOfDecimals + "f", d);
+        mSb.append(s);
+        return this;
+    }
+
+
+    /**
+     * The argument value is added with a thousand separator for readability.
+     *
+     * @param l The long to add.
+     * @return This for chaining.
+     */
+    public Str a(int l) {
+        return this.a((long) l);
+    }
+
+
+    /**
+     * The argument value is added with a thousand separator for readability.
+     *
+     * @param l The long to add.
+     * @return This for chaining.
+     */
+    public Str a(long l) {
+        String s = String.format(Locale.US, "%,d", l);
+        mSb.append(s);
+        return this;
+    }
+    //------------------------------------------------------------------------
+    // OUTPUT
+    //------------------------------------------------------------------------
+
+
+    /**
+     * @return The string held.
+     */
+    @Override
+    public String toString() {
+        return mSb.toString();
+    }
 
 
     /**
@@ -111,17 +186,8 @@ class Str {
      * @return This for chaining.
      */
     public Str pln() {
-        System.out.println(sb.toString());
+        System.out.println(mSb.toString());
         return this;
-    }
-
-
-    /**
-     * @return The string held.
-     */
-    @Override
-    public String toString() {
-        return sb.toString();
     }
 
 }
