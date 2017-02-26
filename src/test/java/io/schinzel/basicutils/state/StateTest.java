@@ -114,14 +114,19 @@ public class StateTest {
         a1.mChildren.add(b1);
         a1.mChildren.add(b2);
         b2.mChildren.add(b2x);
+        b2.mLeft = new MyClass("Left", 111);
+        b2.mRight = new MyClass("Right", 222);
         String expected = "Name:A1 Cost:10\n"
                 + "mykids\n"
                 + "┗━ Name:B1 Cost:17\n"
                 + "┗━ Name:B2 Cost:18\n"
+                + "   ┗━ Left Name:Left Cost:111\n"
+                + "   ┗━ Right Name:Right Cost:222\n"
                 + "   ┗━ mykids\n"
                 + "      ┗━ Name:B2X Cost:99\n"
                 + "";
         String result = a1.getState().getString();
+        a1.getState().getStr().pln();
         Assert.assertEquals(expected, result);
     }
 
@@ -137,13 +142,6 @@ public class StateTest {
         b2.mChildren.add(b2x);
         b2.mLeft = new MyClass("Left", 111);
         b2.mRight = new MyClass("Right", 222);
-        String expected = "Name:A1 Cost:10\n"
-                + "mykids\n"
-                + "┗━ Name:B1 Cost:17\n"
-                + "┗━ Name:B2 Cost:18\n"
-                + "   ┗━ mykids\n"
-                + "      ┗━ Name:B2X Cost:99\n"
-                + "";
         JsonOrdered a1json = a1.getState().getJson();
         Assert.assertEquals("A1", a1json.getString("Name"));
         Assert.assertEquals(10, a1json.getInt("Cost"));

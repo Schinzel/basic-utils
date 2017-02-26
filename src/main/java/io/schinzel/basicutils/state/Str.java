@@ -9,9 +9,25 @@ package io.schinzel.basicutils.state;
 class Str {
 
     /**
-     * New line delimiter.
+     * Enum for whitespaces.
      */
-    final static String NEW_LINE = "\n";
+    public enum WS {
+        NL("\n"),
+        SPACE(" "),
+        TAB("\t");
+
+        private final String mWhitespace;
+
+
+        WS(String whitespace) {
+            mWhitespace = whitespace;
+        }
+
+        public String toString(){
+            return mWhitespace;
+        }
+    }
+
     /**
      * Holds the string itself.
      */
@@ -26,7 +42,6 @@ class Str {
 
 
     /**
-     *
      * @return A new Str instance.
      */
     static Str create() {
@@ -59,13 +74,34 @@ class Str {
 
 
     /**
-     * Append a new-line.
+     * Append a white space.
+     *
+     * @param whitespace The white space to append.
+     * @return This for chaining.
+     */
+    public Str aws(WS whitespace) {
+        sb.append(whitespace.toString());
+        return this;
+    }
+
+
+    /**
+     * Append a newline.
      *
      * @return This for chaining.
      */
-    public Str nl() {
-        sb.append(NEW_LINE);
-        return this;
+    public Str anl() {
+        return this.aws(WS.NL);
+    }
+
+
+    /**
+     * Append a space.
+     *
+     * @return This for chaining.
+     */
+    public Str asp() {
+        return this.aws(WS.SPACE);
     }
 
 
@@ -81,7 +117,6 @@ class Str {
 
 
     /**
-     *
      * @return The string held.
      */
     @Override
