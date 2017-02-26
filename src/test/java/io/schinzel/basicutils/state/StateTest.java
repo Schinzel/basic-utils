@@ -135,6 +135,8 @@ public class StateTest {
         a1.mChildren.add(b1);
         a1.mChildren.add(b2);
         b2.mChildren.add(b2x);
+        b2.mLeft = new MyClass("Left", 111);
+        b2.mRight = new MyClass("Right", 222);
         String expected = "Name:A1 Cost:10\n"
                 + "mykids\n"
                 + "┗━ Name:B1 Cost:17\n"
@@ -153,11 +155,22 @@ public class StateTest {
         JSONObject b2json = a1kids.getJSONObject(1);
         Assert.assertEquals("B2", b2json.getString("Name"));
         Assert.assertEquals(18, b2json.getInt("Cost"));
+        //Check a child list
         JSONArray b2kids = b2json.getJSONArray("mykids");
         Assert.assertEquals(1, b2kids.length());
+        //Check a node in the child list
         JSONObject b2xjson = b2kids.getJSONObject(0);
         Assert.assertEquals("B2X", b2xjson.getString("Name"));
         Assert.assertEquals(99, b2xjson.getInt("Cost"));
+        //Check individual children
+        JSONObject leftie = b2json.getJSONObject("Left");
+        Assert.assertEquals("Left", leftie.getString("Name"));
+        Assert.assertEquals(111, leftie.getInt("Cost"));
+        //Check individual children
+        JSONObject righty = b2json.getJSONObject("Right");
+        Assert.assertEquals("Right", righty.getString("Name"));
+        Assert.assertEquals(222, righty.getInt("Cost"));
+
     }
 
 

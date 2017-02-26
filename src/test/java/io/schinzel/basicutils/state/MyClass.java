@@ -13,6 +13,8 @@ class MyClass implements IStateNode {
     final String mName;
     final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();
+    MyClass mLeft;
+    MyClass mRight;
 
     MyClass(String name, int cost) {
         mName = name;
@@ -22,11 +24,17 @@ class MyClass implements IStateNode {
 
     @Override
     public State getState() {
-        return State.getBuilder()
+        StateBuilder builder = State.getBuilder()
                 .add("Name", mName)
                 .add("Cost", mCost)
-                .addChildren("mykids", mChildren.iterator())
-                .build();
+                .addChildren("mykids", mChildren.iterator());
+        if (mLeft != null){
+            builder.addChild("Left", mLeft);
+        }
+        if (mRight != null){
+            builder.addChild("Right", mRight);
+        }
+        return builder.build();
                 
     }
 
