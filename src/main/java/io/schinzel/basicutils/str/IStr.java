@@ -3,8 +3,10 @@ package io.schinzel.basicutils.str;
 import java.util.Locale;
 
 /**
- * This is the base interfaces. Actual functionality are implemented in a set of interfaces that extends this
- * interface
+ * This is the base interfaces.
+ *
+ * Actual functionality are implemented in a set of interfaces that extends this
+ * interface. The implementing class implements one or several of the interfaces that extended this.
  *
  *
  * Created by schinzel on 2017-02-26.
@@ -23,8 +25,9 @@ interface IStr<T extends IStr<T>> {
 
 
     /**
-     * Exists for programming technical reasons only. Allows implementing classes and extending interfaces return
-     * this without casting and
+     * Exists for programming technical reasons only. Allows implementing classes and extending interfaces to return
+     * a "this" that refers to implementing class or extending interface, instead of the interface being implemented
+     * or extended. This as opposed to casting and/or overloading methods just to return the correct type.
      *
      * This should really be package private or protected. But as this is not an option, it has to be public.
      *
@@ -34,16 +37,17 @@ interface IStr<T extends IStr<T>> {
 
 
     /**
+     *
      * This should really be package private or protected. But as this is not an option, it has to be public.
      *
-     * @return The locale used by any implementing class.
+     * @return The locale used by operations where locale is a factor. 
      */
     Locale getLocale();
 
 
     /**
      *
-     * @return The string held by the implementing class.
+     * @return The string held.
      */
     String getString();
 
