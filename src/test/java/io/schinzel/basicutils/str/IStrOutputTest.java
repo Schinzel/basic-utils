@@ -1,17 +1,19 @@
 package io.schinzel.basicutils.str;
 
 import io.schinzel.basicutils.FunnyChars;
+import io.schinzel.basicutils.RandomUtil;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-import org.junit.Rule;
+
 import org.junit.rules.ExpectedException;
 
 public class IStrOutputTest {
+    private String mFileName;
+
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
@@ -23,9 +25,24 @@ public class IStrOutputTest {
     }
 
 
-    static String getFileName() {
-        String tempDir = System.getProperty("java.io.tmpdir");
-        return tempDir + "MyFile.txt";
+    @Before
+    public void before() {
+        mFileName = "TestFile_" + this.getClass().getSimpleName()
+                + RandomUtil.getRandomString(5) + ".txt";
+    }
+
+
+    @After
+    public void after() {
+        File file = new File(this.getFileName());
+        if (file.exists() && !file.delete()) {
+            throw new RuntimeException("Problems when cleaning up temp test file '" + this.getFileName() + "'.");
+        }
+    }
+
+
+    private String getFileName() {
+        return mFileName;
     }
 
 
@@ -84,7 +101,6 @@ public class IStrOutputTest {
 
     /**
      * Test append to file.
-     * @throws Exception
      */
     @Test
     public void writeToFile_append() throws Exception {
@@ -100,7 +116,6 @@ public class IStrOutputTest {
 
     /**
      * Test do not append to file.
-     * @throws Exception
      */
     @Test
     public void writeToFile_doNotAppend() throws Exception {
@@ -118,7 +133,7 @@ public class IStrOutputTest {
      * Create a test that throws an IOException
      */
     @Test
-    public void writeToFile_throwException(){
+    public void writeToFile_throwException() {
         exception.expect(RuntimeException.class);
         new StrOutput().a("chimp").writeToFile("");
     }
