@@ -82,8 +82,19 @@ public class IStrOutputTest {
     }
 
 
+    /**
+     * Test append to file.
+     * @throws Exception
+     */
     @Test
-    public void writeToFile1() throws Exception {
+    public void writeToFile_append() throws Exception {
+        String fileName = getFileName();
+        String strWritten = "chimp";
+        String strWritten2 = "gorilla";
+        new StrString().a(strWritten).writeToFile(fileName);
+        new StrString().a(strWritten2).writeToFile(fileName, true);
+        String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
+        Assert.assertEquals(strWritten + strWritten2, strRead);
     }
 
 }
