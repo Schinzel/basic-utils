@@ -13,7 +13,6 @@ import java.nio.charset.Charset;
  */
 interface IStrOutput<T extends IStr<T>> extends IStr<T> {
 
-
     /**
      * Print the string held to system out.
      *
@@ -46,7 +45,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
     default T writeToFile(String fileName, boolean append) {
         File file = new File(fileName);
         try {
-            FileUtils.writeStringToFile(file, this.getString(), Charset.forName("UTF-8"), append);
+            FileUtils.writeStringToFile(file, this.getString(), ENCODING, append);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
