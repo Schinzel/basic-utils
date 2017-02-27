@@ -6,16 +6,14 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by schinzel on 2017-02-27.
  */
 public class IStrOutputTest {
 
-    private class MyClassStr extends MyClass<MyClassStr> implements IStrOutput<MyClassStr> {
+    private class IStrString extends AbstractIStr<IStrString> implements IStrOutput<IStrString> {
         @Override
-        public MyClassStr getThis() {
+        public IStrString getThis() {
             return this;
         }
     }
@@ -25,7 +23,7 @@ public class IStrOutputTest {
     public void pln() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        new MyClassStr().a("Monkey!").pln();
+        new IStrString().a("Monkey!").pln();
         Assert.assertEquals("Monkey!\n", outContent.toString());
         System.setOut(null);
     }
@@ -33,11 +31,13 @@ public class IStrOutputTest {
 
     @Test
     public void writeToFile() throws Exception {
+
     }
 
 
     @Test
     public void writeToFile1() throws Exception {
+
     }
 
 }

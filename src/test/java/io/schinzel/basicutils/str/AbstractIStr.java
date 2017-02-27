@@ -5,7 +5,7 @@ import java.util.Locale;
 /**
  * Created by schinzel on 2017-02-27.
  */
-public abstract class MyClass<T extends IStr<T>> implements IStr<T> {
+abstract class AbstractIStr<T extends IStr<T>> implements IStr<T> {
     private StringBuilder sb = new StringBuilder();
 
 
