@@ -3,6 +3,8 @@ package io.schinzel.basicutils.str;
 import java.util.Locale;
 
 /**
+ * The purpose of this interface is to add numbers and format them for human readability.
+ *
  * Created by schinzel on 2017-02-26.
  */
 interface IStrNumbers<T extends IStr<T>> extends IStr<T> {

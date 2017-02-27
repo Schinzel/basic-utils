@@ -1,6 +1,8 @@
 package io.schinzel.basicutils.str;
 
 /**
+ * The purpose of this interface is to append whitespaces.
+ *
  * Created by schinzel on 2017-02-26.
  */
 interface IStrWhitespace<T extends IStr<T>> extends IStr<T>  {
