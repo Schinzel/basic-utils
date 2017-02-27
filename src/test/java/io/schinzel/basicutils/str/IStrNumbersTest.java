@@ -10,34 +10,7 @@ import java.util.Locale;
  */
 public class IStrNumbersTest {
 
-    private class MyClass implements IStrNumbers<MyClass> {
-        private StringBuilder sb = new StringBuilder();
-
-        @Override
-        public MyClass a(String s) {
-            sb.append(s);
-            return this;
-        }
-
-
-        @Override
-        public MyClass getThis() {
-            return this;
-        }
-
-
-        @Override
-        public Locale getLocale() {
-            return Locale.US;
-        }
-
-
-        @Override
-        public String getString() {
-            return sb.toString();
-        }
-
-
+    private class MyClass extends MyClass2 implements IStrNumbers<MyClass2> {
     }
 
 
