@@ -7,6 +7,7 @@ import io.schinzel.basicutils.str.Str;
  * <p>
  * Created by Schinzel on 2017-02-27.
  */
+
 class StrSample {
 
     public static void main(String[] args) {
