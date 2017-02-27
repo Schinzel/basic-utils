@@ -11,9 +11,9 @@ import java.io.PrintStream;
  */
 public class IStrOutputTest {
 
-    private class IStrString extends AbstractIStr<IStrString> implements IStrOutput<IStrString> {
+    private class StrString extends AbstractIStr<StrString> implements IStrOutput<StrString> {
         @Override
-        public IStrString getThis() {
+        public StrString getThis() {
             return this;
         }
     }
@@ -23,7 +23,7 @@ public class IStrOutputTest {
     public void pln() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        new IStrString().a("Monkey!").pln();
+        new StrString().a("Monkey!").pln();
         Assert.assertEquals("Monkey!\n", outContent.toString());
         System.setOut(null);
     }
