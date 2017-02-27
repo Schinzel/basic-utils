@@ -5,18 +5,14 @@ import java.util.Locale;
 /**
  * Created by schinzel on 2017-02-27.
  */
-public class MyClass implements IStr<MyClass> {
+public abstract class MyClass<T extends IStr<T>> implements IStr<T> {
     private StringBuilder sb = new StringBuilder();
+
+
     @Override
-    public MyClass a(String s) {
+    public T a(String s) {
         sb.append(s);
-        return this;
-    }
-
-
-    @Override
-    public MyClass getThis() {
-        return this;
+        return this.getThis();
     }
 
 

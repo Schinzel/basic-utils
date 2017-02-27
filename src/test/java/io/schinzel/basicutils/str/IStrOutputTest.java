@@ -12,17 +12,20 @@ import static org.junit.Assert.*;
  * Created by schinzel on 2017-02-27.
  */
 public class IStrOutputTest {
-    private class MyTestClass extends MyClass implements IStrOutput<MyClass> {
 
+    private class MyClassStr extends MyClass<MyClassStr> implements IStrOutput<MyClassStr> {
+        @Override
+        public MyClassStr getThis() {
+            return this;
+        }
     }
+
 
     @Test
     public void pln() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        MyTestClass myTestClass = new MyTestClass();
-        myTestClass.a("Monkey!");
-        myTestClass.pln();
+        new MyClassStr().a("Monkey!").pln();
         Assert.assertEquals("Monkey!\n", outContent.toString());
         System.setOut(null);
     }
@@ -35,7 +38,6 @@ public class IStrOutputTest {
 
     @Test
     public void writeToFile1() throws Exception {
-
     }
 
 }
