@@ -37,4 +37,16 @@ public class Str implements IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<St
     public String getString() {
         return sb.toString();
     }
+
+
+    /**
+     * As it is not allowed to override Object methods in interfaces, a getString was necessary. But this method
+     * does the same as getString.
+     *
+     * @return The same as getString.
+     */
+    @Override
+    public String toString() {
+        return this.getString();
+    }
 }

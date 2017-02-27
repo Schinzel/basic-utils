@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.str;
 
-import com.google.common.io.Files;
 import io.schinzel.basicutils.FunnyChars;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -15,9 +14,9 @@ import java.io.PrintStream;
  */
 public class IStrOutputTest {
 
-    private class StrString extends AbstractIStr<StrString> implements IStrOutput<StrString> {
+    private class StrOutput extends AbstractIStr<StrOutput> implements IStrOutput<StrOutput> {
         @Override
-        public StrString getThis() {
+        public StrOutput getThis() {
             return this;
         }
     }
@@ -33,7 +32,7 @@ public class IStrOutputTest {
     public void pln() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        new StrString().a("Monkey!").pln();
+        new StrOutput().a("Monkey!").pln();
         Assert.assertEquals("Monkey!\n", outContent.toString());
         System.setOut(null);
     }
@@ -46,7 +45,7 @@ public class IStrOutputTest {
     public void writeToFile() throws Exception {
         String fileName = getFileName();
         String strWritten = "chimp";
-        new StrString().a(strWritten).writeToFile(fileName);
+        new StrOutput().a(strWritten).writeToFile(fileName);
         String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten, strRead);
     }
@@ -60,8 +59,8 @@ public class IStrOutputTest {
         String fileName = getFileName();
         String strWritten = "chimp";
         String strWritten2 = "gorilla";
-        new StrString().a(strWritten).writeToFile(fileName);
-        new StrString().a(strWritten2).writeToFile(fileName);
+        new StrOutput().a(strWritten).writeToFile(fileName);
+        new StrOutput().a(strWritten2).writeToFile(fileName);
         String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten2, strRead);
     }
@@ -75,7 +74,7 @@ public class IStrOutputTest {
         for (FunnyChars funnyChars : FunnyChars.values()) {
             String fileName = getFileName();
             String strWritten = funnyChars.getString();
-            new StrString().a(strWritten).writeToFile(fileName);
+            new StrOutput().a(strWritten).writeToFile(fileName);
             String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
             Assert.assertEquals(strWritten, strRead);
         }
@@ -91,10 +90,26 @@ public class IStrOutputTest {
         String fileName = getFileName();
         String strWritten = "chimp";
         String strWritten2 = "gorilla";
-        new StrString().a(strWritten).writeToFile(fileName);
-        new StrString().a(strWritten2).writeToFile(fileName, true);
+        new StrOutput().a(strWritten).writeToFile(fileName);
+        new StrOutput().a(strWritten2).writeToFile(fileName, true);
         String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten + strWritten2, strRead);
+    }
+
+
+    /**
+     * Test do not append to file.
+     * @throws Exception
+     */
+    @Test
+    public void writeToFile_doNotAppend() throws Exception {
+        String fileName = getFileName();
+        String strWritten = "chimp";
+        String strWritten2 = "gorilla";
+        new StrOutput().a(strWritten).writeToFile(fileName);
+        new StrOutput().a(strWritten2).writeToFile(fileName, false);
+        String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
+        Assert.assertEquals(strWritten2, strRead);
     }
 
 }
