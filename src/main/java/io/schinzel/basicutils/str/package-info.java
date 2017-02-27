@@ -17,6 +17,10 @@
  * Also there exists the possibility to reuse the functionality in other classes. For example IStrNumber can be
  * implemented in any class in which we easily want to append readable numbers.
  *
+ * The purpose of working with interfaces rather than classes and inheritance is that:
+ * 1) all states possibly are store in exactly one place.
+ * 2) multiple inheritance.
+ *
  * Created by schinzel on 2017-02-27.
  */
 package io.schinzel.basicutils.str;
