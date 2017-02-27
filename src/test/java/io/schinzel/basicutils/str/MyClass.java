@@ -5,17 +5,17 @@ import java.util.Locale;
 /**
  * Created by schinzel on 2017-02-27.
  */
-public class MyClass2 implements IStr<MyClass2> {
+public class MyClass implements IStr<MyClass> {
     private StringBuilder sb = new StringBuilder();
     @Override
-    public MyClass2 a(String s) {
+    public MyClass a(String s) {
         sb.append(s);
         return this;
     }
 
 
     @Override
-    public MyClass2 getThis() {
+    public MyClass getThis() {
         return this;
     }
 
