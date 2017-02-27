@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.str;
 
+import com.google.common.io.Files;
 import io.schinzel.basicutils.FunnyChars;
 import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
@@ -22,6 +23,12 @@ public class IStrOutputTest {
     }
 
 
+    static String getFileName() {
+        String tempDir = System.getProperty("java.io.tmpdir");
+        return tempDir + "MyFile.txt";
+    }
+
+
     @Test
     public void pln() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -37,7 +44,7 @@ public class IStrOutputTest {
      */
     @Test
     public void writeToFile() throws Exception {
-        String fileName = "MyFile.txt";
+        String fileName = getFileName();
         String strWritten = "chimp";
         new StrString().a(strWritten).writeToFile(fileName);
         String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
@@ -50,7 +57,7 @@ public class IStrOutputTest {
      */
     @Test
     public void writeToFile_overwrite() throws Exception {
-        String fileName = "MyFile.txt";
+        String fileName = getFileName();
         String strWritten = "chimp";
         String strWritten2 = "gorilla";
         new StrString().a(strWritten).writeToFile(fileName);
@@ -59,27 +66,24 @@ public class IStrOutputTest {
         Assert.assertEquals(strWritten2, strRead);
     }
 
+
     /**
-     * Writes more unusual chars and check that these come back the same.
+     * Writes unusual chars and check that these come back the same.
      */
     @Test
     public void writeToFile_funnyChars() throws Exception {
-        for(FunnyChars funnyChars: FunnyChars.values()){
-            String fileName = "MyFile.txt";
+        for (FunnyChars funnyChars : FunnyChars.values()) {
+            String fileName = getFileName();
             String strWritten = funnyChars.getString();
             new StrString().a(strWritten).writeToFile(fileName);
             String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
-            Str.create().a(strRead).pln();
             Assert.assertEquals(strWritten, strRead);
         }
     }
 
 
-
-
     @Test
     public void writeToFile1() throws Exception {
-
     }
 
 }
