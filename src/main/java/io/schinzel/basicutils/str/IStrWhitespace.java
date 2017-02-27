@@ -3,14 +3,14 @@ package io.schinzel.basicutils.str;
 /**
  * The purpose of this interface is to a whitespaces.
  * <p>
- * Created by schinzel on 2017-02-26.
+ * Created by Schinzel on 2017-02-26.
  */
 interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
     /**
-     * s
+     *
      * Enum for whitespaces.
      */
-    public enum WS {
+    enum WS {
         NL("\n"),
         SPACE(" "),
         TAB("\t");
@@ -22,7 +22,7 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
             mWhitespace = whitespace;
         }
 
-
+        @Override
         public String toString() {
             return mWhitespace;
         }

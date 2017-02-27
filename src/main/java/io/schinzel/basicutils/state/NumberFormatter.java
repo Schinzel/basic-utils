@@ -4,8 +4,9 @@ import java.util.Locale;
 
 /**
  * The purpose of this class is to format numbers to a format that is easily
- * readable for humans. Examples: 123456789123456789 -> 123 456 789 123 456 789
- * 123456789.12345678d -> 123 456 789.12
+ * readable for humans. Examples:
+ * 123456789123456789 -> 123,456,789,123,456,789
+ * 123456789.12345678d -> 123,456,789.12
  *
  * @author schinzel
  */
@@ -19,7 +20,6 @@ class NumberFormatter {
 
 
     /**
-     *
      * @param value
      * @return The argument value with space as thousands separator.
      */
@@ -29,7 +29,6 @@ class NumberFormatter {
 
 
     /**
-     *
      * @param value
      * @return he argument value with space as thousands separator.
      */
@@ -39,7 +38,6 @@ class NumberFormatter {
 
 
     /**
-     *
      * @param value
      * @param numOfDecimals
      * @return he argument value with space as thousands separator rounded to
@@ -51,7 +49,6 @@ class NumberFormatter {
 
 
     /**
-     *
      * @param value
      * @param numOfDecimals
      * @return he argument value with space as thousands separator rounded to
@@ -61,5 +58,4 @@ class NumberFormatter {
         return String.format(Locale.US, "%,." + numOfDecimals + "f", value)
                 .replace(",", " ");
     }
-
 }

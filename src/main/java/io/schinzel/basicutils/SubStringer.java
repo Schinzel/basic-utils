@@ -28,7 +28,7 @@ public class SubStringer {
     /**
      * Private constructor so that is not used directly.
      *
-     * @param str
+     * @param str The string from which to extract a substring.
      */
     private SubStringer(String str) {
         mStr = str;
@@ -36,7 +36,6 @@ public class SubStringer {
 
 
     /**
-     *
      * @param str The string from which to extract a substring.
      * @return An instance.
      */
@@ -46,9 +45,8 @@ public class SubStringer {
 
 
     /**
-     *
      * @param delimiter Sets the start delimiter. The first occurrence of this
-     * string is used as delimiter, exclusive this string.
+     *                  string is used as delimiter, exclusive this string.
      * @return This, for chaining.
      */
     public SubStringer start(String delimiter) {
@@ -64,10 +62,9 @@ public class SubStringer {
 
 
     /**
-     *
      * @param delimiter Sets the end delimiter. The first occurrence of this
-     * string after the start string, is the end of the substring, exclusive
-     * this string.
+     *                  string after the start string, is the end of the substring, exclusive
+     *                  this string.
      * @return This, for chaining.
      */
     public SubStringer end(String delimiter) {
@@ -83,8 +80,7 @@ public class SubStringer {
 
 
     /**
-     *
-     * @param delimiter
+     * @param delimiter The delimtier to check.
      * @return True if no value has been set for argument delimiter
      */
     private static boolean valueSet(String delimiter) {
@@ -127,7 +123,6 @@ public class SubStringer {
 
 
     /**
-     *
      * @return A new substring which takes the generated substring as input.
      */
     public SubStringer getSubStringer() {
@@ -136,7 +131,6 @@ public class SubStringer {
 
 
     /**
-     *
      * @return The substring between the start and end delimiter, exclusive the
      * delimiters. If no start delimiter has been set, start of string is
      * assumed. If no end delimiter has been set, end of string is assumed.
@@ -151,5 +145,4 @@ public class SubStringer {
         int endPos = getEndPos(mStr, mEndDelimiter, startPos);
         return mStr.substring(startPos, endPos);
     }
-
 }

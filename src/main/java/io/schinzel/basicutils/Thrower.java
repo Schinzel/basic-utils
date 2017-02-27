@@ -110,7 +110,7 @@ public class Thrower {
     /**
      * Throw if argument expression is true.
      *
-     * @param expression
+     * @param expression The boolean expression to evaluate.
      * @param message The exception message
      */
     public static void throwIfTrue(boolean expression, String message) {

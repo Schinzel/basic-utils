@@ -3,11 +3,6 @@ package io.schinzel.basicutils.str;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-/**
- * Created by schinzel on 2017-02-27.
- */
 public class StrTest {
     @Test
     public void create() throws Exception {

@@ -3,9 +3,6 @@ package io.schinzel.basicutils.str;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by schinzel on 2017-02-26.
- */
 public class IStrNumbersTest {
 
     private class StrNumber extends AbstractIStr<StrNumber> implements IStrNumbers<StrNumber> {

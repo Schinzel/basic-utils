@@ -22,7 +22,7 @@ public enum FunnyChars {
 
     private final String mString;
 
-    private FunnyChars(String str){
+    FunnyChars(String str){
         mString = str;
     }
 

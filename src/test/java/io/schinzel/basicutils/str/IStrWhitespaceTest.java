@@ -3,11 +3,6 @@ package io.schinzel.basicutils.str;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-/**
- * Created by schinzel on 2017-02-27.
- */
 public class IStrWhitespaceTest {
 
     private class StrWhitespace extends AbstractIStr<StrWhitespace> implements IStrWhitespace<StrWhitespace> {

@@ -20,9 +20,7 @@ public class RandomUtil {
     private static final char[] SYMBOLS;
 
 
-    /**
-     * Set up the chars that can be used in the random string.
-     */
+    //Set up the chars that can be used in the random string.
     static {
         StringBuilder tmp = new StringBuilder();
         for (char ch = '0'; ch <= '9'; ++ch) {
@@ -141,8 +139,8 @@ public class RandomUtil {
      * argument is 1, then "123" will be returned.
      *
      *
-     * @param min
-     * @param max
+     * @param min The minimum value of the returned number
+     * @param max The maximum value of the returned number
      * @param padding The returned string will at least have this length. Min 1
      * and max 100.
      * @return A padded int as a string.

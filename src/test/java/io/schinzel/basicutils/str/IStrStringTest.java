@@ -3,11 +3,7 @@ package io.schinzel.basicutils.str;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
-/**
- * Created by schinzel on 2017-02-27.
- */
 public class IStrStringTest {
 
     private class StrString extends AbstractIStr<StrString> implements IStrString<StrString> {
@@ -27,7 +23,6 @@ public class IStrStringTest {
         sb.append("gibbon");
         StrString str = new StrString().a("chimp ").a(sb).a(" gorilla");
         Assert.assertEquals("chimp gibbon gorilla", str.getString());
-
     }
 
 
@@ -40,5 +35,4 @@ public class IStrStringTest {
         Str str2 = Str.create().a("chimp ").a(str1).a(" gorilla");
         Assert.assertEquals("chimp gibbon gorilla", str2.getString());
     }
-
 }

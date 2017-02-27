@@ -8,11 +8,12 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
+import org.junit.Rule;
+import org.junit.rules.ExpectedException;
 
-/**
- * Created by schinzel on 2017-02-27.
- */
 public class IStrOutputTest {
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     private class StrOutput extends AbstractIStr<StrOutput> implements IStrOutput<StrOutput> {
         @Override
@@ -110,6 +111,16 @@ public class IStrOutputTest {
         new StrOutput().a(strWritten2).writeToFile(fileName, false);
         String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten2, strRead);
+    }
+
+
+    /**
+     * Create a test that throws an IOException
+     */
+    @Test
+    public void writeToFile_throwException(){
+        exception.expect(RuntimeException.class);
+        new StrOutput().a("chimp").writeToFile("");
     }
 
 }

@@ -23,7 +23,7 @@ interface IStr<T extends IStr<T>> {
      *
      * This should really be package private or protected. But as this is not an option, it has to be public.
      *
-     * @param s
+     * @param s The String to append.
      * @return This for chaining.
      */
     T a(String s);
