@@ -122,6 +122,25 @@ Name:Music countOfSomething:123 someValue:17.14
 ---- Name:Velvet countOfSomething:368 977 someValue:787.20
 ```
 
+### Str
+A string utility class that contains the most common string operations in 
+one class with less verbose syntax and less boilerplate code.
+
+ Instead of:
+```java
+ StringBuilder sb = new StringBuilder();
+ sb.a("A")
+    .a(String.format( "%.2f", myDouble ))
+    .a("B");
+ System.out.println(sb.toString());
+```
+ 
+ We have:
+```java
+ Str.create().a("A").a(myDouble, 2).a("B").pln();
+```
+
+
 
 
 ### SubStringer
