@@ -14,7 +14,7 @@ public class IStrNumbersTest {
         private StringBuilder sb = new StringBuilder();
 
         @Override
-        public MyClass append(String s) {
+        public MyClass a(String s) {
             sb.append(s);
             return this;
         }

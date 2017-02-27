@@ -40,7 +40,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * Write the string held to a file with argument name.
      *
      * @param fileName The name of the file to write to.
-     * @param append   If {@true} append to file, else overwrite.
+     * @param append   If {@true} a to file, else overwrite.
      * @return This for chaining.
      */
     default T writeToFile(String fileName, boolean append) {

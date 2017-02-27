@@ -59,7 +59,7 @@ class Str {
     /**
      * Append the argument string.
      *
-     * @param s The string to append.
+     * @param s The string to a.
      * @return This for chaining.
      */
     public Str a(String s) {
@@ -71,7 +71,7 @@ class Str {
     /**
      * Append the argument str.
      *
-     * @param s The str to append.
+     * @param s The str to a.
      * @return This for chaining.
      */
     public Str a(Str s) {
@@ -86,7 +86,7 @@ class Str {
     /**
      * Append a white space.
      *
-     * @param whitespace The white space to append.
+     * @param whitespace The white space to a.
      * @return This for chaining.
      */
     public Str aws(WS whitespace) {

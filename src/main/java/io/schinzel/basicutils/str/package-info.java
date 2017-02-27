@@ -4,9 +4,9 @@
  *
  * Instead of
  * StringBuilder sb = new StringBuilder();
- * sb.append("A")
- * .append(String.format( "%.2f", myDouble ))
- * .append("B");
+ * sb.a("A")
+ * .a(String.format( "%.2f", myDouble ))
+ * .a("B");
  * System.out.println(sb.toString());
  *
  * We have:
@@ -15,7 +15,7 @@
  * The functionality is broken down to into a set of interfaces as to have more modular code. We want the modular code
  * for all the usual reasons; easier to understand the code, easier to construct tests, easier to read code and so on.
  * Also there exists the possibility to reuse the functionality in other classes. For example IStrNumber can be
- * implemented in any class in which we easily want to append readable numbers.
+ * implemented in any class in which we easily want to a readable numbers.
  *
  * The purpose of working with interfaces rather than classes and inheritance is that:
  * 1) all states possibly are store in exactly one place.

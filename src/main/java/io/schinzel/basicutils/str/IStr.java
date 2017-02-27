@@ -21,7 +21,7 @@ interface IStr<T extends IStr<T>> {
      * @param s
      * @return This for chaining.
      */
-    T append(String s);
+    T a(String s);
 
 
     /**
@@ -40,7 +40,7 @@ interface IStr<T extends IStr<T>> {
      *
      * This should really be package private or protected. But as this is not an option, it has to be public.
      *
-     * @return The locale used by operations where locale is a factor. 
+     * @return The locale used by operations where locale is a factor.
      */
     Locale getLocale();
 

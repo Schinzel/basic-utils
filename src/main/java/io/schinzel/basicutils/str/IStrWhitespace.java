@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.str;
 
 /**
- * The purpose of this interface is to append whitespaces.
+ * The purpose of this interface is to a whitespaces.
  *
  * Created by schinzel on 2017-02-26.
  */
@@ -31,11 +31,11 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T>  {
     /**
      * Append a white space.
      *
-     * @param whitespace The white space to append.
+     * @param whitespace The white space to a.
      * @return This for chaining.
      */
     default T aws(WS whitespace) {
-        this.append(whitespace.toString());
+        this.a(whitespace.toString());
         return this.getThis();
     }
 
