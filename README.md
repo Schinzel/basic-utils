@@ -129,9 +129,9 @@ one class with less verbose syntax and less boilerplate code.
  Instead of:
 ```java
  StringBuilder sb = new StringBuilder();
- sb.a("A")
-    .a(String.format( "%.2f", myDouble ))
-    .a("B");
+ sb.append("A")
+    .append(String.format( "%.2f", myDouble ))
+    .append("B");
  System.out.println(sb.toString());
 ```
  
