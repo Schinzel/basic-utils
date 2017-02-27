@@ -5,7 +5,7 @@ import java.util.Locale;
 /**
  * Created by schinzel on 2017-02-26.
  */
-interface StrNumbers<T extends IStr<T>> extends IStr<T> {
+interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
 
 
     /**

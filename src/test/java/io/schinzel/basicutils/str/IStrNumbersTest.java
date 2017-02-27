@@ -1,19 +1,16 @@
 package io.schinzel.basicutils.str;
 
-import io.schinzel.basicutils.state.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Locale;
 
-import static org.junit.Assert.*;
-
 /**
  * Created by schinzel on 2017-02-26.
  */
-public class StrNumbersTest {
+public class IStrNumbersTest {
 
-    private class MyClass implements StrNumbers<MyClass>{
+    private class MyClass implements IStrNumbers<MyClass> {
         private StringBuilder sb = new StringBuilder();
 
         @Override

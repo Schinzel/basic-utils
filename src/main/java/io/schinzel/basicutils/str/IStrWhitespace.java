@@ -3,7 +3,7 @@ package io.schinzel.basicutils.str;
 /**
  * Created by schinzel on 2017-02-26.
  */
-interface StrWhitespace<T extends IStr<T>> extends IStr<T>  {
+interface IStrWhitespace<T extends IStr<T>> extends IStr<T>  {
     /**s
      * Enum for whitespaces.
      */

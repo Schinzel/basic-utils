@@ -5,7 +5,7 @@ import java.util.Locale;
 /**
  * Created by schinzel on 2017-02-26.
  */
-public class Str implements StrNumbers<Str>, StrWhitespace<Str> {
+public class Str implements IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str> {
     StringBuilder sb = new StringBuilder();
 
 
@@ -30,12 +30,6 @@ public class Str implements StrNumbers<Str>, StrWhitespace<Str> {
     @Override
     public Locale getLocale() {
         return Locale.US;
-    }
-
-
-    public Str pln() {
-        System.out.println(sb.toString());
-        return this;
     }
 
 
