@@ -19,6 +19,9 @@ public class StrTest {
 
     @Test
     public void getThis() throws Exception {
+        Str str1 = Str.create();
+        Str str2 = str1.getThis();
+        Assert.assertEquals(str1, str2);
     }
 
 
