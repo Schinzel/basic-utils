@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.state;
 
+import io.schinzel.basicutils.str.Str;
 import org.junit.Assert;
 import org.junit.Test;
 

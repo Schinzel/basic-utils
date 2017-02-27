@@ -86,7 +86,7 @@ public class Checker {
     /**
      * Check if an array of objects is null or empty
      *
-     * @param <T>
+     * @param <T> The type of the array
      * @param value The value to check
      * @return True if argument is empty or length 0, else false. 
      */

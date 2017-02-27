@@ -2,6 +2,7 @@ package io.schinzel.basicutils.collections;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,17 +15,17 @@ import java.util.TreeMap;
 /**
  * The purpose of this class is offer a collection that stores values where the
  * values have unique identifiers.
- *
+ * <p>
  * A more succinct and easier-on-the-eyes version of storing values with
  * identifiers.
- *
+ * <p>
  * {@literal (Map<String, MyValue> myMap = new HashMap<<(); MyValue myValue = new
  * MyValue("ABC"); myMap.add(myValue.getStringId, myValue);
- *
+ * <p>
  * IdSet<MyValue> mySet = IdSet.create().add(new MyValue("ABC");}
  *
- * @author schinzel
  * @param <V> The type of element to store in the collection.
+ * @author schinzel
  */
 public class IdSet<V extends IdSetValue> implements Iterable<V> {
 
@@ -38,25 +39,26 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      */
     private final Map<String, String> mAliasMap = new HashMap<>();
 
+
     //*************************************************************************
     //* CONSTURCTION
     //*************************************************************************
     private IdSet() {
     }
 
+
     /**
-     *
      * @return A freshly minted instance.
      */
     public static IdSet create() {
         return new IdSet();
     }
-
     //*************************************************************************
     //* ADD REMOVE
     //*************************************************************************
+
+
     /**
-     *
      * @param value A value to add to set.
      * @return This for chaining.
      */
@@ -69,18 +71,18 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return this;
     }
 
+
     /**
      * Adds an alias for an id. For example: Lets assume there is an object
      * "thing" that returns the id "theId". The thing is added to the collection
      * with a couple of aliases idSet.add(thing).addAlias("a",
      * "theId").addAlias("b", "theId");
-     *
+     * <p>
      * Then all three below would return the thing: idSet.get("theId")
      * idSet.get("a") idSet.get("b")
      *
-     *
-     * @param id
-     * @param alias
+     * @param id    The id for which to add the argument alias.
+     * @param alias The alias to add for argument id.
      * @return This for chaining.
      */
     public IdSet addAlias(String id, String alias) {
@@ -92,9 +94,9 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return this;
     }
 
+
     /**
-     *
-     * @param value
+     * @param value The value to add and return.
      * @return The argument value.
      */
     public V addAndGet(V value) {
@@ -102,60 +104,61 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return value;
     }
 
+
     /**
-     * Removes argument id from collection. If no value with argument id exists
-     * and error is thrown.
+     * Removes argument id from collection. If no value with argument id exists an error is thrown.
      *
-     * @param id
+     * @param id The id find a value for and remove.
      * @return This of chaining.
      */
     public IdSet remove(String id) {
         Thrower.throwIfFalse(this.has(id), "Cannot remove value with id '" + id + "' as no such value exists.");
         //Remove all entries in alias map with argument id.
-        while (mAliasMap.values().remove(id));
+        while (mAliasMap.values().remove(id)) ;
         mMap.remove(id);
         return this;
     }
-
     //*************************************************************************
     //* UTIL
     //*************************************************************************
+
+
     /**
-     *
      * @return The number of values in this set
      */
     public int size() {
         return mMap.size();
     }
 
+
     /**
-     *
      * @return True if there are no values in this set.
      */
     public boolean isEmpty() {
         return mMap.isEmpty();
     }
 
+
     /**
-     *
-     * @param id
+     * @param id The id to lookup.
      * @return True if value with argument id is present in set.
      */
     public boolean has(String id) {
         return mMap.containsKey(id);
     }
 
+
     @Override
     public Iterator<V> iterator() {
         return mMap.values().iterator();
     }
-
     //*************************************************************************
     //* GET VALUES
     //*************************************************************************
+
+
     /**
-     *
-     * @param id
+     * @param id The id to look up.
      * @return The value with the argument id.
      * @throws RuntimeException If there is no value with argument id.
      */
@@ -173,13 +176,13 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return value;
     }
 
+
     /**
-     *
-     * @param ids
+     * @param ids The ids to find values for.
      * @return A list of values that have the argument identifiers. The elements
      * are returned in the order of the argument list.
      * @throws RuntimeException If one or more of the argument identifiers do
-     * not exist exist.
+     *                          not exist exist.
      */
     public List<V> get(List<String> ids) {
         if (Checker.isEmpty(ids)) {
@@ -195,11 +198,13 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return values;
     }
 
+
     /**
-     * Example: Collection: "A1, A2, B1, B2, C1, C"" Argument: "B*" Output: "B1,
-     * B2"
+     * Example: Collection: "A1, A2, B1, B2, C1, C""
+     * Argument: "B*"
+     * Output: "B1,B2"
      *
-     * @param idWithWildCards
+     * @param idWithWildCards String to loop up.
      * @return A list of values in alphabetical order that matches the argument.
      */
     public List<V> getUsingWildCards(String idWithWildCards) {
@@ -213,12 +218,11 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         return values;
     }
 
+
     /**
-     *
      * @return The values held.
      */
     public Collection<V> values() {
         return mMap.values();
     }
-
 }
