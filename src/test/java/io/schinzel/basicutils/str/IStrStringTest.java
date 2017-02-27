@@ -20,10 +20,9 @@ public class IStrStringTest {
 
     /**
      * Test appending a string builder
-     * @throws Exception
      */
     @Test
-    public void a() throws Exception {
+    public void appendStringBuilder() {
         StringBuilder sb = new StringBuilder();
         sb.append("gibbon");
         StrString str = new StrString().a("chimp ").a(sb).a(" gorilla");
@@ -32,8 +31,14 @@ public class IStrStringTest {
     }
 
 
+    /**
+     * Test appending another Str
+     */
     @Test
-    public void a1() throws Exception {
+    public void appendStr() {
+        Str str1 = Str.create().a("gibbon");
+        Str str2 = Str.create().a("chimp ").a(str1).a(" gorilla");
+        Assert.assertEquals("chimp gibbon gorilla", str2.getString());
     }
 
 }
