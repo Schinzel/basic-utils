@@ -3,6 +3,8 @@ package io.schinzel.basicutils.str;
 import java.util.Locale;
 
 /**
+ * This class contains the most common string operations with less code.
+ *
  * Created by schinzel on 2017-02-26.
  */
 public class Str implements IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str>, IStrString<Str> {
