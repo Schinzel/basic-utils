@@ -1,6 +1,5 @@
 package io.schinzel.basicutils;
 
-import com.sun.tools.javac.comp.Check;
 import io.schinzel.basicutils.str.Str;
 
 import java.util.Arrays;
