@@ -123,17 +123,26 @@ public class Thrower {
     }
 
 
+    /**
+     *
+     * @param expression If evaluates to true, then a RuntimeException is thrown.
+     * @param message The exception message.
+     * @param keyValues A series of key values. As such the number of elements need to be even.
+     */
     public static void throwIfTrue(boolean expression, String message, String... keyValues) {
         //If key values are empty && the number of key values is not empty
         if (!Checker.isEmpty(keyValues) && keyValues.length % 2 != 0) {
             throw new RuntimeException("The the number of key values are not even: '" + Arrays.toString(keyValues) + "'");
         }
+        //If argument expression is true
         if (expression) {
             String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
             String className = Thread.currentThread().getStackTrace()[2].getClassName();
+            className = className.substring(className.lastIndexOf(".")+1, className.length());
+            //Compile more extensive exception message.
             Str str = Str.create().a(message).asp()
-                    .a("In class: ").aq(className).a(". ")
-                    .a("Method: ").aq(methodName).a(". ")
+                    .a("Class:").aq(className).asp()
+                    .a("Method:").aq(methodName).asp()
                     .a(Thrower.getArgs(keyValues));
             throw new RuntimeException(str.getString());
         }
@@ -157,7 +166,7 @@ public class Thrower {
                 }
                 args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
             }
-            str.a("Arguments: {").a(args).a("}");
+            str.a("Arguments:{").a(args).a("}");
         }
         return str;
     }

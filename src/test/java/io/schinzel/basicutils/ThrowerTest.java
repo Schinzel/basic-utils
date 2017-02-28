@@ -146,14 +146,6 @@ public class ThrowerTest extends Thrower {
     }
 
 
-    private class MyTestClass {
-        private void myMethod(boolean throwException, String exceptionMessage, String... keyValues) {
-            Thrower.throwIfTrue(throwException, exceptionMessage, keyValues);
-        }
-
-    }
-
-
     /**
      * Tess calls getArgs with empty argument.
      */
@@ -178,6 +170,28 @@ public class ThrowerTest extends Thrower {
         actual = Thrower.getArgs("k1", "v1", "k2", "v2").getString();
         expceted = "Arguments: {k1:'v1' k2:'v2'}";
         Assert.assertEquals(expceted, actual);
+    }
+    //------------------------------------------------------------------------
+    // Test of extensive error message
+    //------------------------------------------------------------------------
+
+
+    /**
+     * Test class so that the position in the stacktrace from which for example method
+     * name is extracted can be simulated.
+     */
+    private class MyTestClass {
+        private void myMethod(boolean throwException, String exceptionMessage, String... keyValues) {
+            Thrower.throwIfTrue(throwException, exceptionMessage, keyValues);
+        }
+
+    }
+
+    @Test
+    public void testThrowIfTrue_extensiveErrorMessage(){
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("MyMessage Class:'ThrowerTest$MyTestClass' Method:'myMethod' Arguments:{k1:'v1'}");
+        new MyTestClass().myMethod(true, "MyMessage", "k1", "v1");
     }
 
 }
