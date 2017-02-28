@@ -8,21 +8,34 @@ import io.schinzel.basicutils.str.Str;
 interface IThrower {
 
     default void throwIfTrue(boolean boo, String message, String... keyValues) {
-        Str str = Str.create()
-                //Error message
-                .a(message).asp()
-                //Class name
-                .a("In class: ").aq(this.getClass().getSimpleName()).a(". ");
-        if (!Checker.isEmpty(keyValues)) {
-            Str args = Str.create();
-            for (int i = 0; i < keyValues.length; i += 2) {
-                if (!args.isEmpty()){
-                    args.asp();
-                }
-                args.a(keyValues[i]).a(":").aq(keyValues[i+1]);
-            }
-            str.a("Arguments: {").a(args).a("}");
-        }
+        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        Str str = Str.create().a(message).asp()
+                .a("In class: ").aq(this.getClass().getSimpleName()).a(". ")
+                .a("Method: ").aq(methodName).a(". ");
+        str.a(Helper.getArgs(keyValues));
         throw new RuntimeException(str.getString());
+    }
+
+
+    /**
+     * Inner class so that can have private methods
+     */
+    class Helper {
+
+
+        private static Str getArgs(String... keyValues) {
+            Str str = Str.create();
+            if (!Checker.isEmpty(keyValues)) {
+                Str args = Str.create();
+                for (int i = 0; i < keyValues.length; i += 2) {
+                    if (!args.isEmpty()) {
+                        args.asp();
+                    }
+                    args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
+                }
+                str.a("Arguments: {").a(args).a("}");
+            }
+            return str;
+        }
     }
 }
