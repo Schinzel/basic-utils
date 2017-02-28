@@ -22,7 +22,7 @@ public class CacheTest {
 
     @Test
     public void testOverwrite() {
-        Cache<String, String> cache = new Cache();
+        Cache<String, String> cache = new Cache<>();
         cache.put("key1", "val1");
         assertEquals("val1", cache.get("key1"));
         cache.put("key1", "val2");
@@ -32,7 +32,7 @@ public class CacheTest {
 
     @Test
     public void testHits() {
-        Cache<String, String> cache = new Cache();
+        Cache<String, String> cache = new Cache<>();
         assertEquals(0, cache.cacheHits());
         cache.put("key1", "val1");
         cache.get("key1");
@@ -46,7 +46,7 @@ public class CacheTest {
 
     @Test
     public void testHas() {
-        Cache<String, String> cache = new Cache();
+        Cache<String, String> cache = new Cache<>();
         assertFalse(cache.has("key1"));
         cache.put("key1", "val1");
         assertTrue(cache.has("key1"));
@@ -55,7 +55,7 @@ public class CacheTest {
 
     @Test
     public void testInvalidate() {
-        Cache<String, String> cache = new Cache();
+        Cache<String, String> cache = new Cache<>();
         cache.put("key1", "val1");
         cache.get("key1");
         assertEquals(1, cache.cacheHits());
