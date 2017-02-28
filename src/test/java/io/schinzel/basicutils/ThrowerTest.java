@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- *
  * @author schinzel
  */
 public class ThrowerTest extends Thrower {
@@ -145,4 +144,81 @@ public class ThrowerTest extends Thrower {
         Thrower.throwIfTooLarge(10, "varre", 10);
         Assert.assertTrue("Should get here as 10 is not to large", true);
     }
+
+
+    /**
+     * Tess calls getArgs with empty argument.
+     */
+    @Test
+    public void testGetArgs_noArgs() {
+        String actual = Thrower.getArgs(null).getString();
+        String expceted = EmptyObjects.EMPTY_STRING;
+        Assert.assertEquals(expceted, actual);
+        //
+        actual = Thrower.getArgs(EmptyObjects.EMPTY_STRING_ARRAY).getString();
+        expceted = EmptyObjects.EMPTY_STRING;
+        Assert.assertEquals(expceted, actual);
+    }
+
+
+    @Test
+    public void testGetArgs() {
+        String actual = Thrower.getArgs("k1", "v1").getString();
+        String expceted = "Arguments:{k1:'v1'}";
+        Assert.assertEquals(expceted, actual);
+        //
+        actual = Thrower.getArgs("k1", "v1", "k2", "v2").getString();
+        expceted = "Arguments:{k1:'v1' k2:'v2'}";
+        Assert.assertEquals(expceted, actual);
+    }
+    //------------------------------------------------------------------------
+    // Test of extensive error message
+    //------------------------------------------------------------------------
+
+
+    /**
+     * Test class so that the position in the stacktrace from which for example method
+     * name is extracted can be simulated.
+     */
+    private class MyTestClass {
+        private void myMethod(boolean throwException, String exceptionMessage, String... keyValues) {
+            Thrower.throwIfTrue(throwException, exceptionMessage, keyValues);
+        }
+
+    }
+
+
+    /**
+     * Validate a full message.
+     */
+    @Test
+    public void testThrowIfTrue_extensiveErrorMessage() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("MyMessage Class:'ThrowerTest$MyTestClass' Method:'myMethod' Arguments:{k1:'v1'}");
+        new MyTestClass().myMethod(true, "MyMessage", "k1", "v1");
+    }
+
+
+    /**
+     * Verify that exception is not thrown if first arg is false.
+     */
+    @Test
+    public void testThrowIfTrue_doNotThrow() {
+        boolean exceptionThrown = false;
+        try {
+            new MyTestClass().myMethod(false, "MyMessage", "k1", "v1");
+        } catch (RuntimeException e) {
+            exceptionThrown = true;
+        }
+        Assert.assertFalse("Exception should not have been thrown", exceptionThrown);
+    }
+
+
+    @Test
+    public void testThrowIfTrue_wrongNumberOfKeyValues() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("The number of key values is not even");
+        new MyTestClass().myMethod(false, "MyMessage", "k1");
+    }
 }
+

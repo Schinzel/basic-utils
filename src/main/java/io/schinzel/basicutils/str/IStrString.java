@@ -32,4 +32,15 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
     }
 
 
+    /**
+     * Appends the argument string surrounded with single quotation marks.
+     *
+     * @param s The string to append.
+     * @return This for chaining.
+     */
+    default T aq(String s){
+        this.a("'" + s  + "'");
+        return this.getThis();
+    }
+
 }

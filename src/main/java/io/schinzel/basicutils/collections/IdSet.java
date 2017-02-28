@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.collections;
 
 import io.schinzel.basicutils.Checker;
+import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.Thrower;
 
 import java.util.ArrayList;
@@ -28,7 +29,6 @@ import java.util.TreeMap;
  * @author schinzel
  */
 public class IdSet<V extends IdSetValue> implements Iterable<V> {
-
     /**
      * The internal storage. Set key sort order to be compareToIgnoreCase.
      */
@@ -39,11 +39,14 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      */
     private final Map<String, String> mAliasMap = new HashMap<>();
 
+    final String mCollectionName;
+    //*************************************************************************
+    //* CONSTRUCTION
+    //*************************************************************************
 
-    //*************************************************************************
-    //* CONSTURCTION
-    //*************************************************************************
-    private IdSet() {
+
+    private IdSet(String collectionName) {
+        mCollectionName = collectionName;
     }
 
 
@@ -51,7 +54,16 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return A freshly minted instance.
      */
     public static IdSet create() {
-        return new IdSet();
+        return new IdSet(EmptyObjects.EMPTY_STRING);
+    }
+
+
+    /**
+     * @param collectionName The name of the collection. Useful for error messages and debugging.
+     * @return A freshly minted instance.
+     */
+    public static IdSet create(String collectionName) {
+        return new IdSet(collectionName);
     }
     //*************************************************************************
     //* ADD REMOVE
@@ -65,8 +77,8 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public IdSet add(V value) {
         Thrower.throwIfEmpty(value, "value");
         String id = value.getid();
-        Thrower.throwIfTrue(mAliasMap.containsKey(id), "A value with id '" + id + "' cannot be added as there exists an alias with the same id.");
-        Thrower.throwIfTrue(this.has(id), "A value with id '" + id + "' cannot be added as one already exists");
+        Thrower.throwIfTrue(mAliasMap.containsKey(id), "Value cannot be added as there exists an alias with the same id.", "id", id, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(this.has(id), "Value cannot be added as a value with that id already exists", "id", id, "collectionName", mCollectionName);
         mMap.put(id, value);
         return this;
     }
@@ -86,10 +98,10 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return This for chaining.
      */
     public IdSet addAlias(String id, String alias) {
-        Thrower.throwIfTrue(!this.has(id), "An alias '" + alias + "' for a id '" + id + "' cannot be added as there exist no value with this id in collection.");
+        Thrower.throwIfTrue(!this.has(id), "Alias cannot be added as there exist no value with this id in collection.", "alias", alias, "id", id, "collectionName", mCollectionName);
         //if the argument value exists in the alias set
-        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "An alias'" + alias + "' cannot be added as there already exists such an alias.");
-        Thrower.throwIfTrue(this.has(alias), "An alias '" + alias + "' cannot be added as there exists a value with the same id.");
+        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias cannot be added as there already exists such an alias.", "alias", alias, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(this.has(alias), "Alias cannot be added as there exists a value with the same id.", "alias", alias, "collectionName", mCollectionName);
         mAliasMap.put(alias, id);
         return this;
     }
@@ -112,7 +124,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return This of chaining.
      */
     public IdSet remove(String id) {
-        Thrower.throwIfFalse(this.has(id), "Cannot remove value with id '" + id + "' as no such value exists.");
+        Thrower.throwIfTrue(!this.has(id), "Cannot remove value as no such value exists.", "id", id, "collectionName", mCollectionName);
         //Remove all entries in alias map with argument id.
         while (mAliasMap.values().remove(id)) ;
         mMap.remove(id);
@@ -172,7 +184,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         //Get the value of the argument id
         V value = mMap.get(id);
         //If no value was found, throw error. 
-        Thrower.throwIfEmpty(value, "'" + id + "' not found in set.");
+        Thrower.throwIfTrue(value == null, "Id not found in set.", "id", id, "collectionName", mCollectionName);
         return value;
     }
 
