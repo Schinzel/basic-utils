@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- *
  * @author schinzel
  */
 public class ThrowerTest extends Thrower {
@@ -145,4 +144,40 @@ public class ThrowerTest extends Thrower {
         Thrower.throwIfTooLarge(10, "varre", 10);
         Assert.assertTrue("Should get here as 10 is not to large", true);
     }
+
+
+    private class MyTestClass {
+        private void myMethod(boolean throwException, String exceptionMessage, String... keyValues) {
+            Thrower.throwIfTrue(throwException, exceptionMessage, keyValues);
+        }
+
+    }
+
+
+    /**
+     * Tess calls getArgs with empty argument.
+     */
+    @Test
+    public void testGetArgs_noArgs() {
+        String actual = Thrower.getArgs(null).getString();
+        String expceted = EmptyObjects.EMPTY_STRING;
+        Assert.assertEquals(expceted, actual);
+        //
+        actual = Thrower.getArgs(EmptyObjects.EMPTY_STRING_ARRAY).getString();
+        expceted = EmptyObjects.EMPTY_STRING;
+        Assert.assertEquals(expceted, actual);
+    }
+
+
+    @Test
+    public void testGetArgs() {
+        String actual = Thrower.getArgs("k1", "v1").getString();
+        String expceted = "Arguments: {k1:'v1'}";
+        Assert.assertEquals(expceted, actual);
+        //
+        actual = Thrower.getArgs("k1", "v1", "k2", "v2").getString();
+        expceted = "Arguments: {k1:'v1' k2:'v2'}";
+        Assert.assertEquals(expceted, actual);
+    }
+
 }
