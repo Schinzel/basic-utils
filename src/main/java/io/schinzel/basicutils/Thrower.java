@@ -132,7 +132,7 @@ public class Thrower {
     public static void throwIfTrue(boolean expression, String message, String... keyValues) {
         //If key values are empty && the number of key values is not empty
         if (!Checker.isEmpty(keyValues) && keyValues.length % 2 != 0) {
-            throw new RuntimeException("The the number of key values are not even: '" + Arrays.toString(keyValues) + "'");
+            throw new RuntimeException("The number of key values is not even: '" + Arrays.toString(keyValues) + "'");
         }
         //If argument expression is true
         if (expression) {
