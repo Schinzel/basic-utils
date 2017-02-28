@@ -65,8 +65,8 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public IdSet add(V value) {
         Thrower.throwIfEmpty(value, "value");
         String id = value.getid();
-        Thrower.throwIfTrue(mAliasMap.containsKey(id), "A value with id '" + id + "' cannot be added as there exists an alias with the same id.");
-        Thrower.throwIfTrue(this.has(id), "A value with id '" + id + "' cannot be added as one already exists");
+        Thrower.throwIfTrue(mAliasMap.containsKey(id), "Value cannot be added as there exists an alias with the same id.", "id", id);
+        Thrower.throwIfTrue(this.has(id), "Value cannot be added as a value with that id already exists", "id", id);
         mMap.put(id, value);
         return this;
     }
@@ -86,10 +86,10 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @return This for chaining.
      */
     public IdSet addAlias(String id, String alias) {
-        Thrower.throwIfTrue(!this.has(id), "An alias '" + alias + "' for a id '" + id + "' cannot be added as there exist no value with this id in collection.");
+        Thrower.throwIfTrue(!this.has(id), "Alias cannot be added as there exist no value with this id in collection.", "alias", alias, "id", id);
         //if the argument value exists in the alias set
-        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "An alias'" + alias + "' cannot be added as there already exists such an alias.");
-        Thrower.throwIfTrue(this.has(alias), "An alias '" + alias + "' cannot be added as there exists a value with the same id.");
+        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias cannot be added as there already exists such an alias.", "alias", alias);
+        Thrower.throwIfTrue(this.has(alias), "Alias cannot be added as there exists a value with the same id.", "alias", alias);
         mAliasMap.put(alias, id);
         return this;
     }
@@ -172,7 +172,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         //Get the value of the argument id
         V value = mMap.get(id);
         //If no value was found, throw error. 
-        Thrower.throwIfEmpty(value, "'" + id + "' not found in set.");
+        Thrower.throwIfTrue(value==null, "Id not found in set.", "id", id);
         return value;
     }
 
