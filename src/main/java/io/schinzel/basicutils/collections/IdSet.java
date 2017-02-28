@@ -41,7 +41,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
 
 
     //*************************************************************************
-    //* CONSTURCTION
+    //* CONSTRUCTION
     //*************************************************************************
     private IdSet() {
     }
