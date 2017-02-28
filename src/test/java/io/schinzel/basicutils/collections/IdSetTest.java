@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- *
  * @author schinzel
  */
 public class IdSetTest {
@@ -23,6 +23,7 @@ public class IdSetTest {
     class MyVal implements IdSetValue {
 
         private final String mId;
+
 
         MyVal(String id) {
             mId = id;
@@ -36,6 +37,13 @@ public class IdSetTest {
 
 
     }
+
+
+    @Test
+    public void testSetCollectionName() {
+        Assert.assertEquals("MyCollName", IdSet.create("MyCollName").mCollectionName);
+    }
+
 
     @Test
     public void testAdd_sameIdTwice() {
