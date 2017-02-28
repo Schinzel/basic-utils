@@ -7,7 +7,7 @@ import java.util.Locale;
  *
  * Created by schinzel on 2017-02-26.
  */
-public class Str implements IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str>, IStrString<Str> {
+public class Str implements IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str>, IStrString<Str>, IStrUtil<Str> {
     StringBuilder sb = new StringBuilder();
 
 
