@@ -14,20 +14,24 @@ public class SubStringerSample {
         String queryString = SubStringer.create(input)
                 .start("?")
                 .toString();
+        System.out.println("QueryString " + queryString);
         //Get everything before question mark, i.e. "http://www.example.com/index.html"
         String url = SubStringer.create(input)
                 .end("?")
                 .toString();
+        System.out.println("URL " + url);
         //Get host, i.e. "www.example.com"
         String host = SubStringer.create(input)
                 .start("http://")
                 .end("/index")
                 .toString();
+        System.out.println("Host " + host);
         //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
         String page = SubStringer.create(input)
                 .start("//").end("?")
                 .getSubStringer()
                 .start("/")
                 .toString();
+        System.out.println("Page " + page);
     }
 }
