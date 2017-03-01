@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections;
+package io.schinzel.basicutils.collections.idset;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,6 +6,8 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import io.schinzel.basicutils.collections.idset.IdSet;
+import io.schinzel.basicutils.collections.idset.IdSetValue;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;

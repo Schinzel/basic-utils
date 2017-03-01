@@ -1,5 +1,6 @@
-package io.schinzel.basicutils.collections;
+package io.schinzel.basicutils.collections.idset;
 
+import io.schinzel.basicutils.collections.idset.IdSetValue;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ import static org.hamcrest.Matchers.greaterThan;
  * Created by schinzel on 2017-02-26.
  */
 public class IdSetValueTest {
-    class MyClass implements IdSetValue{
+    class MyClass implements IdSetValue {
         int mOrder;
         String mId;
 

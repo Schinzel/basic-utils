@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections;
+package io.schinzel.basicutils.collections.idset;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.EmptyObjects;
