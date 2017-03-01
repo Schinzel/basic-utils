@@ -50,7 +50,7 @@ class MyValue implements IdSetValue {
 	public String getId() { return id; }
 }
 
-IdSet<MyValue> mySet = IdSet.create()
+IdSet<MyValue> mySet = IdSet.<MyValue>create()
 	.add(new MyValue("A"))
 	.add(new MyValue("B"));
 

@@ -124,6 +124,15 @@
             <version>1.1</version>
         </dependency>
         <dependency>
+            <!-- Annotations that generates getters, setters and more that
+            are not visible in source code.
+            https://projectlombok.org/index.html -->
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.12</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>21.0</version>
