@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.collections.idset;
 
 import io.schinzel.basicutils.collections.idset.IdSetValue;
+import lombok.Getter;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,19 +16,17 @@ import static org.hamcrest.Matchers.greaterThan;
  */
 public class IdSetValueTest {
     class MyClass implements IdSetValue {
+        @Getter
+        private final IdObj idObj;
         int mOrder;
-        String mId;
 
-        MyClass(int order, String id){
+
+        MyClass(int order, String id) {
+            idObj = new IdObj(id);
             mOrder = order;
-            mId = id;
-        }
-
-        @Override
-        public String getId() {
-            return mId;
         }
     }
+
 
     @Test
     public void compareTo() throws Exception {
@@ -46,12 +45,10 @@ public class IdSetValueTest {
         );
         list = list.stream().sorted().collect(toList());
         int prev = -100;
-        for(MyClass myClass: list){
+        for (MyClass myClass : list) {
             int current = myClass.mOrder;
             Assert.assertThat(current, greaterThan(prev));
             prev = current;
         }
-
     }
-
 }

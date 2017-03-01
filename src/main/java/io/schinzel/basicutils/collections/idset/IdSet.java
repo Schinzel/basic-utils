@@ -54,7 +54,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     /**
      * @return A freshly minted instance.
      */
-    public static <Q extends IdSetValue> IdSet<Q> create2() {
+    public static <Q extends IdSetValue> IdSet<Q> create() {
         return new IdSet<>(EmptyObjects.EMPTY_STRING);
     }
 
