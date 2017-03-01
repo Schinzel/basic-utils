@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.idset;
+package io.schinzel.basicutils.collections.namedvalues;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,33 +16,33 @@ import org.junit.rules.ExpectedException;
 /**
  * @author schinzel
  */
-public class IdSetTest {
+public class NamedValuesTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
-    class MyVal implements IdSetValue {
+    class MyVal implements INamedValue {
 
         @Getter
-        private final IdObj idObj;
+        private final NamedValue idObj;
 
 
         MyVal(String id) {
-            idObj = new IdObj(id);
+            idObj = new NamedValue(id);
         }
     }
 
 
     @Test
     public void testSetCollectionName() {
-        Assert.assertEquals("MyCollName", IdSet.create("MyCollName").mCollectionName);
+        Assert.assertEquals("MyCollName", NamedValues.create("MyCollName").mCollectionName);
     }
 
 
     @Test
     public void testAdd_sameIdTwice() {
-        IdSet<MyVal> coll1 = IdSet.<MyVal>create().add(new MyVal("MyName1"));
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll1 = NamedValues.<MyVal>create().add(new MyVal("MyName1"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -53,7 +53,7 @@ public class IdSetTest {
 
     @Test
     public void testSize() {
-        IdSet<MyVal> coll = IdSet.<MyVal>create();
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create();
         Assert.assertEquals(0, coll.size());
         coll.add(new MyVal("MyName1"));
         Assert.assertEquals(1, coll.size());
@@ -72,7 +72,7 @@ public class IdSetTest {
 
     @Test
     public void testGet() {
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -90,7 +90,7 @@ public class IdSetTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -127,7 +127,7 @@ public class IdSetTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -147,7 +147,7 @@ public class IdSetTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -172,7 +172,7 @@ public class IdSetTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -191,7 +191,7 @@ public class IdSetTest {
 
     @Test
     public void testGet_emptyList() {
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -207,7 +207,7 @@ public class IdSetTest {
      */
     @Test
     public void testOrder() {
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("myName1"))
                 .add(new MyVal("MyName3"))
@@ -228,7 +228,7 @@ public class IdSetTest {
         MyVal val1 = new MyVal("C");
         MyVal val2 = new MyVal("A");
         MyVal val3 = new MyVal("B");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(val1)
                 .add(val2)
                 .add(val3);
@@ -245,7 +245,7 @@ public class IdSetTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -264,7 +264,7 @@ public class IdSetTest {
 
     @Test
     public void testAlias_addAliasIdExists() {
-        IdSet<MyVal> coll = IdSet.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
         exception.expect(RuntimeException.class);
         coll.addAlias("B", "A");
     }
@@ -272,7 +272,7 @@ public class IdSetTest {
 
     @Test
     public void testAlias_addSameAliasTwice() {
-        IdSet<MyVal> coll = IdSet.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
         coll.addAlias("B", "alias1");
         exception.expect(RuntimeException.class);
         coll.addAlias("A", "alias1");
@@ -281,7 +281,7 @@ public class IdSetTest {
 
     @Test
     public void testAlias_addValueWhenThereExistsValueWithId() {
-        IdSet<MyVal> coll = IdSet.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
         exception.expect(RuntimeException.class);
         coll.addAlias("A", "B");
     }
@@ -292,7 +292,7 @@ public class IdSetTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -318,7 +318,7 @@ public class IdSetTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -338,7 +338,7 @@ public class IdSetTest {
 
     @Test
     public void testIsEmpty() {
-        IdSet<MyVal> coll = IdSet.create();
+        NamedValues<MyVal> coll = NamedValues.create();
         Assert.assertTrue(coll.isEmpty());
         coll.add(new MyVal("A"));
         Assert.assertFalse(coll.isEmpty());
@@ -349,7 +349,7 @@ public class IdSetTest {
 
     @Test
     public void testAddAndReturn() {
-        IdSet<MyVal> coll = IdSet.create();
+        NamedValues<MyVal> coll = NamedValues.create();
         MyVal myVal = new MyVal("A");
         MyVal myVal2 = coll.addAndGet(myVal);
         Assert.assertEquals(myVal2, myVal);
@@ -361,7 +361,7 @@ public class IdSetTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        IdSet<MyVal> coll = IdSet.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)

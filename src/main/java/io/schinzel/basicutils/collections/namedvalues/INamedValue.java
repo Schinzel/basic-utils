@@ -1,12 +1,12 @@
-package io.schinzel.basicutils.collections.idset;
+package io.schinzel.basicutils.collections.namedvalues;
 
 /**
  * The purpose of this interface is to be implemented for storing custom
- * objects in the collection IdSet.
+ * objects in the collection NamedValues.
  *
  * @author schinzel
  */
-public interface IdSetValue extends Comparable<IdSetValue> {
+public interface INamedValue extends Comparable<INamedValue> {
 
     /**
      * @return An unique identifier.
@@ -20,11 +20,11 @@ public interface IdSetValue extends Comparable<IdSetValue> {
         return this.getIdObj().getDescription();
     }
 
-    IdObj getIdObj();
+    NamedValue getIdObj();
 
 
     @Override
-    default int compareTo(IdSetValue o) {
+    default int compareTo(INamedValue o) {
         return this.getId().compareToIgnoreCase(o.getId());
     }
 

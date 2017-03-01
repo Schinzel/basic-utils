@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.idset;
+package io.schinzel.basicutils.collections.namedvalues;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.EmptyObjects;
@@ -24,12 +24,12 @@ import java.util.TreeMap;
  * MyValue myValue = new MyValue("ABC");
  * myMap.add(myValue.getStringId, myValue);
  * <p>
- * IdSet<MyValue> mySet = IdSet.create().add(new MyValue("ABC");}
+ * NamedValues<MyValue> mySet = NamedValues.create().add(new MyValue("ABC");}
  *
  * @param <V> The type of element to store in the collection.
  * @author schinzel
  */
-public class IdSet<V extends IdSetValue> implements Iterable<V> {
+public class NamedValues<V extends INamedValue> implements Iterable<V> {
     /**
      * The internal storage. Set key sort order to be compareToIgnoreCase.
      */
@@ -48,7 +48,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     //*************************************************************************
 
 
-    protected IdSet(String collectionName) {
+    protected NamedValues(String collectionName) {
         mCollectionName = collectionName;
     }
 
@@ -56,8 +56,8 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     /**
      * @return A freshly minted instance.
      */
-    public static <Q extends IdSetValue> IdSet<Q> create() {
-        return new IdSet<>(EmptyObjects.EMPTY_STRING);
+    public static <Q extends INamedValue> NamedValues<Q> create() {
+        return new NamedValues<>(EmptyObjects.EMPTY_STRING);
     }
 
 
@@ -65,8 +65,8 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param collectionName The name of the collection. Useful for error messages and debugging.
      * @return A freshly minted instance.
      */
-    public static <Q extends IdSetValue> IdSet<Q> create(String collectionName) {
-        return new IdSet<Q>(collectionName);
+    public static <Q extends INamedValue> NamedValues<Q> create(String collectionName) {
+        return new NamedValues<Q>(collectionName);
     }
     //*************************************************************************
     //* ADD
@@ -77,7 +77,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param value A value to add to set.
      * @return This for chaining.
      */
-    public IdSet<V> add(V value) {
+    public NamedValues<V> add(V value) {
         Thrower.throwIfEmpty(value, "value");
         String id = value.getId();
         Thrower.throwIfTrue(mAliasMap.containsKey(id), "Value cannot be added as there exists an alias with the same id.", "id", id, "collectionName", mCollectionName);
@@ -100,7 +100,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param alias The alias to add for argument id.
      * @return This for chaining.
      */
-    public IdSet<V> addAlias(String id, String alias) {
+    public NamedValues<V> addAlias(String id, String alias) {
         Thrower.throwIfTrue(!this.has(id), "Alias cannot be added as there exist no value with this id in collection.", "alias", alias, "id", id, "collectionName", mCollectionName);
         //if the argument value exists in the alias set
         Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias cannot be added as there already exists such an alias.", "alias", alias, "collectionName", mCollectionName);
@@ -129,7 +129,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param id The id find a value for and remove.
      * @return This for chaining.
      */
-    public IdSet<V> remove(String id) {
+    public NamedValues<V> remove(String id) {
         Thrower.throwIfTrue(!this.has(id), "Cannot remove value as no such value exists.", "id", id, "collectionName", mCollectionName);
         //Remove all entries in alias map with argument id.
         while (mAliasMap.values().remove(id)) ;
@@ -143,7 +143,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      *
      * @return This for chaining.
      */
-    public IdSet<V> clear() {
+    public NamedValues<V> clear() {
         mAliasMap.clear();
         mMap.clear();
         return this;

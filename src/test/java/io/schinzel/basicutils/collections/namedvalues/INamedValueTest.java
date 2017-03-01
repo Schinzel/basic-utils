@@ -1,6 +1,5 @@
-package io.schinzel.basicutils.collections.idset;
+package io.schinzel.basicutils.collections.namedvalues;
 
-import io.schinzel.basicutils.collections.idset.IdSetValue;
 import lombok.Getter;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,21 +13,21 @@ import static org.hamcrest.Matchers.greaterThan;
 /**
  * Created by schinzel on 2017-02-26.
  */
-public class IdSetValueTest {
-    class MyClass implements IdSetValue {
+public class INamedValueTest {
+    class MyClass implements INamedValue {
         @Getter
-        private final IdObj idObj;
+        private final NamedValue idObj;
         int mOrder;
 
 
         MyClass(int order, String id) {
-            idObj = new IdObj(id);
+            idObj = new NamedValue(id);
             mOrder = order;
         }
 
 
         MyClass(String id, String desc) {
-            idObj = new IdObj(id, desc);
+            idObj = new NamedValue(id, desc);
             mOrder = 17;
         }
     }
