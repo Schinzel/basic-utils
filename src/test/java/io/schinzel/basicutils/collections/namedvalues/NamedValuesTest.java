@@ -1,10 +1,6 @@
 package io.schinzel.basicutils.collections.namedvalues;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import lombok.Getter;
 import org.hamcrest.Matchers;
@@ -41,7 +37,6 @@ public class NamedValuesTest {
 
     @Test
     public void testAdd_sameIdTwice() {
-        NamedValues<MyVal> coll1 = NamedValues.<MyVal>create().add(new MyVal("MyName1"));
         NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
@@ -53,7 +48,7 @@ public class NamedValuesTest {
 
     @Test
     public void testSize() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create();
+        NamedValues<MyVal> coll = NamedValues.create();
         Assert.assertEquals(0, coll.size());
         coll.add(new MyVal("MyName1"));
         Assert.assertEquals(1, coll.size());
@@ -107,7 +102,7 @@ public class NamedValuesTest {
         Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.getUsingWildCards("Man2*");
-        expected = Arrays.asList(man2);
+        expected = Collections.singletonList(man2);
         Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.getUsingWildCards("M*n*");
@@ -155,8 +150,8 @@ public class NamedValuesTest {
                 .add(moon1);
         List<MyVal> actual, expected;
         //
-        actual = coll.get(Arrays.asList("Man1"));
-        expected = Arrays.asList(man1);
+        actual = coll.get(Collections.singletonList("Man1"));
+        expected = Collections.singletonList(man1);
         Assert.assertThat(actual, Matchers.is(expected));
         //
         actual = coll.get(Arrays.asList("Bird2", "Man1"));
