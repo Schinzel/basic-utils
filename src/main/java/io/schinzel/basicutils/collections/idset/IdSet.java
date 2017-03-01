@@ -39,7 +39,9 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * value.
      */
     private final Map<String, String> mAliasMap = new HashMap<>();
-
+    /**
+     * The name of this collection.
+     */
     final String mCollectionName;
     //*************************************************************************
     //* CONSTRUCTION
@@ -66,8 +68,8 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     public static <Q extends IdSetValue> IdSet<Q> create(String collectionName) {
         return new IdSet<Q>(collectionName);
     }
-    //Ä************************************************************************
-    //* ADD REMOVE
+    //*************************************************************************
+    //* ADD
     //*************************************************************************
 
 
@@ -116,19 +118,34 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
         this.add(value);
         return value;
     }
+    //*************************************************************************
+    //* REMOVE
+    //*************************************************************************
 
 
     /**
      * Removes argument id from collection. If no value with argument id exists an error is thrown.
      *
      * @param id The id find a value for and remove.
-     * @return This of chaining.
+     * @return This for chaining.
      */
     public IdSet<V> remove(String id) {
         Thrower.throwIfTrue(!this.has(id), "Cannot remove value as no such value exists.", "id", id, "collectionName", mCollectionName);
         //Remove all entries in alias map with argument id.
         while (mAliasMap.values().remove(id)) ;
         mMap.remove(id);
+        return this;
+    }
+
+
+    /**
+     * Removed all values and clears the aliases. Keeps the name though.
+     *
+     * @return This for chaining.
+     */
+    public IdSet<V> clear() {
+        mAliasMap.clear();
+        mMap.clear();
         return this;
     }
     //*************************************************************************
