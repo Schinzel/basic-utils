@@ -77,7 +77,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      */
     public IdSet add(V value) {
         Thrower.throwIfEmpty(value, "value");
-        String id = value.getid();
+        String id = value.getId();
         Thrower.throwIfTrue(mAliasMap.containsKey(id), "Value cannot be added as there exists an alias with the same id.", "id", id, "collectionName", mCollectionName);
         Thrower.throwIfTrue(this.has(id), "Value cannot be added as a value with that id already exists", "id", id, "collectionName", mCollectionName);
         mMap.put(id, value);

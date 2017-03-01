@@ -12,12 +12,12 @@ public interface IdSetValue extends Comparable<IdSetValue> {
      *
      * @return An unique identifier.
      */
-    String getid();
+    String getId();
 
 
     @Override
     default int compareTo(IdSetValue o) {
-        return this.getid().compareToIgnoreCase(o.getid());
+        return this.getId().compareToIgnoreCase(o.getId());
     }
 
 }

@@ -31,7 +31,7 @@ public class IdSetTest {
 
 
         @Override
-        public String getid() {
+        public String getId() {
             return mId;
         }
 
@@ -82,7 +82,7 @@ public class IdSetTest {
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
         MyVal myValue = coll.get("MyName2");
-        Assert.assertEquals("MyName2", myValue.getid());
+        Assert.assertEquals("MyName2", myValue.getId());
         exception.expect(RuntimeException.class);
         coll.get("no name");
     }
@@ -223,7 +223,7 @@ public class IdSetTest {
         List<String> expected = Arrays.asList("A", "B", "C", "myName1", "MyName2", "MyName3", "myName4");
         Iterator<String> it = expected.iterator();
         for (MyVal myVal : coll) {
-            Assert.assertEquals(it.next(), myVal.getid());
+            Assert.assertEquals(it.next(), myVal.getId());
         }
     }
 

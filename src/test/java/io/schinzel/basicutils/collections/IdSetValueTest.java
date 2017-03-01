@@ -23,7 +23,7 @@ public class IdSetValueTest {
         }
 
         @Override
-        public String getid() {
+        public String getId() {
             return mId;
         }
     }
