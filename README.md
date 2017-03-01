@@ -31,30 +31,11 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 A simple cache with hits statistics for unit tests.
 
 
-
 ### Checker
 A less verbose way to check for null and empty variable for a set of data types.
 ```java
 if (Checker.isEmpty(str)) {
 }
-```
-
-
-### IdSet
-A more succinct and easier-on-the-eyes version of storing values with identifiers.
-Elements are returned in alphabetical orders. Supports wild card look ups.
-Note that uses fail-fast and throws exceptions instead of returning null.
- ```java
-class MyValue implements IdSetValue {
-	[...]
-	public String getId() { return id; }
-}
-
-IdSet<MyValue> mySet = IdSet.<MyValue>create()
-	.add(new MyValue("A"))
-	.add(new MyValue("B"));
-
-MyValue myVal = mySet.get("A");
 ```
 
 
@@ -67,10 +48,33 @@ Map<String, Integer> map = MapBuilder.create()
 	.getMap();
 ```
 
+
 ### MiscUtil
 A less verbose version of sleep.
 ```java
 MiscUtil.snooze(100);
+```
+
+
+### NamedValues
+In nearly every project I find that I want to store values in a collection and that it is required or at least very 
+practical that the values know their own keys. 
+Offers fail-fast, addAndGet, wildcard lookups and other handy features. 
+ ```java
+class MyValue implements INamedValue {
+    NamedValue namedValue;
+    MyValue(String str){ 
+        namedValue = new NamedValue(MyValue);
+    }
+	[...]
+	public String getNamedValue() { return namedValue; }
+}
+
+NameValues<MyValue> mySet = NameValues.<MyValue>create()
+	.add(new MyValue("A"))
+	.add(new MyValue("B"));
+
+MyValue myVal = mySet.get("A");
 ```
 
 
