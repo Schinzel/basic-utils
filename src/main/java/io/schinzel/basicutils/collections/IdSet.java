@@ -18,10 +18,11 @@ import java.util.TreeMap;
  * values have unique identifiers.
  * <p>
  * A more succinct and easier-on-the-eyes version of storing values with
- * identifiers.
+ * identifiers. Plus that the values know their identifiers - which is handy or required at times.
  * <p>
- * {@literal (Map<String, MyValue> myMap = new HashMap<<(); MyValue myValue = new
- * MyValue("ABC"); myMap.add(myValue.getStringId, myValue);
+ * {@literal (Map<String, MyValue> myMap = new HashMap<<();
+ * MyValue myValue = new MyValue("ABC");
+ * myMap.add(myValue.getStringId, myValue);
  * <p>
  * IdSet<MyValue> mySet = IdSet.create().add(new MyValue("ABC");}
  *
