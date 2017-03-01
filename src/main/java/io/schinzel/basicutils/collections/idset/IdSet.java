@@ -46,7 +46,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     //*************************************************************************
 
 
-    private IdSet(String collectionName) {
+    protected IdSet(String collectionName) {
         mCollectionName = collectionName;
     }
 
