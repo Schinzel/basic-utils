@@ -25,6 +25,20 @@ public class IdSetValueTest {
             idObj = new IdObj(id);
             mOrder = order;
         }
+
+
+        MyClass(String id, String desc) {
+            idObj = new IdObj(id, desc);
+            mOrder = 17;
+        }
+    }
+
+
+    @Test
+    public void testGetDescription() {
+        MyClass myClass = new MyClass("MyName", "MyDesc");
+        Assert.assertEquals("MyName", myClass.getId());
+        Assert.assertEquals("MyDesc", myClass.getDescription());
     }
 
 

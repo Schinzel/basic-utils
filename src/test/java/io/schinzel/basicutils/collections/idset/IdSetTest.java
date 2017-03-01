@@ -354,4 +354,25 @@ public class IdSetTest {
         MyVal myVal2 = coll.addAndGet(myVal);
         Assert.assertEquals(myVal2, myVal);
     }
+
+
+    @Test
+    public void testClear(){
+        MyVal valC = new MyVal("C");
+        MyVal valA = new MyVal("A");
+        MyVal valB = new MyVal("B");
+        IdSet<MyVal> coll = IdSet.<MyVal>create()
+                .add(valC)
+                .add(valA)
+                .add(valB)
+                .addAlias("A", "alias1")
+                .addAlias("A", "alias2")
+                .addAlias("B", "alias3");
+        Assert.assertEquals(3, coll.size());
+        Assert.assertEquals(false, coll.isEmpty());
+        coll.clear();
+        Assert.assertEquals(0, coll.size());
+        Assert.assertEquals(true, coll.isEmpty());
+
+    }
 }
