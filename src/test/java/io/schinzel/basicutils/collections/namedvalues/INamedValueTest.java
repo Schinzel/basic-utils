@@ -16,18 +16,18 @@ import static org.hamcrest.Matchers.greaterThan;
 public class INamedValueTest {
     class MyClass implements INamedValue {
         @Getter
-        private final NamedValue idObj;
+        private final NamedValue namedValue;
         int mOrder;
 
 
         MyClass(int order, String id) {
-            idObj = new NamedValue(id);
+            namedValue = new NamedValue(id);
             mOrder = order;
         }
 
 
         MyClass(String id, String desc) {
-            idObj = new NamedValue(id, desc);
+            namedValue = new NamedValue(id, desc);
             mOrder = 17;
         }
     }
@@ -36,7 +36,7 @@ public class INamedValueTest {
     @Test
     public void testGetDescription() {
         MyClass myClass = new MyClass("MyName", "MyDesc");
-        Assert.assertEquals("MyName", myClass.getId());
+        Assert.assertEquals("MyName", myClass.getName());
         Assert.assertEquals("MyDesc", myClass.getDescription());
     }
 

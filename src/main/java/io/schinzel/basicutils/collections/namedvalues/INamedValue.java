@@ -9,23 +9,32 @@ package io.schinzel.basicutils.collections.namedvalues;
 public interface INamedValue extends Comparable<INamedValue> {
 
     /**
-     * @return An unique identifier.
+     * @return The unique name of this object.
      */
-    default String getId() {
-        return this.getIdObj().getId();
+    default String getName() {
+        return this.getNamedValue().getName();
     }
 
 
+    /**
+     *
+     * @return A description of this object. If non has been set, default text stating this will be returned.
+     */
     default String getDescription() {
-        return this.getIdObj().getDescription();
+        return this.getNamedValue().getDescription();
     }
 
-    NamedValue getIdObj();
+
+    /**
+     *
+     * @return
+     */
+    NamedValue getNamedValue();
 
 
     @Override
     default int compareTo(INamedValue o) {
-        return this.getId().compareToIgnoreCase(o.getId());
+        return this.getName().compareToIgnoreCase(o.getName());
     }
 
 }

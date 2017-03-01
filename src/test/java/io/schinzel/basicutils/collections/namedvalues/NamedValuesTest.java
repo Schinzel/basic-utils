@@ -20,11 +20,11 @@ public class NamedValuesTest {
     class MyVal implements INamedValue {
 
         @Getter
-        private final NamedValue idObj;
+        private final NamedValue namedValue;
 
 
         MyVal(String id) {
-            idObj = new NamedValue(id);
+            namedValue = new NamedValue(id);
         }
     }
 
@@ -72,7 +72,7 @@ public class NamedValuesTest {
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
         MyVal myValue = coll.get("MyName2");
-        Assert.assertEquals("MyName2", myValue.getId());
+        Assert.assertEquals("MyName2", myValue.getName());
         exception.expect(RuntimeException.class);
         coll.get("no name");
     }
@@ -213,7 +213,7 @@ public class NamedValuesTest {
         List<String> expected = Arrays.asList("A", "B", "C", "myName1", "MyName2", "MyName3", "myName4");
         Iterator<String> it = expected.iterator();
         for (MyVal myVal : coll) {
-            Assert.assertEquals(it.next(), myVal.getId());
+            Assert.assertEquals(it.next(), myVal.getName());
         }
     }
 
