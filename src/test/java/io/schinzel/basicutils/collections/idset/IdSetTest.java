@@ -49,7 +49,10 @@ public class IdSetTest {
 
     @Test
     public void testAdd_sameIdTwice() {
-        IdSet<MyVal> coll = IdSet.create()
+        IdSet<MyVal> coll1 = IdSet.<MyVal>create2().add(new MyVal("MyName1"));
+
+
+        IdSet<MyVal> coll = IdSet.<MyVal>create2()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));

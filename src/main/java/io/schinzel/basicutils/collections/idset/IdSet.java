@@ -54,8 +54,8 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
     /**
      * @return A freshly minted instance.
      */
-    public static IdSet create() {
-        return new IdSet(EmptyObjects.EMPTY_STRING);
+    public static <Q extends IdSetValue> IdSet<Q> create2() {
+        return new IdSet<>(EmptyObjects.EMPTY_STRING);
     }
 
 
@@ -63,10 +63,10 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param collectionName The name of the collection. Useful for error messages and debugging.
      * @return A freshly minted instance.
      */
-    public static IdSet create(String collectionName) {
-        return new IdSet(collectionName);
+    public static <Q extends IdSetValue> IdSet<Q> create(String collectionName) {
+        return new IdSet<Q>(collectionName);
     }
-    //*************************************************************************
+    //Ä************************************************************************
     //* ADD REMOVE
     //*************************************************************************
 
@@ -75,7 +75,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param value A value to add to set.
      * @return This for chaining.
      */
-    public IdSet add(V value) {
+    public IdSet<V> add(V value) {
         Thrower.throwIfEmpty(value, "value");
         String id = value.getId();
         Thrower.throwIfTrue(mAliasMap.containsKey(id), "Value cannot be added as there exists an alias with the same id.", "id", id, "collectionName", mCollectionName);
@@ -98,7 +98,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param alias The alias to add for argument id.
      * @return This for chaining.
      */
-    public IdSet addAlias(String id, String alias) {
+    public IdSet<V> addAlias(String id, String alias) {
         Thrower.throwIfTrue(!this.has(id), "Alias cannot be added as there exist no value with this id in collection.", "alias", alias, "id", id, "collectionName", mCollectionName);
         //if the argument value exists in the alias set
         Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias cannot be added as there already exists such an alias.", "alias", alias, "collectionName", mCollectionName);
@@ -124,7 +124,7 @@ public class IdSet<V extends IdSetValue> implements Iterable<V> {
      * @param id The id find a value for and remove.
      * @return This of chaining.
      */
-    public IdSet remove(String id) {
+    public IdSet<V> remove(String id) {
         Thrower.throwIfTrue(!this.has(id), "Cannot remove value as no such value exists.", "id", id, "collectionName", mCollectionName);
         //Remove all entries in alias map with argument id.
         while (mAliasMap.values().remove(id)) ;
