@@ -57,8 +57,9 @@ MiscUtil.snooze(100);
 
 
 ### NamedValues
-In nearly every project I find that I want to store values in a collection and that it is required or at least very 
-practical that the values know their own keys. 
+In most projects I find that I want to store values in a collection in and that the values are required to know their
+ own keys. Also, many times there is a need to find an object by string.
+
 Offers fail-fast, addAndGet, wildcard lookups and other handy features. 
  ```java
 class MyValue implements INamedValue {
