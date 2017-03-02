@@ -148,7 +148,7 @@ class Lap implements IStateNode {
                 .add("Avg", mStopWatch.getAvgInMs(), 2)
                 .add("Hits", mStopWatch.getLaps());
         if (!mChildren.isEmpty()) {
-            state.addChildren("sublaps", mChildren.values().iterator());
+            state.add("sublaps", mChildren.values().iterator());
         }
         return state.build();
 

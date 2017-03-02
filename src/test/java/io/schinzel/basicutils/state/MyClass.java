@@ -27,12 +27,12 @@ class MyClass implements IStateNode {
         StateBuilder builder = State.getBuilder()
                 .add("Name", mName)
                 .add("Cost", mCost)
-                .addChildren("mykids", mChildren.iterator());
+                .add("mykids", mChildren.iterator());
         if (mLeft != null){
-            builder.addChild("Left", mLeft);
+            builder.add("Left", mLeft);
         }
         if (mRight != null){
-            builder.addChild("Right", mRight);
+            builder.add("Right", mRight);
         }
         return builder.build();
                 

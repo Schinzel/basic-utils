@@ -44,6 +44,16 @@ public class State {
 
 
     /**
+     * @param state A state object to copy and seed the builder with. Typically a state from a super class that you
+     *              want to append to in a sub class.
+     * @return A builder with the argument seed state added.
+     */
+    public static StateBuilder getBuilder(State state) {
+        return new StateBuilder(state);
+    }
+
+
+    /**
      * @param stateBuilder A state builder.
      */
     State(StateBuilder stateBuilder) {
@@ -73,11 +83,11 @@ public class State {
         mProperties.forEach((prop) -> {
             json.put(prop.getKey(), prop.getObject());
         });
-        //Add all children and their children recursivly
+        //Add all children and their children recursively
         mChildren.forEach((key, childState) -> {
             json.put(key, childState.getJson());
         });
-        //Add all child-lists and their children recursivly
+        //Add all child-lists and their children recursively
         mChildLists.forEach((key, siblings) -> {
             JSONArray ja = new JSONArray();
             siblings.forEach((childState) -> {
@@ -121,7 +131,7 @@ public class State {
         //Add all children and their children recursively
         mChildren.forEach((key, child) -> {
             str.a(indentation(depth)).a(key).asp()
-                    //Get the str representation of current child's preoperties
+                    //Get the str representation of current child's properties
                     .a(child.getPropertiesAsString()).anl()
                     //Get the str representation of current child's children
                     .a(child.getChildrenAsString(depth + 1));
@@ -133,9 +143,9 @@ public class State {
             //For each list in child list
             childList.forEach(child -> {
                 str.a(indentation(depth + 1))
-                        //Get the str representation of current child's preoperties
+                        //Get the str representation of current child's properties
                         .a(child.getPropertiesAsString()).anl()
-                        //Get the str represention of current child's children
+                        //Get the str representation of current child's children
                         .a(child.getChildrenAsString(depth + 2));
             });
         });
@@ -150,5 +160,4 @@ public class State {
     static String indentation(int depth) {
         return depth == 0 ? "" : Strings.repeat("   ", depth - 1) + "┗━ ";
     }
-
 }

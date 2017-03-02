@@ -165,7 +165,7 @@ public class Thrower {
                 }
                 args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
             }
-            str.a("Arguments:{").a(args).a("}");
+            str.a("Props:{").a(args).a("}");
         }
         return str;
     }
