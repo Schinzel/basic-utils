@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.namedvalues;
+package io.schinzel.basicutils.collections.keyvalues;
 
 import lombok.Getter;
 import org.junit.Assert;
@@ -13,31 +13,17 @@ import static org.hamcrest.Matchers.greaterThan;
 /**
  * Created by schinzel on 2017-02-26.
  */
-public class INamedValueTest {
-    class MyClass implements INamedValue {
+public class IValueKeyTest {
+    class MyClass implements IValueKey {
         @Getter
-        private final NamedValue namedValue;
+        private final String key;
         int mOrder;
 
 
-        MyClass(int order, String id) {
-            namedValue = new NamedValue(id);
+        MyClass(int order, String key) {
+            this.key = key;
             mOrder = order;
         }
-
-
-        MyClass(String id, String desc) {
-            namedValue = new NamedValue(id, desc);
-            mOrder = 17;
-        }
-    }
-
-
-    @Test
-    public void testGetDescription() {
-        MyClass myClass = new MyClass("MyName", "MyDesc");
-        Assert.assertEquals("MyName", myClass.getName());
-        Assert.assertEquals("MyDesc", myClass.getDescription());
     }
 
 

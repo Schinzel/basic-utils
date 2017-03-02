@@ -39,6 +39,28 @@ if (Checker.isEmpty(str)) {
 ```
 
 
+### KeyValues
+A collection that stores values that know their own string-keys and support finding values by string-keys. 
+
+Offers fail-fast, addAndGet, wildcard lookups and other handy features. 
+ ```java
+class MyValue implements IKeyValue {
+    final String key;
+    MyValue(String key){ 
+        this.key = key;
+    }
+	[...]
+	public String getKey() { return this.key; }
+}
+
+NameValues<MyValue> mySet = NameValues.<MyValue>create()
+	.add(new MyValue("A"))
+	.add(new MyValue("B"));
+
+MyValue myVal = mySet.get("A");
+```
+
+
 ### MapBuilder
 A less verbose version to create a map with an initial set of values.
 ```java
@@ -54,30 +76,6 @@ A less verbose version of sleep.
 ```java
 MiscUtil.snooze(100);
 ```
-
-
-### NamedValues
-In most projects I find that I want to store values in a collection in and that the values are required to know their
- own keys. Also, many times there is a need to find an object by string.
-
-Offers fail-fast, addAndGet, wildcard lookups and other handy features. 
- ```java
-class MyValue implements INamedValue {
-    NamedValue namedValue;
-    MyValue(String str){ 
-        namedValue = new NamedValue(MyValue);
-    }
-	[...]
-	public String getNamedValue() { return namedValue; }
-}
-
-NameValues<MyValue> mySet = NameValues.<MyValue>create()
-	.add(new MyValue("A"))
-	.add(new MyValue("B"));
-
-MyValue myVal = mySet.get("A");
-```
-
 
 ### RandomUtil
 ```java
