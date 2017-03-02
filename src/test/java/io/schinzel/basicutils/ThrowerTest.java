@@ -164,12 +164,12 @@ public class ThrowerTest extends Thrower {
     @Test
     public void testGetArgs() {
         String actual = Thrower.getArgs("k1", "v1").getString();
-        String expceted = "Arguments:{k1:'v1'}";
-        Assert.assertEquals(expceted, actual);
+        String expected = "Props:{k1:'v1'}";
+        Assert.assertEquals(expected, actual);
         //
         actual = Thrower.getArgs("k1", "v1", "k2", "v2").getString();
-        expceted = "Arguments:{k1:'v1' k2:'v2'}";
-        Assert.assertEquals(expceted, actual);
+        expected = "Props:{k1:'v1' k2:'v2'}";
+        Assert.assertEquals(expected, actual);
     }
     //------------------------------------------------------------------------
     // Test of extensive error message
@@ -194,7 +194,7 @@ public class ThrowerTest extends Thrower {
     @Test
     public void testThrowIfTrue_extensiveErrorMessage() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("MyMessage Class:'ThrowerTest$MyTestClass' Method:'myMethod' Arguments:{k1:'v1'}");
+        exception.expectMessage("MyMessage Class:'ThrowerTest$MyTestClass' Method:'myMethod' Props:{k1:'v1'}");
         new MyTestClass().myMethod(true, "MyMessage", "k1", "v1");
     }
 
