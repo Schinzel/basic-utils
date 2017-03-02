@@ -12,10 +12,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 /**
  * The purpose of this class is offer a collection that stores values that hold their own unique string-keys.
- *
  *
  * @param <V> The type of element to store in the collection.
  * @author schinzel
@@ -246,5 +246,13 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      */
     public Collection<V> values() {
         return mValues.values();
+    }
+
+
+    /**
+     * @return Returns a sequential Stream with this collection as its source.
+     */
+    public Stream<V> stream() {
+        return mValues.values().stream();
     }
 }

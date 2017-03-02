@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.collections.keyvalues;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import lombok.Getter;
 import org.hamcrest.Matchers;
@@ -368,5 +369,19 @@ public class KeyValuesTest {
         coll.clear();
         Assert.assertEquals(0, coll.size());
         Assert.assertEquals(true, coll.isEmpty());
+    }
+
+
+    @Test
+    public void testStream() {
+        MyVal valC = new MyVal("C");
+        MyVal valA = new MyVal("A");
+        MyVal valB = new MyVal("B");
+        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+                .add(valC)
+                .add(valA)
+                .add(valB);
+        Stream<MyVal> stream = coll.stream();
+        Assert.assertEquals(3, stream.count());
     }
 }
