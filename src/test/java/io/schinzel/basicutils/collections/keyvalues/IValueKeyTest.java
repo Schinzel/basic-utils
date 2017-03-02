@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.collections.keyvalues;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,16 +15,11 @@ import static org.hamcrest.Matchers.greaterThan;
  * Created by schinzel on 2017-02-26.
  */
 public class IValueKeyTest {
+    @AllArgsConstructor
     class MyClass implements IValueKey {
+        final int mOrder;
         @Getter
         private final String key;
-        int mOrder;
-
-
-        MyClass(int order, String key) {
-            this.key = key;
-            mOrder = order;
-        }
     }
 
 

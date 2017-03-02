@@ -3,7 +3,9 @@ package io.schinzel.basicutils.collections.keyvalues;
 import java.util.*;
 import java.util.stream.Stream;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -18,15 +20,11 @@ public class KeyValuesTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
+    @AllArgsConstructor
     class MyVal implements IValueKey {
 
         @Getter
         private final String key;
-
-
-        MyVal(String key) {
-            this.key = key;
-        }
     }
 
 
