@@ -226,11 +226,11 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * Argument: "B*"
      * Output: B1,B2
      *
-     * @param stringWithWildCards String to look up. Wildcard is an astrix; "*".
+     * @param stringWithWildCards String to look up. Case insensitive. Wildcard is an astrix; "*".
      * @return A list of values in alphabetical order that matches the argument.
      */
     public List<V> getUsingWildCards(String stringWithWildCards) {
-        String regex = stringWithWildCards.replace("*", "\\w*");
+        String regex =  "(?i)" + stringWithWildCards.replace("*", "\\w*");
         List<V> values = new ArrayList<>();
         for (Map.Entry<String, V> entry : mValues.entrySet()) {
             if (entry.getKey().matches(regex)) {

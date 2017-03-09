@@ -100,6 +100,14 @@ public class KeyValuesTest {
         expected = Arrays.asList(man1, man2);
         Assert.assertThat(actual, Matchers.is(expected));
         //
+        actual = coll.getUsingWildCards("man*");
+        expected = Arrays.asList(man1, man2);
+        Assert.assertThat(actual, Matchers.is(expected));
+        //
+        actual = coll.getUsingWildCards("man2");
+        expected = Arrays.asList(man2);
+        Assert.assertThat(actual, Matchers.is(expected));
+        //
         actual = coll.getUsingWildCards("Man2*");
         expected = Collections.singletonList(man2);
         Assert.assertThat(actual, Matchers.is(expected));
