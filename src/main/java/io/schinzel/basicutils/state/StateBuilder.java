@@ -42,7 +42,7 @@ public class StateBuilder {
 
 
     /**
-     * @param state A seed to copy. Typically a super state that you want to append to in a sub class.
+     * @param state A seed to copy. Typically a state from a superclass that you want to append to in a sub class.
      */
 
     StateBuilder(State state) {
@@ -136,12 +136,14 @@ public class StateBuilder {
 
 
     public StateBuilder add(String key, String[] values) {
+        Thrower.throwIfNull(values, "values");
         mProperties.add(new Property(key, String.join(", ", values), new JSONArray(values)));
         return this;
     }
 
 
     public StateBuilder add(String key, List<String> values) {
+        Thrower.throwIfNull(values, "values");
         return this.add(key, values.toArray(EmptyObjects.EMPTY_STRING_ARRAY));
     }
     //------------------------------------------------------------------------
