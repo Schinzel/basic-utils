@@ -173,7 +173,7 @@ public class StateBuilder {
      * @param children The children to add.
      * @return This for chaining.
      */
-    public StateBuilder add(String key, Iterator<? extends IStateNode> children) {
+    public StateBuilder add(String key, Iterable<? extends IStateNode> children) {
         List<State> childList = Streams.stream(children)
                 .map(IStateNode::getState)
                 .collect(Collectors.toList());
