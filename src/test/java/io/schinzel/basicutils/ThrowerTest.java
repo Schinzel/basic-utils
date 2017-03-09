@@ -15,6 +15,28 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
+    public void throwIfNull_StringArray() {
+        String[] stringArray = {"a"};
+        Thrower.throwIfNull(stringArray, "argumentName");
+        exception.expect(RuntimeException.class);
+        stringArray = null;
+        exception.expectMessage("Argument 'argumentName' cannot be null");
+        Thrower.throwIfNull(stringArray, "argumentName");
+    }
+
+
+    @Test
+    public void throwIfNull_String() {
+        String string = "a";
+        Thrower.throwIfNull(string, "argumentName");
+        exception.expect(RuntimeException.class);
+        string = null;
+        exception.expectMessage("Argument 'argumentName' cannot be null");
+        Thrower.throwIfNull(string, "argumentName");
+    }
+
+
+    @Test
     public void testCheckEmptyArgumentString() {
         Thrower.throwIfEmpty("monkey", "argumentName");
         exception.expect(RuntimeException.class);
@@ -30,16 +52,6 @@ public class ThrowerTest extends Thrower {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Argument 'argumentName' cannot be empty");
         Thrower.throwIfEmpty(s, "argumentName");
-    }
-
-
-    @Test
-    public void testCheckNull() {
-        Object object = null;
-        String errorMessage = "my error message";
-        exception.expect(RuntimeException.class);
-        exception.expectMessage(errorMessage);
-        Thrower.throwIfEmpty(object, errorMessage);
     }
 
 
@@ -184,7 +196,6 @@ public class ThrowerTest extends Thrower {
         private void myMethod(boolean throwException, String exceptionMessage, String... keyValues) {
             Thrower.throwIfTrue(throwException, exceptionMessage, keyValues);
         }
-
     }
 
 

@@ -20,6 +20,19 @@ public class Thrower {
 
 
     /**
+     * Throws runtime exception if the argument value with the argument name is null.
+     *
+     * @param value        The value to check
+     * @param variableName The name of the value to check
+     */
+    public static void throwIfNull(Object value, String variableName) {
+        if (value == null) {
+            throw new RuntimeException("Argument '" + variableName + "' cannot be null");
+        }
+    }
+
+
+    /**
      * Throws runtime exception if the argument value with the argument name is
      * empty.
      *
@@ -29,19 +42,6 @@ public class Thrower {
     public static void throwIfEmpty(String value, String variableName) {
         if (Checker.isEmpty(value)) {
             throw new RuntimeException("Argument '" + variableName + "' cannot be empty");
-        }
-    }
-
-
-    /**
-     * Throw runtime exception if the argument object is null.
-     *
-     * @param o       The argument to check
-     * @param message The exception message
-     */
-    public static void throwIfEmpty(Object o, String message) {
-        if (o == null) {
-            throw new RuntimeException(message);
         }
     }
 
@@ -123,10 +123,9 @@ public class Thrower {
 
 
     /**
-     *
      * @param expression If evaluates to true, then a RuntimeException is thrown.
-     * @param message The exception message.
-     * @param keyValues A series of key values. As such the number of elements need to be even.
+     * @param message    The exception message.
+     * @param keyValues  A series of key values. As such the number of elements need to be even.
      */
     public static void throwIfTrue(boolean expression, String message, String... keyValues) {
         //If key values are empty && the number of key values is not empty
@@ -137,7 +136,7 @@ public class Thrower {
         if (expression) {
             String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
             String className = Thread.currentThread().getStackTrace()[2].getClassName();
-            className = className.substring(className.lastIndexOf(".")+1, className.length());
+            className = className.substring(className.lastIndexOf(".") + 1, className.length());
             //Compile more extensive exception message.
             Str str = Str.create().a(message).asp()
                     .a("Class:").aq(className).asp()
