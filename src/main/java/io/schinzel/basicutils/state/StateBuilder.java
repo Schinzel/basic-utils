@@ -69,7 +69,7 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, String val) {
-        Thrower.throwIfEmpty(val, "val");
+        Thrower.throwIfTrue(val == null, "Cannot add a null as a State String value.");
         mProperties.add(new Property(key, val, val));
         return this;
     }
