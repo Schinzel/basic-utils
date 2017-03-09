@@ -23,11 +23,11 @@ public class StateBuilder {
     /**
      * Named children of state being built.
      */
-    Map<String, State> mChildren = new HashMap<>();
+    Map<String, State> mChildren = new LinkedHashMap<>();
     /**
      * Named lists of children of the state being built.
      */
-    Map<String, List<State>> mChildLists = new HashMap<>();
+    Map<String, List<State>> mChildLists = new LinkedHashMap<>();
     //------------------------------------------------------------------------
     // CONSTRUCTION
     //------------------------------------------------------------------------
