@@ -31,8 +31,17 @@ public class IStrStringTest {
      */
     @Test
     public void appendStr() {
-        Str str1 = Str.create().a("gibbon");
-        Str str2 = Str.create().a("chimp ").a(str1).a(" gorilla");
+        StringBuilder sb = new StringBuilder();
+        sb.append("gibbon");
+        StrString str1 = new StrString().a(sb);
+        StrString str2 = new StrString().a("chimp ").a(str1).a(" gorilla");
         Assert.assertEquals("chimp gibbon gorilla", str2.getString());
+    }
+
+
+    @Test
+    public void appendChar() {
+        StrString str1 = new StrString().a("cat").a(' ').a("dog");
+        Assert.assertEquals("cat dog", str1.getString());
     }
 }

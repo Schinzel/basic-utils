@@ -1,13 +1,12 @@
 package io.schinzel.basicutils.str;
 
 /**
- * The purpose of this interface is to a whitespaces.
+ * The purpose of this interface is to append whitespaces.
  * <p>
  * Created by Schinzel on 2017-02-26.
  */
 interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
     /**
-     *
      * Enum for whitespaces.
      */
     enum WS {
@@ -21,6 +20,7 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
         WS(String whitespace) {
             mWhitespace = whitespace;
         }
+
 
         @Override
         public String toString() {
@@ -42,6 +42,19 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
 
 
     /**
+     * Append a white space.
+     *
+     * @param whitespace The white space to a.
+     * @return This for chaining.
+     */
+    default T aws(WS whitespace, String s) {
+        this.a(s);
+        this.a(whitespace.toString());
+        return this.getThis();
+    }
+
+
+    /**
      * Append a newline.
      *
      * @return This for chaining.
@@ -50,6 +63,16 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
         return this.aws(WS.NL);
     }
 
+
+    /**
+     * Appends argument string followed by a newline.
+     *
+     * @param s The string to a append.
+     * @return This for chaining.
+     */
+    default T anl(String s) {
+        return this.aws(WS.NL, s);
+    }
 
     /**
      * Append a space.
@@ -62,6 +85,17 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
 
 
     /**
+     * Appends argument string followed by a space.
+     *
+     * @param s The string to a append.
+     * @return This for chaining.
+     */
+    default T asp(String s) {
+        return this.aws(WS.SPACE, s);
+    }
+
+
+    /**
      * Append a tab.
      *
      * @return This for chaining.
@@ -70,4 +104,14 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
         return this.aws(WS.TAB);
     }
 
+
+    /**
+     * Appends argument string followed by a space.
+     *
+     * @param s The string to a append.
+     * @return This for chaining.
+     */
+    default T atab(String s) {
+        return this.aws(WS.TAB, s);
+    }
 }

@@ -16,28 +16,49 @@ public class IStrWhitespaceTest {
 
     @Test
     public void aws() throws Exception {
-        Str str = Str.create().a("A").aws(IStrWhitespace.WS.SPACE).a("B");
-        Assert.assertEquals("A B", str.getString());
+        StrWhitespace str = new StrWhitespace().aws(IStrWhitespace.WS.SPACE);
+        Assert.assertEquals(" ", str.getString());
     }
 
 
     @Test
     public void anl() throws Exception {
-        Str str = Str.create().a("A").anl().a("B");
-        Assert.assertEquals("A\nB", str.getString());
+        StrWhitespace str = new StrWhitespace().anl();
+        Assert.assertEquals("\n", str.getString());
+    }
+
+
+    @Test
+    public void anlStr() throws Exception {
+        StrWhitespace str = new StrWhitespace().anl("A");
+        Assert.assertEquals("A\n", str.getString());
     }
 
 
     @Test
     public void asp() throws Exception {
-        Str str = Str.create().a("A").asp().a("B");
-        Assert.assertEquals("A B", str.getString());
+        StrWhitespace str = new StrWhitespace().asp();
+        Assert.assertEquals(" ", str.getString());
+    }
+
+
+    @Test
+    public void aspStr() throws Exception {
+        StrWhitespace str = new StrWhitespace().asp("A");
+        Assert.assertEquals("A ", str.getString());
     }
 
 
     @Test
     public void atab() throws Exception {
-        Str str = Str.create().a("A").atab().a("B");
-        Assert.assertEquals("A\tB", str.getString());
+        StrWhitespace str = new StrWhitespace().atab();
+        Assert.assertEquals("\t", str.getString());
+    }
+
+
+    @Test
+    public void atabStr() throws Exception {
+        StrWhitespace str = new StrWhitespace().atab("A");
+        Assert.assertEquals("A\t", str.getString());
     }
 }

@@ -3,13 +3,13 @@ package io.schinzel.basicutils.str;
 /**
  * The purpose of this interface is to append strings.
  * <p>
- * Created by schinzel on 2017-02-27.
+ * Created by Schinzel on 2017-02-27.
  */
 interface IStrString<T extends IStr<T>> extends IStr<T> {
 
 
     /**
-     * Appends the string held by the argument StringBuilder .
+     * Appends the string held by the argument StringBuilder.
      *
      * @param sb The StringBuilder to append.
      * @return This for chaining.
@@ -21,26 +21,25 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
 
 
     /**
-     * Appends the string held by the argument Str.
+     * Appends another instance of this class.
      *
-     * @param s The Str to append
+     * @param s The instance to append.
      * @return This for chaining.
      */
-    default T a(Str s) {
+    default T a(T s) {
         this.a(s.getString());
         return this.getThis();
     }
 
 
     /**
-     * Appends the argument string surrounded with single quotation marks.
+     * Appends the argument char.
      *
-     * @param s The string to append.
+     * @param c The char to append
      * @return This for chaining.
      */
-    default T aq(String s){
-        this.a("'" + s  + "'");
+    default T a(char c) {
+        this.a(String.valueOf(c));
         return this.getThis();
     }
-
 }

@@ -4,10 +4,11 @@ import java.util.Locale;
 
 /**
  * This class contains the most common string operations with less code.
- *
+ * <p>
  * Created by schinzel on 2017-02-26.
  */
-public class Str implements IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str>, IStrString<Str>, IStrUtil<Str> {
+public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str>,
+        IStrString<Str>, IStrUtil<Str> {
     StringBuilder sb = new StringBuilder();
 
 
