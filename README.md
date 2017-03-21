@@ -231,3 +231,7 @@ Thrower.throwIfOutsideRange(value, valueName, min, max);
 Thrower.throwIfEmpty(value, valueName);
 Thrower.throwIfFalse(true, "A message");
 ```
+
+# Change Log
+## Release Candidate: 1.15
+- MiscUtil renamed to Sandman
