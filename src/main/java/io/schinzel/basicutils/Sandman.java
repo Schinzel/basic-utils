@@ -3,10 +3,11 @@ package io.schinzel.basicutils;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
+ * The purpose of this class is to offer a one-line snooze/sleep instead to the normal five lines.
+ * 
  * @author schinzel
  */
-public class MiscUtil {
+public class Sandman {
 
     /**
      * Same as snooze but in seconds for more readable code.
@@ -14,7 +15,7 @@ public class MiscUtil {
      * @param seconds The number of seconds to snooze. 
      */
     public static void snoozeSeconds(int seconds) {
-        MiscUtil.snooze(seconds * 1000);
+        Sandman.snooze(seconds * 1000);
     }
 
     /**

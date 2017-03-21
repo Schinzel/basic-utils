@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
-import io.schinzel.basicutils.timekeeper.Lap;
-import io.schinzel.basicutils.MiscUtil;
+import io.schinzel.basicutils.Sandman;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -48,12 +47,12 @@ public class LapTest {
     public void testGetParentPercent() {
         Lap root = new Lap("root", null);
         root.start();
-        MiscUtil.snooze(200);
+        Sandman.snooze(200);
         Lap A = root.start("A");
         Lap AA = A.start("AA");
-        MiscUtil.snooze(100);
+        Sandman.snooze(100);
         AA.stop();
-        MiscUtil.snooze(100);
+        Sandman.snooze(100);
         A.stop();
         root.stop();
 

@@ -10,7 +10,7 @@ import org.junit.Test;
  *
  * @author schinzel
  */
-public class MiscUtilTest extends MiscUtil {
+public class SandmanTest extends Sandman {
 
 
 
@@ -20,7 +20,7 @@ public class MiscUtilTest extends MiscUtil {
         //Test the snooze 10 times
         for (int i = 0; i < 10; i++) {
             LocalDateTime start = LocalDateTime.now();
-            MiscUtil.snooze(snoozeTimeInMillis);
+            Sandman.snooze(snoozeTimeInMillis);
             //Check that the snooze does not differ more than 20 ms of the requested snooze time.
             assertThat(LocalDateTime.now(),
                     within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInMillis, ChronoUnit.MILLIS)));
@@ -32,7 +32,7 @@ public class MiscUtilTest extends MiscUtil {
     public void testSnoozeSeconds() {
         int snoozeTimeInSeconds = 1;
         LocalDateTime start = LocalDateTime.now();
-        MiscUtil.snoozeSeconds(snoozeTimeInSeconds);
+        Sandman.snoozeSeconds(snoozeTimeInSeconds);
         //Check that the snooze does not differ more than 20 ms of the requested snooze time.
         assertThat(LocalDateTime.now(),
                 within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
@@ -44,7 +44,7 @@ public class MiscUtilTest extends MiscUtil {
         Thread t1 = new Thread(() -> {
             boolean gotException = false;
             try {
-                MiscUtil.snooze(100);
+                Sandman.snooze(100);
             }catch (RuntimeException e){
                 gotException = true;
             }

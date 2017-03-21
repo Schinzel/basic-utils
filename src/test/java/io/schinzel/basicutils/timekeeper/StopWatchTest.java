@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
-import io.schinzel.basicutils.timekeeper.StopWatch;
-import io.schinzel.basicutils.MiscUtil;
+import io.schinzel.basicutils.Sandman;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -94,17 +93,17 @@ public class StopWatchTest {
     public void testGetTotTimeInMs() {
         StopWatch sw = StopWatch.create();
         sw.start();
-        MiscUtil.snooze(100);
+        Sandman.snooze(100);
         sw.stop();
         double result = sw.getTotTimeInMs();
         double expected = 100;
         double delta = 10;
         Assert.assertEquals(result, expected, delta);
         sw.start();
-        MiscUtil.snooze(100);
+        Sandman.snooze(100);
         sw.stop();
         sw.start();
-        MiscUtil.snooze(100);
+        Sandman.snooze(100);
         sw.stop();
         result = sw.getTotTimeInMs();
         expected = 300;
@@ -117,14 +116,14 @@ public class StopWatchTest {
     public void testGetAvgInMs() {
         StopWatch sw = StopWatch.create();
         sw.start();
-        MiscUtil.snooze(100);
+        Sandman.snooze(100);
         sw.stop();
         double result = sw.getAvgInMs();
         double expected = 100;
         double delta = 10;
         Assert.assertEquals(result, expected, delta);
         sw.start();
-        MiscUtil.snooze(200);
+        Sandman.snooze(200);
         sw.stop();
         result = sw.getAvgInMs();
         expected = 150;

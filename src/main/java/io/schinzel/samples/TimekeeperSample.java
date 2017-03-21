@@ -1,6 +1,6 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.MiscUtil;
+import io.schinzel.basicutils.Sandman;
 import io.schinzel.basicutils.timekeeper.Timekeeper;
 
 /**
@@ -20,19 +20,19 @@ public class TimekeeperSample {
         for (int i = 0; i < 10; i++) {
             //Start lab B1. As lap B is running, B1 will be a sub-lap to B.
             timekeeper.startLap("B1");
-            MiscUtil.snooze(1);
+            Sandman.snooze(1);
             timekeeper.stopLap();
         }
         for (int i = 0; i < 5; i++) {
             //Start lab B2. As lap B is running, B2 will be a sub-lap to B.
             timekeeper.startLap("B2");
-            MiscUtil.snooze(20);
+            Sandman.snooze(20);
             timekeeper.stopLap();
         }
         timekeeper.stopLap();
         timekeeper.startLap("C");
         //Some code runs here that will be measured as lap C
-        MiscUtil.snooze(10);
+        Sandman.snooze(10);
         timekeeper.stopLap();
         //Stop the whole stopwatch
         timekeeper.stop();
