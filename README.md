@@ -86,8 +86,8 @@ int[] arr = RandomUtil.create().getIntArray(arrayLength, arraySum);
 ### Ratio
 The purpose of Ratio is to do exact basic arithmetic operations on non integers. 
 
-For example Java cannot store 1/3 correctly. 
-Another simple example is add 0.1 10 times. Should 1 but that not what we get:
+For example Java has no data type that can store 1/3 exactly. 
+Another simple example is to add 0.1 ten times. The sum should be 1 but that is not what we get:
 ```java
 double d = 0d;
 for (int i = 0; i < 10; i++) {
