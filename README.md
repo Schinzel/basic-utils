@@ -71,12 +71,6 @@ Map<String, Integer> map = MapBuilder.create()
 ```
 
 
-### MiscUtil
-A less verbose version of sleep.
-```java
-MiscUtil.snooze(100);
-```
-
 ### RandomUtil
 ```java
 //Get a random string with the length 12
@@ -122,6 +116,13 @@ Str: 1/18
 Big dec: 0.05555555555555555555555555555555556
 Double: 0.05555555555555555
 ```
+
+### Sandman
+A less verbose version of sleep.
+```java
+Sandman.snooze(100);
+```
+
 
 ### State
 Solves the problem of getting an overview of a state of a system or a sub-system. The state can be returned as a human readable string or a JSON object.
