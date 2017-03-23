@@ -236,3 +236,4 @@ Thrower.throwIfFalse(true, "A message");
 ## Release Candidate: 1.15
 - MiscUtil renamed to Sandman
 - Ratio added
+

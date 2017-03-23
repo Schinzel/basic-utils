@@ -94,6 +94,7 @@ public class RatioTest {
         }
     }
 
+
     /**
      * Do this a bunch of times
      * - generate a random ratio
@@ -116,5 +117,12 @@ public class RatioTest {
             r1.plus(multiplier).minus(multiplier);
             Assert.assertEquals(r1, r2);
         }
+    }
+
+
+    @Test
+    public void testToString() {
+        Ratio ratio = Ratio.create(123, 456);
+        Assert.assertEquals("41/152", ratio.toString());
     }
 }
