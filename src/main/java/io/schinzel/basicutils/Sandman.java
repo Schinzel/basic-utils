@@ -15,7 +15,7 @@ public class Sandman {
      * @param seconds The number of seconds to snooze. 
      */
     public static void snoozeSeconds(int seconds) {
-        Sandman.snooze(seconds * 1000);
+        Sandman.snoozeMillis(seconds * 1000);
     }
 
     /**
@@ -23,7 +23,7 @@ public class Sandman {
      *
      * @param millisToSnooze The number of milliseconds to snooze. 
      */
-    public static void snooze(int millisToSnooze) {
+    public static void snoozeMillis(int millisToSnooze) {
         try {
             TimeUnit.MILLISECONDS.sleep(millisToSnooze);
         } catch (final InterruptedException e) {
