@@ -3,12 +3,11 @@ package io.schinzel.basicutils.state;
 import com.google.common.base.Strings;
 import io.schinzel.basicutils.str.Str;
 import io.schinzel.json.JsonOrdered;
+import org.json.JSONArray;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.json.JSONArray;
 
 /**
  * The purpose of this class give a snapshot state of the object returning this
@@ -77,6 +76,15 @@ public class State {
     /**
      * @return A snapshot of the state of this object and its children.
      */
+    public Str getStr() {
+        return Str.create().a(this.getPropertiesAsString()).aws(Str.WS.NL)
+                .a(this.getChildrenAsString(0));
+    }
+
+
+    /**
+     * @return A snapshot of the state of this object and its children.
+     */
     public JsonOrdered getJson() {
         JsonOrdered json = JsonOrdered.create();
         //Add all properties to return
@@ -100,15 +108,6 @@ public class State {
     //------------------------------------------------------------------------
     // PACKAGE PRIVATE 
     //------------------------------------------------------------------------
-
-
-    /**
-     * @return A snapshot of the state of this object and its children.
-     */
-    Str getStr() {
-        return Str.create().a(this.getPropertiesAsString()).aws(Str.WS.NL)
-                .a(this.getChildrenAsString(0));
-    }
 
 
     /**
