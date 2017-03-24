@@ -2,17 +2,16 @@ package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Sandman;
 import io.schinzel.json.JsonOrdered;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.lessThan;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
-import static org.junit.Assert.assertThat;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
 
 /**
  *
@@ -73,11 +72,11 @@ public class TimekeeperTest {
     public void testToJson() {
         Timekeeper tk = Timekeeper.getSingleton();
         tk.startLap("A");
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         tk.stopLap().startLap("B");
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         tk.stopLap().startLap("C");
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         tk.stopLap().stop();
         JsonOrdered json = tk.toJson();
         //Check that are 5 attributes "name", "tot", "avg" and so forth

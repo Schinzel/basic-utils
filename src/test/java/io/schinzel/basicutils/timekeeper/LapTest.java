@@ -47,12 +47,12 @@ public class LapTest {
     public void testGetParentPercent() {
         Lap root = new Lap("root", null);
         root.start();
-        Sandman.snooze(200);
+        Sandman.snoozeMillis(200);
         Lap A = root.start("A");
         Lap AA = A.start("AA");
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         AA.stop();
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         A.stop();
         root.stop();
 

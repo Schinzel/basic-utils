@@ -93,17 +93,17 @@ public class StopWatchTest {
     public void testGetTotTimeInMs() {
         StopWatch sw = StopWatch.create();
         sw.start();
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         sw.stop();
         double result = sw.getTotTimeInMs();
         double expected = 100;
         double delta = 10;
         Assert.assertEquals(result, expected, delta);
         sw.start();
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         sw.stop();
         sw.start();
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         sw.stop();
         result = sw.getTotTimeInMs();
         expected = 300;
@@ -116,14 +116,14 @@ public class StopWatchTest {
     public void testGetAvgInMs() {
         StopWatch sw = StopWatch.create();
         sw.start();
-        Sandman.snooze(100);
+        Sandman.snoozeMillis(100);
         sw.stop();
         double result = sw.getAvgInMs();
         double expected = 100;
         double delta = 10;
         Assert.assertEquals(result, expected, delta);
         sw.start();
-        Sandman.snooze(200);
+        Sandman.snoozeMillis(200);
         sw.stop();
         result = sw.getAvgInMs();
         expected = 150;
