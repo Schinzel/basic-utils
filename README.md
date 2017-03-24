@@ -267,6 +267,8 @@ Thrower.throwIfFalse(true, "A message");
 ```
 
 # Change Log
+## 1.16
+- StateBuilder handles null values without throwing errors.
 ## 1.15
 - MiscUtil renamed to Sandman
 - Sandman.snooze renamed to snoozeMillis

@@ -1,8 +1,9 @@
 package io.schinzel.basicutils.state;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
+import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.EmptyObjects;
-import io.schinzel.basicutils.Thrower;
 import io.schinzel.basicutils.str.Str;
 import org.json.JSONArray;
 
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
  * @author schinzel
  */
 public class StateBuilder {
+    private static final String NO_VALUE = "";
 
     /**
      * A list of properties.
@@ -69,7 +71,9 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, String val) {
-        Thrower.throwIfTrue(val == null, "Cannot add a null as a State String value.");
+        if (val == null) {
+            this.add(key, NO_VALUE);
+        }
         mProperties.add(new Property(key, val, val));
         return this;
     }
@@ -136,14 +140,18 @@ public class StateBuilder {
 
 
     public StateBuilder add(String key, String[] values) {
-        Thrower.throwIfNull(values, "values");
+        if (Checker.isEmpty(values)) {
+            return this.add(key, NO_VALUE);
+        }
         mProperties.add(new Property(key, String.join(", ", values), new JSONArray(values)));
         return this;
     }
 
 
     public StateBuilder add(String key, List<String> values) {
-        Thrower.throwIfNull(values, "values");
+        if (Checker.isEmpty(values)) {
+            return this.add(key, NO_VALUE);
+        }
         return this.add(key, values.toArray(EmptyObjects.EMPTY_STRING_ARRAY));
     }
     //------------------------------------------------------------------------
@@ -160,6 +168,9 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, IStateNode child) {
+        if (child == null) {
+            return this;
+        }
         mChildren.put(key, child.getState());
         return this;
     }
@@ -174,6 +185,9 @@ public class StateBuilder {
      * @return This for chaining.
      */
     public StateBuilder add(String key, Iterable<? extends IStateNode> children) {
+        if (children == null || Iterables.size(children) == 0) {
+            return this;
+        }
         List<State> childList = Streams.stream(children)
                 .map(IStateNode::getState)
                 .collect(Collectors.toList());
