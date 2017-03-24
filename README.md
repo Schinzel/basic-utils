@@ -20,7 +20,7 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.14</version>
+		<version>1.15</version>
 	</dependency>
 </dependencies>    
 ```
@@ -267,7 +267,8 @@ Thrower.throwIfFalse(true, "A message");
 ```
 
 # Change Log
-## Release Candidate: 1.15
+## 1.15
 - MiscUtil renamed to Sandman
+- Sandman.snooze renamed to snoozeMillis
 - Ratio added
 
