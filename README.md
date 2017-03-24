@@ -20,7 +20,7 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.15</version>
+		<version>1.16</version>
 	</dependency>
 </dependencies>    
 ```
@@ -267,6 +267,9 @@ Thrower.throwIfFalse(true, "A message");
 ```
 
 # Change Log
+
+## Release Candidate: 1.17
+- Nothing yet
 ## 1.16
 - StateBuilder handles null values without throwing errors.
 - State has a public getStr
