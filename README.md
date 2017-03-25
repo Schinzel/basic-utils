@@ -61,16 +61,6 @@ MyValue myVal = mySet.get("A");
 ```
 
 
-### MapBuilder
-A less verbose version to create a map with an initial set of values.
-```java
-Map<String, Integer> map = MapBuilder.create()
-	.add("a", 1)
-	.add("b", 2)
-	.getMap();
-```
-
-
 ### RandomUtil
 ```java
 //Get a random string with the length 12
@@ -269,7 +259,7 @@ Thrower.throwIfFalse(true, "A message");
 # Change Log
 
 ## Release Candidate: 1.17
-- Nothing yet
+- MapBuilder removed. Use Guava ImmutableMap.Builder instead.
 ## 1.16
 - StateBuilder handles null values without throwing errors.
 - State has a public getStr
