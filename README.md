@@ -176,23 +176,24 @@ Get the string in the string.
 String input = "http://www.example.com/index.html?key1=val1&key2=val2";
 //Get everything after question mark, i.e. "key1=val1&key2=val2"
 String queryString = SubStringer.create(input)
-	.start("?")
-	.toString();
+    .startDelimiter("?")
+    .toString();
 //Get everything before question mark, i.e. "http://www.example.com/index.html"
 String url = SubStringer.create(input)
-	.end("?")
-	.toString();
+    .endDelimiter("?")
+    .toString();
 //Get host, i.e. "www.example.com"
 String host = SubStringer.create(input)
-	.start("http://")
-	.end("/index")
-	.toString();
+    .startDelimiter("http://")
+    .endDelimiter("/index")
+    .toString();
 //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
 String page = SubStringer.create(input)
-	.start("//").end("?")
-	.getSubStringer()
-	.start("/")
-	.toString();				
+    .startDelimiter("//")
+    .endDelimiter("?")
+    .getSubStringer()
+    .startDelimiter("/")
+    .toString();				
 ```
 
 
