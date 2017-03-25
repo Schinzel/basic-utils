@@ -7,22 +7,18 @@ package io.schinzel.basicutils;
  * @author Schinzel
  */
 public class SubStringer {
-    /**
-     * Flag that indicates that no value has been set.
-     */
+    /** Flag that indicates that no value has been set. */
     private static final String NO_VAL_SET = "qEvLh6L7HJ6uAkoJB7kT";
-    /**
-     * The string from which to extract a substring.
-     */
+    /** The string from which to extract a substring. */
     private final String mStr;
-    /**
-     * The start delimiter string.
-     */
+    /** The start delimiter string. */
     private String mStartDelimiter = NO_VAL_SET;
-    /**
-     * The end delimiter string.
-     */
+    /** Which occurrence of the start delimiter to look for */
+    private int mStartOccurrence = 1;
+    /** The end delimiter string. */
     private String mEndDelimiter = NO_VAL_SET;
+    /** Which occurrence of the end delimiter to look for */
+    private int mEndOccurrence = 1;
 
 
     /**
@@ -47,7 +43,7 @@ public class SubStringer {
     /**
      * @param delimiter Sets the start delimiter. The first occurrence of this
      *                  string is used as delimiter, exclusive this string.
-     * @return This, for chaining.
+     * @return This for chaining.
      */
     public SubStringer start(String delimiter) {
         if (Checker.isEmpty(delimiter)) {
@@ -57,6 +53,18 @@ public class SubStringer {
             throw new RuntimeException("Start delimiter already set once");
         }
         mStartDelimiter = delimiter;
+        return this;
+    }
+
+
+    /**
+     * Set which occurrence of the start delimiter to look for.
+     *
+     * @param occurrence The occurrence to look for. 
+     * @return This for chaining.
+     */
+    public SubStringer startOcc(int occurrence) {
+        mStartOccurrence = occurrence;
         return this;
     }
 
@@ -75,6 +83,18 @@ public class SubStringer {
             throw new RuntimeException("End delimiter already set once");
         }
         mEndDelimiter = delimiter;
+        return this;
+    }
+
+
+    /**
+     * Set which occurrence of the end delimiter to look for.
+     *
+     * @param occurrence The occurrence to look for.
+     * @return This for chaining.
+     */
+    public SubStringer endOcc(int occurrence) {
+        mEndOccurrence = occurrence;
         return this;
     }
 
