@@ -1,12 +1,12 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.substringer;
 
-import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.junit.Assert.assertEquals;
+
 /**
- *
  * @author Schinzel
  */
 public class SubStringerTest {
@@ -20,46 +20,34 @@ public class SubStringerTest {
         //Test basics
         input = "http://www.kollektiva.se/index.html?key1=val1&key2=val2";
         queryString = SubStringer.create(input)
-                .start("?")
+                .startDelimiter("?")
                 .toString();
         assertEquals("key1=val1&key2=val2", queryString);
         url = SubStringer.create(input)
-                .end("?")
+                .endDelimiter("?")
                 .toString();
         assertEquals("http://www.kollektiva.se/index.html", url);
         //Test ? but no data
         input = "http://www.kollektiva.se/index.html?";
         queryString = SubStringer.create(input)
-                .start("?")
+                .startDelimiter("?")
                 .toString();
         assertEquals("", queryString);
         url = SubStringer.create(input)
-                .end("?")
+                .endDelimiter("?")
                 .toString();
         assertEquals("http://www.kollektiva.se/index.html", url);
         //Test no ?
         input = "http://www.kollektiva.se/index.html";
         queryString = SubStringer.create(input)
-                .start("?")
+                .startDelimiter("?")
                 .toString();
         assertEquals("", queryString);
         input = "http://www.kollektiva.se/index.html";
         url = SubStringer.create(input)
-                .end("?")
+                .endDelimiter("?")
                 .toString();
         assertEquals("http://www.kollektiva.se/index.html", url);
-    }
-
-
-    @Test
-    public void testThatArgumentStringIsNotChanged() {
-        String input = "hhhhAPAuuuAPAkkkk";
-        String output = SubStringer.create(input)
-                .start("APA")
-                .end("APA")
-                .toString();
-        assertEquals("hhhhAPAuuuAPAkkkk", input);
-        assertEquals("uuu", output);
     }
 
 
@@ -69,11 +57,11 @@ public class SubStringerTest {
         //
         input = "aaaaFIRST_STARTbbbbbSECOND_STARTccccSECOND_ENDddddFIRST_ENDeeee";
         output = SubStringer.create(input)
-                .start("FIRST_START")
-                .end("FIRST_END")
+                .startDelimiter("FIRST_START")
+                .endDelimiter("FIRST_END")
                 .getSubStringer()
-                .start("SECOND_START")
-                .end("SECOND_END")
+                .startDelimiter("SECOND_START")
+                .endDelimiter("SECOND_END")
                 .toString();
         assertEquals("cccc", output);
     }
@@ -85,71 +73,71 @@ public class SubStringerTest {
         //
         input = "ddddAPAuuuAPAkkkk";
         output = SubStringer.create(input)
-                .start("APA")
-                .end("APA")
+                .startDelimiter("APA")
+                .endDelimiter("APA")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "ddddAuuuAkkkk";
         output = SubStringer.create(input)
-                .start("A")
-                .end("A")
+                .startDelimiter("A")
+                .endDelimiter("A")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "ddddSTARTuuuENDkkkk";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "STARTuuuENDkkkk";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "ddddSTARTuuuEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "STARTuuuEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "STARTuEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("u", output);
         //
         input = "STARTEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("", output);
         //
         input = "rrrrENDddddSTARTuuuEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "rrrrSTARTddddSTARTuuuEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("ddddSTARTuuu", output);
     }
@@ -161,22 +149,22 @@ public class SubStringerTest {
         //
         input = "rrrrENDddddSTARTuuuEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "rrrrENDddddSTARTuuuENDyyyEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("uuu", output);
         //
         input = "rrrrSTARTddddSTARTuuuEND";
         output = SubStringer.create(input)
-                .start("START")
-                .end("END")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .toString();
         assertEquals("ddddSTARTuuu", output);
     }
@@ -188,25 +176,25 @@ public class SubStringerTest {
         //
         input = "APAuuuAPAkkkk";
         output = SubStringer.create(input)
-                .start("APA")
+                .startDelimiter("APA")
                 .toString();
         assertEquals("uuuAPAkkkk", output);
         //
         input = "dddddAPAuuuAPAkkkk";
         output = SubStringer.create(input)
-                .start("APA")
+                .startDelimiter("APA")
                 .toString();
         assertEquals("uuuAPAkkkk", output);
         //
         input = "dddddAPA";
         output = SubStringer.create(input)
-                .start("APA")
+                .startDelimiter("APA")
                 .toString();
         assertEquals("", output);
         //
         input = "dddddAuuuAkkkk";
         output = SubStringer.create(input)
-                .start("A")
+                .startDelimiter("A")
                 .toString();
         assertEquals("uuuAkkkk", output);
     }
@@ -218,86 +206,60 @@ public class SubStringerTest {
         //
         input = "APAuuuAPAkkkk";
         output = SubStringer.create(input)
-                .end("APA")
+                .endDelimiter("APA")
                 .toString();
         assertEquals("", output);
         //
         input = "eeeeAPAuuuAPAkkkk";
         output = SubStringer.create(input)
-                .end("APA")
+                .endDelimiter("APA")
                 .toString();
         assertEquals("eeee", output);
         //
         input = "eeeeAPAuuuAPAkkkk";
         output = SubStringer.create(input)
-                .end("kkkk")
+                .endDelimiter("kkkk")
                 .toString();
         assertEquals("eeeeAPAuuuAPA", output);
         //
         input = "eeeeQuuuQkkkk";
         output = SubStringer.create(input)
-                .end("Q")
+                .endDelimiter("Q")
                 .toString();
         assertEquals("eeee", output);
-    }
-
-
-    @Test
-    public void testNeitherStartNorEnd() {
-        String input = "APAuuuAPAkkkk";
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Incorrect usage. Neither start nor end delimiter has been set.");
-        SubStringer.create(input).toString();
     }
 
 
     @Test
     public void testStart_emptyString() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Start delimiter cannot be set to empty value");
-        SubStringer.create("any input").start("");
+        exception.expectMessage("Argument 'StartDelimiter' cannot be empty");
+        SubStringer.create("any input").startDelimiter("").toString();
     }
 
 
     @Test
     public void testStart_nullString() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("Start delimiter cannot be set to empty value");
-        SubStringer.create("any input").start(null);
+        exception.expectMessage("Argument 'StartDelimiter' cannot be empty");
+        SubStringer.create("any input").startDelimiter(null).toString();
     }
 
 
     @Test
     public void testEnd_emptyString() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("End delimiter cannot be set to empty value");
-        SubStringer.create("any input").end("");
+        exception.expectMessage("Argument 'EndDelimiter' cannot be empty");
+        SubStringer.create("any input").endDelimiter("").toString();
     }
 
 
     @Test
     public void testEnd_nullString() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("End delimiter cannot be set to empty value");
-        SubStringer.create("any input").end(null);
+        exception.expectMessage("Argument 'EndDelimiter' cannot be empty");
+        SubStringer.create("any input").endDelimiter(null).toString();
     }
 
-
-    @Test
-    public void testStart_setStartTwice() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Start delimiter already set once");
-        SubStringer.create("any input")
-                .start("start").start("start2");
-    }
-
-
-    @Test
-    public void testEnd_setStartTwice() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("End delimiter already set once");
-        SubStringer.create("any input")
-                .end("start").end("start2");
-    }
 
 }

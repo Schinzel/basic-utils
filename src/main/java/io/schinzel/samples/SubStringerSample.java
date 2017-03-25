@@ -1,6 +1,6 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.SubStringer;
+import io.schinzel.basicutils.substringer.SubStringer;
 
 /**
  * The purpose of this file is to show SubStringer sample code.
@@ -12,25 +12,26 @@ public class SubStringerSample {
         String input = "http://www.example.com/index.html?key1=val1&key2=val2";
         //Get everything after question mark, i.e. "key1=val1&key2=val2"
         String queryString = SubStringer.create(input)
-                .start("?")
+                .startDelimiter("?")
                 .toString();
         System.out.println("QueryString " + queryString);
         //Get everything before question mark, i.e. "http://www.example.com/index.html"
         String url = SubStringer.create(input)
-                .end("?")
+                .endDelimiter("?")
                 .toString();
         System.out.println("URL " + url);
         //Get host, i.e. "www.example.com"
         String host = SubStringer.create(input)
-                .start("http://")
-                .end("/index")
+                .startDelimiter("http://")
+                .endDelimiter("/index")
                 .toString();
         System.out.println("Host " + host);
         //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
         String page = SubStringer.create(input)
-                .start("//").end("?")
+                .startDelimiter("//")
+                .endDelimiter("?")
                 .getSubStringer()
-                .start("/")
+                .startDelimiter("/")
                 .toString();
         System.out.println("Page " + page);
     }
