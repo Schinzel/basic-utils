@@ -16,6 +16,8 @@ public class REMOVE_ME {
                 .addProp().key("height").val(2d, 3).unit("%").buildProp();
         System.out.println("apa");
         /**
+         * kan man göra if-statements??
+         *
          * En if true add???
          *  .iff().isTrue(true)
          .addProp().key("otherkey").val("myval").buildProp()
@@ -27,7 +29,7 @@ public class REMOVE_ME {
 
         State state = StateBuilder.create()
                 .addProp().key("mykey").val(33).unit("m").buildProp()
-                .addProp().key("otherkey").val("myval").buildProp()
+                .addProp().key("otherkey").val("my val").buildProp()
                 .addProp().key("thirdkey").val(13d).decimals(3).buildProp()
                 .buildState();
     }
