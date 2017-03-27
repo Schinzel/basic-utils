@@ -4,6 +4,8 @@ import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.str.Str;
 
 /**
+ * Sample class to show how RandomUtil can be used.
+ *
  * Created by schinzel on 2017-02-27.
  */
 public class RandomUtilSample {

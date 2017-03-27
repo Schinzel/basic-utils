@@ -32,7 +32,7 @@ A simple cache with hits statistics for unit tests.
 
 
 ### Checker
-A less verbose way to check for null and empty variable for a set of data types.
+A less verbose way to check for null and empty variables for a set of data types.
 ```java
 if (Checker.isEmpty(str)) {
 }
@@ -40,11 +40,26 @@ if (Checker.isEmpty(str)) {
 
 
 ### KeyValues
-A collection that stores values that know their own string-keys and support finding values by string-keys. 
+A collection that stores values that know their own string-keys and support finding values by string-keys.
+ 
+Many things stored in maps know their key used to store them, or it would help debugging if they did. 
+If so, data is stored in two places, which is a notorious source for bugs. The code is less verbose and clear. 
+It is not always clear what the map-key is making it harder to understand. 
 
-Offers fail-fast, addAndGet, wildcard lookups and other handy features. 
- ```java
-class MyValue implements IKeyValue {
+```java
+Instead of
+map.put(fund1.getId(), fund1)
+map.put(fund2.getId(), fund2)
+
+We have
+values.add(fund1)
+values.add(fund2)
+```
+
+
+Offers fail-fast, *addAndGet*, wildcard lookups and other handy features. 
+```java
+class MyValue implements IValueKey {
     final String key;
     MyValue(String key){ 
         this.key = key;
@@ -58,6 +73,18 @@ NameValues<MyValue> mySet = NameValues.<MyValue>create()
 	.add(new MyValue("B"));
 
 MyValue myVal = mySet.get("A");
+```
+
+**Fail fast**
+Do a *has* check before instead of a null check after. 
+It has the prevents the annoying null-pointer exception. 
+Should the *has* check be forgotten, the error message is helpful:
+
+*No value with argument key in collection. Class:'KeyValues' Method:'get' Props:{key:'apa' collectionName:'My nice values'}*
+```java
+MyValue category = mySet.has("C")
+    ? mySet.get("C")
+    : mySet.addAndGet(new MyValue("C"));
 ```
 
 
