@@ -1,15 +1,16 @@
 package io.schinzel.basicutils.test.sub;
 
 public class BuildProp {
-    private StateBuilder mStateBuilder;
+    private Prop mProp;
 
 
-    BuildProp(StateBuilder prop) {
-        mStateBuilder = prop;
+    BuildProp(Prop prop) {
+        mProp = prop;
     }
 
-    public StateBuilder buildProp(){
-        return mStateBuilder;
+
+    public StateBuilder buildProp() {
+        return mProp.getStateBuilder();
     }
 
 }

@@ -1,18 +1,21 @@
 package io.schinzel.basicutils.test.sub;
 
 public class Unit {
-    private StateBuilder mStateBuilder;
+    private Prop mProp;
 
-    Unit(StateBuilder prop){
-        mStateBuilder = prop;
+
+    Unit(Prop prop) {
+        mProp = prop;
     }
 
-    public BuildProp unit(String unit){
-        return new BuildProp(mStateBuilder);
+
+    public BuildProp unit(String unit) {
+        return new BuildProp(mProp);
     }
 
-    public StateBuilder buildProp(){
-        return mStateBuilder;
+
+    public StateBuilder buildProp() {
+        return mProp.getStateBuilder();
     }
 
 

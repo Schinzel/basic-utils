@@ -1,25 +1,30 @@
 package io.schinzel.basicutils.test.sub;
 
 public class Val {
-    private StateBuilder mStateBuilder;
+    private Prop mProp;
 
 
-    Val(StateBuilder prop) {
-        mStateBuilder = prop;
+    Val(Prop prop) {
+        mProp = prop;
     }
 
 
     public Unit val(int val) {
-        return new Unit(mStateBuilder);
+        mProp.setValueAsString(String.valueOf(val));
+        mProp.setValueAsObject(val);
+        return new Unit(mProp);
     }
 
 
     public Unit val(String val) {
-        return new Unit(mStateBuilder);
+        mProp.setValueAsString(val);
+        mProp.setValueAsObject(val);
+        return new Unit(mProp);
     }
 
 
     public ADouble val(double val) {
-        return new ADouble(mStateBuilder);
+        mProp.setValueAsObject(val);
+        return new ADouble(mProp, val);
     }
 }

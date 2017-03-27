@@ -1,18 +1,21 @@
 package io.schinzel.basicutils.test.sub;
 
+import io.schinzel.basicutils.str.Str;
+
 public class ADouble {
-    private StateBuilder mStateBuilder;
-    private int mDecimals;
+    private Prop mProp;
+    private double mDouble;
 
 
-    ADouble(StateBuilder prop) {
-        mStateBuilder = prop;
+    ADouble(Prop prop, double val) {
+        mProp = prop;
+        mDouble = val;
     }
 
 
-    public BuildProp decimals(int decimals){
-        mDecimals = decimals;
-        return new BuildProp(mStateBuilder);
+    public BuildProp decimals(int decimals) {
+        mProp.setValueAsString(Str.create().a(mDouble, decimals).getString());
+        return new BuildProp(mProp);
     }
 
 }

@@ -1,17 +1,16 @@
 package io.schinzel.basicutils.test.sub;
 
 public class Key {
-    private String mKey;
-    private StateBuilder mStateBuilder;
+    private Prop mProp;
 
 
-    Key(StateBuilder prop) {
-        mStateBuilder = prop;
+    Key(StateBuilder stateBuilder) {
+        mProp = new Prop(stateBuilder);
     }
 
 
     public Val key(String key) {
-        mKey = key;
-        return new Val(mStateBuilder);
+        mProp.setKey(key);
+        return new Val(mProp);
     }
 }
