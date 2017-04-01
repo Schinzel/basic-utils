@@ -14,8 +14,6 @@ public class PropertyBuilder {
     private String mUnit;
 
 
-
-
     public StateBuilder buildProp() {
         new Property(mKey, mValAsString, mValAsObject, mUnit);
         return mStateBuilder;

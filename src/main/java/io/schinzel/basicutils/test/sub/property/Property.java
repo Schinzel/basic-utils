@@ -15,4 +15,31 @@ public class Property {
     private String mUnit;
 
 
+
+    /**
+     *
+     * @return The key of this property.
+     */
+    public String getKey() {
+        return mKey;
+    }
+
+
+    /**
+     *
+     * @return The value held as a string.
+     */
+    public String getString() {
+        return mKey + ":" + mValueAsString;
+    }
+
+
+    /**
+     *
+     * @return The value as an object.
+     */
+    public Object getObject() {
+        return mValueAsObject;
+    }
+
 }

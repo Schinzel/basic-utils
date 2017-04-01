@@ -13,14 +13,13 @@ public class Unit {
     private Object mValAsObject;
 
 
-
     public PropertyBuilder unit(String unit) {
         return new PropertyBuilder(mStateBuilder, mKey, mValAsString, mValAsObject, unit);
     }
 
 
     public StateBuilder buildProp() {
-        return mStateBuilder;
+        return this.unit("").buildProp();
     }
 
 

@@ -7,8 +7,8 @@ import org.json.JSONArray;
 import java.util.List;
 
 public class Val {
-    StateBuilder mStateBuilder;
-    String mKey;
+    private StateBuilder mStateBuilder;
+    private String mKey;
 
 
     Val(StateBuilder stateBuilder, String key) {
@@ -63,7 +63,7 @@ public class Val {
     }
 
 
-    Unit getUnit(String valAsString, Object valAsObject) {
+    private Unit getUnit(String valAsString, Object valAsObject) {
         return new Unit(mStateBuilder, mKey, valAsString, valAsObject);
     }
 
