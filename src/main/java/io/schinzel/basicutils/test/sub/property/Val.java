@@ -1,13 +1,16 @@
 package io.schinzel.basicutils.test.sub.property;
 
 import io.schinzel.basicutils.Checker;
+import io.schinzel.basicutils.test.sub.StateBuilder;
 
 public class Val {
-    private Property mProperty;
+    StateBuilder mStateBuilder;
+    String mKey;
 
 
-    Val(Property property) {
-        mProperty = property;
+    Val(StateBuilder stateBuilder, String key) {
+        mStateBuilder = stateBuilder;
+        mKey = key;
     }
 
 
@@ -17,23 +20,17 @@ public class Val {
 
 
     public Unit val(long val) {
-        mProperty.setValueAsString(String.valueOf(val));
-        mProperty.setValueAsObject(val);
-        return new Unit(mProperty);
+        return this.getUnit(String.valueOf(val), val);
     }
 
 
     public Unit val(boolean val) {
-        mProperty.setValueAsString(String.valueOf(val));
-        mProperty.setValueAsObject(val);
-        return new Unit(mProperty);
+        return this.getUnit(String.valueOf(val), val);
     }
 
 
     public Unit val(String val) {
-        mProperty.setValueAsString(val);
-        mProperty.setValueAsObject(val);
-        return new Unit(mProperty);
+        return this.getUnit(val, val);
     }
 
 
@@ -43,16 +40,16 @@ public class Val {
 
 
     public ADouble val(double val) {
-        mProperty.setValueAsObject(val);
-        return new ADouble(mProperty, val);
+        return new ADouble(mStateBuilder, mKey, val);
     }
 
 
     public Unit val(String[] values) {
-        if (Checker.isEmpty(values)) {
-            return this.val("");
-        }
-        return this.val(String.join(", ", values));
+        throw new RuntimeException("Not implemented");
+    }
+
+    Unit getUnit(String valAsString, Object valAsObject){
+        return new Unit(mStateBuilder, mKey, valAsString, valAsObject);
     }
 
 

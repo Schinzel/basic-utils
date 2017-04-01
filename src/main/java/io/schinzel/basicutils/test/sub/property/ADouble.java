@@ -1,21 +1,24 @@
 package io.schinzel.basicutils.test.sub.property;
 
 import io.schinzel.basicutils.str.Str;
+import io.schinzel.basicutils.test.sub.StateBuilder;
 
 public class ADouble {
-    private Property mProperty;
+    StateBuilder mStateBuilder;
+    String mKey;
     private double mDouble;
 
 
-    ADouble(Property property, double val) {
-        mProperty = property;
+    ADouble(StateBuilder stateBuilder, String key, double val) {
+        mStateBuilder = stateBuilder;
+        mKey = key;
         mDouble = val;
     }
 
 
-    public PropertyBuilder decimals(int decimals) {
-        mProperty.setValueAsString(Str.create().a(mDouble, decimals).getString());
-        return new PropertyBuilder(mProperty);
+    public Unit decimals(int decimals) {
+        String valAsString = Str.create().a(mDouble, decimals).getString();
+        return new Unit(mStateBuilder, mKey, valAsString, mDouble);
     }
 
 }

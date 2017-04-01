@@ -1,18 +1,17 @@
 package io.schinzel.basicutils.test.sub.property;
 
 import io.schinzel.basicutils.test.sub.StateBuilder;
+import lombok.AllArgsConstructor;
+import lombok.experimental.Accessors;
 
+@Accessors(prefix = "m")
+@AllArgsConstructor
 public class Key {
-    private Property mProperty;
+    StateBuilder mStateBuilder;
 
-
-    public Key(StateBuilder stateBuilder) {
-        mProperty = new Property(stateBuilder);
-    }
 
 
     public Val key(String key) {
-        mProperty.setKey(key);
-        return new Val(mProperty);
+        return new Val(mStateBuilder, key);
     }
 }

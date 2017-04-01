@@ -12,7 +12,7 @@ public class REMOVE_ME {
 
         State state = StateBuilder.create()
                 .addProp().key("").val("").unit("").buildProp()
-                .addProp().key("").val(0.5).decimals(2).buildProp()
+                .addProp().key("").val(0.5).decimals(2).unit("").buildProp()
                 .addProp().key("").val(3).unit("").buildProp()
                 .buildState();
     }
