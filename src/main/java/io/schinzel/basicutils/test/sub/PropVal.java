@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.test.sub;
 
 import io.schinzel.basicutils.Checker;
+import io.schinzel.basicutils.EmptyObjects;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.Accessors;
@@ -49,7 +50,8 @@ public class PropVal {
         if (Checker.isEmpty(values)) {
             return this.getUnit("", "");
         }
-        return this.getUnit(String.join(", ", values), new JSONArray(values));
+        String valAsString = "(" + String.join(",", values) + ")";
+        return this.getUnit(valAsString, new JSONArray(values));
     }
 
 
@@ -57,7 +59,7 @@ public class PropVal {
         if (Checker.isEmpty(values)) {
             return this.getUnit("", "");
         }
-        return this.getUnit(String.join(", ", values), new JSONArray(values));
+        return this.val(values.toArray(EmptyObjects.EMPTY_STRING_ARRAY));
     }
 
 
