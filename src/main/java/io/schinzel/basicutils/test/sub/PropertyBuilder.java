@@ -1,11 +1,11 @@
-package io.schinzel.basicutils.test.sub.property;
+package io.schinzel.basicutils.test.sub;
 
-import io.schinzel.basicutils.test.sub.StateBuilder;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Accessors(prefix = "m")
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class PropertyBuilder {
     private StateBuilder mStateBuilder;
     private String mKey;
@@ -15,8 +15,8 @@ public class PropertyBuilder {
 
 
     public StateBuilder buildProp() {
-        new Property(mKey, mValAsString, mValAsObject, mUnit);
-        return mStateBuilder;
+        Property prop = new Property(mKey, mValAsString, mValAsObject, mUnit);
+        return mStateBuilder.addProperty(prop);
     }
 
 }

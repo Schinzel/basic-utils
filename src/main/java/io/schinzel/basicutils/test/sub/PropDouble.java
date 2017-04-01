@@ -1,21 +1,21 @@
-package io.schinzel.basicutils.test.sub.property;
+package io.schinzel.basicutils.test.sub;
 
 import io.schinzel.basicutils.str.Str;
-import io.schinzel.basicutils.test.sub.StateBuilder;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.experimental.Accessors;
 
 @Accessors(prefix = "m")
-@AllArgsConstructor
-public class ADouble {
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+public class PropDouble {
     private StateBuilder mStateBuilder;
     private String mKey;
     private double mDouble;
 
 
-    public Unit decimals(int decimals) {
+    public PropUnit decimals(int decimals) {
         String valAsString = Str.create().a(mDouble, decimals).getString();
-        return new Unit(mStateBuilder, mKey, valAsString, mDouble);
+        return new PropUnit(mStateBuilder, mKey, valAsString, mDouble);
     }
 
 }

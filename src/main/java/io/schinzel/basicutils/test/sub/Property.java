@@ -1,14 +1,15 @@
-package io.schinzel.basicutils.test.sub.property;
+package io.schinzel.basicutils.test.sub;
 
 import io.schinzel.basicutils.test.sub.StateBuilder;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(prefix = "m")
-@AllArgsConstructor
-public class Property {
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+class Property {
     private String mKey;
     private String mValueAsString;
     private Object mValueAsObject;
@@ -20,7 +21,7 @@ public class Property {
      *
      * @return The key of this property.
      */
-    public String getKey() {
+    String getKey() {
         return mKey;
     }
 
@@ -29,8 +30,8 @@ public class Property {
      *
      * @return The value held as a string.
      */
-    public String getString() {
-        return mKey + ":" + mValueAsString;
+    String getString() {
+        return mKey + ":" + mValueAsString + mUnit;
     }
 
 
@@ -38,7 +39,7 @@ public class Property {
      *
      * @return The value as an object.
      */
-    public Object getObject() {
+    Object getObject() {
         return mValueAsObject;
     }
 

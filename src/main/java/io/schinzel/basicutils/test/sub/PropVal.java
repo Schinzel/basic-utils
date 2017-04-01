@@ -1,53 +1,51 @@
-package io.schinzel.basicutils.test.sub.property;
+package io.schinzel.basicutils.test.sub;
 
 import io.schinzel.basicutils.Checker;
-import io.schinzel.basicutils.test.sub.StateBuilder;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.Accessors;
 import org.json.JSONArray;
 
 import java.util.List;
 
-public class Val {
+@Accessors(prefix = "m")
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
+public class PropVal {
     private StateBuilder mStateBuilder;
     private String mKey;
 
 
-    Val(StateBuilder stateBuilder, String key) {
-        mStateBuilder = stateBuilder;
-        mKey = key;
-    }
-
-
-    public Unit val(int val) {
+    public PropUnit val(int val) {
         return this.val((long) val);
     }
 
 
-    public Unit val(long val) {
+    public PropUnit val(long val) {
         return this.getUnit(String.valueOf(val), val);
     }
 
 
-    public Unit val(boolean val) {
+    public PropUnit val(boolean val) {
         return this.getUnit(String.valueOf(val), val);
     }
 
 
-    public Unit val(String val) {
+    public PropUnit val(String val) {
         return this.getUnit(val, val);
     }
 
 
-    public ADouble val(float val) {
+    public PropDouble val(float val) {
         return this.val((double) val);
     }
 
 
-    public ADouble val(double val) {
-        return new ADouble(mStateBuilder, mKey, val);
+    public PropDouble val(double val) {
+        return new PropDouble(mStateBuilder, mKey, val);
     }
 
 
-    public Unit val(String[] values) {
+    public PropUnit val(String[] values) {
         if (Checker.isEmpty(values)) {
             return this.getUnit("", "");
         }
@@ -55,7 +53,7 @@ public class Val {
     }
 
 
-    public Unit val(List<String> values) {
+    public PropUnit val(List<String> values) {
         if (Checker.isEmpty(values)) {
             return this.getUnit("", "");
         }
@@ -63,8 +61,8 @@ public class Val {
     }
 
 
-    private Unit getUnit(String valAsString, Object valAsObject) {
-        return new Unit(mStateBuilder, mKey, valAsString, valAsObject);
+    private PropUnit getUnit(String valAsString, Object valAsObject) {
+        return new PropUnit(mStateBuilder, mKey, valAsString, valAsObject);
     }
 
 
