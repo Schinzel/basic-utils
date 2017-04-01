@@ -2,6 +2,9 @@ package io.schinzel.basicutils.test.sub.property;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.test.sub.StateBuilder;
+import org.json.JSONArray;
+
+import java.util.List;
 
 public class Val {
     StateBuilder mStateBuilder;
@@ -45,13 +48,24 @@ public class Val {
 
 
     public Unit val(String[] values) {
-        throw new RuntimeException("Not implemented");
+        if (Checker.isEmpty(values)) {
+            return this.getUnit("", "");
+        }
+        return this.getUnit(String.join(", ", values), new JSONArray(values));
     }
 
-    Unit getUnit(String valAsString, Object valAsObject){
+
+    public Unit val(List<String> values) {
+        if (Checker.isEmpty(values)) {
+            return this.getUnit("", "");
+        }
+        return this.getUnit(String.join(", ", values), new JSONArray(values));
+    }
+
+
+    Unit getUnit(String valAsString, Object valAsObject) {
         return new Unit(mStateBuilder, mKey, valAsString, valAsObject);
     }
-
 
 
 }
