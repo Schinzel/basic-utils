@@ -1,5 +1,7 @@
 package io.schinzel.basicutils.test.sub;
 
+import io.schinzel.basicutils.test.sub.property.Key;
+
 public class StateBuilder {
 
     public static StateBuilder create() {

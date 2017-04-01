@@ -1,11 +1,12 @@
-package io.schinzel.basicutils.test.sub;
+package io.schinzel.basicutils.test.sub.property;
 
+import io.schinzel.basicutils.test.sub.StateBuilder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(prefix = "m")
-public class Prop {
+public class Property {
     @Getter private StateBuilder mStateBuilder;
     @Setter private String mKey;
     @Setter private String mValueAsString;
@@ -13,7 +14,7 @@ public class Prop {
     @Setter private String mUnit;
 
 
-    Prop(StateBuilder stateBuilder) {
+    Property(StateBuilder stateBuilder) {
         mStateBuilder = stateBuilder;
     }
 
