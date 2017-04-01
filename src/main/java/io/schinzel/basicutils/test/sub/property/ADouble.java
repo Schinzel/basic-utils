@@ -2,18 +2,15 @@ package io.schinzel.basicutils.test.sub.property;
 
 import io.schinzel.basicutils.str.Str;
 import io.schinzel.basicutils.test.sub.StateBuilder;
+import lombok.AllArgsConstructor;
+import lombok.experimental.Accessors;
 
+@Accessors(prefix = "m")
+@AllArgsConstructor
 public class ADouble {
-    StateBuilder mStateBuilder;
-    String mKey;
+    private StateBuilder mStateBuilder;
+    private String mKey;
     private double mDouble;
-
-
-    ADouble(StateBuilder stateBuilder, String key, double val) {
-        mStateBuilder = stateBuilder;
-        mKey = key;
-        mDouble = val;
-    }
 
 
     public Unit decimals(int decimals) {

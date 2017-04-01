@@ -7,11 +7,11 @@ import lombok.experimental.Accessors;
 @Accessors(prefix = "m")
 @AllArgsConstructor
 public class PropertyBuilder {
-    StateBuilder mStateBuilder;
-    String mKey;
-    String mValAsString;
-    Object mValAsObject;
-    String mUnit;
+    private StateBuilder mStateBuilder;
+    private String mKey;
+    private String mValAsString;
+    private Object mValAsObject;
+    private String mUnit;
 
 
 
