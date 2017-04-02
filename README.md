@@ -257,10 +257,14 @@ Thrower.throwIfFalse(true, "A message");
 
 ## Release Candidate: 1.17
 - MapBuilder removed. Use Guava ImmutableMap.Builder instead.
+- State
+    - Property builders added
+    - Properties optionally has units
 - Substring
     - Moved to its own package
-    - Now supports finding a certain index of a delimiter
+    - Now supports finding a specific occurrence of a delimiter
     - Clearer method names
+- Timekeeper output has units
 ## 1.16
 - StateBuilder handles null values without throwing errors.
 - State has a public getStr
