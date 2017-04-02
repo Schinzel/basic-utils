@@ -125,28 +125,24 @@ public interface IStateNode {
 
 class MyClass implements IStateNode{
 	[...]
-	public State getState(){
-		return State.create()
-			.add("Name", this.name)
-			.add("countOfSomething", this.count)
-			//Round to two decimals
-			.add("someValue", this.val, 2)
-			//Add a set of children that will be rendered as a sub tree
-			.addChildren(stuff.iterator());
-	}
+    public State getState() {
+        return State.getBuilder()
+                .addProp().key("Name").val(mName).buildProp()
+                .addProp().key("SomeCount").val(mCount).buildProp()
+                .addProp().key("SomeVal").val(mVal).decimals(2).buildProp()
+                //Add a set of children that will be rendered as a sub tree
+                .addChildren("SubThingies", mChildren)
+                .build();
+    }
 }
 ```
 
  Sample output:
 ```java
-Name:Music countOfSomething:123 someValue:17.14
--- Name:A countOfSomething:123 someValue:17.14
----- Name:George countOfSomething:55 someValue:7.40
----- Name:Ringo countOfSomething:44 someValue:1.88
----- Name:Paul countOfSomething:132 someValue:99.30
--- Name:B countOfSomething:12 312 someValue:67.84
----- Name:Lou countOfSomething:3 345 someValue:56 465.74
----- Name:Velvet countOfSomething:368 977 someValue:787.20
+Name:Root SomeCount:77 SomeVal:27.01
+SubThingies
+┗━ Name:yt87 SomeCount:47 SomeVal:99.28
+┗━ Name:y10o SomeCount:70 SomeVal:20.81
 ```
 
 ### Str
