@@ -57,15 +57,26 @@ public class StateBuilder {
         return new State(this);
     }
     //------------------------------------------------------------------------
-    // ADD PROPERTIES
+    // ADD PROPERTy
     //------------------------------------------------------------------------
 
 
+    /**
+     * Starts a chain of methods that adds a property to this builder.
+     *
+     * @return The key adder for the property.
+     */
     public PropKey addProp() {
         return new PropKey(this);
     }
 
 
+    /**
+     * Adds a property to this builder.
+     *
+     * @param property The property to add.
+     * @return This for chaining.
+     */
     StateBuilder addProperty(Property property) {
         mProperties.add(property);
         return this;

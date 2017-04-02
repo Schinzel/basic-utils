@@ -25,7 +25,7 @@ public class PropertyBuilder {
      */
     public StateBuilder buildProp() {
         Property prop = new Property(mKey, mValAsString, mValAsObject, mUnit);
-        //Add the created property to the state builder. 
+        //Add the created property to the state builder.
         return mStateBuilder.addProperty(prop);
     }
 
