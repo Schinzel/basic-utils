@@ -139,19 +139,20 @@ class Lap implements IStateNode {
     @Override
     public State getState() {
         Thrower.throwIfTrue(mStopWatch.isStarted(), "Cannot get results for '" + mName + "' as has not been stopped.");
-        StateBuilder state = State.getBuilder()
-                .add("Name", mName);
+        StateBuilder stateBuilder = State.getBuilder()
+                .addProp().key("Name").val(mName).buildProp();
         if (mParent != null) {
-            state.add("Root", this.getPercentOfRoot(), 0);
-            state.add("Parent", this.getPercentOfParent(), 0);
+            stateBuilder.addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp();
+            stateBuilder.addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp();
         }
-        state.add("Tot", mStopWatch.getTotTimeInMs(), 0)
-                .add("Avg", mStopWatch.getAvgInMs(), 2)
-                .add("Hits", mStopWatch.getLaps());
+        stateBuilder
+                .addProp().key("Tot").val(mStopWatch.getTotTimeInMs()).decimals(0).unit("ms").buildProp()
+                .addProp().key("Avg").val(mStopWatch.getAvgInMs()).decimals(2).unit("ms").buildProp()
+                .addProp().key("Hits").val(mStopWatch.getLaps()).buildProp();
         if (!mChildren.isEmpty()) {
-            state.add("sublaps", mChildren.values());
+            stateBuilder.addChildren("sublaps", mChildren.values());
         }
-        return state.build();
+        return stateBuilder.build();
 
     }
 

@@ -65,94 +65,14 @@ public class StateBuilder {
     //------------------------------------------------------------------------
 
 
-    /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, String val) {
-        if (val == null) {
-            this.add(key, NO_VALUE);
-        }
-        mProperties.add(new Property(key, val, val));
+    public PropKey addProp() {
+        return new PropKey(this);
+    }
+
+
+    StateBuilder addProperty(Property property) {
+        mProperties.add(property);
         return this;
-    }
-
-
-    /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, int val) {
-        return this.add(key, (long) val);
-    }
-
-
-    /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, long val) {
-        String valAsStr = Str.create().a(val).toString();
-        mProperties.add(new Property(key, valAsStr, val));
-        return this;
-    }
-
-
-    /**
-     * @param key           The key of the argument value.
-     * @param val           The value to add.
-     * @param numOfDecimals The number of decimals to display in the string
-     *                      representation of the argument value.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, float val, int numOfDecimals) {
-        return this.add(key, (double) val, numOfDecimals);
-    }
-
-
-    /**
-     * @param key           The key of the argument value.
-     * @param val           The value to add.
-     * @param numOfDecimals The number of decimals to display in the string
-     *                      representation of the argument value.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, double val, int numOfDecimals) {
-        String valAsStr = Str.create().a(val, numOfDecimals).toString();
-        mProperties.add(new Property(key, valAsStr, val));
-        return this;
-    }
-
-
-    /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, boolean val) {
-        String valAsStr = String.valueOf(val);
-        mProperties.add(new Property(key, valAsStr, val));
-        return this;
-    }
-
-
-    public StateBuilder add(String key, String[] values) {
-        if (Checker.isEmpty(values)) {
-            return this.add(key, NO_VALUE);
-        }
-        mProperties.add(new Property(key, String.join(", ", values), new JSONArray(values)));
-        return this;
-    }
-
-
-    public StateBuilder add(String key, List<String> values) {
-        if (Checker.isEmpty(values)) {
-            return this.add(key, NO_VALUE);
-        }
-        return this.add(key, values.toArray(EmptyObjects.EMPTY_STRING_ARRAY));
     }
     //------------------------------------------------------------------------
     // ADD CHILDREN
@@ -164,10 +84,10 @@ public class StateBuilder {
      * constructed.
      *
      * @param key   The key of the argument child.
-     * @param child The child to add.
+     * @param child The child to addChild.
      * @return This for chaining.
      */
-    public StateBuilder add(String key, IStateNode child) {
+    public StateBuilder addChild(String key, IStateNode child) {
         if (child == null) {
             return this;
         }
@@ -181,10 +101,10 @@ public class StateBuilder {
      * constructed.
      *
      * @param key      The key of the argument children.
-     * @param children The children to add.
+     * @param children The children to addChild.
      * @return This for chaining.
      */
-    public StateBuilder add(String key, Iterable<? extends IStateNode> children) {
+    public StateBuilder addChildren(String key, Iterable<? extends IStateNode> children) {
         if (children == null || Iterables.size(children) == 0) {
             return this;
         }

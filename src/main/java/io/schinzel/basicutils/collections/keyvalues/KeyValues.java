@@ -64,7 +64,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
 
     /**
-     * @param value A value to add to collection.
+     * @param value A value to addChild to collection.
      * @return This for chaining.
      */
     public KeyValues<V> add(V value) {
@@ -81,7 +81,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * Adds an alias for an key. For example: Lets assume there is an object
      * "thing" that returns the key "myFunkyKey". The thing is added to the collection
      * with a couple of aliases
-     * coll.add(thing).addAlias("myFunkyKey", "aliasA").addAlias("myFunkyKey", "aliasB");
+     * coll.addChild(thing).addAlias("myFunkyKey", "aliasA").addAlias("myFunkyKey", "aliasB");
      * <p>
      * Then all three below would return the thing:
      * coll.get("theKey")
@@ -89,7 +89,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * coll.get("aliasB")
      *
      * @param key   The key for which to associate the argument alias.
-     * @param alias The alias to add for argument key.
+     * @param alias The alias to addChild for argument key.
      * @return This for chaining.
      */
     public KeyValues<V> addAlias(String key, String alias) {
@@ -103,7 +103,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
 
     /**
-     * @param value The value to add and return.
+     * @param value The value to addChild and return.
      * @return The argument value.
      */
     public V addAndGet(V value) {

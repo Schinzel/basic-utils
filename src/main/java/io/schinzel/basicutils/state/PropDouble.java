@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.test.sub;
+package io.schinzel.basicutils.state;
 
 import io.schinzel.basicutils.str.Str;
 import lombok.AccessLevel;

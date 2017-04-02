@@ -18,10 +18,10 @@ public class StateTest {
     @Test
     public void testStringProperty() {
         List<Property> props = State.getBuilder()
-                .add("string", "a string")
-                .build().mProperties;
-        Assert.assertEquals("string", props.get(0).mKey);
-        Assert.assertEquals("a string", props.get(0).mValueAsString);
+                .addProp().key("string").val("a string").buildProp().build()
+                .mProperties;
+        Assert.assertEquals("string", props.get(0).getKey());
+        Assert.assertEquals("a string", props.get(0).getValueAsString());
         Assert.assertEquals("string:a string", props.get(0).getString());
         Assert.assertEquals("a string", props.get(0).getObject());
     }
@@ -30,10 +30,10 @@ public class StateTest {
     @Test
     public void testIntProperty() {
         List<Property> props = State.getBuilder()
-                .add("the_int", 123456789)
+                .addProp().key("the_int").val(123456789).buildProp()
                 .build().mProperties;
-        Assert.assertEquals("the_int", props.get(0).mKey);
-        Assert.assertEquals("123,456,789", props.get(0).mValueAsString);
+        Assert.assertEquals("the_int", props.get(0).getKey());
+        Assert.assertEquals("123,456,789", props.get(0).getValueAsString());
         Assert.assertEquals("the_int:123,456,789", props.get(0).getString());
         Assert.assertEquals(new Long(123456789), props.get(0).getObject());
     }
@@ -42,10 +42,10 @@ public class StateTest {
     @Test
     public void testLongProperty() {
         List<Property> props = State.getBuilder()
-                .add("the_long", 1234567890l)
+                .addProp().key("the_long").val(1234567890l).buildProp()
                 .build().mProperties;
-        Assert.assertEquals("the_long", props.get(0).mKey);
-        Assert.assertEquals("1,234,567,890", props.get(0).mValueAsString);
+        Assert.assertEquals("the_long", props.get(0).getKey());
+        Assert.assertEquals("1,234,567,890", props.get(0).getValueAsString());
         Assert.assertEquals("the_long:1,234,567,890", props.get(0).getString());
         Assert.assertEquals(new Long(1234567890), props.get(0).getObject());
     }
@@ -54,10 +54,10 @@ public class StateTest {
     @Test
     public void testDoubleProperty() {
         List<Property> props = State.getBuilder()
-                .add("the_double", 0.4444d, 2)
+                .addProp().key("the_double").val(0.4444d).decimals(2).buildProp()
                 .build().mProperties;
-        Assert.assertEquals("the_double", props.get(0).mKey);
-        Assert.assertEquals("0.44", props.get(0).mValueAsString);
+        Assert.assertEquals("the_double", props.get(0).getKey());
+        Assert.assertEquals("0.44", props.get(0).getValueAsString());
         Assert.assertEquals("the_double:0.44", props.get(0).getString());
         Assert.assertEquals(new Double(0.4444d), props.get(0).getObject());
     }
@@ -66,10 +66,10 @@ public class StateTest {
     @Test
     public void testFloatProperty() {
         List<Property> props = State.getBuilder()
-                .add("the_float", 12356.6666f, 3)
+                .addProp().key("the_float").val( 12356.6666f).decimals(3).buildProp()
                 .build().mProperties;
-        Assert.assertEquals("the_float", props.get(0).mKey);
-        Assert.assertEquals("12,356.667", props.get(0).mValueAsString);
+        Assert.assertEquals("the_float", props.get(0).getKey());
+        Assert.assertEquals("12,356.667", props.get(0).getValueAsString());
         Assert.assertEquals("the_float:12,356.667", props.get(0).getString());
         Assert.assertEquals(new Double(12356.6666f), props.get(0).getObject());
     }
@@ -78,22 +78,22 @@ public class StateTest {
     @Test
     public void testBooleanProperty() {
         List<Property> props = State.getBuilder()
-                .add("the_true", true)
-                .add("the_false", false)
+                .addProp().key("the_true").val(true).buildProp()
+                .addProp().key("the_false").val(false).buildProp()
                 .build().mProperties;
-        Assert.assertEquals("true", props.get(0).mValueAsString);
-        Assert.assertEquals("false", props.get(1).mValueAsString);
+        Assert.assertEquals("true", props.get(0).getValueAsString());
+        Assert.assertEquals("false", props.get(1).getValueAsString());
     }
 
 
     @Test
     public void testOrder() {
         List<Property> props = State.getBuilder()
-                .add("A", 1)
-                .add("B", 2)
-                .add("C", 3)
-                .add("D", 4)
-                .add("E", 5)
+                .addProp().key("A").val(1).buildProp()
+                .addProp().key("B").val(2).buildProp()
+                .addProp().key("C").val(3).buildProp()
+                .addProp().key("D").val(4).buildProp()
+                .addProp().key("E").val(5).buildProp()
                 .build().mProperties;
         Long prevValue = 0l;
         for (Property prop : props) {
@@ -107,8 +107,8 @@ public class StateTest {
     @Test
     public void testGetPropsAsString() {
         String result = State.getBuilder()
-                .add("A", 1)
-                .add("B", 2)
+                .addProp().key("A").val(1).buildProp()
+                .addProp().key("B").val(2).buildProp()
                 .build()
                 .getString();
         String expected = "A:1 B:2\n";

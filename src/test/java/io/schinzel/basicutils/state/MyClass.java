@@ -25,14 +25,14 @@ class MyClass implements IStateNode {
     @Override
     public State getState() {
         StateBuilder builder = State.getBuilder()
-                .add("Name", mName)
-                .add("Cost", mCost)
-                .add("mykids", mChildren);
+                .addProp().key("Name").val(mName).buildProp()
+                .addProp().key("Cost").val(mCost).buildProp()
+                .addChildren("mykids", mChildren);
         if (mLeft != null){
-            builder.add("Left", mLeft);
+            builder.addChild("Left", mLeft);
         }
         if (mRight != null){
-            builder.add("Right", mRight);
+            builder.addChild("Right", mRight);
         }
         return builder.build();
                 
