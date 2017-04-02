@@ -115,7 +115,8 @@ Sandman.snooze(100);
 
 
 ### State
-Solves the problem of getting an overview of a state of a system or a sub-system. The state can be returned as a human readable string or a JSON object.
+Solves the problem of getting an overview of a state of a system or a sub-system. 
+The state can be returned as a human readable string or a JSON object.
 
 Interface to implement:
 ```java
