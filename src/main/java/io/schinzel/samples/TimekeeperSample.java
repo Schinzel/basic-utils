@@ -14,6 +14,7 @@ public class TimekeeperSample {
         Timekeeper timekeeper = Timekeeper.getSingleton();
         timekeeper.startLap("A");
         //Some code runs here that will be measured as lap A
+        Sandman.snoozeMillis(5);
         timekeeper.stopLap();
         timekeeper.startLap("B");
         for (int i = 0; i < 10; i++) {
