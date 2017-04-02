@@ -16,19 +16,12 @@ import java.util.stream.Collectors;
  * @author schinzel
  */
 public class State {
-
-    /**
-     * A list of properties.
-     */
-    final List<Property> mProperties;
-    /**
-     * Named children of this state object.
-     */
-    final Map<String, State> mChildren;
-    /**
-     * Named lists of children of this state object.
-     */
-    final Map<String, List<State>> mChildLists;
+    /** A list of properties. */
+    private final List<Property> mProperties;
+    /** Named children of this state object. */
+    private final Map<String, State> mChildren;
+    /** Named lists of children of this state object. */
+    private final Map<String, List<State>> mChildLists;
     //------------------------------------------------------------------------
     // CONSTRUCTION
     //------------------------------------------------------------------------
@@ -47,6 +40,7 @@ public class State {
      *              want to append to in a sub class.
      * @return A builder with the argument seed state added.
      */
+    @SuppressWarnings("WeakerAccess")
     public static StateBuilder getBuilder(State state) {
         return new StateBuilder(state);
     }
@@ -113,7 +107,7 @@ public class State {
     /**
      * @return The properties - but not its children - as a string.
      */
-    String getPropertiesAsString() {
+    private String getPropertiesAsString() {
         return mProperties
                 .stream()
                 .map(Property::getString)
@@ -125,7 +119,7 @@ public class State {
      * @param depth The depth in the tree.
      * @return A string representation of this node's children.
      */
-    Str getChildrenAsString(int depth) {
+    private Str getChildrenAsString(int depth) {
         Str str = Str.create();
         //Add all children and their children recursively
         mChildren.forEach((key, child) -> {
@@ -156,7 +150,7 @@ public class State {
      * @param depth The depth to get an indentation for.
      * @return The indentation of the argument depth.
      */
-    static String indentation(int depth) {
+    private static String indentation(int depth) {
         return depth == 0 ? "" : Strings.repeat("   ", depth - 1) + "┗━ ";
     }
 }

@@ -12,15 +12,7 @@ class Property {
     @Getter(AccessLevel.PACKAGE) private String mValueAsString;
     @Getter(AccessLevel.PACKAGE) private Object mValueAsObject;
     @Getter(AccessLevel.PACKAGE) private String mUnit;
-
-
-    /**
-     * @return The key of this property.
-     */
-    String getKey() {
-        return mKey;
-    }
-
+    
 
     /**
      * @return The value held as a string.
