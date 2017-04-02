@@ -235,12 +235,14 @@ timekeeper.stop();
 
 Sample output of above. Results also available as JSON.
 ```
- Name:root Tot:141ms Avg:141.35ms Hits:1
--- Name:A Root:0% Parent:0% Tot:0ms Avg:0.01ms Hits:1
--- Name:B Root:91% Parent:91% Tot:128ms Avg:128.50ms Hits:1
----- Name:B1 Root:10% Parent:11% Tot:14ms Avg:1.46ms Hits:10
----- Name:B2 Root:80% Parent:88% Tot:113ms Avg:22.70ms Hits:5
--- Name:C Root:9% Parent:9% Tot:12ms Avg:12.69ms Hits:1
+Name:root Tot:222ms Avg:222.29ms Hits:1
+sublaps
+┗━ Name:A Root:0% Parent:0% Tot:0ms Avg:0.00ms Hits:1
+┗━ Name:B Root:54% Parent:54% Tot:120ms Avg:120.34ms Hits:1
+   ┗━ sublaps
+      ┗━ Name:B1 Root:6% Parent:11% Tot:13ms Avg:1.31ms Hits:10
+      ┗━ Name:B2 Root:48% Parent:89% Tot:107ms Avg:21.42ms Hits:5
+┗━ Name:C Root:5% Parent:5% Tot:12ms Avg:12.56ms Hits:1
 ```
 
 
