@@ -2,10 +2,9 @@ package io.schinzel.basicutils.state;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
-import io.schinzel.basicutils.Checker;
-import io.schinzel.basicutils.EmptyObjects;
-import io.schinzel.basicutils.str.Str;
-import org.json.JSONArray;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,21 +14,18 @@ import java.util.stream.Collectors;
  *
  * @author schinzel
  */
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
+@Accessors(prefix = "m")
 public class StateBuilder {
-    private static final String NO_VALUE = "";
-
-    /**
-     * A list of properties.
-     */
-    List<Property> mProperties = new ArrayList<>();
-    /**
-     * Named children of state being built.
-     */
-    Map<String, State> mChildren = new LinkedHashMap<>();
-    /**
-     * Named lists of children of the state being built.
-     */
-    Map<String, List<State>> mChildLists = new LinkedHashMap<>();
+    /** A list of properties. */
+    @Getter(AccessLevel.PACKAGE)
+    private List<Property> mProperties = new ArrayList<>();
+    /** Named children of state being built. */
+    @Getter(AccessLevel.PACKAGE)
+    private Map<String, State> mChildren = new LinkedHashMap<>();
+    /** Named lists of children of the state being built. */
+    @Getter(AccessLevel.PACKAGE)
+    private Map<String, List<State>> mChildLists = new LinkedHashMap<>();
     //------------------------------------------------------------------------
     // CONSTRUCTION
     //------------------------------------------------------------------------
@@ -48,7 +44,7 @@ public class StateBuilder {
      */
 
     StateBuilder(State state) {
-        mProperties = new ArrayList<>(state.mProperties);
+        mProperties = new ArrayList<>(state.getProperties());
         mChildren = new HashMap<>(mChildren);
         mChildLists = new HashMap<>(mChildLists);
     }
@@ -61,98 +57,29 @@ public class StateBuilder {
         return new State(this);
     }
     //------------------------------------------------------------------------
-    // ADD PROPERTIES
+    // ADD PROPERTy
     //------------------------------------------------------------------------
 
 
     /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
-     * @return This for chaining.
+     * Starts a chain of methods that adds a property to this builder.
+     *
+     * @return The key adder for the property.
      */
-    public StateBuilder add(String key, String val) {
-        if (val == null) {
-            this.add(key, NO_VALUE);
-        }
-        mProperties.add(new Property(key, val, val));
-        return this;
+    public PropKey addProp() {
+        return new PropKey(this);
     }
 
 
     /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
+     * Adds a property to this builder.
+     *
+     * @param property The property to add.
      * @return This for chaining.
      */
-    public StateBuilder add(String key, int val) {
-        return this.add(key, (long) val);
-    }
-
-
-    /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, long val) {
-        String valAsStr = Str.create().a(val).toString();
-        mProperties.add(new Property(key, valAsStr, val));
+    StateBuilder addProperty(Property property) {
+        mProperties.add(property);
         return this;
-    }
-
-
-    /**
-     * @param key           The key of the argument value.
-     * @param val           The value to add.
-     * @param numOfDecimals The number of decimals to display in the string
-     *                      representation of the argument value.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, float val, int numOfDecimals) {
-        return this.add(key, (double) val, numOfDecimals);
-    }
-
-
-    /**
-     * @param key           The key of the argument value.
-     * @param val           The value to add.
-     * @param numOfDecimals The number of decimals to display in the string
-     *                      representation of the argument value.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, double val, int numOfDecimals) {
-        String valAsStr = Str.create().a(val, numOfDecimals).toString();
-        mProperties.add(new Property(key, valAsStr, val));
-        return this;
-    }
-
-
-    /**
-     * @param key The key of the argument value.
-     * @param val The value to add.
-     * @return This for chaining.
-     */
-    public StateBuilder add(String key, boolean val) {
-        String valAsStr = String.valueOf(val);
-        mProperties.add(new Property(key, valAsStr, val));
-        return this;
-    }
-
-
-    public StateBuilder add(String key, String[] values) {
-        if (Checker.isEmpty(values)) {
-            return this.add(key, NO_VALUE);
-        }
-        mProperties.add(new Property(key, String.join(", ", values), new JSONArray(values)));
-        return this;
-    }
-
-
-    public StateBuilder add(String key, List<String> values) {
-        if (Checker.isEmpty(values)) {
-            return this.add(key, NO_VALUE);
-        }
-        return this.add(key, values.toArray(EmptyObjects.EMPTY_STRING_ARRAY));
     }
     //------------------------------------------------------------------------
     // ADD CHILDREN
@@ -164,10 +91,10 @@ public class StateBuilder {
      * constructed.
      *
      * @param key   The key of the argument child.
-     * @param child The child to add.
+     * @param child The child to addChild.
      * @return This for chaining.
      */
-    public StateBuilder add(String key, IStateNode child) {
+    public StateBuilder addChild(String key, IStateNode child) {
         if (child == null) {
             return this;
         }
@@ -181,10 +108,10 @@ public class StateBuilder {
      * constructed.
      *
      * @param key      The key of the argument children.
-     * @param children The children to add.
+     * @param children The children to addChild.
      * @return This for chaining.
      */
-    public StateBuilder add(String key, Iterable<? extends IStateNode> children) {
+    public StateBuilder addChildren(String key, Iterable<? extends IStateNode> children) {
         if (children == null || Iterables.size(children) == 0) {
             return this;
         }

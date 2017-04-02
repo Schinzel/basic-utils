@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.str;
 
 /**
- * The purpose of this interface is to add numbers and format them for human readability.
+ * The purpose of this interface is to addChild numbers and format them for human readability.
  *
  * Created by schinzel on 2017-02-26.
  */
@@ -11,7 +11,7 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
     /**
      * The argument value is added with a thousand separator for readability.
      *
-     * @param f             The float to add
+     * @param f             The float to addChild
      * @param numOfDecimals The number of decimals to display.
      * @return This for chaining,
      */
@@ -23,7 +23,7 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
     /**
      * The argument value is added with a thousand separator for readability.
      *
-     * @param d             The double to add
+     * @param d             The double to addChild
      * @param numOfDecimals The number of decimals to display.
      * @return This for chaining,
      */
@@ -37,7 +37,7 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
     /**
      * The argument value is added with a thousand separator for readability.
      *
-     * @param l The long to add.
+     * @param l The long to addChild.
      * @return This for chaining.
      */
     default T a(int l) {
@@ -48,7 +48,7 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
     /**
      * The argument value is added with a thousand separator for readability.
      *
-     * @param l The long to add.
+     * @param l The long to addChild.
      * @return This for chaining.
      */
     default T a(long l) {

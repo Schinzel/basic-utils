@@ -142,7 +142,8 @@ Sandman.snooze(100);
 
 
 ### State
-Solves the problem of getting an overview of a state of a system or a sub-system. The state can be returned as a human readable string or a JSON object.
+Solves the problem of getting an overview of a state of a system or a sub-system. 
+The state can be returned as a human readable string or a JSON object.
 
 Interface to implement:
 ```java
@@ -152,28 +153,24 @@ public interface IStateNode {
 
 class MyClass implements IStateNode{
 	[...]
-	public State getState(){
-		return State.create()
-			.add("Name", this.name)
-			.add("countOfSomething", this.count)
-			//Round to two decimals
-			.add("someValue", this.val, 2)
-			//Add a set of children that will be rendered as a sub tree
-			.addChildren(stuff.iterator());
-	}
+    public State getState() {
+        return State.getBuilder()
+                .addProp().key("Name").val(mName).buildProp()
+                .addProp().key("SomeCount").val(mCount).buildProp()
+                .addProp().key("SomeVal").val(mVal).decimals(2).buildProp()
+                //Add a set of children that will be rendered as a sub tree
+                .addChildren("SubThingies", mChildren)
+                .build();
+    }
 }
 ```
 
  Sample output:
 ```java
-Name:Music countOfSomething:123 someValue:17.14
--- Name:A countOfSomething:123 someValue:17.14
----- Name:George countOfSomething:55 someValue:7.40
----- Name:Ringo countOfSomething:44 someValue:1.88
----- Name:Paul countOfSomething:132 someValue:99.30
--- Name:B countOfSomething:12 312 someValue:67.84
----- Name:Lou countOfSomething:3 345 someValue:56 465.74
----- Name:Velvet countOfSomething:368 977 someValue:787.20
+Name:Root SomeCount:77 SomeVal:27.01
+SubThingies
+┗━ Name:yt87 SomeCount:47 SomeVal:99.28
+┗━ Name:y10o SomeCount:70 SomeVal:20.81
 ```
 
 ### Str
@@ -266,12 +263,14 @@ timekeeper.stop();
 
 Sample output of above. Results also available as JSON.
 ```
- Name:root Tot:141ms Avg:141.35ms Hits:1
--- Name:A Root:0% Parent:0% Tot:0ms Avg:0.01ms Hits:1
--- Name:B Root:91% Parent:91% Tot:128ms Avg:128.50ms Hits:1
----- Name:B1 Root:10% Parent:11% Tot:14ms Avg:1.46ms Hits:10
----- Name:B2 Root:80% Parent:88% Tot:113ms Avg:22.70ms Hits:5
--- Name:C Root:9% Parent:9% Tot:12ms Avg:12.69ms Hits:1
+Name:root Tot:222ms Avg:222.29ms Hits:1
+sublaps
+┗━ Name:A Root:0% Parent:0% Tot:0ms Avg:0.00ms Hits:1
+┗━ Name:B Root:54% Parent:54% Tot:120ms Avg:120.34ms Hits:1
+   ┗━ sublaps
+      ┗━ Name:B1 Root:6% Parent:11% Tot:13ms Avg:1.31ms Hits:10
+      ┗━ Name:B2 Root:48% Parent:89% Tot:107ms Avg:21.42ms Hits:5
+┗━ Name:C Root:5% Parent:5% Tot:12ms Avg:12.56ms Hits:1
 ```
 
 
@@ -288,10 +287,14 @@ Thrower.throwIfFalse(true, "A message");
 
 ## Release Candidate: 1.17
 - MapBuilder removed. Use Guava ImmutableMap.Builder instead.
+- State
+    - Property builders added
+    - Properties optionally has units
 - Substring
     - Moved to its own package
-    - Now supports finding a certain index of a delimiter
+    - Now supports finding a specific occurrence of a delimiter
     - Clearer method names
+- Timekeeper output has units
 ## 1.16
 - StateBuilder handles null values without throwing errors.
 - State has a public getStr

@@ -1,5 +1,6 @@
 package io.schinzel.samples;
 
+import io.schinzel.basicutils.Sandman;
 import io.schinzel.basicutils.timekeeper.Timekeeper;
 
 /**
@@ -8,14 +9,9 @@ import io.schinzel.basicutils.timekeeper.Timekeeper;
  * Created by Schinzel on 2017-02-27.
  */
 public class TimekeeperSample {
-    //Get the timekeeper. There is also a create method if one does not want
-    //to use a singleton.
     public static void main(String[] args) {
-        Timekeeper tk = Timekeeper.create();
-        tk.stop();
-        tk.toJson();
-        System.out.println(tk.toString());
-/*        Timekeeper timekeeper = Timekeeper.getSingleton();
+        //Get the timekeeper. There is also a create method if one does not want to use a singleton.
+        Timekeeper timekeeper = Timekeeper.getSingleton();
         timekeeper.startLap("A");
         //Some code runs here that will be measured as lap A
         timekeeper.stopLap();
@@ -39,6 +35,6 @@ public class TimekeeperSample {
         timekeeper.stopLap();
         //Stop the whole stopwatch
         timekeeper.stop();
-        System.out.println(timekeeper.toString());*/
+        System.out.println(timekeeper.toString());
     }
 }
