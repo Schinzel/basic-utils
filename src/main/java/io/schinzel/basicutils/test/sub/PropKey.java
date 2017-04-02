@@ -7,8 +7,7 @@ import lombok.experimental.Accessors;
 @Accessors(prefix = "m")
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class PropKey {
-    StateBuilder mStateBuilder;
-
+    private StateBuilder mStateBuilder;
 
 
     public PropVal key(String key) {

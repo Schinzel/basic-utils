@@ -1,10 +1,7 @@
 package io.schinzel.basicutils.test.sub;
 
-import io.schinzel.basicutils.test.sub.StateBuilder;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Accessors(prefix = "m")
@@ -16,9 +13,7 @@ class Property {
     private String mUnit;
 
 
-
     /**
-     *
      * @return The key of this property.
      */
     String getKey() {
@@ -27,7 +22,6 @@ class Property {
 
 
     /**
-     *
      * @return The value held as a string.
      */
     String getString() {
@@ -36,7 +30,6 @@ class Property {
 
 
     /**
-     *
      * @return The value as an object.
      */
     Object getObject() {
