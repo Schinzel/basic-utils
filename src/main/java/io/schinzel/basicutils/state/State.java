@@ -56,9 +56,9 @@ public class State {
      * @param stateBuilder A state builder.
      */
     State(StateBuilder stateBuilder) {
-        mProperties = stateBuilder.mProperties;
-        mChildren = stateBuilder.mChildren;
-        mChildLists = stateBuilder.mChildLists;
+        mProperties = stateBuilder.getProperties();
+        mChildren = stateBuilder.getChildren();
+        mChildLists = stateBuilder.getChildLists();
     }
     //------------------------------------------------------------------------
     // PUBLIC

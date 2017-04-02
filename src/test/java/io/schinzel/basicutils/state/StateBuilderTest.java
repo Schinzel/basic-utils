@@ -19,7 +19,7 @@ public class StateBuilderTest {
         StateBuilder sb = new StateBuilder();
         String[] stringArray = null;
         sb.addProp().key("key1").val(stringArray).buildProp();
-        Property property = sb.mProperties.get(0);
+        Property property = sb.getProperties().get(0);
         assertEquals("key1", property.getKey());
         assertEquals("key1:", property.getString());
     }
@@ -30,7 +30,7 @@ public class StateBuilderTest {
         StateBuilder sb = new StateBuilder();
         String[] stringArray = {"a", "b"};
         sb.addProp().key("key1").val(stringArray).buildProp();
-        Property property = sb.mProperties.get(0);
+        Property property = sb.getProperties().get(0);
         assertEquals("key1", property.getKey());
         assertEquals("key1:(a, b)", property.getString());
     }
@@ -41,7 +41,7 @@ public class StateBuilderTest {
         StateBuilder sb = new StateBuilder();
         List<String> stringList = null;
         sb.addProp().key("key1").val(stringList).buildProp();
-        Property property = sb.mProperties.get(0);
+        Property property = sb.getProperties().get(0);
         assertEquals("key1", property.getKey());
         assertEquals("key1:", property.getString());
     }
@@ -52,7 +52,7 @@ public class StateBuilderTest {
         StateBuilder sb = new StateBuilder();
         List<String> stringList = Arrays.asList("A", "B");
         sb.addProp().key("key1").val(stringList).buildProp();
-        Property property = sb.mProperties.get(0);
+        Property property = sb.getProperties().get(0);
         assertEquals("key1", property.getKey());
         assertEquals("key1:(A, B)", property.getString());
     }
@@ -63,7 +63,7 @@ public class StateBuilderTest {
         StateBuilder sb = new StateBuilder();
         String string = null;
         sb.addProp().key("key1").val(string).buildProp();
-        Property property = sb.mProperties.get(0);
+        Property property = sb.getProperties().get(0);
         assertEquals("key1", property.getKey());
         assertEquals("key1:", property.getString());
     }
@@ -74,7 +74,7 @@ public class StateBuilderTest {
         StateBuilder sb = new StateBuilder();
         IStateNode child = null;
         sb.addChild("key1", child);
-        assertEquals(0, sb.mProperties.size());
+        assertEquals(0, sb.getProperties().size());
     }
 
 
@@ -83,7 +83,7 @@ public class StateBuilderTest {
         StateBuilder sb = new StateBuilder();
         List<IStateNode> children = null;
         sb.addChildren("key1", children);
-        assertEquals(0, sb.mProperties.size());
+        assertEquals(0, sb.getProperties().size());
     }
 
 

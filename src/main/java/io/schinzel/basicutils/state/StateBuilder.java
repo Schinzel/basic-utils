@@ -2,10 +2,9 @@ package io.schinzel.basicutils.state;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
-import io.schinzel.basicutils.Checker;
-import io.schinzel.basicutils.EmptyObjects;
-import io.schinzel.basicutils.str.Str;
-import org.json.JSONArray;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,21 +14,18 @@ import java.util.stream.Collectors;
  *
  * @author schinzel
  */
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
+@Accessors(prefix = "m")
 public class StateBuilder {
-    private static final String NO_VALUE = "";
-
-    /**
-     * A list of properties.
-     */
-    List<Property> mProperties = new ArrayList<>();
-    /**
-     * Named children of state being built.
-     */
-    Map<String, State> mChildren = new LinkedHashMap<>();
-    /**
-     * Named lists of children of the state being built.
-     */
-    Map<String, List<State>> mChildLists = new LinkedHashMap<>();
+    /** A list of properties. */
+    @Getter(AccessLevel.PACKAGE)
+    private List<Property> mProperties = new ArrayList<>();
+    /** Named children of state being built. */
+    @Getter(AccessLevel.PACKAGE)
+    private Map<String, State> mChildren = new LinkedHashMap<>();
+    /** Named lists of children of the state being built. */
+    @Getter(AccessLevel.PACKAGE)
+    private Map<String, List<State>> mChildLists = new LinkedHashMap<>();
     //------------------------------------------------------------------------
     // CONSTRUCTION
     //------------------------------------------------------------------------
