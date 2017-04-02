@@ -44,7 +44,7 @@ public class StateBuilder {
      */
 
     StateBuilder(State state) {
-        mProperties = new ArrayList<>(state.mProperties);
+        mProperties = new ArrayList<>(state.getProperties());
         mChildren = new HashMap<>(mChildren);
         mChildLists = new HashMap<>(mChildLists);
     }

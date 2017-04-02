@@ -19,7 +19,7 @@ public class StateTest {
     public void testStringProperty() {
         List<Property> props = State.getBuilder()
                 .addProp().key("string").val("a string").buildProp().build()
-                .mProperties;
+                .getProperties();
         Assert.assertEquals("string", props.get(0).getKey());
         Assert.assertEquals("a string", props.get(0).getValueAsString());
         Assert.assertEquals("string:a string", props.get(0).getString());
@@ -31,7 +31,7 @@ public class StateTest {
     public void testIntProperty() {
         List<Property> props = State.getBuilder()
                 .addProp().key("the_int").val(123456789).buildProp()
-                .build().mProperties;
+                .build().getProperties();
         Assert.assertEquals("the_int", props.get(0).getKey());
         Assert.assertEquals("123,456,789", props.get(0).getValueAsString());
         Assert.assertEquals("the_int:123,456,789", props.get(0).getString());
@@ -43,7 +43,7 @@ public class StateTest {
     public void testLongProperty() {
         List<Property> props = State.getBuilder()
                 .addProp().key("the_long").val(1234567890l).buildProp()
-                .build().mProperties;
+                .build().getProperties();
         Assert.assertEquals("the_long", props.get(0).getKey());
         Assert.assertEquals("1,234,567,890", props.get(0).getValueAsString());
         Assert.assertEquals("the_long:1,234,567,890", props.get(0).getString());
@@ -55,7 +55,7 @@ public class StateTest {
     public void testDoubleProperty() {
         List<Property> props = State.getBuilder()
                 .addProp().key("the_double").val(0.4444d).decimals(2).buildProp()
-                .build().mProperties;
+                .build().getProperties();
         Assert.assertEquals("the_double", props.get(0).getKey());
         Assert.assertEquals("0.44", props.get(0).getValueAsString());
         Assert.assertEquals("the_double:0.44", props.get(0).getString());
@@ -67,7 +67,7 @@ public class StateTest {
     public void testFloatProperty() {
         List<Property> props = State.getBuilder()
                 .addProp().key("the_float").val( 12356.6666f).decimals(3).buildProp()
-                .build().mProperties;
+                .build().getProperties();
         Assert.assertEquals("the_float", props.get(0).getKey());
         Assert.assertEquals("12,356.667", props.get(0).getValueAsString());
         Assert.assertEquals("the_float:12,356.667", props.get(0).getString());
@@ -80,7 +80,7 @@ public class StateTest {
         List<Property> props = State.getBuilder()
                 .addProp().key("the_true").val(true).buildProp()
                 .addProp().key("the_false").val(false).buildProp()
-                .build().mProperties;
+                .build().getProperties();
         Assert.assertEquals("true", props.get(0).getValueAsString());
         Assert.assertEquals("false", props.get(1).getValueAsString());
     }
@@ -94,7 +94,7 @@ public class StateTest {
                 .addProp().key("C").val(3).buildProp()
                 .addProp().key("D").val(4).buildProp()
                 .addProp().key("E").val(5).buildProp()
-                .build().mProperties;
+                .build().getProperties();
         Long prevValue = 0l;
         for (Property prop : props) {
             Assert.assertThat("value", (Long) prop.getObject(),

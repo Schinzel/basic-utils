@@ -96,7 +96,7 @@ public class StateBuilderTest {
         State subState = State.getBuilder(superState)
                 .addProp().key("key3").val("val3").buildProp()
                 .build();
-        List<Property> props = subState.mProperties;
+        List<Property> props = subState.getProperties();
         assertEquals(3, props.size());
         assertEquals("key1", props.get(0).getKey());
         assertEquals("key2", props.get(1).getKey());
