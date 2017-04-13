@@ -291,7 +291,7 @@ Thrower.throwIfFalse(true, "A message");
 - State
     - Property builders added
     - Properties optionally has units
-- Substring
+- Substringer
     - Moved to its own package
     - Now supports finding a specific occurrence of a delimiter
     - Clearer method names
