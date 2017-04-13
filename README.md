@@ -286,6 +286,7 @@ Thrower.throwIfFalse(true, "A message");
 # Change Log
 
 ## Release Candidate: 1.17
+- Checker now has isNotEmpty methods. 
 - MapBuilder removed. Use Guava ImmutableMap.Builder instead.
 - State
     - Property builders added
