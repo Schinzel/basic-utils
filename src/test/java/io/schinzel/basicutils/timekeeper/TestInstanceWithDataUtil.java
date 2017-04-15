@@ -2,12 +2,7 @@ package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Sandman;
 
-/**
- * The purpose of this class ...
- *
- * @author schinzel
- */
-class TimekeeperUtil {
+class TestInstanceWithDataUtil {
 
     /**
      * 

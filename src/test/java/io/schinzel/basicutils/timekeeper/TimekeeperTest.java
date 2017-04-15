@@ -99,7 +99,7 @@ public class TimekeeperTest {
 
     @Test
     public void testHits() {
-        Timekeeper timekeeper = TimekeeperUtil.getTimekeeper();
+        Timekeeper timekeeper = TestInstanceWithDataUtil.getTimekeeper();
         JsonOrdered json = timekeeper.toJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
@@ -121,7 +121,7 @@ public class TimekeeperTest {
 
     @Test
     public void testAvg() {
-        JsonOrdered json = TimekeeperUtil.getTimekeeper().toJson();
+        JsonOrdered json = TestInstanceWithDataUtil.getTimekeeper().toJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
@@ -141,7 +141,7 @@ public class TimekeeperTest {
 
     @Test
     public void testTot() {
-        JsonOrdered json = TimekeeperUtil.getTimekeeper().toJson();
+        JsonOrdered json = TestInstanceWithDataUtil.getTimekeeper().toJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
