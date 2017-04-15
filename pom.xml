@@ -52,24 +52,31 @@
         </extensions>
         <plugins>
             <plugin>
-                <!-- Used on Codeship to generate test reports. These are then sent to Coveralls.io.
-                To run locally: mvn cobertura:cobertura
-                The generated HTML reports are found in target/site/cobertura/-->
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
+                <!-- Generates JaCoCo code coverage reports
+                To run locally: mvn test jacoco:report -->
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
                 <configuration>
-                    <formats>
-                        <!-- Codeship fails if html format not present -->
-                        <format>html</format>
-                        <format>xml</format>
-                    </formats>
-                    <instrumentation>
-                        <excludes>
-                            <exclude>io/schinzel/samples/**/*</exclude>
-                        </excludes>
-                    </instrumentation>
+                    <excludes>
+                        <exclude>io/schinzel/samples/**/*</exclude>
+                    </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <!-- Used on Codeship to send reports to Coveralls.io. -->
