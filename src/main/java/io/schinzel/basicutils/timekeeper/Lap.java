@@ -15,22 +15,13 @@ import java.util.Map;
  * @author schinzel
  */
 class Lap implements IStateNode {
-
-    /**
-     * The name of this lap.
-     */
+    /** The name of this lap.*/
     private final String mName;
-    /**
-     * The parent of this lap.
-     */
+    /** The parent of this lap. */
     final Lap mParent;
-    /**
-     * The children of this lap.
-     */
+    /** The children of this lap. */
     private final Map<String, Lap> mChildren = new LinkedHashMap<>();
-    /**
-     * Measures the time.
-     */
+    /** Measures the time. */
     private final StopWatch mStopWatch = StopWatch.create();
 
 

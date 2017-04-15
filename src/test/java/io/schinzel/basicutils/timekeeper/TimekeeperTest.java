@@ -135,7 +135,7 @@ public class TimekeeperTest {
         //Check that B2's average is close to 20
         Double b2Avg = B2.getDouble("Avg");
         assertThat(b2Avg, greaterThan(20d));
-        assertThat(b2Avg, lessThan(25d));
+        assertThat(b2Avg, lessThan(30d));
     }
 
 
