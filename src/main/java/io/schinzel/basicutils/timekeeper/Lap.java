@@ -17,7 +17,7 @@ import java.util.Map;
 class Lap implements IStateNode {
 
     /**
-     * The name of this alp.
+     * The name of this lap.
      */
     private final String mName;
     /**

@@ -128,11 +128,11 @@ public class TimekeeperTest {
         JSONArray secondLevelChildren = B.getJSONArray("sublaps");
         JSONObject B1 = secondLevelChildren.getJSONObject(0);
         JSONObject B2 = secondLevelChildren.getJSONObject(1);
-        //Check that B1's average is between 20 and 25 ms
+        //Check that B1's average is close to 10
         Double b1Avg = B1.getDouble("Avg");
         assertThat(b1Avg, greaterThan(10d));
         assertThat(b1Avg, lessThan(15d));
-        //Check that B2's average is between 20 and 25 ms
+        //Check that B2's average is close to 20
         Double b2Avg = B2.getDouble("Avg");
         assertThat(b2Avg, greaterThan(20d));
         assertThat(b2Avg, lessThan(25d));
