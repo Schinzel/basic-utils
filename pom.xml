@@ -79,15 +79,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <!-- Used on Codeship to send reports to Coveralls.io. -->
-                <groupId>org.eluder.coveralls</groupId>
-                <artifactId>coveralls-maven-plugin</artifactId>
-                <version>4.3.0</version>
-                <configuration>
-                    <repoToken>${env.COVERALLS_REPO_TOKEN}</repoToken>
-                </configuration>
-            </plugin>
-            <plugin>
                 <!-- Attach sources -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
