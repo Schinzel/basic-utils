@@ -8,7 +8,7 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/Schinzel/basic-utils/badge.svg?branch=master)](https://coveralls.io/github/Schinzel/basic-utils?branch=master)
 
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fff657b5b823421997eeb2db64358f0e)](https://www.codacy.com/app/Kollektiva/basic-utils?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Schinzel/basic-utils&amp;utm_campaign=Badge_Coverage)
 
 Some basic utilities I tend to use in projects. Most commonly less verbose versions of common code snippets.
 
