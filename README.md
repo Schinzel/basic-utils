@@ -179,16 +179,16 @@ one class with less verbose syntax and less boilerplate code.
 
  Instead of:
 ```java
- StringBuilder sb = new StringBuilder();
- sb.append("A")
+StringBuilder sb = new StringBuilder();
+sb.append("A")
     .append(String.format( "%.2f", myDouble ))
     .append("B");
- System.out.println(sb.toString());
+System.out.println(sb.toString());
 ```
  
  We have:
 ```java
- Str.create().a("A").a(myDouble, 2).a("B").pln();
+Str.create().a("A").a(myDouble, 2).a("B").pln();
 ```
 
 
