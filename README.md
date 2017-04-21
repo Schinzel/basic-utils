@@ -284,7 +284,7 @@ Thrower.throwIfFalse(true, "A message");
 ```
 
 # Change Log
-## Next Release 1.18
+## Features added for next release
 - Nothing yet
 
 ## 1.17
