@@ -40,7 +40,8 @@ public class StateBuilder {
 
 
     /**
-     * @param state A seed to copy. Typically a state from a superclass that you want to append to in a sub class.
+     * @param state A seed to copy. Typically a state from a superclass that you want to append to
+     *              in a sub class.
      */
 
     StateBuilder(State state) {
@@ -57,7 +58,7 @@ public class StateBuilder {
         return new State(this);
     }
     //------------------------------------------------------------------------
-    // ADD PROPERTy
+    // ADD PROPERTY
     //------------------------------------------------------------------------
 
 
@@ -68,6 +69,50 @@ public class StateBuilder {
      */
     public PropKey addProp() {
         return new PropKey(this);
+    }
+
+
+    /**
+     * @param key   The key to add
+     * @param value The value to add
+     * @return This for chaining
+     */
+    public StateBuilder add(String key, String value) {
+        this.addProp().key(key).val(value).buildProp();
+        return this;
+    }
+
+
+    /**
+     * @param key   The key to add
+     * @param value The value to add
+     * @return This for chaining
+     */
+    public StateBuilder add(String key, int value) {
+        this.addProp().key(key).val(value).buildProp();
+        return this;
+    }
+
+
+    /**
+     * @param key   The key to add
+     * @param value The value to add
+     * @return This for chaining
+     */
+    public StateBuilder add(String key, boolean value) {
+        this.addProp().key(key).val(value).buildProp();
+        return this;
+    }
+
+
+    /**
+     * @param key   The key to add
+     * @param value The value to add
+     * @return This for chaining
+     */
+    public StateBuilder add(String key, long value) {
+        this.addProp().key(key).val(value).buildProp();
+        return this;
     }
 
 
