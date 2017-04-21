@@ -295,6 +295,7 @@ Thrower.throwIfFalse(true, "A message");
     - Properties optionally has units
 - Str
     - Create constructor accepts string argument
+    - Added windows line break white space
 - SubStringer
     - Added method contains
     - Moved to its own package

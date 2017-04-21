@@ -76,7 +76,7 @@ public class State {
      * @return A snapshot of the state of this object and its children.
      */
     public Str getStr() {
-        return Str.create().a(this.getPropertiesAsString()).aws(Str.WS.NL)
+        return Str.create().a(this.getPropertiesAsString()).aws(Str.WS.LF)
                 .a(this.getChildrenAsString(0));
     }
 

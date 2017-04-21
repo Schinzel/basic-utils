@@ -10,7 +10,8 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
      * Enum for whitespaces.
      */
     enum WS {
-        NL("\n"),
+        LF("\n"),
+        CR_LF("\r\n"),
         SPACE(" "),
         TAB("\t");
 
@@ -60,7 +61,7 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T anl() {
-        return this.aws(WS.NL);
+        return this.aws(WS.LF);
     }
 
 
@@ -71,8 +72,9 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T anl(String s) {
-        return this.aws(WS.NL, s);
+        return this.aws(WS.LF, s);
     }
+
 
     /**
      * Append a space.
