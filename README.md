@@ -291,6 +291,8 @@ Thrower.throwIfFalse(true, "A message");
 - State
     - Property builders added
     - Properties optionally has units
+- Str
+    - Create constructor accepts string argument
 - Substringer
     - Added method contains
     - Moved to its own package

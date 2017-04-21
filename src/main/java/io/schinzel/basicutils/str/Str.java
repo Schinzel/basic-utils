@@ -12,8 +12,20 @@ public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str
     StringBuilder sb = new StringBuilder();
 
 
+    /**
+     * @return A new instance of Str.
+     */
     public static Str create() {
         return new Str();
+    }
+
+
+    /**
+     * @param string String to set as initial string.
+     * @return A new instance of Str.
+     */
+    public static Str create(String string) {
+        return new Str().a(string);
     }
 
 

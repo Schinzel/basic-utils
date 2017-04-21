@@ -11,6 +11,13 @@ public class StrTest {
 
 
     @Test
+    public void create_withArg() throws Exception {
+        Str str = Str.create("A").a("B");
+        Assert.assertEquals("AB", str.getString());
+    }
+
+
+    @Test
     public void a() throws Exception {
         Str str = Str.create().a("A").a("B");
         Assert.assertEquals("AB", str.getString());
