@@ -102,4 +102,37 @@ public class StateBuilderTest {
         assertEquals("key2", props.get(1).getKey());
         assertEquals("key3", props.get(2).getKey());
     }
+
+
+    @Test
+    public void testAdd_string() {
+        StateBuilder sb = new StateBuilder().add("key1", "val1");
+        assertEquals("key1", sb.getProperties().get(0).getKey());
+        assertEquals("val1", sb.getProperties().get(0).getValueAsString());
+    }
+
+
+    @Test
+    public void testAdd_int() {
+        StateBuilder sb = new StateBuilder().add("key1", 123);
+        assertEquals("key1", sb.getProperties().get(0).getKey());
+        assertEquals(123L, sb.getProperties().get(0).getValueAsObject());
+    }
+
+
+    @Test
+    public void testAdd_bool() {
+        StateBuilder sb = new StateBuilder().add("key1", true);
+        assertEquals("key1", sb.getProperties().get(0).getKey());
+        assertEquals(true, sb.getProperties().get(0).getValueAsObject());
+    }
+
+
+    @Test
+    public void testAdd_long() {
+        StateBuilder sb = new StateBuilder().add("key1", 123L);
+        assertEquals("key1", sb.getProperties().get(0).getKey());
+        assertEquals(123L, sb.getProperties().get(0).getValueAsObject());
+    }
+
 }
