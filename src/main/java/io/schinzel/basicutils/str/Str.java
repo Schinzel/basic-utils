@@ -1,5 +1,7 @@
 package io.schinzel.basicutils.str;
 
+import io.schinzel.basicutils.Thrower;
+
 import java.util.Locale;
 
 /**
@@ -31,6 +33,7 @@ public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str
 
     @Override
     public Str a(String s) {
+        Thrower.throwIfNull(s, "s");
         sb.append(s);
         return this;
     }
