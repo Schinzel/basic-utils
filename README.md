@@ -295,7 +295,7 @@ Thrower.throwIfFalse(true, "A message");
     - Properties optionally has units
 - Str
     - Create constructor accepts string argument
-- Substringer
+- SubStringer
     - Added method contains
     - Moved to its own package
     - Now supports finding a specific occurrence of a delimiter
