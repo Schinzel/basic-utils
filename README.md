@@ -20,7 +20,7 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.16</version>
+		<version>1.17</version>
 	</dependency>
 </dependencies>    
 ```
@@ -284,8 +284,10 @@ Thrower.throwIfFalse(true, "A message");
 ```
 
 # Change Log
+## Next Release 1.18
+- Nothing yet
 
-## Release Candidate: 1.17
+## 1.17
 - Checker now has isNotEmpty methods. 
 - MapBuilder removed. Use Guava ImmutableMap.Builder instead.
 - State
