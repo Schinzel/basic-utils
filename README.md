@@ -292,6 +292,7 @@ Thrower.throwIfFalse(true, "A message");
     - Property builders added
     - Properties optionally has units
 - Substringer
+    - Added method contains
     - Moved to its own package
     - Now supports finding a specific occurrence of a delimiter
     - Clearer method names

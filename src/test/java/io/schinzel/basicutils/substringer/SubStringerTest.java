@@ -5,6 +5,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Schinzel
@@ -12,6 +14,14 @@ import static org.junit.Assert.assertEquals;
 public class SubStringerTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+
+    @Test
+    public void testContains() {
+        SubStringer subStringer = SubStringer.create("This is a string");
+        assertTrue(subStringer.contains("is"));
+        assertFalse(subStringer.contains("I_do_not_exists"));
+    }
 
 
     @Test
@@ -260,6 +270,4 @@ public class SubStringerTest {
         exception.expectMessage("Argument 'EndDelimiter' cannot be empty");
         SubStringer.create("any input").endDelimiter(null).toString();
     }
-
-
 }
