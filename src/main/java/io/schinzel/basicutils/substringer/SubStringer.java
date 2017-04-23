@@ -48,7 +48,7 @@ public class SubStringer {
      * @param str The string from which to extract a substring.
      */
     private SubStringer(String str) {
-        Thrower.throwIfEmpty(str, "str");
+        Thrower.throwIfNull(str, "str");
         mStr = str;
     }
 
