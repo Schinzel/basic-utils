@@ -285,7 +285,9 @@ Thrower.throwIfFalse(true, "A message");
 
 # Change Log
 ## Features added for next release
-- Nothing yet
+- Thrower
+    - More distinct methods names when working with variables. All methods validating variables 
+    are named throwIfVar[...], e.g. throwIfVarEmpty
 
 ## 1.17
 - Checker now has isNotEmpty methods. 

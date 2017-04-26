@@ -26,8 +26,8 @@ class SubstringIndexFinder {
 
 
     static int getPos(String string, String subString, int occurrence, int startPos) {
-        Thrower.throwIfTooSmall(occurrence, "occurrence", 1);
-        Thrower.throwIfTooSmall(occurrence, "startPos", 0);
+        Thrower.throwIfVarTooSmall(occurrence, "occurrence", 1);
+        Thrower.throwIfVarTooSmall(occurrence, "startPos", 0);
         int pos = string.indexOf(subString, startPos);
         if (pos == -1) {
             return -1;

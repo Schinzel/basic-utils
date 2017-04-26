@@ -31,7 +31,7 @@ class Lap implements IStateNode {
      * @param parent The parent of this lap.
      */
     Lap(String lapName, Lap parent) {
-        Thrower.throwIfEmpty("lapName", lapName);
+        Thrower.throwIfVarEmpty("lapName", lapName);
         mName = lapName;
         mParent = parent;
     }

@@ -94,8 +94,8 @@ public class RandomUtil {
         if (min > max) {
             throw new RuntimeException("Max need to be larger than min");
         }
-        Thrower.throwIfOutsideRange(min, "min", -100, Integer.MAX_VALUE);
-        Thrower.throwIfOutsideRange(max, "max", 1, Integer.MAX_VALUE);
+        Thrower.throwIfVarOutsideRange(min, "min", -100, Integer.MAX_VALUE);
+        Thrower.throwIfVarOutsideRange(max, "max", 1, Integer.MAX_VALUE);
         return mRandom.nextInt(max - min + 1) + min;
     }
 
@@ -118,7 +118,7 @@ public class RandomUtil {
      * @return A string with random chars.
      */
     public String getString(int length) {
-        Thrower.throwIfOutsideRange(length, "length", 0, 500);
+        Thrower.throwIfVarOutsideRange(length, "length", 0, 500);
         char[] buf = new char[length];
         for (int idx = 0; idx < buf.length; ++idx) {
             buf[idx] = SYMBOLS[mRandom.nextInt(SYMBOLS.length)];
@@ -146,7 +146,7 @@ public class RandomUtil {
      * @return A padded int as a string.
      */
     public String getPaddedInt(int min, int max, int padding) {
-        Thrower.throwIfOutsideRange(padding, "padding", 1, 100);
+        Thrower.throwIfVarOutsideRange(padding, "padding", 1, 100);
         String paddingFormat = "%0" + padding + "d";
         return String.format(paddingFormat, this.getInt(min, max));
     }
@@ -160,7 +160,7 @@ public class RandomUtil {
      * @return A random integer array.
      */
     public int[] getIntArray(int arraySize, int arraySum) {
-        Thrower.throwIfOutsideRange(arraySize, "arraySize", 1, Integer.MAX_VALUE);
+        Thrower.throwIfVarOutsideRange(arraySize, "arraySize", 1, Integer.MAX_VALUE);
         int sum = arraySum;
         if (sum <= arraySize) {
             throw new RuntimeException("Array size needs to be larger than sum");

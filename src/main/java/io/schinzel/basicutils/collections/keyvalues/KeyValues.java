@@ -68,7 +68,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * @return This for chaining.
      */
     public KeyValues<V> add(V value) {
-        Thrower.throwIfNull(value, "value");
+        Thrower.throwIfVarNull(value, "value");
         String key = value.getKey();
         Thrower.throwIfTrue(mAliasMap.containsKey(key), "Value cannot be added as there exists an alias with the same key.", "key", key, "collectionName", mName);
         Thrower.throwIfTrue(this.has(key), "Value cannot be added as a value with that key already exists", "key", key, "collectionName", mName);
@@ -185,7 +185,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * @throws RuntimeException If there is no value with argument key.
      */
     public V get(String key) {
-        Thrower.throwIfEmpty(key, "key");
+        Thrower.throwIfVarEmpty(key, "key");
         //If there exists an alias for argument key
         if (mAliasMap.containsKey(key)) {
             //Set the key to be the alias

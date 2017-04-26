@@ -11,7 +11,7 @@ import java.math.BigInteger;
  */
 interface IRatioCompare<T extends IRatio<T>> extends IRatio<T>, Comparable<T> {
     default int compareTo(T other) {
-        Thrower.throwIfNull(other, "other");
+        Thrower.throwIfVarNull(other, "other");
         BigInteger a1 = this.getNumerator();
         BigInteger b1 = this.getDenominator();
         BigInteger a2 = other.getNumerator();

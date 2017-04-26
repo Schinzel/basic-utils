@@ -48,7 +48,7 @@ public class SubStringer {
      * @param str The string from which to extract a substring.
      */
     private SubStringer(String str) {
-        Thrower.throwIfNull(str, "str");
+        Thrower.throwIfVarNull(str, "str");
         mStr = str;
     }
 
@@ -131,8 +131,8 @@ public class SubStringer {
     @Override
     public String toString() {
         //Throw exception if either start or end delimiter has been set to empty value.
-        Thrower.throwIfEmpty(mStartDelimiter, "StartDelimiter");
-        Thrower.throwIfEmpty(mEndDelimiter, "EndDelimiter");
+        Thrower.throwIfVarEmpty(mStartDelimiter, "StartDelimiter");
+        Thrower.throwIfVarEmpty(mEndDelimiter, "EndDelimiter");
         int startPos = this.getStartPos();
         int endPos = this.getEndPos(startPos);
         return mStr.substring(startPos, endPos);

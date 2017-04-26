@@ -33,7 +33,7 @@ public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str
 
     @Override
     public Str a(String s) {
-        Thrower.throwIfNull(s, "s");
+        Thrower.throwIfVarNull(s, "s");
         sb.append(s);
         return this;
     }

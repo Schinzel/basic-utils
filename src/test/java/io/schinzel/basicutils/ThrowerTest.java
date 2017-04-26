@@ -15,102 +15,133 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
-    public void throwIfNull_StringArray() {
-        String[] stringArray = {"a"};
-        Thrower.throwIfNull(stringArray, "argumentName");
-        exception.expect(RuntimeException.class);
-        stringArray = null;
-        exception.expectMessage("Argument 'argumentName' cannot be null");
-        Thrower.throwIfNull(stringArray, "argumentName");
+    public void throwIfVarNull_NonNullStringArray_NoException() {
+        try {
+            String[] stringArray = {"a"};
+            Thrower.throwIfVarNull(stringArray, "argumentName");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
     }
 
 
     @Test
-    public void throwIfNull_String() {
-        String string = "a";
-        Thrower.throwIfNull(string, "argumentName");
+    public void throwIfVarNull_NullStringArray_ThrowException() {
+        String[] stringArray = null;
         exception.expect(RuntimeException.class);
-        string = null;
         exception.expectMessage("Argument 'argumentName' cannot be null");
-        Thrower.throwIfNull(string, "argumentName");
+        Thrower.throwIfVarNull(stringArray, "argumentName");
     }
 
 
     @Test
-    public void testCheckEmptyArgumentString() {
-        Thrower.throwIfEmpty("monkey", "argumentName");
+    public void throwIfVarNull_NonNullString_NoException() {
+        try {
+            String string = "a";
+            Thrower.throwIfVarNull(string, "argumentName");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
+
+    @Test
+    public void throwIfVarNull_NullString_ThrowsException() {
+        String string = null;
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Argument 'argumentName' cannot be null");
+        Thrower.throwIfVarNull(string, "argumentName");
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_NonEmptyString_NoException() {
+        try {
+            Thrower.throwIfVarEmpty("a", "argumentName");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
         exception.expect(RuntimeException.class);
         exception.expectMessage("Argument 'argumentName' cannot be empty");
-        Thrower.throwIfEmpty("", "argumentName");
+        Thrower.throwIfVarEmpty("", "argumentName");
     }
 
 
     @Test
-    public void testCheckEmptyArgumentStringNull() {
-        Thrower.throwIfEmpty("monkey", "argumentName");
-        String s = null;
+    public void throwIfVarEmpty_EmptyString_ThrowException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Argument 'argumentName' cannot be empty");
-        Thrower.throwIfEmpty(s, "argumentName");
+        Thrower.throwIfVarEmpty("", "argumentName");
     }
 
 
     @Test
-    public void testThrowErrorIfOutsideRange() {
-        Thrower.throwIfOutsideRange(1, "varre", 1, 1);
-        Thrower.throwIfOutsideRange(1, "varre", 1, 10);
-        Thrower.throwIfOutsideRange(-1000, "varre", -1000, 10);
-        Thrower.throwIfOutsideRange(10, "varre", 1, 10);
-        Thrower.throwIfOutsideRange(-1000, "varre", -2000, -1000);
+    public void throwIfVarEmpty_NullString_ThrowException() {
+        String string = null;
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("Argument 'argumentName' cannot be empty");
+        Thrower.throwIfVarEmpty(string, "argumentName");
+    }
+
+
+    @Test
+    public void throwIfVarOutsideRange_InSideRanges_NoException() {
+        try {
+            Thrower.throwIfVarOutsideRange(1, "varre", 1, 1);
+            Thrower.throwIfVarOutsideRange(1, "varre", 1, 10);
+            Thrower.throwIfVarOutsideRange(-1000, "varre", -1000, 10);
+            Thrower.throwIfVarOutsideRange(10, "varre", 1, 10);
+            Thrower.throwIfVarOutsideRange(-1000, "varre", -2000, -1000);
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
+
+    @Test
+    public void throwIfVarOutsideRange_MinLargerThanMax_ExceptionUsingMethod() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Error using method.");
-        Thrower.throwIfOutsideRange(-1000, null, 100, 10);
+        Thrower.throwIfVarOutsideRange(-1000, null, 100, 10);
     }
 
 
     @Test
-    public void testThrowErrorIfOutsideRange_testFullMessage() {
+    public void throwIfVarOutsideRange_Val0Min1_ThrowsException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("The value 0 in variable 'varre' is too small. Min value is 1.");
-        Thrower.throwIfOutsideRange(0, "varre", 1, 10);
+        Thrower.throwIfVarOutsideRange(0, "varre", 1, 10);
     }
 
 
     @Test
-    public void testThrowErrorIfOutsideRange2() {
+    public void throwIfVarOutsideRange_Val11Max10_ThrowsException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("The value ");
-        Thrower.throwIfOutsideRange(0, "varre", 1, 10);
+        Thrower.throwIfVarOutsideRange(11, "varre", 1, 10);
     }
 
 
     @Test
-    public void testThrowErrorIfOutsideRange3() {
+    public void throwIfVarOutsideRange_ValMinus101MinMinus100_ThrowsException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("The value ");
-        Thrower.throwIfOutsideRange(11, "varre", 1, 10);
+        Thrower.throwIfVarOutsideRange(-101, "varre", -100, -10);
     }
 
 
     @Test
-    public void testThrowErrorIfOutsideRange4() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The value ");
-        Thrower.throwIfOutsideRange(-101, "varre", -100, -10);
+    public void throwIfTrue_False_NoException() {
+        try {
+            Thrower.throwIfTrue(false, "");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
     }
 
 
     @Test
-    public void testThrowErrorIfOutsideRange5() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The value ");
-        Thrower.throwIfOutsideRange(-9, "varre", -100, -10);
-    }
-
-
-    @Test
-    public void testTrowErrorIfTrue() {
-        Thrower.throwIfTrue(false, null);
+    public void throwIfTrue_True_ThrowsException() {
         String errorMessage = "my error message";
         exception.expect(RuntimeException.class);
         exception.expectMessage(errorMessage);
@@ -119,8 +150,17 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
-    public void testTrowErrorIfFalse() {
-        Thrower.throwIfFalse(true, null);
+    public void throwIfFalse_True_NoException() {
+        try {
+            Thrower.throwIfFalse(true, null);
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
+
+    @Test
+    public void throwIfFalse_False_ThrowsException() {
         String errorMessage = "my error message";
         exception.expect(RuntimeException.class);
         exception.expectMessage(errorMessage);
@@ -129,58 +169,69 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
-    public void testThrowIfTooSmall_message() {
+    public void throwIfVarTooSmall_Val9Min10_ThrowsException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("The value 9 in variable 'varre' is too small. Min value is 10.");
-        Thrower.throwIfTooSmall(9, "varre", 10);
+        Thrower.throwIfVarTooSmall(9, "varre", 10);
     }
 
 
     @Test
-    public void testThrowIfTooLarge_message() {
+    public void testThrowIfTooSmall_Val10Min10_NoException() {
+        try {
+            Thrower.throwIfVarTooSmall(10, "varre", 10);
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
+
+    @Test
+    public void throwIfVarTooLarge_Val11Max10_ThrowsException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("The value 11 in variable 'varre' is too large. Max value is 10.");
-        Thrower.throwIfTooLarge(11, "varre", 10);
+        Thrower.throwIfVarTooLarge(11, "varre", 10);
     }
 
 
     @Test
-    public void testThrowIfTooSmall_limitValue() {
-        Thrower.throwIfTooSmall(10, "varre", 10);
-        Assert.assertTrue("Should get here as 10 is not to small", true);
+    public void throwIfVarTooLarge_Val10Max10_NoException() {
+        try {
+            Thrower.throwIfVarTooLarge(10, "varre", 10);
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
     }
 
 
     @Test
-    public void testThrowIfTooLarge_limitValue() {
-        Thrower.throwIfTooLarge(10, "varre", 10);
-        Assert.assertTrue("Should get here as 10 is not to large", true);
-    }
-
-
-    /**
-     * Tess calls getArgs with empty argument.
-     */
-    @Test
-    public void testGetArgs_noArgs() {
+    public void getArgs_Null_EmptyString() {
         String actual = Thrower.getArgs(null).getString();
-        String expceted = EmptyObjects.EMPTY_STRING;
-        Assert.assertEquals(expceted, actual);
-        //
-        actual = Thrower.getArgs(EmptyObjects.EMPTY_STRING_ARRAY).getString();
-        expceted = EmptyObjects.EMPTY_STRING;
-        Assert.assertEquals(expceted, actual);
+        String expected = EmptyObjects.EMPTY_STRING;
+        Assert.assertEquals(expected, actual);
     }
 
 
     @Test
-    public void testGetArgs() {
+    public void getArgs_EmptyString_EmptyString() {
+        String actual = Thrower.getArgs(EmptyObjects.EMPTY_STRING_ARRAY).getString();
+        String expected = EmptyObjects.EMPTY_STRING;
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getArgs_SingleKeyValue_String() {
         String actual = Thrower.getArgs("k1", "v1").getString();
         String expected = "Props:{k1:'v1'}";
         Assert.assertEquals(expected, actual);
-        //
-        actual = Thrower.getArgs("k1", "v1", "k2", "v2").getString();
-        expected = "Props:{k1:'v1' k2:'v2'}";
+    }
+
+
+    @Test
+    public void getArgs_TwoKeyValues_String() {
+        String actual = Thrower.getArgs("k1", "v1", "k2", "v2").getString();
+        String expected = "Props:{k1:'v1' k2:'v2'}";
         Assert.assertEquals(expected, actual);
     }
     //------------------------------------------------------------------------

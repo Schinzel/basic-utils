@@ -21,8 +21,8 @@ interface IRatio<T extends IRatio<T>> {
      * @return This for chaining.
      */
     default T setRatio(BigInteger numerator, BigInteger denominator) {
-        Thrower.throwIfNull(numerator, "numerator");
-        Thrower.throwIfNull(denominator, "denominator");
+        Thrower.throwIfVarNull(numerator, "numerator");
+        Thrower.throwIfVarNull(denominator, "denominator");
         if (BigInteger.ZERO.equals(denominator)) {
             throw new RuntimeException("Denominator cannot be zero");
         }
