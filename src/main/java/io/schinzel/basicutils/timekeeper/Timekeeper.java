@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.timekeeper;
 
-import io.schinzel.basicutils.state.State;
 import io.schinzel.basicutils.str.Str;
 import io.schinzel.json.JsonOrdered;
 
@@ -88,11 +87,6 @@ public class Timekeeper {
     public final Timekeeper reset() {
         INSTANCE = null;
         return this;
-    }
-
-
-    public State getState() {
-        return mCurrentLap.getRoot().getState();
     }
 
 
