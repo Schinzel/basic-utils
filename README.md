@@ -287,6 +287,7 @@ Thrower.throwIfFalse(true, "A message");
 ## Features added for next release
 - SubStringer
     - Renamed to SubString
+    - Rewritten with immutable design
 - Thrower
     - More distinct methods names when working with variables. All methods validating variables 
     are named throwIfVar[...], e.g. throwIfVarEmpty
