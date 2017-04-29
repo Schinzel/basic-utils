@@ -123,6 +123,19 @@ public class SubStringTest {
 
 
     @Test
+    public void getString_RequestOccurrenceOfStartDelimiterThatDoesNotExist_EmptyString() {
+        String expected = "";
+        String actual = SubString.builder()
+                .string("rrrSTARTiiiSTARTaaaENDuuuENDooo")
+                .startDelimiter("START")
+                .startOccurrence(40)
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
     public void getString_StartDelimiterIsLastChars_EmptyString() {
         String expected = "";
         String actual = SubString.builder()
@@ -193,6 +206,19 @@ public class SubStringTest {
                 .string("uuuENDoooENDiiiENDeee")
                 .endDelimiter("END")
                 .endOccurrence(2)
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_RequestOccurrenceOfEndDelimiterThatDoesNotExist_WholeString() {
+        String expected = "uuuENDoooENDiiiENDeee";
+        String actual = SubString.builder()
+                .string("uuuENDoooENDiiiENDeee")
+                .endDelimiter("END")
+                .endOccurrence(40)
                 .build()
                 .getString();
         assertEquals(expected, actual);
