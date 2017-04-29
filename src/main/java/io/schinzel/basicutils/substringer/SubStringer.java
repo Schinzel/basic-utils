@@ -12,32 +12,20 @@ import lombok.experimental.Accessors;
  */
 @Accessors(prefix = "m", chain = true, fluent = true)
 public class SubStringer {
-    /**
-     * Flag that indicates that no value has been set.
-     */
+    /** Flag that indicates that no value has been set. */
     private static final String NO_VAL_SET = "qEvLh6L7HJ6uAkoJB7kT";
-    /**
-     * The string from which to extract a substring.
-     */
+    /** The string from which to extract a substring. */
     private final String mStr;
-    /**
-     * The start delimiter string.
-     */
+    /** The start delimiter string. */
     @Setter
     private String mStartDelimiter = NO_VAL_SET;
-    /**
-     * Which occurrence of the start delimiter to look for
-     */
+    /** Which occurrence of the start delimiter to look for */
     @Setter
     private int mStartOccurrence = 1;
-    /**
-     * The end delimiter string.
-     */
+    /** The end delimiter string. */
     @Setter
     private String mEndDelimiter = NO_VAL_SET;
-    /**
-     * Which occurrence of the end delimiter to look for
-     */
+    /** Which occurrence of the end delimiter to look for */
     @Setter
     private int mEndOccurrence = 1;
 
