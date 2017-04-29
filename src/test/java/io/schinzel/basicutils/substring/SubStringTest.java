@@ -12,60 +12,272 @@ import static org.junit.Assert.assertEquals;
 public class SubStringTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+    //------------------------------------------------------------------------
+    // Test start and end delimiter
+    //------------------------------------------------------------------------
 
 
     @Test
-    public void testGetQueryString() {
-        String input, queryString, url;
-        //Test basics
-        input = "http://www.kollektiva.se/index.html?key1=val1&key2=val2";
-        queryString = SubString.builder()
-                .string(input)
-                .startDelimiter("?")
+    public void getString_StartAndEndDelimiter_StringBetweenStartAndEnd() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("aaaSTARTuuuENDooo")
+                .startDelimiter("START")
+                .endDelimiter("END")
                 .build()
                 .getString();
-        assertEquals("key1=val1&key2=val2", queryString);
-        url = SubString.builder()
-                .string(input)
-                .endDelimiter("?")
-                .build()
-                .getString();
-        assertEquals("http://www.kollektiva.se/index.html", url);
-        //Test ? but no data
-        input = "http://www.kollektiva.se/index.html?";
-        queryString = SubString.builder()
-                .string(input)
-                .startDelimiter("?")
-                .build()
-                .getString();
-        assertEquals("", queryString);
-        url = SubString.builder()
-                .string(input)
-                .endDelimiter("?")
-                .build().getString();
-        assertEquals("http://www.kollektiva.se/index.html", url);
-        //Test no ?
-        input = "http://www.kollektiva.se/index.html";
-        queryString = SubString.builder()
-                .string(input)
-                .startDelimiter("?")
-                .build().getString();
-        assertEquals("", queryString);
-        input = "http://www.kollektiva.se/index.html";
-        url = SubString.builder()
-                .string(input)
-                .endDelimiter("?")
-                .build().getString();
-        assertEquals("http://www.kollektiva.se/index.html", url);
+        assertEquals(expected, actual);
     }
 
 
     @Test
-    public void testGetSubStringer() {
-        String input, output;
-        //
-        input = "aaaaFIRST_STARTbbbbbSECOND_STARTccccSECOND_ENDddddFIRST_ENDeeee";
-        output = SubString.builder()
+    public void getString_StartDelIsFirstCharsAndEndDelIsLastCahrs_StringBetweenStartAndEnd() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("STARTuuuEND")
+                .startDelimiter("START")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_StartAndEndDelimiterButNoSuchEndDelimiter_StringAfterStartDelimiter() {
+        String expected = "uuuooo";
+        String actual = SubString.builder()
+                .string("aaaSTARTuuuooo")
+                .startDelimiter("START")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_StartAndEndDelimiterButNoSuchStartDelimiter_StringBeforeEndDelimiter() {
+        String expected = "";
+        String actual = SubString.builder()
+                .string("aaaENDuuuooo")
+                .startDelimiter("START")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_MultipleOccurrencesOfStartAndEndDelimiter_StringBetweenFirstStartAndFirstEndDelimiter() {
+        String expected = "iiiSTARTaaa";
+        String actual = SubString.builder()
+                .string("rrrSTARTiiiSTARTaaaENDuuuENDooo")
+                .startDelimiter("START")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_StartAndEndAreTheSame_StringFirstAndSecondDelimiter() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("aaaAAAuuuAAAooo")
+                .startDelimiter("AAA")
+                .endDelimiter("AAA")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+    //------------------------------------------------------------------------
+    // Test only start delimiter
+    //------------------------------------------------------------------------
+
+
+    @Test
+    public void getString_StartDelimiterIsFirstChars_StringAfterStartDelimiter() {
+        String expected = "uuuooo";
+        String actual = SubString.builder()
+                .string("STARTuuuooo")
+                .startDelimiter("START")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_NoSuchStartDelimiter_EmptyString() {
+        String expected = "";
+        String actual = SubString.builder()
+                .string("uuuoooiii")
+                .startDelimiter("START")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_StartDelimiterIsLastChars_EmptyString() {
+        String expected = "";
+        String actual = SubString.builder()
+                .string("uuuoooSTART")
+                .startDelimiter("START")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_SecondStartDelimiterOfThree_StringAfterSecondStartDelimiter() {
+        String expected = "eeeSTARTccc";
+        String actual = SubString.builder()
+                .string("uuuSTARToooSTARTeeeSTARTccc")
+                .startDelimiter("START")
+                .startOccurrence(2)
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_StartDelimiterIsInMiddle_StringAfterStartDelimiter() {
+        String expected = "ooo";
+        String actual = SubString.builder()
+                .string("uuuSTARTooo")
+                .startDelimiter("START")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_StartDelimiterOccurrsTwice_StringAfterFirstStartDelimiter() {
+        String expected = "oooSTARTiii";
+        String actual = SubString.builder()
+                .string("uuuSTARToooSTARTiii")
+                .startDelimiter("START")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+    //------------------------------------------------------------------------
+    // Test only end delimiter
+    //------------------------------------------------------------------------
+
+
+    @Test
+    public void getString_TwoEndDelimiter_StringBeforeFirstOccurrence() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("uuuENDoooENDiii")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_SecondEndDelimiterOfThree_StringBeforeSecondOccurrence() {
+        String expected = "uuuENDooo";
+        String actual = SubString.builder()
+                .string("uuuENDoooENDiiiENDeee")
+                .endDelimiter("END")
+                .endOccurrence(2)
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_EndDelimiterOneCharLong_StringBeforeEndDelimiter() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("uuuAooo")
+                .endDelimiter("A")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_EndDelimiterLastChars_StringBeforeEndDelimiter() {
+        String expected = "uuuooo";
+        String actual = SubString.builder()
+                .string("uuuoooEND")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_EndDelimiterMiddleOfString_StringBeforeEndDelimiter() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("uuuENDooo")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_NoSuchEndDelimiter_WholeString() {
+        String expected = "uuuiiiooo";
+        String actual = SubString.builder()
+                .string("uuuiiiooo")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getString_EndDelimiterIsFirstChars_EmptyString() {
+        String expected = "";
+        String actual = SubString.builder()
+                .string("ENDuuukkkk")
+                .endDelimiter("END")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+    //------------------------------------------------------------------------
+    // MISC
+    //------------------------------------------------------------------------
+
+
+    @Test
+    public void getString_NoDelimiters_InputStringUnaltered() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("uuu")
+                .build()
+                .getString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getBuilder_StringWithTwoLevelsOfDelimiters_StringBetween() {
+        String expected = "cccc";
+        String input = "aaaaFIRST_STARTbbbbbSECOND_STARTccccSECOND_ENDddddFIRST_ENDeeee";
+        String actual = SubString.builder()
                 .string(input)
                 .startDelimiter("FIRST_START")
                 .endDelimiter("FIRST_END")
@@ -75,179 +287,21 @@ public class SubStringTest {
                 .endDelimiter("SECOND_END")
                 .build()
                 .getString();
-        assertEquals("cccc", output);
+        assertEquals(expected, actual);
     }
 
 
     @Test
-    public void testStartAndEnd() {
-        String input, output;
-        //
-        input = "ddddAPAuuuAPAkkkk";
-        output = SubString.builder()
-                .string(input)
-                .startDelimiter("APA")
-                .endDelimiter("APA")
+    public void getStr_SetString_ArgumentString() {
+        String expected = "uuu";
+        String actual = SubString.builder()
+                .string("uuu")
                 .build()
+                .getStr()
                 .getString();
-        assertEquals("uuu", output);
-        //
-        input = "ddddAuuuAkkkk";
-        output = SubString.builder()
-                .string(input)
-                .startDelimiter("A")
-                .endDelimiter("A")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "ddddSTARTuuuENDkkkk";
-        output = SubString.builder()
-                .string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "STARTuuuENDkkkk";
-        output = SubString.builder()
-                .string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "ddddSTARTuuuEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "STARTuuuEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "STARTuEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("u", output);
-        //
-        input = "STARTEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("", output);
-        //
-        input = "rrrrENDddddSTARTuuuEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "rrrrSTARTddddSTARTuuuEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("ddddSTARTuuu", output);
-    }
+        assertEquals(expected, actual);
 
 
-    @Test
-    public void testStartAndEnd_multipleOccurencesOfDelimiters() {
-        String input, output;
-        //
-        input = "rrrrENDddddSTARTuuuEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "rrrrENDddddSTARTuuuENDyyyEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("uuu", output);
-        //
-        input = "rrrrSTARTddddSTARTuuuEND";
-        output = SubString.builder().string(input)
-                .startDelimiter("START")
-                .endDelimiter("END")
-                .build().getString();
-        assertEquals("ddddSTARTuuu", output);
-    }
-
-
-    @Test
-    public void testOnlyStartDelimiter() {
-        String input, output;
-        //
-        input = "APAuuuAPAkkkk";
-        output = SubString.builder().string(input)
-                .startDelimiter("APA")
-                .build().getString();
-        assertEquals("uuuAPAkkkk", output);
-        //
-        input = "dddddAPAuuuAPAkkkk";
-        output = SubString.builder().string(input)
-                .startDelimiter("APA")
-                .build().getString();
-        assertEquals("uuuAPAkkkk", output);
-        //
-        input = "dddddAPA";
-        output = SubString.builder().string(input)
-                .startDelimiter("APA")
-                .build().getString();
-        assertEquals("", output);
-        //
-        input = "dddddAuuuAkkkk";
-        output = SubString.builder().string(input)
-                .startDelimiter("A")
-                .build().getString();
-        assertEquals("uuuAkkkk", output);
-    }
-
-
-    @Test
-    public void testOnlyEndDelimiter() {
-        String input, output;
-        //
-        input = "APAuuuAPAkkkk";
-        output = SubString.builder().string(input)
-                .endDelimiter("APA")
-                .build()
-                .getString();
-        assertEquals("", output);
-        //
-        input = "eeeeAPAuuuAPAkkkk";
-        output = SubString.builder().string(input)
-                .endDelimiter("APA")
-                .build()
-                .getString();
-        assertEquals("eeee", output);
-        //
-        input = "eeeeAPAuuuAPAkkkk";
-        output = SubString.builder().string(input)
-                .endDelimiter("kkkk")
-                .build()
-                .getString();
-        assertEquals("eeeeAPAuuuAPA", output);
-        //
-        input = "eeeeQuuuQkkkk";
-        output = SubString.builder().string(input)
-                .endDelimiter("Q")
-                .build()
-                .getString();
-        assertEquals("eeee", output);
     }
 
 
