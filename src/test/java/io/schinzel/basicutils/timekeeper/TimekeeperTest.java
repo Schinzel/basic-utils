@@ -14,7 +14,6 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
 /**
- *
  * @author schinzel
  */
 public class TimekeeperTest {
@@ -43,7 +42,7 @@ public class TimekeeperTest {
     @Test
     public void testToString() {
         Timekeeper tk = Timekeeper
-                .getSingleton()
+                .create()
                 .startLap("A").stopLap()
                 .startLap("B").stopLap()
                 .startLap("C").stopLap().stop();
@@ -52,16 +51,27 @@ public class TimekeeperTest {
         int expected = 5;
         Assert.assertEquals(expected, result);
         tk.reset();
-        tk = Timekeeper.getSingleton();
-        tk.startLap("A");
-        tk.stopLap();
-        tk.startLap("B");
-        tk.stopLap();
-        tk.stop();
+        tk = Timekeeper.create();
+        tk.startLap("A").stopLap().startLap("B").stopLap().stop();
         str = tk.toString();
         result = str.split("\n").length;
         expected = 4;
         Assert.assertEquals(expected, result);
+    }
+
+
+    @Test
+    public void getStr_StartAndStopTwoLaps_FourLines() {
+        String str = Timekeeper
+                .create()
+                .startLap("A").stopLap()
+                .startLap("B").stopLap()
+                .stop()
+                .toStr()
+                .toString();
+        int actual = str.split("\n").length;
+        int expected = 4;
+        Assert.assertEquals(expected, actual);
     }
 
 
@@ -157,8 +167,8 @@ public class TimekeeperTest {
         assertThat(b2Tot, greaterThanOrEqualTo(100d));
         assertThat(b2Tot, lessThan(130d));
     }
-    
-    
+
+
     /**
      * Test that two instances created with create are indeed different
      * objects.

@@ -1,14 +1,16 @@
 package io.schinzel.basicutils.timekeeper;
 
+import io.schinzel.basicutils.state.State;
+import io.schinzel.basicutils.str.Str;
 import io.schinzel.json.JsonOrdered;
 
 /**
  * The purpose of this class is for measuring the time one or several lines of
  * code consumes. Typically used for debugging.
- *
+ * <p>
  * When debugging performance one typically starts with the outermost method and
  * step by step dig further down the call stack.
- *
+ * <p>
  * As such the timekeeper creates an hierarchy of measurements. If a new
  * measurement is started before the current is stopped, as subtree of
  * measurements is created.
@@ -21,8 +23,8 @@ public class Timekeeper {
 
     private static Timekeeper INSTANCE = new Timekeeper();
 
+
     /**
-     *
      * @return A freshly created Timekeeper.
      */
     public static Timekeeper create() {
@@ -89,8 +91,20 @@ public class Timekeeper {
     }
 
 
+    public State getState() {
+        return mCurrentLap.getRoot().getState();
+    }
+
+
     /**
-     *
+     * @return The results of the times measured from the root node and down.
+     */
+    public Str toStr() {
+        return mCurrentLap.getRoot().getState().getStr();
+    }
+
+
+    /**
      * @return The results of the times measured from the root node and down.
      */
     @Override
@@ -100,7 +114,6 @@ public class Timekeeper {
 
 
     /**
-     *
      * @return The results of the times measured as JSON.
      */
     public JsonOrdered toJson() {

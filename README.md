@@ -288,6 +288,8 @@ Thrower.throwIfFalse(true, "A message");
 - Thrower
     - More distinct methods names when working with variables. All methods validating variables 
     are named throwIfVar[...], e.g. throwIfVarEmpty
+- Timekeeper
+    - Added method toStr
 
 ## 1.17
 - Checker now has isNotEmpty methods. 
