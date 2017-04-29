@@ -199,25 +199,36 @@ Get the string in the string.
 ```java
 String input = "http://www.example.com/index.html?key1=val1&key2=val2";
 //Get everything after question mark, i.e. "key1=val1&key2=val2"
-String queryString = SubStringer.create(input)
-    .startDelimiter("?")
-    .toString();
+String queryString = SubString.builder()
+        .string(input)
+        .startDelimiter("?")
+        .build()
+        .getString();
+System.out.println("Query string: " + queryString);
 //Get everything before question mark, i.e. "http://www.example.com/index.html"
-String url = SubStringer.create(input)
-    .endDelimiter("?")
-    .toString();
+String url = SubString.builder()
+        .string(input)
+        .endDelimiter("?")
+        .build()
+        .getString();
+System.out.println("URL: " + url);
 //Get host, i.e. "www.example.com"
-String host = SubStringer.create(input)
-    .startDelimiter("http://")
-    .endDelimiter("/index")
-    .toString();
+String host = SubString.builder().string(input)
+        .startDelimiter("http://")
+        .endDelimiter("/index")
+        .build()
+        .getString();
+System.out.println("Host: " + host);
 //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
-String page = SubStringer.create(input)
-    .startDelimiter("//")
-    .endDelimiter("?")
-    .getSubStringer()
-    .startDelimiter("/")
-    .toString();				
+String page = SubString.builder().string(input)
+        .startDelimiter("//")
+        .endDelimiter("?")
+        .build()
+        .getBuilder()
+        .startDelimiter("/")
+        .build()
+        .getString();
+System.out.println("Page: " + page);
 ```
 
 

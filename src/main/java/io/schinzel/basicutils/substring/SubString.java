@@ -21,9 +21,8 @@ public class SubString {
 
 
     /**
-     *
      * @param string
-     * @param startDelimiter sss
+     * @param startDelimiter  sss
      * @param startOccurrence ee
      * @param endDelimiter
      * @param endOccurrence
@@ -46,15 +45,6 @@ public class SubString {
         mString = string.substring(startPos, endPos);
 
     }
-    /**
-     * To Do:
-     * - En getStr är trevlig att ha
-     * - Bryt upp tester enligt nya metodiken
-     * - Få resten av projekt att funkar
-     * - Sample
-     * - Read me: Release notes
-     * - Read me: sample
-     */
 
 
     /**

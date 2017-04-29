@@ -16,21 +16,21 @@ public class SubStringerSample {
                 .startDelimiter("?")
                 .build()
                 .getString();
-        System.out.println("QueryString " + queryString);
+        System.out.println("Query string: " + queryString);
         //Get everything before question mark, i.e. "http://www.example.com/index.html"
         String url = SubString.builder()
                 .string(input)
                 .endDelimiter("?")
                 .build()
                 .getString();
-        System.out.println("URL " + url);
+        System.out.println("URL: " + url);
         //Get host, i.e. "www.example.com"
         String host = SubString.builder().string(input)
                 .startDelimiter("http://")
                 .endDelimiter("/index")
                 .build()
                 .getString();
-        System.out.println("Host " + host);
+        System.out.println("Host: " + host);
         //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
         String page = SubString.builder().string(input)
                 .startDelimiter("//")
@@ -40,5 +40,6 @@ public class SubStringerSample {
                 .startDelimiter("/")
                 .build()
                 .getString();
+        System.out.println("Page: " + page);
     }
 }
