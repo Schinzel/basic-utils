@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.crypto;
+package io.schinzel.basicutils.crypto.cipher;
 
 /**
  * The purpose of this interface is to encrypt and decrypt string. All implementations of this
