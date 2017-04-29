@@ -2,6 +2,7 @@ package io.schinzel.basicutils.substring;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.str.Str;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -19,6 +20,14 @@ public class SubString {
     @Getter private final String mString;
 
 
+    /**
+     *
+     * @param string
+     * @param startDelimiter sss
+     * @param startOccurrence ee
+     * @param endDelimiter
+     * @param endOccurrence
+     */
     @Builder
     private SubString(String string, String startDelimiter, int startOccurrence, String endDelimiter, int endOccurrence) {
         Thrower.throwIfVarNull(string, "string");
@@ -39,9 +48,8 @@ public class SubString {
     }
     /**
      * To Do:
-     * - Bryt upp tester enligt nya metodiken
      * - En getStr är trevlig att ha
-     * - Tester
+     * - Bryt upp tester enligt nya metodiken
      * - Få resten av projekt att funkar
      * - Sample
      * - Read me: Release notes
@@ -54,6 +62,14 @@ public class SubString {
      */
     public SubString.SubStringBuilder getBuilder() {
         return SubString.builder().string(this.getString());
+    }
+
+
+    /**
+     * @return The sub-string as a Str.
+     */
+    public Str getStr() {
+        return Str.create(this.getString());
     }
 
 
