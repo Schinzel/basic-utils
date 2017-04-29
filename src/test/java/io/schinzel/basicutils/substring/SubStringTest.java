@@ -1,27 +1,17 @@
-package io.schinzel.basicutils.substringer;
+package io.schinzel.basicutils.substring;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * @author Schinzel
  */
-public class SubStringerTest {
+public class SubStringTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
-
-
-    @Test
-    public void testContains() {
-        SubStringer subStringer = SubStringer.create("This is a string");
-        assertTrue(subStringer.contains("is"));
-        assertFalse(subStringer.contains("I_do_not_exists"));
-    }
 
 
     @Test
@@ -29,34 +19,43 @@ public class SubStringerTest {
         String input, queryString, url;
         //Test basics
         input = "http://www.kollektiva.se/index.html?key1=val1&key2=val2";
-        queryString = SubStringer.create(input)
+        queryString = SubString.builder()
+                .string(input)
                 .startDelimiter("?")
-                .toString();
+                .build()
+                .getString();
         assertEquals("key1=val1&key2=val2", queryString);
-        url = SubStringer.create(input)
+        url = SubString.builder()
+                .string(input)
                 .endDelimiter("?")
-                .toString();
+                .build()
+                .getString();
         assertEquals("http://www.kollektiva.se/index.html", url);
         //Test ? but no data
         input = "http://www.kollektiva.se/index.html?";
-        queryString = SubStringer.create(input)
+        queryString = SubString.builder()
+                .string(input)
                 .startDelimiter("?")
-                .toString();
+                .build()
+                .getString();
         assertEquals("", queryString);
-        url = SubStringer.create(input)
+        url = SubString.builder()
+                .string(input)
                 .endDelimiter("?")
-                .toString();
+                .build().getString();
         assertEquals("http://www.kollektiva.se/index.html", url);
         //Test no ?
         input = "http://www.kollektiva.se/index.html";
-        queryString = SubStringer.create(input)
+        queryString = SubString.builder()
+                .string(input)
                 .startDelimiter("?")
-                .toString();
+                .build().getString();
         assertEquals("", queryString);
         input = "http://www.kollektiva.se/index.html";
-        url = SubStringer.create(input)
+        url = SubString.builder()
+                .string(input)
                 .endDelimiter("?")
-                .toString();
+                .build().getString();
         assertEquals("http://www.kollektiva.se/index.html", url);
     }
 
@@ -66,13 +65,16 @@ public class SubStringerTest {
         String input, output;
         //
         input = "aaaaFIRST_STARTbbbbbSECOND_STARTccccSECOND_ENDddddFIRST_ENDeeee";
-        output = SubStringer.create(input)
+        output = SubString.builder()
+                .string(input)
                 .startDelimiter("FIRST_START")
                 .endDelimiter("FIRST_END")
-                .getSubStringer()
+                .build()
+                .getBuilder()
                 .startDelimiter("SECOND_START")
                 .endDelimiter("SECOND_END")
-                .toString();
+                .build()
+                .getString();
         assertEquals("cccc", output);
     }
 
@@ -82,73 +84,78 @@ public class SubStringerTest {
         String input, output;
         //
         input = "ddddAPAuuuAPAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder()
+                .string(input)
                 .startDelimiter("APA")
                 .endDelimiter("APA")
-                .toString();
+                .build()
+                .getString();
         assertEquals("uuu", output);
         //
         input = "ddddAuuuAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder()
+                .string(input)
                 .startDelimiter("A")
                 .endDelimiter("A")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "ddddSTARTuuuENDkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder()
+                .string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "STARTuuuENDkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder()
+                .string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "ddddSTARTuuuEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "STARTuuuEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "STARTuEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("u", output);
         //
         input = "STARTEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("", output);
         //
         input = "rrrrENDddddSTARTuuuEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "rrrrSTARTddddSTARTuuuEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("ddddSTARTuuu", output);
     }
 
@@ -158,24 +165,24 @@ public class SubStringerTest {
         String input, output;
         //
         input = "rrrrENDddddSTARTuuuEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "rrrrENDddddSTARTuuuENDyyyEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("uuu", output);
         //
         input = "rrrrSTARTddddSTARTuuuEND";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .toString();
+                .build().getString();
         assertEquals("ddddSTARTuuu", output);
     }
 
@@ -185,27 +192,27 @@ public class SubStringerTest {
         String input, output;
         //
         input = "APAuuuAPAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("APA")
-                .toString();
+                .build().getString();
         assertEquals("uuuAPAkkkk", output);
         //
         input = "dddddAPAuuuAPAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("APA")
-                .toString();
+                .build().getString();
         assertEquals("uuuAPAkkkk", output);
         //
         input = "dddddAPA";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("APA")
-                .toString();
+                .build().getString();
         assertEquals("", output);
         //
         input = "dddddAuuuAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .startDelimiter("A")
-                .toString();
+                .build().getString();
         assertEquals("uuuAkkkk", output);
     }
 
@@ -215,59 +222,33 @@ public class SubStringerTest {
         String input, output;
         //
         input = "APAuuuAPAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .endDelimiter("APA")
-                .toString();
+                .build()
+                .getString();
         assertEquals("", output);
         //
         input = "eeeeAPAuuuAPAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .endDelimiter("APA")
-                .toString();
+                .build()
+                .getString();
         assertEquals("eeee", output);
         //
         input = "eeeeAPAuuuAPAkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .endDelimiter("kkkk")
-                .toString();
+                .build()
+                .getString();
         assertEquals("eeeeAPAuuuAPA", output);
         //
         input = "eeeeQuuuQkkkk";
-        output = SubStringer.create(input)
+        output = SubString.builder().string(input)
                 .endDelimiter("Q")
-                .toString();
+                .build()
+                .getString();
         assertEquals("eeee", output);
     }
 
 
-    @Test
-    public void testStart_emptyString() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'StartDelimiter' cannot be empty");
-        SubStringer.create("any input").startDelimiter("").toString();
-    }
-
-
-    @Test
-    public void testStart_nullString() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'StartDelimiter' cannot be empty");
-        SubStringer.create("any input").startDelimiter(null).toString();
-    }
-
-
-    @Test
-    public void testEnd_emptyString() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'EndDelimiter' cannot be empty");
-        SubStringer.create("any input").endDelimiter("").toString();
-    }
-
-
-    @Test
-    public void testEnd_nullString() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'EndDelimiter' cannot be empty");
-        SubStringer.create("any input").endDelimiter(null).toString();
-    }
 }

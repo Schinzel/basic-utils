@@ -285,11 +285,14 @@ Thrower.throwIfFalse(true, "A message");
 
 # Change Log
 ## Features added for next release
+- SubStringer
+    - Renamed to SubString
 - Thrower
     - More distinct methods names when working with variables. All methods validating variables 
     are named throwIfVar[...], e.g. throwIfVarEmpty
 - Timekeeper
     - Added method toStr
+   
 
 ## 1.17
 - Checker now has isNotEmpty methods. 

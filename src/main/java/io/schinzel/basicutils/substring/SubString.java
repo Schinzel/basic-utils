@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.substringer;
+package io.schinzel.basicutils.substring;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
@@ -12,15 +12,15 @@ import lombok.experimental.Accessors;
  * @author Schinzel
  */
 @Accessors(prefix = "m")
-public class SubStringer {
+public class SubString {
     /** Flag that indicates that no value has been set. */
     private static final String NO_VAL_SET = "qEvLh6L7HJ6uAkoJB7kT";
     /** Extracted substring */
-    @Getter private final String mSubString;
+    @Getter private final String mString;
 
 
     @Builder
-    private SubStringer(String string, String startDelimiter, int startOccurrence, String endDelimiter, int endOccurrence) {
+    private SubString(String string, String startDelimiter, int startOccurrence, String endDelimiter, int endOccurrence) {
         Thrower.throwIfVarNull(string, "string");
         //If start delimiter was not set (or was set to null or empty string)
         if (Checker.isEmpty(startDelimiter)) {
@@ -30,15 +30,17 @@ public class SubStringer {
         if (Checker.isEmpty(endDelimiter)) {
             endDelimiter = NO_VAL_SET;
         }
+        startOccurrence = (startOccurrence == 0) ? 1 : startOccurrence;
+        endOccurrence = (endOccurrence == 0) ? 1 : endOccurrence;
         int startPos = getStartPos(string, startDelimiter, startOccurrence);
         int endPos = getEndPos(string, endDelimiter, endOccurrence, startPos);
-        mSubString = string.substring(startPos, endPos);
+        mString = string.substring(startPos, endPos);
 
     }
     /**
      * To Do:
-     * - Byta namn till SubString?
-     * - Hur används contains-metoden som nog måste bort.
+     * - Bryt upp tester enligt nya metodiken
+     * - En getStr är trevlig att ha
      * - Tester
      * - Få resten av projekt att funkar
      * - Sample
@@ -50,17 +52,8 @@ public class SubStringer {
     /**
      * @return A new sub-stringer builder for extracting a string from an extracted string.
      */
-    public SubStringer.SubStringerBuilder getSubStringer() {
-        return SubStringer.builder().string(this.getSubString());
-    }
-
-
-    /**
-     * @param s The string to look for
-     * @return True if constructor set string contains argument string.
-     */
-    public boolean contains(String s) {
-        return this.getSubString().contains(s);
+    public SubString.SubStringBuilder getBuilder() {
+        return SubString.builder().string(this.getString());
     }
 
 

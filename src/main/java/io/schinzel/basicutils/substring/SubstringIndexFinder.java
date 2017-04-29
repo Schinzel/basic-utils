@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.substringer;
+package io.schinzel.basicutils.substring;
 
 import io.schinzel.basicutils.Thrower;
 import lombok.Builder;

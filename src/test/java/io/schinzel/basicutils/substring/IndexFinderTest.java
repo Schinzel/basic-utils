@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.substringer;
+package io.schinzel.basicutils.substring;
 
 import org.junit.Test;
 

@@ -1,6 +1,6 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.substringer.SubStringer;
+import io.schinzel.basicutils.substring.SubString;
 
 /**
  * The purpose of this file is to show SubStringer sample code.
@@ -11,28 +11,34 @@ public class SubStringerSample {
     public static void main(String[] args) {
         String input = "http://www.example.com/index.html?key1=val1&key2=val2";
         //Get everything after question mark, i.e. "key1=val1&key2=val2"
-        String queryString = SubStringer.create(input)
+        String queryString = SubString.builder()
+                .string(input)
                 .startDelimiter("?")
-                .toString();
+                .build()
+                .getString();
         System.out.println("QueryString " + queryString);
         //Get everything before question mark, i.e. "http://www.example.com/index.html"
-        String url = SubStringer.create(input)
+        String url = SubString.builder()
+                .string(input)
                 .endDelimiter("?")
-                .toString();
+                .build()
+                .getString();
         System.out.println("URL " + url);
         //Get host, i.e. "www.example.com"
-        String host = SubStringer.create(input)
+        String host = SubString.builder().string(input)
                 .startDelimiter("http://")
                 .endDelimiter("/index")
-                .toString();
+                .build()
+                .getString();
         System.out.println("Host " + host);
         //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
-        String page = SubStringer.create(input)
+        String page = SubString.builder().string(input)
                 .startDelimiter("//")
                 .endDelimiter("?")
-                .getSubStringer()
+                .build()
+                .getBuilder()
                 .startDelimiter("/")
-                .toString();
-        System.out.println("Page " + page);
+                .build()
+                .getString();
     }
 }
