@@ -30,7 +30,7 @@ public class AES implements ICipher {
     /** The encoding used to encode the encrypted strings. */
     private final IEncoding mEncoding;
     /** Used to create random init vectors. */
-    RandomUtil mRandom = RandomUtil.create();
+    private RandomUtil mRandom = RandomUtil.create();
 
 
     /**
@@ -63,7 +63,7 @@ public class AES implements ICipher {
         byte[] encryptedTextAsBytes = AES.crypt(clearTextAsBytes, Cipher.ENCRYPT_MODE, mKey, initVector);
         //Encode the bytes to string
         String encryptedTestAsString = mEncoding.encode(encryptedTextAsBytes);
-        //Add the init vector to the encrypted string
+        //Concat the init vector and the encrypted string and return
         return initVector + encryptedTestAsString;
     }
 
