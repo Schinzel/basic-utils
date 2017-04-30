@@ -2,11 +2,10 @@ package io.schinzel.basicutils.crypto.cipher;
 
 import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.UTF8;
 import io.schinzel.basicutils.crypto.encoding.Encoding;
 import io.schinzel.basicutils.crypto.encoding.IEncoding;
-import lombok.AccessLevel;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import javax.crypto.BadPaddingException;
@@ -15,24 +14,28 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * For AES encryption and decryption.
+ * AES 128 and 256 bits encryption and decryption.
  * <p>
  * Created by schinzel on 2017-04-29.
  */
 @Accessors(prefix = "m")
 public class AES implements ICipher {
+    /** The encryption key */
     private final String mKey;
-    @Getter(AccessLevel.PACKAGE)
     private final IEncoding mEncoding;
+    /** Used to create random init vectors. */
     RandomUtil mRandom = RandomUtil.create();
 
 
+    /**
+     * @param key      The key must be 16 (128 bits) or 32 (256 bits).
+     * @param encoding What encoding to use
+     */
     @Builder
     private AES(String key, IEncoding encoding) {
         Thrower.throwIfVarEmpty(key, "key");
@@ -45,31 +48,55 @@ public class AES implements ICipher {
     }
 
 
+    /**
+     * @param clearTextString A clear test string to encrypt.
+     * @return The argument string encrypted.
+     */
     @Override
     public String encrypt(String clearTextString) {
+        //Generate a random init vector
         String initVector = mRandom.getString(mKey.length());
-        byte[] clearTextAsBytes = getBytes(clearTextString);
-        byte[] encryptedTextAsBytes = AES.crypt(clearTextAsBytes, Cipher.ENCRYPT_MODE, initVector, mKey);
-        String encryptedString = this.getEncoding().encode(encryptedTextAsBytes);
-        encryptedString = initVector + encryptedString;
-        return encryptedString;
+        //Get the clear text as utf8 bytes
+        byte[] clearTextAsBytes = UTF8.getBytes(clearTextString);
+        //Encrypt
+        byte[] encryptedTextAsBytes = AES.crypt(clearTextAsBytes, Cipher.ENCRYPT_MODE, mKey, initVector);
+        //Encode the bytes to string
+        String encryptedTestAsString = mEncoding.encode(encryptedTextAsBytes);
+        //Add the init vector to the encrypted string
+        return initVector + encryptedTestAsString;
     }
 
 
+    /**
+     * @param encryptedString An encrypted string to decrypt.
+     * @return The argument string decrypted.
+     */
     @Override
     public String decrypt(String encryptedString) {
+        //Extract the init vector.
         String initVector = encryptedString.substring(0, mKey.length() - 1);
+        //Remove the init vector from the encrypted string
         encryptedString = encryptedString.substring(mKey.length() - 1, encryptedString.length());
-        byte[] encryptedStringDecoded = this.getEncoding().decode(encryptedString);
-        byte[] decryptedTextAsBytes = AES.crypt(encryptedStringDecoded, Cipher.DECRYPT_MODE, initVector, mKey);
-        return new String(decryptedTextAsBytes, Charset.forName("UTF-8"));
+        //Decode the encrypted string
+        byte[] encryptedStringDecoded = mEncoding.decode(encryptedString);
+        //Decrypt
+        byte[] decryptedText = AES.crypt(encryptedStringDecoded, Cipher.DECRYPT_MODE, mKey, initVector);
+        //Convert the encrypted text to a string and return
+        return UTF8.getString(decryptedText);
     }
 
 
-    static byte[] crypt(byte[] input, int encryptOrDecrypt, String initVector, String key) {
+    /**
+     * @param input            Bytes that should be encrypted or decrypted.
+     * @param encryptOrDecrypt Either Cipher.ENCRYPT_MODE or Cipher.DECRYPT_MODE
+     * @param key              The encryption key
+     * @param initVector       The initialization vector
+     * @return The input either encrypted or decrypted.
+     */
+    static byte[] crypt(byte[] input, int encryptOrDecrypt, String key, String initVector) {
         try {
-            IvParameterSpec ivParameterSpec = new IvParameterSpec(getBytes(initVector));
-            SecretKeySpec secretKeySpec = new SecretKeySpec(getBytes(key), "AES");
+            IvParameterSpec ivParameterSpec = new IvParameterSpec(UTF8.getBytes(initVector));
+            SecretKeySpec secretKeySpec = new SecretKeySpec(UTF8.getBytes(key), "AES");
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
             cipher.init(encryptOrDecrypt, secretKeySpec, ivParameterSpec);
             return cipher.doFinal(input);
@@ -79,8 +106,4 @@ public class AES implements ICipher {
         }
     }
 
-
-    private static byte[] getBytes(String str) {
-        return str.getBytes(Charset.forName("UTF-8"));
-    }
 }
