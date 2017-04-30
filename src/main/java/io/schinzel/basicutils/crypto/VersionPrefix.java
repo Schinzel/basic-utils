@@ -9,11 +9,11 @@ import io.schinzel.basicutils.Thrower;
  * <p>
  * Created by schinzel on 2017-04-30.
  */
-public class VersionPrefix {
+class VersionPrefix {
     private final String mPrefix;
 
 
-    public static VersionPrefix create(int version) {
+    static VersionPrefix create(int version) {
         return new VersionPrefix(version);
     }
 
@@ -24,12 +24,12 @@ public class VersionPrefix {
     }
 
 
-    public String addPrefix(String string) {
+    String addPrefix(String string) {
         return mPrefix + string;
     }
 
 
-    public String removePrefix(String string) {
+    String removePrefix(String string) {
         if (!this.hasThisPrefix(string)) {
             throw new RuntimeException("Cannot remove prefix '" + mPrefix + "' from string '" + string + "' as it has no such prefix.");
         }
@@ -37,7 +37,7 @@ public class VersionPrefix {
     }
 
 
-    public boolean hasThisPrefix(String string) {
+    boolean hasThisPrefix(String string) {
         return string.startsWith(mPrefix);
     }
 }
