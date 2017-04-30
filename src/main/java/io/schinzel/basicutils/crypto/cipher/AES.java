@@ -19,7 +19,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * AES 128 and 256 bits encryption and decryption.
+ * The purpose of this class is to encrypt and decrypt strings using AES 128 or 256.
  * <p>
  * Created by schinzel on 2017-04-29.
  */
@@ -27,14 +27,15 @@ import java.security.NoSuchAlgorithmException;
 public class AES implements ICipher {
     /** The encryption key */
     private final String mKey;
+    /** The encoding used to encode the encrypted strings. */
     private final IEncoding mEncoding;
     /** Used to create random init vectors. */
     RandomUtil mRandom = RandomUtil.create();
 
 
     /**
-     * @param key      The key must be 16 (128 bits) or 32 (256 bits).
-     * @param encoding What encoding to use
+     * @param key      The key must be length 16 (128 bits) or 32 (256 bits).
+     * @param encoding What encoding to use to encode the encrypted string.
      */
     @Builder
     private AES(String key, IEncoding encoding) {
@@ -56,7 +57,7 @@ public class AES implements ICipher {
     public String encrypt(String clearTextString) {
         //Generate a random init vector
         String initVector = mRandom.getString(mKey.length());
-        //Get the clear text as utf8 bytes
+        //Convert the clear text string to as utf8 bytes
         byte[] clearTextAsBytes = UTF8.getBytes(clearTextString);
         //Encrypt
         byte[] encryptedTextAsBytes = AES.crypt(clearTextAsBytes, Cipher.ENCRYPT_MODE, mKey, initVector);

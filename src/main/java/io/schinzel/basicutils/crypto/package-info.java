@@ -2,8 +2,11 @@
  * The purpose of this package is to protect information through encryption.
  * <p>
  *  To Do;
- *  Kolla att man verkligen lägger init vektor i sträng
- *  Bryta ut init vektor?
+ *  Varför inte encode(String)?
+ *  Test för hård kodad hex encoding
+ *  Kasta vettigt fel med åtgärd om inte har jar filer nerladdade
+ *  Hur lagra data i db för look ups??
+ *  Version handling of cryptos
  *
  * Created by schinzel on 2017-04-29.
  */
