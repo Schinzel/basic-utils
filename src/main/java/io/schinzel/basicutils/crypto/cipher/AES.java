@@ -21,6 +21,13 @@ import java.security.NoSuchAlgorithmException;
 /**
  * The purpose of this class is to encrypt and decrypt strings using AES 128 or 256.
  * <p>
+ * Note that for more than 128 bits encryption you need to download
+ * "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
+ * Can be found here:
+ * http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html
+ * Put the extracted files in this dir:
+ * ${java.home}/jre/lib/security/
+ * <p>
  * Created by schinzel on 2017-04-29.
  */
 @Accessors(prefix = "m")
