@@ -25,6 +25,7 @@ import java.security.NoSuchAlgorithmException;
  */
 @Accessors(prefix = "m")
 public class AES implements ICipher {
+    private static final int INIT_VECTOR_SIZE = 16;
     /** The encryption key */
     private final String mKey;
     /** The encoding used to encode the encrypted strings. */
@@ -56,7 +57,7 @@ public class AES implements ICipher {
     @Override
     public String encrypt(String clearTextString) {
         //Generate a random init vector
-        String initVector = mRandom.getString(mKey.length());
+        String initVector = mRandom.getString(INIT_VECTOR_SIZE);
         //Convert the clear text string to as utf8 bytes
         byte[] clearTextAsBytes = UTF8.getBytes(clearTextString);
         //Encrypt
@@ -75,9 +76,9 @@ public class AES implements ICipher {
     @Override
     public String decrypt(String encryptedString) {
         //Extract the init vector.
-        String initVector = encryptedString.substring(0, mKey.length());
+        String initVector = encryptedString.substring(0, INIT_VECTOR_SIZE);
         //Remove the init vector from the encrypted string
-        encryptedString = encryptedString.substring(mKey.length(), encryptedString.length());
+        encryptedString = encryptedString.substring(INIT_VECTOR_SIZE, encryptedString.length());
         //Decode the encrypted string
         byte[] encryptedStringDecoded = mEncoding.decode(encryptedString);
         //Decrypt
