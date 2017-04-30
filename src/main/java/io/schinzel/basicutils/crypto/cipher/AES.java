@@ -45,7 +45,7 @@ public class AES implements ICipher {
             throw new RuntimeException("Key length must be 16 or 32, was " + key.length());
         }
         mKey = key;
-        mEncoding = (encoding != null) ? encoding : IEncoding.getInstance(Encoding.BASE64);
+        mEncoding = (encoding != null) ? encoding : Encoding.BASE64;
     }
 
 

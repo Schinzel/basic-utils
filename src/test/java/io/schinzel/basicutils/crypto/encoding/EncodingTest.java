@@ -2,11 +2,17 @@ package io.schinzel.basicutils.crypto.encoding;
 
 import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.UTF8;
+import org.apache.commons.codec.DecoderException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.junit.Assert.assertEquals;
 
 public class EncodingTest {
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
+
 
     @Test
     public void encodeDecode_FunnyCharsAllEncodings_InputSameAsOutput() {
@@ -24,9 +30,26 @@ public class EncodingTest {
 
 
     @Test
-    public void encode_HardcodedValue_HardcodedOutput(){
+    public void encode_Base64HardcodedValue_HardcodedOutput() {
         String actual = Encoding.BASE64.encode(UTF8.getBytes("åäö"));
         String expected = "w6XDpMO2";
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    public void encode_HexHardcodedValue_HardcodedOutput() {
+        String actual = Encoding.BASE16.encode(UTF8.getBytes("åäö"));
+        String expected = "c3a5c3a4c3b6";
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void encode() {
+        exception.expect(DecoderException.class);
+        exception.expectMessage("Odd number of characters");
+        Encoding.BASE16.decode("a");
+    }
+
 }

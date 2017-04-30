@@ -6,6 +6,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 
 /**
+ * Encodes binary data and decodes encoded string.
+ * <p>
  * Created by schinzel on 2017-04-29.
  */
 public enum Encoding implements IEncoding {
@@ -21,15 +23,16 @@ public enum Encoding implements IEncoding {
             return Base64.decodeBase64(str);
         }
     },
-    HEX {
+    /** Base16 a.k.a. Hex encoding*/
+    BASE16 {
         @Override
         public String encode(byte[] b) {
             return Hex.encodeHexString(b);
         }
 
 
-        @Override
         @SneakyThrows
+        @Override
         public byte[] decode(String str) {
             return Hex.decodeHex(str.toCharArray());
         }

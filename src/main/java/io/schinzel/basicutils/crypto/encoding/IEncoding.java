@@ -12,7 +12,4 @@ public interface IEncoding {
     byte[] decode(String string);
 
 
-    static IEncoding getInstance(Encoding encoding) {
-        return encoding;
-    }
 }
