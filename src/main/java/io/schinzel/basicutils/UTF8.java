@@ -9,9 +9,13 @@ import java.nio.charset.StandardCharsets;
 public class UTF8 {
 
     /**
-     * Private constructor as should not be instantiated.
+     * Package private constructor as should not be instantiated.
      */
-    private UTF8(){}
+    UTF8() {
+        throw new RuntimeException(this.getClass().getSimpleName() + " should not be instantiated. " +
+                "Use the static methods.");
+    }
+
 
     /**
      * @param string

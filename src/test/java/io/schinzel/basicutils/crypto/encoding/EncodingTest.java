@@ -46,7 +46,7 @@ public class EncodingTest {
 
 
     @Test
-    public void encode() {
+    public void encode_Base16OddnumberOfChars_ThrowsException() {
         exception.expect(DecoderException.class);
         exception.expectMessage("Odd number of characters");
         Encoding.BASE16.decode("a");
