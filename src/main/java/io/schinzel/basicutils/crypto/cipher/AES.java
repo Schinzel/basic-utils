@@ -74,9 +74,9 @@ public class AES implements ICipher {
     @Override
     public String decrypt(String encryptedString) {
         //Extract the init vector.
-        String initVector = encryptedString.substring(0, mKey.length() - 1);
+        String initVector = encryptedString.substring(0, mKey.length());
         //Remove the init vector from the encrypted string
-        encryptedString = encryptedString.substring(mKey.length() - 1, encryptedString.length());
+        encryptedString = encryptedString.substring(mKey.length(), encryptedString.length());
         //Decode the encrypted string
         byte[] encryptedStringDecoded = mEncoding.decode(encryptedString);
         //Decrypt
@@ -87,6 +87,8 @@ public class AES implements ICipher {
 
 
     /**
+     * Encrypt of decrypts the argument input.
+     *
      * @param input            Bytes that should be encrypted or decrypted.
      * @param encryptOrDecrypt Either Cipher.ENCRYPT_MODE or Cipher.DECRYPT_MODE
      * @param key              The encryption key
