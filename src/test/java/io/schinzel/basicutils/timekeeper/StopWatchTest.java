@@ -1,13 +1,13 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Sandman;
+import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- *
  * @author schinzel
  */
 public class StopWatchTest {
@@ -93,22 +93,18 @@ public class StopWatchTest {
     public void testGetTotTimeInMs() {
         StopWatch sw = StopWatch.create();
         sw.start();
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(20);
         sw.stop();
-        double result = sw.getTotTimeInMs();
-        double expected = 100;
-        double delta = 10;
-        Assert.assertEquals(result, expected, delta);
+        Assert.assertThat(sw.getTotTimeInMs(), Matchers.lessThan(30d));
+        Assert.assertThat(sw.getTotTimeInMs(), Matchers.greaterThanOrEqualTo(20d));
         sw.start();
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(10);
         sw.stop();
         sw.start();
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(10);
         sw.stop();
-        result = sw.getTotTimeInMs();
-        expected = 300;
-        delta = 30;
-        Assert.assertEquals(result, expected, delta);
+        Assert.assertThat(sw.getTotTimeInMs(), Matchers.greaterThanOrEqualTo(40d));
+        Assert.assertThat(sw.getTotTimeInMs(), Matchers.lessThan(60d));
     }
 
 
@@ -116,19 +112,15 @@ public class StopWatchTest {
     public void testGetAvgInMs() {
         StopWatch sw = StopWatch.create();
         sw.start();
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(20);
         sw.stop();
-        double result = sw.getAvgInMs();
-        double expected = 100;
-        double delta = 10;
-        Assert.assertEquals(result, expected, delta);
+        Assert.assertThat(sw.getAvgInMs(), Matchers.greaterThanOrEqualTo(20d));
+        Assert.assertThat(sw.getAvgInMs(), Matchers.lessThan(30d));
         sw.start();
-        Sandman.snoozeMillis(200);
+        Sandman.snoozeMillis(10);
         sw.stop();
-        result = sw.getAvgInMs();
-        expected = 150;
-        delta = 10;
-        Assert.assertEquals(result, expected, delta);
+        Assert.assertThat(sw.getAvgInMs(), Matchers.greaterThanOrEqualTo(15d));
+        Assert.assertThat(sw.getAvgInMs(), Matchers.lessThan(20d));
     }
 
 

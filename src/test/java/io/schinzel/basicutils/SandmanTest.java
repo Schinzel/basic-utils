@@ -1,5 +1,6 @@
 package io.schinzel.basicutils;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -10,24 +11,19 @@ import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author schinzel
  */
 public class SandmanTest extends Sandman {
 
 
-
     @Test
     public void testSnooze() {
-        int snoozeTimeInMillis = 100;
-        //Test the snooze 10 times
-        for (int i = 0; i < 10; i++) {
-            LocalDateTime start = LocalDateTime.now();
-            Sandman.snoozeMillis(snoozeTimeInMillis);
-            //Check that the snooze does not differ more than 20 ms of the requested snooze time.
-            assertThat(LocalDateTime.now(),
-                    within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInMillis, ChronoUnit.MILLIS)));
-        }
+        long start = System.nanoTime();
+        Sandman.snoozeMillis(20);
+        //Calc the time to do all iterations
+        long executionTimeInMS = (System.nanoTime() - start) / 1000000;
+        assertThat(executionTimeInMS, Matchers.lessThan(30l));
+        assertThat(executionTimeInMS, Matchers.greaterThanOrEqualTo(20l));
     }
 
 
@@ -48,7 +44,7 @@ public class SandmanTest extends Sandman {
             boolean gotException = false;
             try {
                 Sandman.snoozeMillis(100);
-            }catch (RuntimeException e){
+            } catch (RuntimeException e) {
                 gotException = true;
             }
             assertTrue("Got an interrupted exception", gotException);
