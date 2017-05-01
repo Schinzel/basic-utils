@@ -14,9 +14,7 @@ import java.util.Random;
 public class RandomUtil {
 
     private final Random mRandom;
-    /**
-     * Holds the chars that can be a part of the random string.
-     */
+    /** Holds the chars that can be a part of the random string. */
     private static final char[] SYMBOLS;
 
 
