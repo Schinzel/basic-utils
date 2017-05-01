@@ -296,6 +296,9 @@ Thrower.throwIfFalse(true, "A message");
 
 # Change Log
 ## Features added for next release
+- Crypto added
+    - AES cipher
+    - CipherLibrary
 - SubStringer
     - Renamed to SubString
     - Rewritten with immutable design
