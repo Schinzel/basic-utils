@@ -80,7 +80,7 @@ public class RatioTest {
     public void testRandomTimesDiv() {
         RandomBigIntUtil randomBigIntUtil = new RandomBigIntUtil(123);
         Random randMultiplier = new Random(123);
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < 1000; i++) {
             BigInteger numerator = randomBigIntUtil.getNext();
             BigInteger denom = randomBigIntUtil.getNext();
             if (denom.equals(BigInteger.ZERO)) {
