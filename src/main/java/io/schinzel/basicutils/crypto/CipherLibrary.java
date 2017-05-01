@@ -83,18 +83,17 @@ public class CipherLibrary {
         if (!CipherLibrary.hasVersionPrefix(encryptedString)) {
             throw new RuntimeException("Could not decrypt string '" + encryptedString + "' as was not in the required format v123_anystring.");
         }
-        String versionAsString = SubString.builder()
-                .string(encryptedString)
+        String versionAsString = SubString
+                .create(encryptedString)
                 .startDelimiter("v")
                 .endDelimiter("_")
-                .build()
                 .getString();
         Integer version = Integer.valueOf(versionAsString);
         ICipher cipher = mCiphers.get(version);
         if (cipher == null) {
             throw new RuntimeException("Could not decrypt string '" + encryptedString + "' as there was not cipher with version " + versionAsString + "'");
         }
-        String stringToDecrypt = SubString.builder().string(encryptedString).startDelimiter("_").build().getString();
+        String stringToDecrypt = SubString.create(encryptedString).startDelimiter("_").getString();
         return cipher.decrypt(stringToDecrypt);
     }
 
