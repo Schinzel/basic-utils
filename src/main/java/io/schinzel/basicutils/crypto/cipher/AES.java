@@ -42,11 +42,19 @@ public class AES implements ICipher {
 
 
     /**
+     * @param key The key must be length 16 (128 bits) or 32 (256 bits).
+     */
+    public AES(String key) {
+        this(key, null);
+    }
+
+
+    /**
      * @param key      The key must be length 16 (128 bits) or 32 (256 bits).
      * @param encoding What encoding to use to encode the encrypted string.
      */
     @Builder
-    private AES(String key, IEncoding encoding) {
+    public AES(String key, IEncoding encoding) {
         Thrower.throwIfVarEmpty(key, "key");
         //If key length is not 16 or 32
         if (key.length() != 16 && key.length() != 32) {
