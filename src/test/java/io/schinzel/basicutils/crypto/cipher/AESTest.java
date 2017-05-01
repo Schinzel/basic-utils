@@ -26,6 +26,15 @@ public class AESTest {
 
 
     @Test
+    public void constructorOneArg() {
+        AES aes = new AES("0123456789abcdef");
+        String expected = "abc";
+        String actual = aes.decrypt(aes.encrypt(expected));
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
     public void encryptAndDecrypt_funnyCharsAvailableEncodings_shouldBeTheSame() {
         for (Encoding encoding : Encoding.values()) {
             AES aes = AES.builder()

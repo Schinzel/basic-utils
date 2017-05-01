@@ -41,6 +41,9 @@ public class AES implements ICipher {
     private RandomUtil mRandom = RandomUtil.create();
 
 
+    /**
+     * @param key The key must be length 16 (128 bits) or 32 (256 bits).
+     */
     public AES(String key) {
         this(key, null);
     }
