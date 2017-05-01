@@ -6,21 +6,13 @@ package io.schinzel.basicutils.timekeeper;
  * @author schinzel
  */
 class StopWatch {
-    /**
-     * The time when the lap started.
-     */
+    /** The time when the lap started */
     private long mLapStartTime = 0l;
-    /**
-     * Number of laps measured.
-     */
+    /** Number of laps measured. */
     private int mNumberOfLaps = 0;
-    /**
-     * The time of all laps.
-     */
+    /** The time of all laps. */
     private long mSumOfAllLaps;
-    /**
-     * The current state of this stop watch.
-     */
+    /** The current state of this stop watch. */
     private State mState = State.STOPPED;
 
     private enum State {
@@ -33,8 +25,7 @@ class StopWatch {
 
 
     /**
-     * 
-     * @return A new instance of the StopWatch. 
+     * @return A new instance of the StopWatch.
      */
     static StopWatch create() {
         return new StopWatch();
@@ -47,7 +38,7 @@ class StopWatch {
      * @return This for chaining.
      */
     StopWatch start() {
-        if (this.isStarted()){
+        if (this.isStarted()) {
             throw new RuntimeException("Cannot start as is already started");
         }
         mLapStartTime = System.nanoTime();
@@ -62,7 +53,7 @@ class StopWatch {
      * @return This for chaining.
      */
     StopWatch stop() {
-        if (!this.isStarted()){
+        if (!this.isStarted()) {
             throw new RuntimeException("Cannot stop as is not started");
         }
         long currentLapTime = System.nanoTime() - mLapStartTime;
@@ -74,17 +65,15 @@ class StopWatch {
     }
 
 
-    
     /**
-     * 
-     * @return True if is currently in mid lap, else false. 
+     * @return True if is currently in mid lap, else false.
      */
     boolean isStarted() {
         return (mState == State.STARTED);
     }
-    
+
+
     /**
-     *
      * @return The number of laps measured.
      */
     int getLaps() {
@@ -93,7 +82,6 @@ class StopWatch {
 
 
     /**
-     *
      * @return The average lap time in ms.
      */
     double getAvgInMs() {
@@ -103,7 +91,6 @@ class StopWatch {
 
 
     /**
-     *
      * @return The total time of all laps measured.
      */
     double getTotTimeInMs() {
@@ -112,7 +99,6 @@ class StopWatch {
 
 
     /**
-     *
      * @param nanos
      * @return The argument nanos as millis.
      */
@@ -122,7 +108,6 @@ class StopWatch {
 
 
     /**
-     *
      * @param nanos
      * @return The argument nanos as millis.
      */

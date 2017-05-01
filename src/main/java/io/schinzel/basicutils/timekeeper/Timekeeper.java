@@ -17,10 +17,10 @@ import io.schinzel.json.JsonOrdered;
  * @author schinzel
  */
 public class Timekeeper {
-
+    /** Singleton instance */
+    private static Timekeeper SINGLETON_INSTANCE = new Timekeeper();
+    /** The laps are in a tree hierarchy. This is the current executing node in the tree. */
     private Lap mCurrentLap = new Lap("root", null).start();
-
-    private static Timekeeper INSTANCE = new Timekeeper();
 
 
     /**
@@ -37,10 +37,10 @@ public class Timekeeper {
      * @return The singleton instance.
      */
     public static Timekeeper getSingleton() {
-        if (INSTANCE == null) {
-            INSTANCE = new Timekeeper();
+        if (SINGLETON_INSTANCE == null) {
+            SINGLETON_INSTANCE = new Timekeeper();
         }
-        return INSTANCE;
+        return SINGLETON_INSTANCE;
     }
 
 
@@ -85,7 +85,7 @@ public class Timekeeper {
      * @return This for chaining
      */
     public final Timekeeper reset() {
-        INSTANCE = null;
+        SINGLETON_INSTANCE = null;
         return this;
     }
 

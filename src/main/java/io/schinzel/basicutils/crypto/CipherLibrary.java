@@ -22,8 +22,10 @@ import java.util.Map;
  * Created by schinzel on 2017-04-30.
  */
 public class CipherLibrary {
+    /** Singleton instance variable. */
+    private static CipherLibrary SINGLETON_INSTANCE = new CipherLibrary();
+    /** Holds the ciphers added to library. */
     private Map<Integer, ICipher> mCiphers = new HashMap<>();
-    private static CipherLibrary INSTANCE = new CipherLibrary();
 
 
     /**
@@ -38,7 +40,7 @@ public class CipherLibrary {
      * @return The singleton instance.
      */
     public static CipherLibrary getSingleton() {
-        return INSTANCE;
+        return SINGLETON_INSTANCE;
     }
 
 
