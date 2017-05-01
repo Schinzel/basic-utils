@@ -27,16 +27,15 @@ public class SubString {
 
     @Accessors(prefix = "m", fluent = true, chain = true)
     public static class Builder {
-        final String string;
-        @Setter String mString;
-        @Setter String mStartDelimiter = NO_VAL_SET;
-        @Setter int mStartOccurrence = 1;
-        @Setter String mEndDelimiter = NO_VAL_SET;
-        @Setter int mEndOccurrence = 1;
+        private final String mString;
+        @Setter private String mStartDelimiter = NO_VAL_SET;
+        @Setter private int mStartOccurrence = 1;
+        @Setter private String mEndDelimiter = NO_VAL_SET;
+        @Setter private int mEndOccurrence = 1;
 
 
         Builder(String string) {
-            this.string = string;
+            mString = string;
         }
 
 
@@ -61,7 +60,7 @@ public class SubString {
          *
          * @return The request substring as new SubString.
          */
-        public Builder getSubString() {
+        public Builder newSubString() {
             return SubString.create(this.getString());
         }
 

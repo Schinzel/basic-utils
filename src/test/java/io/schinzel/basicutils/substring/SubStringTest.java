@@ -20,11 +20,10 @@ public class SubStringTest {
     @Test
     public void getString_StartAndEndDelimiter_StringBetweenStartAndEnd() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("aaaSTARTuuuENDooo")
+        String actual = SubString
+                .create("aaaSTARTuuuENDooo")
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -33,11 +32,10 @@ public class SubStringTest {
     @Test
     public void getString_StartDelIsFirstCharsAndEndDelIsLastCahrs_StringBetweenStartAndEnd() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("STARTuuuEND")
+        String actual = SubString
+                .create("STARTuuuEND")
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -46,11 +44,10 @@ public class SubStringTest {
     @Test
     public void getString_StartAndEndDelimiterButNoSuchEndDelimiter_StringAfterStartDelimiter() {
         String expected = "uuuooo";
-        String actual = SubString.builder()
-                .string("aaaSTARTuuuooo")
+        String actual = SubString
+                .create("aaaSTARTuuuooo")
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -59,11 +56,10 @@ public class SubStringTest {
     @Test
     public void getString_StartAndEndDelimiterButNoSuchStartDelimiter_StringBeforeEndDelimiter() {
         String expected = "";
-        String actual = SubString.builder()
-                .string("aaaENDuuuooo")
+        String actual = SubString
+                .create("aaaENDuuuooo")
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -72,11 +68,10 @@ public class SubStringTest {
     @Test
     public void getString_MultipleOccurrencesOfStartAndEndDelimiter_StringBetweenFirstStartAndFirstEndDelimiter() {
         String expected = "iiiSTARTaaa";
-        String actual = SubString.builder()
-                .string("rrrSTARTiiiSTARTaaaENDuuuENDooo")
+        String actual = SubString
+                .create("rrrSTARTiiiSTARTaaaENDuuuENDooo")
                 .startDelimiter("START")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -85,11 +80,10 @@ public class SubStringTest {
     @Test
     public void getString_StartAndEndAreTheSame_StringFirstAndSecondDelimiter() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("aaaAAAuuuAAAooo")
+        String actual = SubString
+                .create("aaaAAAuuuAAAooo")
                 .startDelimiter("AAA")
                 .endDelimiter("AAA")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -101,10 +95,9 @@ public class SubStringTest {
     @Test
     public void getString_StartDelimiterIsFirstChars_StringAfterStartDelimiter() {
         String expected = "uuuooo";
-        String actual = SubString.builder()
-                .string("STARTuuuooo")
+        String actual = SubString
+                .create("STARTuuuooo")
                 .startDelimiter("START")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -113,10 +106,9 @@ public class SubStringTest {
     @Test
     public void getString_NoSuchStartDelimiter_EmptyString() {
         String expected = "";
-        String actual = SubString.builder()
-                .string("uuuoooiii")
+        String actual = SubString
+                .create("uuuoooiii")
                 .startDelimiter("START")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -125,11 +117,10 @@ public class SubStringTest {
     @Test
     public void getString_RequestOccurrenceOfStartDelimiterThatDoesNotExist_EmptyString() {
         String expected = "";
-        String actual = SubString.builder()
-                .string("rrrSTARTiiiSTARTaaaENDuuuENDooo")
+        String actual = SubString
+                .create("rrrSTARTiiiSTARTaaaENDuuuENDooo")
                 .startDelimiter("START")
                 .startOccurrence(40)
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -138,10 +129,9 @@ public class SubStringTest {
     @Test
     public void getString_StartDelimiterIsLastChars_EmptyString() {
         String expected = "";
-        String actual = SubString.builder()
-                .string("uuuoooSTART")
+        String actual = SubString
+                .create("uuuoooSTART")
                 .startDelimiter("START")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -150,11 +140,10 @@ public class SubStringTest {
     @Test
     public void getString_SecondStartDelimiterOfThree_StringAfterSecondStartDelimiter() {
         String expected = "eeeSTARTccc";
-        String actual = SubString.builder()
-                .string("uuuSTARToooSTARTeeeSTARTccc")
+        String actual = SubString
+                .create("uuuSTARToooSTARTeeeSTARTccc")
                 .startDelimiter("START")
                 .startOccurrence(2)
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -163,10 +152,9 @@ public class SubStringTest {
     @Test
     public void getString_StartDelimiterIsInMiddle_StringAfterStartDelimiter() {
         String expected = "ooo";
-        String actual = SubString.builder()
-                .string("uuuSTARTooo")
+        String actual = SubString
+                .create("uuuSTARTooo")
                 .startDelimiter("START")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -175,10 +163,9 @@ public class SubStringTest {
     @Test
     public void getString_StartDelimiterOccurrsTwice_StringAfterFirstStartDelimiter() {
         String expected = "oooSTARTiii";
-        String actual = SubString.builder()
-                .string("uuuSTARToooSTARTiii")
+        String actual = SubString
+                .create("uuuSTARToooSTARTiii")
                 .startDelimiter("START")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -190,10 +177,9 @@ public class SubStringTest {
     @Test
     public void getString_TwoEndDelimiter_StringBeforeFirstOccurrence() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("uuuENDoooENDiii")
+        String actual = SubString
+                .create("uuuENDoooENDiii")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -202,11 +188,10 @@ public class SubStringTest {
     @Test
     public void getString_SecondEndDelimiterOfThree_StringBeforeSecondOccurrence() {
         String expected = "uuuENDooo";
-        String actual = SubString.builder()
-                .string("uuuENDoooENDiiiENDeee")
+        String actual = SubString
+                .create("uuuENDoooENDiiiENDeee")
                 .endDelimiter("END")
                 .endOccurrence(2)
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -215,11 +200,10 @@ public class SubStringTest {
     @Test
     public void getString_RequestOccurrenceOfEndDelimiterThatDoesNotExist_WholeString() {
         String expected = "uuuENDoooENDiiiENDeee";
-        String actual = SubString.builder()
-                .string("uuuENDoooENDiiiENDeee")
+        String actual = SubString
+                .create("uuuENDoooENDiiiENDeee")
                 .endDelimiter("END")
                 .endOccurrence(40)
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -228,10 +212,9 @@ public class SubStringTest {
     @Test
     public void getString_EndDelimiterOneCharLong_StringBeforeEndDelimiter() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("uuuAooo")
+        String actual = SubString
+                .create("uuuAooo")
                 .endDelimiter("A")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -240,10 +223,9 @@ public class SubStringTest {
     @Test
     public void getString_EndDelimiterLastChars_StringBeforeEndDelimiter() {
         String expected = "uuuooo";
-        String actual = SubString.builder()
-                .string("uuuoooEND")
+        String actual = SubString
+                .create("uuuoooEND")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -252,10 +234,9 @@ public class SubStringTest {
     @Test
     public void getString_EndDelimiterMiddleOfString_StringBeforeEndDelimiter() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("uuuENDooo")
+        String actual = SubString
+                .create("uuuENDooo")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -264,10 +245,9 @@ public class SubStringTest {
     @Test
     public void getString_NoSuchEndDelimiter_WholeString() {
         String expected = "uuuiiiooo";
-        String actual = SubString.builder()
-                .string("uuuiiiooo")
+        String actual = SubString
+                .create("uuuiiiooo")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -276,10 +256,9 @@ public class SubStringTest {
     @Test
     public void getString_EndDelimiterIsFirstChars_EmptyString() {
         String expected = "";
-        String actual = SubString.builder()
-                .string("ENDuuukkkk")
+        String actual = SubString
+                .create("ENDuuukkkk")
                 .endDelimiter("END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -291,9 +270,8 @@ public class SubStringTest {
     @Test
     public void getString_NoDelimiters_InputStringUnaltered() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("uuu")
-                .build()
+        String actual = SubString
+                .create("uuu")
                 .getString();
         assertEquals(expected, actual);
     }
@@ -303,15 +281,13 @@ public class SubStringTest {
     public void getBuilder_StringWithTwoLevelsOfDelimiters_StringBetween() {
         String expected = "cccc";
         String input = "aaaaFIRST_STARTbbbbbSECOND_STARTccccSECOND_ENDddddFIRST_ENDeeee";
-        String actual = SubString.builder()
-                .string(input)
+        String actual = SubString
+                .create(input)
                 .startDelimiter("FIRST_START")
                 .endDelimiter("FIRST_END")
-                .build()
-                .getBuilder()
+                .newSubString()
                 .startDelimiter("SECOND_START")
                 .endDelimiter("SECOND_END")
-                .build()
                 .getString();
         assertEquals(expected, actual);
     }
@@ -320,9 +296,8 @@ public class SubStringTest {
     @Test
     public void getStr_SetString_ArgumentString() {
         String expected = "uuu";
-        String actual = SubString.builder()
-                .string("uuu")
-                .build()
+        String actual = SubString
+                .create("uuu")
                 .getStr()
                 .getString();
         assertEquals(expected, actual);
