@@ -82,11 +82,11 @@ public class TimekeeperTest {
     public void testToJson() {
         Timekeeper tk = Timekeeper.getSingleton();
         tk.startLap("A");
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(10);
         tk.stopLap().startLap("B");
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(10);
         tk.stopLap().startLap("C");
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(10);
         tk.stopLap().stop();
         JsonOrdered json = tk.toJson();
         //Check that are 5 attributes "name", "tot", "avg" and so forth

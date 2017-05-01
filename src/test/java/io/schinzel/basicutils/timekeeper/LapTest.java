@@ -47,12 +47,12 @@ public class LapTest {
     public void testGetParentPercent() {
         Lap root = new Lap("root", null);
         root.start();
-        Sandman.snoozeMillis(200);
+        Sandman.snoozeMillis(20);
         Lap A = root.start("A");
         Lap AA = A.start("AA");
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(10);
         AA.stop();
-        Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(10);
         A.stop();
         root.stop();
 
@@ -68,17 +68,17 @@ public class LapTest {
         expected = 0d;
         Assert.assertEquals(expected, result, delta);
         //
-        delta = 5d;
+        delta = 15d;
         result = A.getPercentOfParent();
         expected = 50d;
         Assert.assertEquals(expected, result, delta);
         //
-        delta = 5d;
+        delta = 10d;
         result = A.getPercentOfRoot();
         expected = 50d;
         Assert.assertEquals(expected, result, delta);
         //
-        delta = 5d;
+        delta = 10d;
         result = AA.getPercentOfParent();
         expected = 50d;
         Assert.assertEquals(expected, result, delta);
