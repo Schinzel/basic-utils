@@ -23,14 +23,22 @@ import java.util.Map;
  */
 public class CipherLibrary {
     private Map<Integer, ICipher> mCiphers = new HashMap<>();
+    private static CipherLibrary INSTANCE = new CipherLibrary();
 
 
     /**
-     *
      * @return A new instance.
      */
     public static CipherLibrary create() {
         return new CipherLibrary();
+    }
+
+
+    /**
+     * @return The singleton instance.
+     */
+    public static CipherLibrary getSingleton() {
+        return INSTANCE;
     }
 
 

@@ -7,7 +7,7 @@ import io.schinzel.basicutils.crypto.cipher.ICipher;
 /**
  * Using an enum can be beneficial for readability.
  */
-public class CipherLibrarySample2 {
+public class CipherLibraryEnumSample {
     public static void main(String[] args) {
         String encryptedMobileNumber = Crypto.MOBILE_NUMBER.encrypt("5551234");
         System.out.println(encryptedMobileNumber);
@@ -28,24 +28,21 @@ public class CipherLibrarySample2 {
 
 
         Crypto(Integer version, ICipher cipher) {
-            Holder.CIPHER_LIBRARY.addCipher(version, cipher);
+            CipherLibrary.getSingleton().addCipher(version, cipher);
             this.mCipherVersion = version;
 
         }
 
 
         String encrypt(String clearTextString) {
-            return Holder.CIPHER_LIBRARY.encrypt(mCipherVersion, clearTextString);
+            return CipherLibrary.getSingleton().encrypt(mCipherVersion, clearTextString);
         }
 
 
         static String decrypt(String encryptedString) {
-            return Holder.CIPHER_LIBRARY.decrypt(encryptedString);
+            return CipherLibrary.getSingleton().decrypt(encryptedString);
         }
     }
 
 
-    private static class Holder {
-        static CipherLibrary CIPHER_LIBRARY = new CipherLibrary();
-    }
 }

@@ -16,6 +16,14 @@ public class CipherLibraryTest {
 
 
     @Test
+    public void getSingleton_AddCipherToSingleton_UseAddedCipherThroughSingleton() {
+        CipherLibrary.getSingleton().addCipher(1, new MockCipher1());
+        String encryptedString = CipherLibrary.getSingleton().encrypt(1, "any_string");
+        assertEquals("v1_one_any_string", encryptedString);
+    }
+
+
+    @Test
     public void encryptDecrypt_FunnyChars_OutputSameAsInput() {
         CipherLibrary cipherLibrary = CipherLibrary.create()
                 .addCipher(1, new MockCipher1());
