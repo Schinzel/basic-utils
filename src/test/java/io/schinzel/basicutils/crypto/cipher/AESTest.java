@@ -21,7 +21,16 @@ public class AESTest {
     public void constructor_WrongKeySize_ThrowException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Key length must be 16 or 32");
-        AES.builder().key("WrongKeySize").build();
+        new AES("WrongKeySize");
+    }
+
+
+    @Test
+    public void constructorOneArg() {
+        AES aes = new AES("0123456789abcdef");
+        String expected = "abc";
+        String actual = aes.decrypt(aes.encrypt(expected));
+        assertEquals(expected, actual);
     }
 
 
