@@ -1,5 +1,7 @@
 package io.schinzel.basicutils.crypto.cipher;
 
+import com.pholser.junit.quickcheck.Property;
+import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.crypto.encoding.Encoding;
@@ -7,11 +9,13 @@ import io.schinzel.basicutils.str.Str;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import javax.crypto.Cipher;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(JUnitQuickcheck.class)
 public class AESTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
@@ -35,7 +39,7 @@ public class AESTest {
 
 
     @Test
-    public void encryptAndDecrypt_funnyCharsAvailableEncodings_shouldBeTheSame() {
+    public void encryptAndDecrypt_FunnyCharsAvailableEncodings_ShouldBeTheSame() {
         for (Encoding encoding : Encoding.values()) {
             AES aes = AES.builder()
                     .key("0123456789abcdef")
@@ -47,6 +51,15 @@ public class AESTest {
                 assertEquals(funnyChars.getString(), decrypted);
             }
         }
+    }
+
+
+    @Property
+    public void encryptAndDecrypt_PropertyBased_ShouldBeTheSame(String string) {
+        AES aes = new AES("0123456789abcdef");
+        String encString = aes.encrypt(string);
+        String decString = aes.decrypt(encString);
+        assertEquals(string, decString);
     }
 
 
