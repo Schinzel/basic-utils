@@ -1,7 +1,6 @@
 package io.schinzel.basicutils;
 
 import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -23,8 +22,8 @@ public class SandmanTest extends Sandman {
         Sandman.snoozeMillis(20);
         //Calc the time to do all iterations
         long executionTimeInMS = (System.nanoTime() - start) / 1000000;
-        Assert.assertThat(executionTimeInMS, Matchers.lessThan(30l));
-        Assert.assertThat(executionTimeInMS, Matchers.greaterThanOrEqualTo(20l));
+        assertThat(executionTimeInMS, Matchers.lessThan(30l));
+        assertThat(executionTimeInMS, Matchers.greaterThanOrEqualTo(20l));
     }
 
 
