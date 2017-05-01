@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The purpose of this class is to hold a set of ciphers and that are used to encrypt and decrypt
+ * The purpose of this class is to hold a set of ciphers that are used to encrypt and decrypt
  * strings.
  * <p>
  * Strings encrypted with the instances of this class are prefixed with a version.
