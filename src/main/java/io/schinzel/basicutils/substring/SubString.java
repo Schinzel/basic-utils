@@ -1,10 +1,10 @@
 package io.schinzel.basicutils.substring;
 
-import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
 import io.schinzel.basicutils.str.Str;
-import lombok.Builder;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
@@ -17,49 +17,63 @@ public class SubString {
     /** Flag that indicates that no value has been set. */
     private static final String NO_VAL_SET = "qEvLh6L7HJ6uAkoJB7kT";
     /** Extracted substring */
-    @Getter private final String mString;
+    @Getter(AccessLevel.PACKAGE) private final String mString;
 
 
-    /**
-     * @param string
-     * @param startDelimiter  sss
-     * @param startOccurrence ee
-     * @param endDelimiter
-     * @param endOccurrence
-     */
-    @Builder
-    private SubString(String string, String startDelimiter, int startOccurrence, String endDelimiter, int endOccurrence) {
+    public static Builder create(String string) {
+        return new Builder(string);
+    }
+
+
+    @Accessors(prefix = "m", fluent = true, chain = true)
+    public static class Builder {
+        private final String mString;
+        @Setter private String mStartDelimiter = NO_VAL_SET;
+        @Setter private int mStartOccurrence = 1;
+        @Setter private String mEndDelimiter = NO_VAL_SET;
+        @Setter private int mEndOccurrence = 1;
+
+
+        Builder(String string) {
+            mString = string;
+        }
+
+
+        /**
+         *
+         * @return The requested substring as string.
+         */
+        public String getString() {
+            return new SubString(this).getString();
+        }
+
+
+        /**
+         * @return The sub-string as a Str.
+         */
+        public Str getStr() {
+            return Str.create(this.getString());
+        }
+
+
+        /**
+         *
+         * @return The request substring as new SubString.
+         */
+        public Builder newSubString() {
+            return SubString.create(this.getString());
+        }
+
+    }
+
+
+    private SubString(Builder builder) {
+        String string = builder.mString;
         Thrower.throwIfVarNull(string, "string");
-        //If start delimiter was not set (or was set to null or empty string)
-        if (Checker.isEmpty(startDelimiter)) {
-            startDelimiter = NO_VAL_SET;
-        }
-        //If start delimiter was not set (or was set to null or empty string)
-        if (Checker.isEmpty(endDelimiter)) {
-            endDelimiter = NO_VAL_SET;
-        }
-        startOccurrence = (startOccurrence == 0) ? 1 : startOccurrence;
-        endOccurrence = (endOccurrence == 0) ? 1 : endOccurrence;
-        int startPos = getStartPos(string, startDelimiter, startOccurrence);
-        int endPos = getEndPos(string, endDelimiter, endOccurrence, startPos);
+        int startPos = getStartPos(string, builder.mStartDelimiter, builder.mStartOccurrence);
+        int endPos = getEndPos(string, builder.mEndDelimiter, builder.mEndOccurrence, startPos);
         mString = string.substring(startPos, endPos);
 
-    }
-
-
-    /**
-     * @return A new sub-stringer builder for extracting a string from an extracted string.
-     */
-    public SubString.SubStringBuilder getBuilder() {
-        return SubString.builder().string(this.getString());
-    }
-
-
-    /**
-     * @return The sub-string as a Str.
-     */
-    public Str getStr() {
-        return Str.create(this.getString());
     }
 
 
