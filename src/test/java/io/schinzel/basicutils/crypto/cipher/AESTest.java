@@ -14,11 +14,20 @@ import org.junit.runner.RunWith;
 import javax.crypto.Cipher;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 @RunWith(JUnitQuickcheck.class)
 public class AESTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+
+    @Test
+    public void encrypt_OneStringEncryptedTwice_EncryptedStringsShouldDiffer() {
+        AES aes = new AES("0123456789abcdef");
+        String clearText = "This is a text";
+        assertNotEquals(aes.encrypt(clearText), aes.encrypt(clearText));
+    }
 
 
     @Test
