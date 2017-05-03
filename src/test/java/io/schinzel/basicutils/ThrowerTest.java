@@ -282,5 +282,44 @@ public class ThrowerTest extends Thrower {
         exception.expectMessage("The number of key values is not even");
         new MyTestClass().myMethod(false, "MyMessage", "k1");
     }
+
+
+    @Test
+    public void throwIfTrue_ChainedMessageAndIsTrue_ThrowsException() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("My message");
+        Thrower.throwIfTrue(true).message("My message");
+    }
+
+
+    @Test
+    public void throwIfTrue_ChainedMessageAndIsFalse_NoException() {
+        try {
+            Thrower.throwIfTrue(false)
+                    .message("My message");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
+
+    @Test
+    public void throwIfFalse_ChainedMessageAndIsFalse_ThrowsException() {
+        exception.expect(RuntimeException.class);
+        exception.expectMessage("My message");
+        Thrower.throwIfFalse(false).message("My message");
+    }
+
+
+    @Test
+    public void throwIfFalse_ChainedMessageAndIsTrue_NoException() {
+        try {
+            Thrower.throwIfFalse(true)
+                    .message("My message");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
 }
 
