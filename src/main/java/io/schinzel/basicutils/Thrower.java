@@ -12,12 +12,6 @@ import java.util.Arrays;
  */
 public class Thrower {
 
-    /**
-     * Package private constructor as this class should not be instantiated.
-     */
-    Thrower() {
-    }
-
 
     /**
      * Throws runtime exception if the argument value with the argument name is null.
@@ -112,6 +106,17 @@ public class Thrower {
 
 
     /**
+     * Throw if argument expression is false.
+     *
+     * @param expression The expression to check
+     * @return Thrower message for chaining the exception message.
+     */
+    public static ThrowerMessage throwIfFalse(boolean expression) {
+        return !expression ? new ThrowerMessage(!expression) : ThrowerMessage.THROWER_DUD;
+    }
+
+
+    /**
      * Throw if argument expression is true.
      *
      * @param expression The boolean expression to evaluate.
@@ -119,6 +124,17 @@ public class Thrower {
      */
     public static void throwIfTrue(boolean expression, String message) {
         throwIfFalse(!expression, message);
+    }
+
+
+    /**
+     * Throw if argument expression is true.
+     *
+     * @param expression The expression to check
+     * @return Thrower message for chaining the exception message.
+     */
+    public static ThrowerMessage throwIfTrue(boolean expression) {
+        return expression ? new ThrowerMessage(expression) : ThrowerMessage.THROWER_DUD;
     }
 
 
