@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.crypto.cryptohash;
+package io.schinzel.basicutils.crypto.hash;
 
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -35,7 +35,7 @@ public class BCryptHash implements IHash {
 
 
     @Override
-    public boolean areEqual(String clearText, String hashedString) {
+    public boolean matches(String clearText, String hashedString) {
         return BCrypt.checkpw(clearText, hashedString);
     }
 }

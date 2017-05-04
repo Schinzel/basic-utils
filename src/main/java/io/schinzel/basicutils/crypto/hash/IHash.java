@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.crypto.cryptohash;
+package io.schinzel.basicutils.crypto.hash;
 
 /**
  * The purpose of this interface is to prevent third parties or the public from reading private
@@ -27,5 +27,5 @@ public interface IHash {
      * @return True if the argument clear test string is the same string as was input when
      * the hashed string was created.
      */
-    boolean areEqual(String clearText, String hashedString);
+    boolean matches(String clearText, String hashedString);
 }

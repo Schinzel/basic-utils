@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.crypto.cryptohash;
+package io.schinzel.basicutils.crypto.hash;
 
 import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import io.schinzel.basicutils.FunnyChars;
@@ -24,7 +24,7 @@ public class BCryptHashTest {
             String clearText = funnyChars.getString();
             String hashed = hash.hash(clearText);
             Assert.assertTrue("The clear text string is the same as the hashed",
-                    hash.areEqual(clearText, hashed));
+                    hash.matches(clearText, hashed));
         }
     }
 
