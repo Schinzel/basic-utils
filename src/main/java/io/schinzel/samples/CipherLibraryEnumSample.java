@@ -1,7 +1,7 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.crypto.CipherLibrary;
 import io.schinzel.basicutils.crypto.cipher.AES;
+import io.schinzel.basicutils.crypto.cipher.CipherLibrary;
 import io.schinzel.basicutils.crypto.cipher.ICipher;
 
 /**

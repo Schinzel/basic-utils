@@ -298,13 +298,16 @@ Thrower.throwIfFalse(true, "A message");
 ## Features added for next release
 - Crypto added
     - AES cipher
-    - CipherLibrary
+    - CipherLibrary for version handling ciphers
+    - Bcrypt hash
+    - HashLibrary for version handling hash functions 
 - SubStringer
     - Renamed to SubString
     - Rewritten with immutable design
 - Thrower
     - More distinct methods names when working with variables. All methods validating variables 
     are named throwIfVar[...], e.g. throwIfVarEmpty
+    - added throwIf[True/false] with a chained message method. 
 - Timekeeper
     - Added method toStr
    
