@@ -27,7 +27,7 @@ public class ThrowerMessage {
     /**
      * @param message The message that will be thrown if there is an exception to throw.
      */
-    void message(String message) {
+    public void message(String message) {
         if (this.isError()) {
             throw new RuntimeException(message);
         }
