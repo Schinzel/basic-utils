@@ -72,7 +72,7 @@ public class HashLibrary {
                 .message("Cannot hash as there is no hash with version " + version);
         return this.getHashVersions()
                 .get(version)
-                .matches(clearText, versionPrefix.getTheString());
+                .matches(clearText, versionPrefix.getString());
     }
 
 }

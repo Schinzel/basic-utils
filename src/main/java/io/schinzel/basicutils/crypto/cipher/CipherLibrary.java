@@ -87,6 +87,6 @@ public class CipherLibrary {
                 .message("Cannot decrypt as there is no cipher with version " + version);
         return this.getCiphers()
                 .get(version)
-                .decrypt(versionPrefix.getTheString());
+                .decrypt(versionPrefix.getString());
     }
 }
