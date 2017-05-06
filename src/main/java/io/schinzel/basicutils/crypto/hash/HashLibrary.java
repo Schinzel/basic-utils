@@ -13,8 +13,8 @@ import lombok.*;
  */
 @Builder
 public class HashLibrary {
-    @Getter(AccessLevel.PRIVATE)
-    @Singular private ImmutableMap<Integer, IHash> hashVersions;
+    @Singular @Getter(AccessLevel.PRIVATE)
+    private ImmutableMap<Integer, IHash> hashVersions;
 
 
     /**

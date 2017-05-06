@@ -13,17 +13,9 @@ public class CipherLibraryTest {
 
 
     @Test
-    public void getSingleton_AddCipherToSingleton_UseAddedCipherThroughSingleton() {
-        CipherLibrary.getSingleton().addCipher(1, new MockCipher1());
-        String encryptedString = CipherLibrary.getSingleton().encrypt(1, "any_string");
-        assertEquals("v1_one_any_string", encryptedString);
-    }
-
-
-    @Test
     public void encryptDecrypt_FunnyChars_OutputSameAsInput() {
-        CipherLibrary cipherLibrary = new CipherLibrary()
-                .addCipher(1, new MockCipher1());
+        CipherLibrary cipherLibrary = CipherLibrary.builder()
+                .cipher(1, new MockCipher1()).build();
         for (FunnyChars funnyChars : FunnyChars.values()) {
             String encryptedString = cipherLibrary.encrypt(1, funnyChars.getString());
             String actual = cipherLibrary.decrypt(encryptedString);
@@ -34,9 +26,10 @@ public class CipherLibraryTest {
 
     @Test
     public void encrypt_TwoDifferentCiphersAdded_CorrectCipherIsUsedToEncrypt() {
-        CipherLibrary cipherLibrary = new CipherLibrary()
-                .addCipher(1, new MockCipher1())
-                .addCipher(2, new MockCipher2());
+        CipherLibrary cipherLibrary = CipherLibrary.builder()
+                .cipher(1, new MockCipher1())
+                .cipher(2, new MockCipher2())
+                .build();
         String encryptedString = cipherLibrary.encrypt(1, "my_first_string");
         assertEquals("v1_one_my_first_string", encryptedString);
         encryptedString = cipherLibrary.encrypt(2, "my_second_string");
@@ -46,9 +39,10 @@ public class CipherLibraryTest {
 
     @Test
     public void decrypt_TwoDifferentCiphersAdded_CorrectCipherIsUsedToDecrypt() {
-        CipherLibrary cipherLibrary = new CipherLibrary()
-                .addCipher(1, new MockCipher1())
-                .addCipher(2, new MockCipher2());
+        CipherLibrary cipherLibrary = CipherLibrary.builder()
+                .cipher(1, new MockCipher1())
+                .cipher(2, new MockCipher2())
+                .build();
         String decryptedString = cipherLibrary.decrypt("v1_one_my_first_string");
         assertEquals("my_first_string", decryptedString);
         decryptedString = cipherLibrary.decrypt("v2_two_my_second_string");
@@ -58,17 +52,20 @@ public class CipherLibraryTest {
 
     @Test
     public void addCipher_CipherVersionAlreadyExists_ThrowsException() {
-        CipherLibrary cipherLibrary = new CipherLibrary()
-                .addCipher(1, new MockCipher1());
-        exception.expect(RuntimeException.class);
-        cipherLibrary.addCipher(1, new MockCipher2());
+        CipherLibrary.CipherLibraryBuilder cipherLibraryBuilder = CipherLibrary.builder()
+                .cipher(1, new MockCipher1())
+                .cipher(1, new MockCipher2());
+        exception.expect(IllegalArgumentException.class);
+        exception.expectMessage("Multiple entries with same key");
+        cipherLibraryBuilder.build();
     }
 
 
     @Test
     public void encrypt_NoCypherWithArgumentVersion_ThrowsException() {
-        CipherLibrary cipherLibrary = new CipherLibrary()
-                .addCipher(1, new MockCipher1());
+        CipherLibrary cipherLibrary = CipherLibrary.builder()
+                .cipher(1, new MockCipher1())
+                .build();
         exception.expect(RuntimeException.class);
         cipherLibrary.encrypt(123, "my_string");
     }
@@ -76,8 +73,8 @@ public class CipherLibraryTest {
 
     @Test
     public void decrypt_NoPrefix_ThrowsException() {
-        CipherLibrary cipherLibrary = new CipherLibrary()
-                .addCipher(1, new MockCipher1());
+        CipherLibrary cipherLibrary = CipherLibrary.builder()
+                .cipher(1, new MockCipher1()).build();
         exception.expect(RuntimeException.class);
         cipherLibrary.decrypt("my_string");
     }
@@ -85,8 +82,8 @@ public class CipherLibraryTest {
 
     @Test
     public void decrypt_NoSuchCipherVersion_ThrowsException() {
-        CipherLibrary cipherLibrary = new CipherLibrary()
-                .addCipher(1, new MockCipher1());
+        CipherLibrary cipherLibrary = CipherLibrary.builder()
+                .cipher(1, new MockCipher1()).build();
         exception.expect(RuntimeException.class);
         cipherLibrary.decrypt("v123_my_string");
     }

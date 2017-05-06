@@ -1,13 +1,9 @@
 package io.schinzel.basicutils.crypto.cipher;
 
+import com.google.common.collect.ImmutableMap;
 import io.schinzel.basicutils.Thrower;
 import io.schinzel.basicutils.crypto.VersionPrefix;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.val;
-
-import java.util.HashMap;
-import java.util.Map;
+import lombok.*;
 
 /**
  * The purpose of this class is to hold a set of ciphers that are used to encrypt and decrypt
@@ -24,31 +20,10 @@ import java.util.Map;
  * <p>
  * Created by schinzel on 2017-04-30.
  */
+@Builder
 public class CipherLibrary {
-    private static final CipherLibrary SINGLETON = new CipherLibrary();
-    @Getter(AccessLevel.PRIVATE)
-    private Map<Integer, ICipher> ciphers = new HashMap<>();
-
-
-    /**
-     * @return The singleton instance.
-     */
-    public static CipherLibrary getSingleton() {
-        return SINGLETON;
-    }
-
-
-    /**
-     * @param version The version of the cipher.
-     * @param cipher  The cipher to add.
-     * @return This for chaining.
-     */
-    public CipherLibrary addCipher(Integer version, ICipher cipher) {
-        Thrower.throwIfTrue(this.getCiphers().containsKey(version))
-                .message("Cannot add cipher as there already exists a cipher with version " + version);
-        this.getCiphers().put(version, cipher);
-        return this;
-    }
+    @Singular @Getter(AccessLevel.PRIVATE)
+    private ImmutableMap<Integer, ICipher> ciphers;
 
 
     /**
