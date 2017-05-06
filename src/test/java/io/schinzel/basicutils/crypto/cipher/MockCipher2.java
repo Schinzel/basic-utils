@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.crypto;
+package io.schinzel.basicutils.crypto.cipher;
 
 import io.schinzel.basicutils.crypto.cipher.ICipher;
 

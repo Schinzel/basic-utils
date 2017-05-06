@@ -1,12 +1,9 @@
-package io.schinzel.basicutils.crypto.cryptohash;
+package io.schinzel.basicutils.crypto.hash;
 
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
 import io.schinzel.basicutils.FunnyChars;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-@RunWith(JUnitQuickcheck.class)
 public class BCryptHashTest {
 
     @Test
@@ -24,7 +21,7 @@ public class BCryptHashTest {
             String clearText = funnyChars.getString();
             String hashed = hash.hash(clearText);
             Assert.assertTrue("The clear text string is the same as the hashed",
-                    hash.areEqual(clearText, hashed));
+                    hash.matches(clearText, hashed));
         }
     }
 

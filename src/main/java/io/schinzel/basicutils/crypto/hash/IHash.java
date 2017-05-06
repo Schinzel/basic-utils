@@ -1,10 +1,10 @@
-package io.schinzel.basicutils.crypto.cryptohash;
+package io.schinzel.basicutils.crypto.hash;
 
 /**
  * The purpose of this interface is to prevent third parties or the public from reading private
  * data.
  * <p>
- * Probalby implementation of this interface are cryptographic hash functions, password hashing
+ * Probable implementation of this interface are cryptographic hash functions, password hashing
  * functions and password-based key derivation function.
  * <p>
  * Good article to read when choosing to implement hashing for keeping data secret.
@@ -24,8 +24,8 @@ public interface IHash {
     /**
      * @param clearText
      * @param hashedString
-     * @return True if the argument clear test string is the same string as was input when
-     * the hashed string was created.
+     * @return True if the argument clear text string is the same string as was input when
+     * the argument hashed string was created.
      */
-    boolean areEqual(String clearText, String hashedString);
+    boolean matches(String clearText, String hashedString);
 }
