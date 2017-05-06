@@ -1,7 +1,6 @@
-package io.schinzel.basicutils.crypto;
+package io.schinzel.basicutils.crypto.cipher;
 
 import io.schinzel.basicutils.FunnyChars;
-import io.schinzel.basicutils.crypto.cipher.CipherLibrary;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

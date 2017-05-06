@@ -30,6 +30,15 @@ public class HashLibrary {
 
 
     /**
+     *
+     * @return
+     */
+    public static HashLibrary create() {
+        return new HashLibrary();
+    }
+
+
+    /**
      * Adds a hash function to this library.
      *
      * @param version The version of the hash to add.
