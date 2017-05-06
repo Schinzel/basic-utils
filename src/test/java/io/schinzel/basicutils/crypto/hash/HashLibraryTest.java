@@ -20,8 +20,8 @@ public class HashLibraryTest {
     @Test
     public void hash_AddTwoHash_CorrectHashIsUsed() {
         HashLibrary library = HashLibrary.builder()
-                .hashVersion(45, new MockHash1())
-                .hashVersion(77, new MockHash2())
+                .hash(45, new MockHash1())
+                .hash(77, new MockHash2())
                 .build();
         assertEquals("v45_mock1_mystring", library.hash(45, "mystring"));
         assertEquals("v77_mock2_mystring", library.hash(77, "mystring"));
@@ -31,7 +31,7 @@ public class HashLibraryTest {
     @Property
     public void hash_PropertyBased_HashedCorrectly(@InRange(min = "1") int version, String s) {
         HashLibrary library = HashLibrary.builder()
-                .hashVersion(version, new MockHash1())
+                .hash(version, new MockHash1())
                 .build();
         String actual = library.hash(version, s);
         String expected = "v" + version + "_mock1_" + s;
@@ -50,7 +50,7 @@ public class HashLibraryTest {
     @Test
     public void hash_NonExistingVersionAsArg_Exception() {
         HashLibrary library = HashLibrary.builder()
-                .hashVersion(11, new MockHash1())
+                .hash(11, new MockHash1())
                 .build();
         exception.expect(RuntimeException.class);
         library.matches("clearText", "v123_hashedstring");
@@ -60,7 +60,7 @@ public class HashLibraryTest {
     @Test
     public void matches_DoNotMatch_False() {
         HashLibrary library = HashLibrary.builder()
-                .hashVersion(11, new MockHash1())
+                .hash(11, new MockHash1())
                 .build();
         String clearText = "first_string";
         String hashedString = library.hash(11, "second_string");
@@ -72,7 +72,7 @@ public class HashLibraryTest {
     @Test
     public void matches_Matches_True() {
         HashLibrary library = HashLibrary.builder()
-                .hashVersion(11, new MockHash1())
+                .hash(11, new MockHash1())
                 .build();
         String clearText = "the_string";
         String hashedString = library.hash(11, "thre_string");
@@ -84,7 +84,7 @@ public class HashLibraryTest {
     @Test
     public void matches_NonExistingVersionPrefix_Exception() {
         HashLibrary library = HashLibrary.builder()
-                .hashVersion(11, new MockHash1())
+                .hash(11, new MockHash1())
                 .build();
         exception.expect(RuntimeException.class);
         library.matches("clear_text", "v23_this_prefix_does_not_exist");
