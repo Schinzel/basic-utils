@@ -1,6 +1,7 @@
 package io.schinzel.samples;
 
 import io.schinzel.basicutils.crypto.cipher.AES;
+import io.schinzel.basicutils.crypto.cipher.CipherLibrarySingleton;
 import io.schinzel.basicutils.crypto.cipher.ICipher;
 
 /**
@@ -27,19 +28,19 @@ public class CipherLibraryEnumSample {
 
 
         Crypto(Integer version, ICipher cipher) {
-            //CipherLibrary.getSingleton().addCipher(version, cipher);
+            CipherLibrarySingleton.getBuilder().cipher(version, cipher);
             this.mCipherVersion = version;
 
         }
 
 
         String encrypt(String clearTextString) {
-            return "";//CipherLibrary.getSingleton().encrypt(mCipherVersion, clearTextString);
+            return CipherLibrarySingleton.getLibrary().encrypt(mCipherVersion, clearTextString);
         }
 
 
         static String decrypt(String encryptedString) {
-            return "";//CipherLibrary.getSingleton().decrypt(encryptedString);
+            return CipherLibrarySingleton.getLibrary().decrypt(encryptedString);
         }
     }
 
