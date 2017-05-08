@@ -11,12 +11,12 @@ package io.schinzel.basicutils.crypto.hash;
  * Created by Schinzel on 2017-05-08.
  */
 class HashLibrarySingleton {
+    HashLibrary mLibrary;
+    HashLibrary.HashLibraryBuilder mBuilder = HashLibrary.builder();
+
     static class Holder {
         public static HashLibrarySingleton INSTANCE = new HashLibrarySingleton();
     }
-
-    HashLibrary mLibrary;
-    HashLibrary.HashLibraryBuilder mBuilder = HashLibrary.builder();
 
 
     /**

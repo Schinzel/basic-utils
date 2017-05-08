@@ -11,13 +11,12 @@ package io.schinzel.basicutils.crypto.cipher;
  * Created by Schinzel on 2017-05-08.
  */
 public class CipherLibrarySingleton {
+    CipherLibrary mLibrary;
+    CipherLibrary.CipherLibraryBuilder mBuilder = CipherLibrary.builder();
 
     static class Holder {
         public static CipherLibrarySingleton INSTANCE = new CipherLibrarySingleton();
     }
-
-    CipherLibrary mLibrary;
-    CipherLibrary.CipherLibraryBuilder mBuilder = CipherLibrary.builder();
 
 
     /**
