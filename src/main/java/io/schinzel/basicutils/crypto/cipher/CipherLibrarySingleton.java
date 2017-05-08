@@ -11,7 +11,8 @@ package io.schinzel.basicutils.crypto.cipher;
  * Created by Schinzel on 2017-05-08.
  */
 public class CipherLibrarySingleton {
-    private static class TheHolder {
+
+    static class Holder {
         public static CipherLibrarySingleton INSTANCE = new CipherLibrarySingleton();
     }
 
@@ -34,10 +35,10 @@ public class CipherLibrarySingleton {
      */
     public static CipherLibrary.CipherLibraryBuilder getBuilder() {
         //If builder is null, i.e. if the builder has already been used to create an instance.
-        if (TheHolder.INSTANCE.mBuilder == null) {
+        if (Holder.INSTANCE.mBuilder == null) {
             throw new RuntimeException("Cipher cannot be added as CipherLibrary already has been built.");
         }
-        return TheHolder.INSTANCE.mBuilder;
+        return Holder.INSTANCE.mBuilder;
     }
 
 
@@ -49,13 +50,13 @@ public class CipherLibrarySingleton {
      */
     public static CipherLibrary getLibrary() {
         //If a library has not yet been build
-        if (TheHolder.INSTANCE.mLibrary == null) {
-            synchronized (TheHolder.INSTANCE) {
-                TheHolder.INSTANCE.mLibrary = TheHolder.INSTANCE.mBuilder.build();
-                TheHolder.INSTANCE.mBuilder = null;
+        if (Holder.INSTANCE.mLibrary == null) {
+            synchronized (Holder.INSTANCE) {
+                Holder.INSTANCE.mLibrary = Holder.INSTANCE.mBuilder.build();
+                Holder.INSTANCE.mBuilder = null;
             }
         }
-        return TheHolder.INSTANCE.mLibrary;
+        return Holder.INSTANCE.mLibrary;
     }
 
 }
