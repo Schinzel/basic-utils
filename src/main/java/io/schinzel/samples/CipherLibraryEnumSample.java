@@ -1,6 +1,7 @@
 package io.schinzel.samples;
 
 import io.schinzel.basicutils.crypto.cipher.AES;
+import io.schinzel.basicutils.crypto.cipher.CipherLibrarySingleton;
 import io.schinzel.basicutils.crypto.cipher.ICipher;
 
 /**
@@ -8,17 +9,17 @@ import io.schinzel.basicutils.crypto.cipher.ICipher;
  */
 public class CipherLibraryEnumSample {
     public static void main(String[] args) {
-        String encryptedMobileNumber = Crypto.MOBILE_NUMBER.encrypt("5551234");
+        String encryptedMobileNumber = Cipher.MOBILE_NUMBER.encrypt("5551234");
         System.out.println(encryptedMobileNumber);
-        String encryptedEmail = Crypto.EMAIL_ADDRESS.encrypt("dude@example.com");
+        String encryptedEmail = Cipher.EMAIL_ADDRESS.encrypt("dude@example.com");
         System.out.println(encryptedEmail);
-        String encryptedSSN = Crypto.SSN.encrypt("12345");
+        String encryptedSSN = Cipher.SSN.encrypt("12345");
         System.out.println(encryptedSSN);
-        System.out.println(Crypto.decrypt(encryptedSSN));
+        System.out.println(Cipher.decrypt(encryptedSSN));
     }
 
 
-    enum Crypto {
+    enum Cipher {
         MOBILE_NUMBER(1, new AES("0123456789abcdef")),
         EMAIL_ADDRESS(2, new AES("mjynVBNTMEC8gHiN")),
         SSN(3, new AES("Cza6sBMEnXAtCoH3"));
@@ -26,20 +27,20 @@ public class CipherLibraryEnumSample {
         private final int mCipherVersion;
 
 
-        Crypto(Integer version, ICipher cipher) {
-            //CipherLibrary.getSingleton().addCipher(version, cipher);
+        Cipher(Integer version, ICipher cipher) {
+            CipherLibrarySingleton.getBuilder().cipher(version, cipher);
             this.mCipherVersion = version;
 
         }
 
 
         String encrypt(String clearTextString) {
-            return "";//CipherLibrary.getSingleton().encrypt(mCipherVersion, clearTextString);
+            return CipherLibrarySingleton.getLibrary().encrypt(mCipherVersion, clearTextString);
         }
 
 
         static String decrypt(String encryptedString) {
-            return "";//CipherLibrary.getSingleton().decrypt(encryptedString);
+            return CipherLibrarySingleton.getLibrary().decrypt(encryptedString);
         }
     }
 
