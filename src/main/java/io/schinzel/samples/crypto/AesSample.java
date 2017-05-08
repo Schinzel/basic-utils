@@ -1,4 +1,4 @@
-package io.schinzel.samples;
+package io.schinzel.samples.crypto;
 
 import io.schinzel.basicutils.crypto.cipher.AES;
 import io.schinzel.basicutils.crypto.encoding.Encoding;
