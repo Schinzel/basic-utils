@@ -1,12 +1,13 @@
 package io.schinzel.samples.crypto;
 
 import io.schinzel.basicutils.crypto.cipher.AES;
+import io.schinzel.basicutils.crypto.cipher.ICipher;
 import io.schinzel.basicutils.crypto.encoding.Encoding;
 
 public class AesSample {
 
     public static void main(String[] args) {
-        AES aes;
+        ICipher aes;
         String encryptedString, decryptedString;
         //Example 1
         System.out.println("*** Example 1 ***");
