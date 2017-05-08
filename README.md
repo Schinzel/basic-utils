@@ -297,10 +297,11 @@ Thrower.throwIfFalse(true, "A message");
 # Change Log
 ## Features added for next release
 - Crypto added
-    - AES cipher
-    - CipherLibrary for version handling ciphers
-    - Bcrypt hash
-    - HashLibrary for version handling hash functions 
+    - Cipher and hash-function interfaces
+    - AES implementation of the cipher interface
+    - bcrypt implementation of the hash interface
+    - Cipher and hash libraries for crypto version handling
+    - Singletons for the libraries
 - SubStringer
     - Renamed to SubString
     - Rewritten with immutable design
