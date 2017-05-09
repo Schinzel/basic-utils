@@ -143,21 +143,10 @@
             <version>2.5</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-        <dependency>
             <!-- base64 encoding -->
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
-        </dependency>
-        <dependency>
-            <!-- BCrypt cryptographic hash -->
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -165,6 +154,12 @@
             <version>3.5</version>
         </dependency>
         <!-- TEST DEPENDENCIES -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <!-- Property based testing -->
             <groupId>com.pholser</groupId>
