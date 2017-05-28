@@ -116,4 +116,25 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
     default T atab(String s) {
         return this.aws(WS.TAB, s);
     }
+
+
+    /**
+     * Append a windows line break.
+     *
+     * @return This for chaining.
+     */
+    default T acrlf() {
+        return this.aws(WS.CR_LF);
+    }
+
+
+    /**
+     * Append a windows line break.
+     *
+     * @return This for chaining.
+     */
+    default T acrlf(String s) {
+        return this.aws(WS.CR_LF, s);
+    }
+
 }

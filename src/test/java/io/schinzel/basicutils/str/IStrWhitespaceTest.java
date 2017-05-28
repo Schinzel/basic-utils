@@ -61,4 +61,17 @@ public class IStrWhitespaceTest {
         StrWhitespace str = new StrWhitespace().atab("A");
         Assert.assertEquals("A\t", str.getString());
     }
+
+
+    @Test
+    public void acrlf_NoArg_WindowsLineBreak() {
+        StrWhitespace str = new StrWhitespace().acrlf();
+        Assert.assertEquals("\r\n", str.getString());
+    }
+
+    @Test
+    public void acrlf_A_WindowsLineBreak() {
+        StrWhitespace str = new StrWhitespace().acrlf("A");
+        Assert.assertEquals("A\r\n", str.getString());
+    }
 }
