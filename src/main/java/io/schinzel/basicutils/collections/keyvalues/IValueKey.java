@@ -8,7 +8,7 @@ package io.schinzel.basicutils.collections.keyvalues;
 public interface IValueKey extends Comparable<IValueKey> {
 
     /**
-     * @return
+     * @return The key of the value.
      */
     String getKey();
 

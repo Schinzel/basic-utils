@@ -21,17 +21,11 @@ import java.util.stream.Stream;
  * @author schinzel
  */
 public class KeyValues<V extends IValueKey> implements Iterable<V> {
-    /**
-     * The internal storage. Set key sort order to be compareToIgnoreCase.
-     */
+    /** The internal storage. Set key sort order to be compareToIgnoreCase. */
     private final TreeMap<String, V> mValues = new TreeMap<>(String::compareToIgnoreCase);
-    /**
-     * Holds mapping between aliases and keys.
-     */
+    /** Holds mapping between aliases and keys. */
     private final Map<String, String> mAliasMap = new HashMap<>();
-    /**
-     * The name of this collection.
-     */
+    /** The name of this collection. */
     final String mName;
     //*************************************************************************
     //* CONSTRUCTION

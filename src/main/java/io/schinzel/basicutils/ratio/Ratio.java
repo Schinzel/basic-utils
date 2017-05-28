@@ -10,7 +10,6 @@ import java.math.BigInteger;
  * The purpose of this class enable the basic arithmetic operations on rational numbers and not lose precision.
  * Precision might be lost as decimal numbers cannot be represented in binary code.
  * <p>
- * <p>
  * Formulas from here
  * https://en.wikipedia.org/wiki/Rational_number#Arithmetic
  * <p>

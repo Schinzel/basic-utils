@@ -18,7 +18,7 @@ public class UTF8 {
 
 
     /**
-     * @param string
+     * @param string The string to encode.
      * @return The argument string as UTF-8 byte array.
      */
     public static byte[] getBytes(String string) {
@@ -27,7 +27,7 @@ public class UTF8 {
 
 
     /**
-     * @param bytes
+     * @param bytes The bytes to decode.
      * @return The argument UTF-8 encoded bytes as a string.
      */
     public static String getString(byte[] bytes) {

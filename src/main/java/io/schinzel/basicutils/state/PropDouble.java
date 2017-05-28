@@ -14,10 +14,9 @@ public class PropDouble {
 
 
     /**
-     * The number of digits in the fractional part of the rational number just added.
      *
-     * @param decimals
-     * @return
+     * @param decimals The number of digits in the fractional part of the rational number just added.
+     * @return Prop unit.
      */
     public PropUnit decimals(int decimals) {
         String valAsString = Str.create().a(mDouble, decimals).getString();

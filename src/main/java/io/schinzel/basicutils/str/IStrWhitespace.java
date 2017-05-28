@@ -46,6 +46,7 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
      * Append a white space.
      *
      * @param whitespace The white space to a.
+     * @param s The string to add before white space.
      * @return This for chaining.
      */
     default T aws(WS whitespace, String s) {
@@ -131,6 +132,7 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
     /**
      * Append a windows line break.
      *
+     * @param s The string to a append.
      * @return This for chaining.
      */
     default T acrlf(String s) {
