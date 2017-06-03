@@ -40,7 +40,6 @@ public class SubString {
 
 
         /**
-         *
          * @return The requested substring as string.
          */
         public String getString() {
@@ -57,7 +56,14 @@ public class SubString {
 
 
         /**
-         *
+         * @return The requested substring as string.
+         */
+        public String toString() {
+            return this.getString();
+        }
+
+
+        /**
          * @return The request substring as new SubString.
          */
         public Builder newSubString() {

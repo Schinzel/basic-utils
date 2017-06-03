@@ -278,6 +278,16 @@ public class SubStringTest {
 
 
     @Test
+    public void toString_NoDelimiters_InputStringUnaltered() {
+        String expected = "uuu";
+        String actual = SubString
+                .create("uuu")
+                .toString();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
     public void getBuilder_StringWithTwoLevelsOfDelimiters_StringBetween() {
         String expected = "cccc";
         String input = "aaaaFIRST_STARTbbbbbSECOND_STARTccccSECOND_ENDddddFIRST_ENDeeee";

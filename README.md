@@ -20,7 +20,7 @@ Some basic utilities I tend to use in projects. Most commonly less verbose versi
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.18</version>
+		<version>1.19</version>
 	</dependency>
 </dependencies>    
 ```
@@ -297,6 +297,11 @@ Thrower.throwIfFalse(true, "A message");
 # Change Log
 ## Features added for next release
 - Nothing yet
+
+## 1.19
+- Added Str.ifTrue(cond) and Str.endIf()
+- State and SubString toString returns the same as getString
+
 ## 1.18
 - SubStringer
     - Renamed to SubString
