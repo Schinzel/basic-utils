@@ -296,7 +296,7 @@ Thrower.throwIfFalse(true, "A message");
 
 # Change Log
 ## Features added for next release
-- Nothing yet
+- Added Str.ifTrue(cond) and Str.endIf()
 ## 1.18
 - SubStringer
     - Renamed to SubString
