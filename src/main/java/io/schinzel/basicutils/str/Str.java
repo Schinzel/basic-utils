@@ -9,9 +9,14 @@ import java.util.Locale;
  * <p>
  * Created by schinzel on 2017-02-26.
  */
+
 public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str>,
         IStrString<Str>, IStrUtil<Str> {
     StringBuilder sb = new StringBuilder();
+    /**
+     * If true, the adding of strings is paused.
+     */
+    private boolean mAddingPaused;
 
 
     /**
@@ -34,7 +39,9 @@ public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str
     @Override
     public Str a(String s) {
         Thrower.throwIfVarNull(s, "s");
-        sb.append(s);
+        if (!mAddingPaused) {
+            sb.append(s);
+        }
         return this;
     }
 
@@ -58,7 +65,28 @@ public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str
 
 
     /**
-     * As it is not allowed to override Object methods in interfaces, a getString was necessary. But this method
+     * @param condition If true, string adding is paused until endIf is invoked.
+     * @return This for chaining
+     */
+    public Str ifTrue(boolean condition) {
+        mAddingPaused = condition;
+        return this;
+    }
+
+
+    /**
+     * Unpauses any potential pause in string adding set by ifTrue(true).
+     *
+     * @return This for chaining
+     */
+    public Str endIf() {
+        return this.ifTrue(false);
+    }
+
+
+    /**
+     * As it is not allowed to override Object methods in interfaces, a getString was necessary. But
+     * this method
      * does the same as getString.
      *
      * @return The same as getString.

@@ -4,6 +4,33 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class StrTest {
+
+    @Test
+    public void ifTrue_True_SringShouldNotBeAdded() {
+        String actual = Str.create()
+                .a("A")
+                .ifTrue(true)
+                .a("B")
+                .endIf()
+                .a("C").toString();
+        String expected = "AC";
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void ifTrue_False_SringShouldNotBeAdded() {
+        String actual = Str.create()
+                .a("A")
+                .ifTrue(false)
+                .a("B")
+                .endIf()
+                .a("C").toString();
+        String expected = "ABC";
+        Assert.assertEquals(expected, actual);
+    }
+
+
     @Test
     public void create() throws Exception {
         Assert.assertEquals("Str", Str.create().getClass().getSimpleName());
