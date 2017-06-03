@@ -65,11 +65,11 @@ public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str
 
 
     /**
-     * @param condition If true, string adding is paused until endIf is invoked.
+     * @param condition If false, strings added until and endIf request are ignored.
      * @return This for chaining
      */
     public Str ifTrue(boolean condition) {
-        mAddingPaused = condition;
+        mAddingPaused = !condition;
         return this;
     }
 
@@ -80,7 +80,8 @@ public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str
      * @return This for chaining
      */
     public Str endIf() {
-        return this.ifTrue(false);
+        mAddingPaused = false;
+        return this;
     }
 
 

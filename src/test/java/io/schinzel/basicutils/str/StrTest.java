@@ -9,7 +9,7 @@ public class StrTest {
     public void ifTrue_True_SringShouldNotBeAdded() {
         String actual = Str.create()
                 .a("A")
-                .ifTrue(true)
+                .ifTrue(false)
                 .a("B")
                 .endIf()
                 .a("C").toString();
@@ -22,7 +22,7 @@ public class StrTest {
     public void ifTrue_False_SringShouldNotBeAdded() {
         String actual = Str.create()
                 .a("A")
-                .ifTrue(false)
+                .ifTrue(true)
                 .a("B")
                 .endIf()
                 .a("C").toString();
