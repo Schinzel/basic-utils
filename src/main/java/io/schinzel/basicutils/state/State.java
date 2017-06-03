@@ -41,7 +41,9 @@ public class State {
 
 
     /**
-     * @param state A state object to copy and seed the builder with. Typically a state from a super class that you
+     * @param state A state object to copy and seed the builder with. Typically a state from a
+     *              super
+     *              class that you
      *              want to append to in a sub class.
      * @return A builder with the argument seed state added.
      */
@@ -69,6 +71,14 @@ public class State {
      */
     public String getString() {
         return this.getStr().toString();
+    }
+
+
+    /**
+     * @return A snapshot of the state of this object and its children.
+     */
+    public String toString() {
+        return this.getString();
     }
 
 

@@ -1,14 +1,14 @@
 package io.schinzel.basicutils.state;
 
-import java.util.List;
-
-import static org.hamcrest.Matchers.greaterThan;
-
 import io.schinzel.json.JsonOrdered;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.List;
+
+import static org.hamcrest.Matchers.greaterThan;
 
 /**
  * @author schinzel
@@ -115,6 +115,29 @@ public class StateTest {
         Assert.assertEquals(expected, result);
     }
 
+    @Test
+    public void toString_AddSomeData_SameAsGetString(){
+        MyClass a1 = new MyClass("A1", 10);
+        MyClass b1 = new MyClass("B1", 17);
+        MyClass b2 = new MyClass("B2", 18);
+        MyClass b2x = new MyClass("B2X", 99);
+        a1.mChildren.add(b1);
+        a1.mChildren.add(b2);
+        b2.mChildren.add(b2x);
+        b2.mLeft = new MyClass("Left", 111);
+        b2.mRight = new MyClass("Right", 222);
+        String expected = "Name:A1 Cost:10\n"
+                + "mykids\n"
+                + "┗━ Name:B1 Cost:17\n"
+                + "┗━ Name:B2 Cost:18\n"
+                + "   ┗━ Left Name:Left Cost:111\n"
+                + "   ┗━ Right Name:Right Cost:222\n"
+                + "   ┗━ mykids\n"
+                + "      ┗━ Name:B2X Cost:99\n"
+                + "";
+        String result = a1.getState().toString();
+        Assert.assertEquals(expected, result);
+    }
 
     @Test
     public void testGetString() {

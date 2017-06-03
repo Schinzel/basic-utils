@@ -296,7 +296,12 @@ Thrower.throwIfFalse(true, "A message");
 
 # Change Log
 ## Features added for next release
+- Nothing yet
+
+## 1.19
 - Added Str.ifTrue(cond) and Str.endIf()
+- State and SubString toString returns the same as getString
+
 ## 1.18
 - SubStringer
     - Renamed to SubString
