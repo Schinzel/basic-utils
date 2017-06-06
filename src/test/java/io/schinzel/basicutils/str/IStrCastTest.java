@@ -1,15 +1,12 @@
 package io.schinzel.basicutils.str;
 
-import com.pholser.junit.quickcheck.Property;
-import com.pholser.junit.quickcheck.runner.JUnitQuickcheck;
+import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.UTF8;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-@RunWith(JUnitQuickcheck.class)
 public class IStrCastTest {
     private class StrCast extends AbstractIStr<StrCast> implements IStrCast<StrCast> {
         @Override
@@ -57,11 +54,14 @@ public class IStrCastTest {
     }
 
 
-    @Property
-    public void castToUtf8_PropertyBased_Output(String input) {
-        byte[] ab = new StrCast().a(input).castToUtf8Bytes();
-        String output = UTF8.getString(ab);
-        Assert.assertEquals(input, output);
+    @Test
+    public void castToUtf8_PropertyBased_Output() {
+        for (FunnyChars funnyChars : FunnyChars.values()) {
+            String input = funnyChars.getString();
+            byte[] ab = new StrCast().a(input).castToUtf8Bytes();
+            String output = UTF8.getString(ab);
+            Assert.assertEquals(input, output);
+        }
 
     }
 
