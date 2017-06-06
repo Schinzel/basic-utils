@@ -314,12 +314,52 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfFalse_ChainedMessageAndIsTrue_NoException() {
         try {
-            Thrower.throwIfFalse(true)
-                    .message("My message");
+            Thrower.throwIfFalse(true).message("My message");
         } catch (Throwable t) {
             Assert.fail("Exception should not be thrown");
         }
     }
 
+
+    @Test
+    public void throwIfNull_OneArgumentShouldThrow_ExceptionThrown() {
+        try {
+            Thrower.throwIfNull(null).message("My message");
+            Assert.fail("Exception should be thrown");
+        } catch (Throwable t) {
+            Assert.assertEquals("My message", t.getMessage());
+        }
+    }
+
+
+    @Test
+    public void throwIfNull_OneArgumentShouldNotThrow_NoExceptionThrown() {
+        try {
+            Thrower.throwIfNull(new Object()).message("My message");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
+
+    @Test
+    public void throwIfNull_TwoArgumentsAndShouldThrow_ExceptionThrown() {
+        try {
+            Thrower.throwIfNull(null, "My message");
+            Assert.fail("Exception should be thrown");
+        } catch (Throwable t) {
+            Assert.assertEquals("My message", t.getMessage());
+        }
+    }
+
+
+    @Test
+    public void throwIfNull_TwoArgumentsAndShouldNotThrow_NoExceptionThrown() {
+        try {
+            Thrower.throwIfNull(new Object(), "My message");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
 }
 

@@ -32,7 +32,7 @@ public class ThrowerMessageTest {
     @Test
     public void message_ThrowerDud_NoException() {
         try {
-            ThrowerMessage.THROWER_DUD.message("Any message");
+            ThrowerMessage.create(false).message("Any message");
         } catch (Throwable t) {
             Assert.fail("Exception should not be thrown");
         }
