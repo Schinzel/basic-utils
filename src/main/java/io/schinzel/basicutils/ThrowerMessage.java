@@ -16,8 +16,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class ThrowerMessage {
     /**
-     * An thrower message that never goes of. This can be used so that no objects are created
-     * if there is not message to throw. This to be easier on the garbage collector.
+     * A thrower message that never goes of. This can be used so that no objects are created
+     * if there is no exception to throw. This to be easier on the garbage collector.
      */
     public static ThrowerMessage THROWER_DUD = new ThrowerMessage(false);
     /** If true an exception will be thrown. */
