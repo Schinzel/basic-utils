@@ -8,7 +8,7 @@ import io.schinzel.basicutils.timekeeper.Timekeeper;
  * <p>
  * Created by Schinzel on 2017-02-27.
  */
-public class TimekeeperSample {
+class TimekeeperSample {
     public static void main(String[] args) {
         //Get the timekeeper. There is also a create method if one does not want to use a singleton.
         Timekeeper timekeeper = Timekeeper.getSingleton();

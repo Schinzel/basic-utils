@@ -3,7 +3,6 @@ package io.schinzel.samples;
 import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
-import io.schinzel.basicutils.state.StateBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
  * <p>
  * Created by schinzel on 2017-04-02.
  */
-public class StateSample implements IStateNode {
+class StateSample implements IStateNode {
     private final String mName;
     private final int mCount = RandomUtil.getRandomNumber(0, 100);
     private final double mVal = RandomUtil.create().getDouble(0d, 100d);

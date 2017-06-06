@@ -7,7 +7,7 @@ import io.schinzel.basicutils.ratio.Ratio;
  * <p>
  * Created by schinzel on 2017-03-19.
  */
-public class RatioSample {
+class RatioSample {
     public static void main(String[] args) {
         Ratio ratio = Ratio.create(1, 3)
                 .times(1, 3)
