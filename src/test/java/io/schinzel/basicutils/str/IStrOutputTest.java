@@ -4,12 +4,11 @@ import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.RandomUtil;
 import org.apache.commons.io.FileUtils;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-
-import org.junit.rules.ExpectedException;
 
 public class IStrOutputTest {
     private String mFileName;
@@ -55,6 +54,15 @@ public class IStrOutputTest {
         System.setOut(null);
     }
 
+
+    @Test
+    public void plnWithPrefix_StringWithPrefix_ShouldBePrintedToSystemOut() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        new StrOutput().a("Gibbon!").plnWithPrefix("Monkey: ");
+        Assert.assertEquals("Monkey: Gibbon!\n", outContent.toString());
+        System.setOut(null);
+    }
 
     /**
      * Writes to a file and check that get the same string back.
