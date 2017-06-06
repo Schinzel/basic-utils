@@ -325,13 +325,17 @@ Thrower.throwIfEmpty(value, valueName);
 Thrower.throwIfFalse(true, "A message");
 ```
 
+
+
 # Change Log
 ## Features added for next release
 - Removed Apache Commons dependency. Now only depends on Guava, JSON ordered and Lombok. 
-- Str. Added method plnWithPrefix.
+- Str
+    - Added method plnWithPrefix.
+    - Added methods castToInt, castToLong, castToUtf8Bytes
 - Thrower
--- Removed the more verbose error message. 
--- Added method throwIfNull
+    - Removed the more verbose error message. 
+    - Added method throwIfNull
 
 ## 1.19
 - Added Str.ifTrue(cond) and Str.endIf()

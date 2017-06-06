@@ -1,8 +1,8 @@
 package io.schinzel.basicutils.str;
 
 import com.google.common.base.Charsets;
-import com.google.common.primitives.Doubles;
 import com.google.common.primitives.Ints;
+import com.google.common.primitives.Longs;
 import io.schinzel.basicutils.Thrower;
 
 /**
@@ -32,12 +32,12 @@ interface IStrCast<T extends IStr<T>> extends IStr<T> {
 
 
     /**
-     * @return Cast the string held by this object to double.
+     * @return Cast the string held by this object to long.
      */
-    default Double castToDouble() {
-        Double returnValue = Doubles.tryParse(this.getString());
+    default Long castToLong() {
+        Long returnValue = Longs.tryParse(this.getString());
         Thrower.throwIfNull(returnValue)
-                .message("Cannot cast '" + this.getString() + "' to double");
+                .message("Cannot cast '" + this.getString() + "' to long");
         return returnValue;
     }
 

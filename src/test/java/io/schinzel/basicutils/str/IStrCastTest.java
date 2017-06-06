@@ -39,17 +39,17 @@ public class IStrCastTest {
 
 
     @Test
-    public void castToDouble_12345678901234567890_12345678901234567890() {
-        Double actual = new StrCast().a("12345678901234567890").castToDouble();
-        Double expected = 12345678901234567890D;
+    public void castToLong_123456789012345678_123456789012345678() {
+        Long actual = new StrCast().a("123456789012345678").castToLong();
+        Long expected = 123456789012345678l;
         Assert.assertEquals(expected, actual);
     }
 
 
     @Test
-    public void castToDouble_abc_throwsException() {
+    public void castToLong_abc_throwsException() {
         try {
-            new StrCast().a("abc").castToDouble();
+            new StrCast().a("abc").castToLong();
             Assert.fail("Should throw exception");
         } catch (RuntimeException ex) {
             assertThat(ex.getMessage()).startsWith("Cannot cast");
