@@ -327,6 +327,7 @@ Thrower.throwIfFalse(true, "A message");
 
 # Change Log
 ## Features added for next release
+- Removed Apache Commons dependency. Now only depends on Guava, JSON ordered and Lombok. 
 - Str. Added method plnWithPrefix.
 - Thrower
 -- Removed the more verbose error message. 
