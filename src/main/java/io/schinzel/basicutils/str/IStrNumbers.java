@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.str;
 
 /**
- * The purpose of this interface is to addChild numbers and format them for human readability.
+ * The purpose of this interface is to add numbers and format them for human readability.
  *
  * Created by schinzel on 2017-02-26.
  */
