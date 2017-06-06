@@ -256,7 +256,7 @@ public class ThrowerTest extends Thrower {
     @Test
     public void testThrowIfTrue_extensiveErrorMessage() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("MyMessage Class:'ThrowerTest$MyTestClass' Method:'myMethod' Props:{k1:'v1'}");
+        exception.expectMessage("MyMessage Props:{k1:'v1'}");
         new MyTestClass().myMethod(true, "MyMessage", "k1", "v1");
     }
 

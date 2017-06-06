@@ -327,7 +327,8 @@ Thrower.throwIfFalse(true, "A message");
 
 # Change Log
 ## Features added for next release
-- Str.plnWithPrefix added.
+- Str. Added method plnWithPrefix.
+- Thrower. Removed the more verbose error message. 
 
 ## 1.19
 - Added Str.ifTrue(cond) and Str.endIf()

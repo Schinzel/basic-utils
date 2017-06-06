@@ -150,14 +150,8 @@ public class Thrower {
         }
         //If argument expression is true
         if (expression) {
-            String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-            String className = Thread.currentThread().getStackTrace()[2].getClassName();
-            className = className.substring(className.lastIndexOf(".") + 1, className.length());
             //Compile more extensive exception message.
-            Str str = Str.create().a(message).asp()
-                    .a("Class:").aq(className).asp()
-                    .a("Method:").aq(methodName).asp()
-                    .a(Thrower.getArgs(keyValues));
+            Str str = Str.create().asp(message).a(Thrower.getArgs(keyValues));
             throw new RuntimeException(str.getString());
         }
     }
