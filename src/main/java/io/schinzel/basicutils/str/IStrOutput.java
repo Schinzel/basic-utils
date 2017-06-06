@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.str;
 
-import org.apache.commons.io.FileUtils;
+import com.google.common.io.Files;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,7 +58,11 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
     default T writeToFile(String fileName, boolean append) {
         File file = new File(fileName);
         try {
-            FileUtils.writeStringToFile(file, this.getString(), ENCODING, append);
+            if (append) {
+                Files.append(this.getString(), new File(fileName), IStr.ENCODING);
+            } else {
+                Files.write(this.getString(), new File(fileName), IStr.ENCODING);
+            }
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
