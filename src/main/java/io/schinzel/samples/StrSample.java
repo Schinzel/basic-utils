@@ -14,8 +14,15 @@ class StrSample {
         double weight = 1234.56789d;
         int cost = 12000000;
         Str.create()
-                .a("Boat weighs: ").atab().a(weight, 2).a(" kg").anl()
-                .a("Boat costs: ").atab().a(cost).a(" Euros").anl()
+                .atab("Boat weighs: ").a(weight, 2).anl(" kg")
+                .atab("Boat costs: ").a(cost).anl(" Euros")
+                .atab("Boat name:  ").aq("Boaty McBoatface").anl()
                 .pln();
+        Str.create()
+                .a(System.currentTimeMillis())
+                //Write to file
+                .writeToFile("MyTextFile.txt")
+                //Print to system out with prefix
+                .plnWithPrefix("Time now in millis: ");
     }
 }

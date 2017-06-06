@@ -20,9 +20,7 @@ public class Thrower {
      * @param variableName The name of the value to check
      */
     public static void throwIfVarNull(Object value, String variableName) {
-        if (value == null) {
-            throw new RuntimeException("Argument '" + variableName + "' cannot be null");
-        }
+        ThrowerMessage.create(value == null).message("Argument '" + variableName + "' cannot be null");
     }
 
 
@@ -34,9 +32,7 @@ public class Thrower {
      * @param variableName The name of the value to check
      */
     public static void throwIfVarEmpty(String value, String variableName) {
-        if (Checker.isEmpty(value)) {
-            throw new RuntimeException("Argument '" + variableName + "' cannot be empty");
-        }
+        ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
     }
 
 
@@ -99,9 +95,7 @@ public class Thrower {
      * @param message    The exception message
      */
     public static void throwIfFalse(boolean expression, String message) {
-        if (!expression) {
-            throw new RuntimeException(message);
-        }
+        Thrower.throwIfFalse(expression).message(message);
     }
 
 
@@ -112,7 +106,7 @@ public class Thrower {
      * @return Thrower message for chaining the exception message.
      */
     public static ThrowerMessage throwIfFalse(boolean expression) {
-        return !expression ? new ThrowerMessage(!expression) : ThrowerMessage.THROWER_DUD;
+        return ThrowerMessage.create(!expression);
     }
 
 
@@ -134,7 +128,28 @@ public class Thrower {
      * @return Thrower message for chaining the exception message.
      */
     public static ThrowerMessage throwIfTrue(boolean expression) {
-        return expression ? new ThrowerMessage(expression) : ThrowerMessage.THROWER_DUD;
+        return ThrowerMessage.create(expression);
+    }
+
+
+    /**
+     * Throw if argument expression is true.
+     *
+     * @param object The object to check for null
+     * @return Thrower message for chaining the exception message.
+     */
+    public static ThrowerMessage throwIfNull(Object object) {
+        return ThrowerMessage.create(object == null);
+    }
+
+
+    /**
+     * Throw if argument expression is true.
+     *
+     * @param object The object to check for null
+     */
+    public static void throwIfNull(Object object, String message) {
+        Thrower.throwIfNull(object).message(message);
     }
 
 
@@ -150,14 +165,8 @@ public class Thrower {
         }
         //If argument expression is true
         if (expression) {
-            String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-            String className = Thread.currentThread().getStackTrace()[2].getClassName();
-            className = className.substring(className.lastIndexOf(".") + 1, className.length());
             //Compile more extensive exception message.
-            Str str = Str.create().a(message).asp()
-                    .a("Class:").aq(className).asp()
-                    .a("Method:").aq(methodName).asp()
-                    .a(Thrower.getArgs(keyValues));
+            Str str = Str.create().asp(message).a(Thrower.getArgs(keyValues));
             throw new RuntimeException(str.getString());
         }
     }

@@ -1,24 +1,39 @@
 package io.schinzel.basicutils.str;
 
-import org.apache.commons.io.FileUtils;
+import com.google.common.io.FileWriteMode;
+import com.google.common.io.Files;
 
 import java.io.File;
 import java.io.IOException;
 
 /**
- * The purpose of this interface is to send the String held to different outputs such as system-out and files.
+ * The purpose of this interface is to send the String held to different outputs such as system-out
+ * and files.
  * <p>
  * Created by schinzel on 2017-02-27.
  */
 interface IStrOutput<T extends IStr<T>> extends IStr<T> {
 
     /**
-     * Print the string held to system out.
+     * Print the string held to system out with a line break at the end.
      *
      * @return This for chaining.
      */
     default T pln() {
         System.out.println(this.getString());
+        return this.getThis();
+    }
+
+
+    /**
+     * Print the string held to system out prefixed with the argument prefix with a line break at
+     * the end.
+     *
+     * @param prefix Prefix to print.
+     * @return This for chaining.
+     */
+    default T plnWithPrefix(String prefix) {
+        System.out.println(prefix + this.getString());
         return this.getThis();
     }
 
@@ -42,9 +57,12 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T writeToFile(String fileName, boolean append) {
-        File file = new File(fileName);
         try {
-            FileUtils.writeStringToFile(file, this.getString(), ENCODING, append);
+            if (append) {
+                Files.asCharSink(new File(fileName), IStr.ENCODING, FileWriteMode.APPEND).write(this.getString());
+            } else {
+                Files.asCharSink(new File(fileName), IStr.ENCODING).write(this.getString());
+            }
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }

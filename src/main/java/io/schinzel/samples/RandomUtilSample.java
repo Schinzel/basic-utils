@@ -5,10 +5,10 @@ import io.schinzel.basicutils.str.Str;
 
 /**
  * Sample class to show how RandomUtil can be used.
- *
+ * <p>
  * Created by schinzel on 2017-02-27.
  */
-public class RandomUtilSample {
+class RandomUtilSample {
     public static void main(String[] args) {
         //Get a random string with the length 12
         String str = RandomUtil.getRandomString(12);

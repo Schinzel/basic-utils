@@ -7,36 +7,38 @@ import io.schinzel.basicutils.substring.SubString;
  * <p>
  * Created by schinzel on 2017-02-27.
  */
-public class SubStringerSample {
+class SubStringerSample {
     public static void main(String[] args) {
         String input = "http://www.example.com/index.html?key1=val1&key2=val2";
         //Get everything after question mark, i.e. "key1=val1&key2=val2"
-        String queryString = SubString
-                .create(input)
+        SubString.create(input)
                 .startDelimiter("?")
-                .getString();
-        System.out.println("Query string: " + queryString);
+                .getStr()
+                .plnWithPrefix("Query string: ");
         //Get everything before question mark, i.e. "http://www.example.com/index.html"
-        String url = SubString
-                .create(input)
+        SubString.create(input)
                 .endDelimiter("?")
-                .getString();
-        System.out.println("URL: " + url);
+                .getStr()
+                .plnWithPrefix("URL: ");
         //Get host, i.e. "www.example.com"
-        String host = SubString
-                .create(input)
+        SubString.create(input)
                 .startDelimiter("http://")
                 .endDelimiter("/index")
-                .getString();
-        System.out.println("Host: " + host);
+                .getStr()
+                .plnWithPrefix("Host: ");
         //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
-        String page = SubString
-                .create(input)
+        SubString.create(input)
                 .startDelimiter("//")
                 .endDelimiter("?")
                 .newSubString()
                 .startDelimiter("/")
-                .getString();
-        System.out.println("Page: " + page);
+                .getStr()
+                .plnWithPrefix("Page: ");
+        //Get everything after the second equals sign
+        SubString.create(input)
+                .startDelimiter("=")
+                .startOccurrence(2)
+                .getStr()
+                .plnWithPrefix("Second value: ");
     }
 }

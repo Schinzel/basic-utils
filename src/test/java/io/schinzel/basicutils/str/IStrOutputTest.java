@@ -1,15 +1,14 @@
 package io.schinzel.basicutils.str;
 
+import com.google.common.io.Files;
 import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.RandomUtil;
-import org.apache.commons.io.FileUtils;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
-
-import org.junit.rules.ExpectedException;
 
 public class IStrOutputTest {
     private String mFileName;
@@ -56,6 +55,16 @@ public class IStrOutputTest {
     }
 
 
+    @Test
+    public void plnWithPrefix_StringWithPrefix_ShouldBePrintedToSystemOut() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+        new StrOutput().a("Gibbon!").plnWithPrefix("Monkey: ");
+        Assert.assertEquals("Monkey: Gibbon!\n", outContent.toString());
+        System.setOut(null);
+    }
+
+
     /**
      * Writes to a file and check that get the same string back.
      */
@@ -64,7 +73,7 @@ public class IStrOutputTest {
         String fileName = getFileName();
         String strWritten = "chimp";
         new StrOutput().a(strWritten).writeToFile(fileName);
-        String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
+        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten, strRead);
     }
 
@@ -79,7 +88,7 @@ public class IStrOutputTest {
         String strWritten2 = "gorilla";
         new StrOutput().a(strWritten).writeToFile(fileName);
         new StrOutput().a(strWritten2).writeToFile(fileName);
-        String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
+        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten2, strRead);
     }
 
@@ -93,7 +102,7 @@ public class IStrOutputTest {
             String fileName = getFileName();
             String strWritten = funnyChars.getString();
             new StrOutput().a(strWritten).writeToFile(fileName);
-            String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
+            String strRead = Files.toString(new File(fileName), IStr.ENCODING);
             Assert.assertEquals(strWritten, strRead);
         }
     }
@@ -109,7 +118,7 @@ public class IStrOutputTest {
         String strWritten2 = "gorilla";
         new StrOutput().a(strWritten).writeToFile(fileName);
         new StrOutput().a(strWritten2).writeToFile(fileName, true);
-        String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
+        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten + strWritten2, strRead);
     }
 
@@ -124,7 +133,7 @@ public class IStrOutputTest {
         String strWritten2 = "gorilla";
         new StrOutput().a(strWritten).writeToFile(fileName);
         new StrOutput().a(strWritten2).writeToFile(fileName, false);
-        String strRead = FileUtils.readFileToString(new File(fileName), IStr.ENCODING);
+        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten2, strRead);
     }
 

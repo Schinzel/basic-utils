@@ -135,18 +135,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>21.0</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
-        </dependency>
-        <dependency>
-            <!-- base64 encoding -->
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
+            <version>22.0</version>
         </dependency>
         <!-- TEST DEPENDENCIES -->
         <dependency>
@@ -186,6 +175,13 @@
             <artifactId>hamcrest-date</artifactId>
             <version>2.0.4</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Fluent testing.
+            https://github.com/alexruiz/fest-assert-2.x/wiki/One-minute-starting-guid -->
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert-core</artifactId>
+            <version>2.0M10</version>
         </dependency>
     </dependencies>
 

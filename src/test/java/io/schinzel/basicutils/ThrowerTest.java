@@ -256,7 +256,7 @@ public class ThrowerTest extends Thrower {
     @Test
     public void testThrowIfTrue_extensiveErrorMessage() {
         exception.expect(RuntimeException.class);
-        exception.expectMessage("MyMessage Class:'ThrowerTest$MyTestClass' Method:'myMethod' Props:{k1:'v1'}");
+        exception.expectMessage("MyMessage Props:{k1:'v1'}");
         new MyTestClass().myMethod(true, "MyMessage", "k1", "v1");
     }
 
@@ -314,12 +314,52 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfFalse_ChainedMessageAndIsTrue_NoException() {
         try {
-            Thrower.throwIfFalse(true)
-                    .message("My message");
+            Thrower.throwIfFalse(true).message("My message");
         } catch (Throwable t) {
             Assert.fail("Exception should not be thrown");
         }
     }
 
+
+    @Test
+    public void throwIfNull_OneArgumentShouldThrow_ExceptionThrown() {
+        try {
+            Thrower.throwIfNull(null).message("My message");
+            Assert.fail("Exception should be thrown");
+        } catch (Throwable t) {
+            Assert.assertEquals("My message", t.getMessage());
+        }
+    }
+
+
+    @Test
+    public void throwIfNull_OneArgumentShouldNotThrow_NoExceptionThrown() {
+        try {
+            Thrower.throwIfNull(new Object()).message("My message");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
+
+
+    @Test
+    public void throwIfNull_TwoArgumentsAndShouldThrow_ExceptionThrown() {
+        try {
+            Thrower.throwIfNull(null, "My message");
+            Assert.fail("Exception should be thrown");
+        } catch (Throwable t) {
+            Assert.assertEquals("My message", t.getMessage());
+        }
+    }
+
+
+    @Test
+    public void throwIfNull_TwoArgumentsAndShouldNotThrow_NoExceptionThrown() {
+        try {
+            Thrower.throwIfNull(new Object(), "My message");
+        } catch (Throwable t) {
+            Assert.fail("Exception should not be thrown");
+        }
+    }
 }
 

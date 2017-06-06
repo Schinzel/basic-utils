@@ -10,8 +10,8 @@ import java.util.Locale;
  * Created by schinzel on 2017-02-26.
  */
 
-public class Str implements IStrQuote<Str>, IStrNumbers<Str>, IStrWhitespace<Str>, IStrOutput<Str>,
-        IStrString<Str>, IStrUtil<Str> {
+public class Str implements IStrCast<Str>, IStrNumbers<Str>, IStrOutput<Str>, IStrQuote<Str>,
+        IStrString<Str>, IStrUtil<Str>, IStrWhitespace<Str> {
     StringBuilder sb = new StringBuilder();
     /**
      * If true, the adding of strings is paused.
