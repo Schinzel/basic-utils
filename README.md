@@ -191,44 +191,75 @@ System.out.println(sb.toString());
 Str.create().a("A").a(myDouble, 2).a("B").pln();
 ```
 
+More samples:
+```java
+double weight = 1234.56789d;
+int cost = 12000000;
+Str.create()
+        .atab("Boat weighs: ").a(weight, 2).anl(" kg")
+        .atab("Boat costs: ").a(cost).anl(" Euros")
+        .atab("Boat name:  ").aq("Boaty McBoatface").anl()
+        .pln();
+Str.create()
+        .a(System.currentTimeMillis())
+        //Write to file
+        .writeToFile("MyTextFile.txt")
+        //Print to system out with prefix
+        .plnWithPrefix("Time now in millis: ");
+```
 
+Output:
+```java
+Boat weighs: 	1,234.57 kg
+Boat costs: 	12,000,000 Euros
+Boat name:  	'Boaty McBoatface'
 
+Time now in millis: 1,496,736,926,150
+```
 
 ### SubStringer
 Get the string in the string.
 ```java
 String input = "http://www.example.com/index.html?key1=val1&key2=val2";
 //Get everything after question mark, i.e. "key1=val1&key2=val2"
-String queryString = SubString.builder()
-        .string(input)
+SubString.create(input)
         .startDelimiter("?")
-        .build()
-        .getString();
-System.out.println("Query string: " + queryString);
+        .getStr()
+        .plnWithPrefix("Query string: ");
 //Get everything before question mark, i.e. "http://www.example.com/index.html"
-String url = SubString.builder()
-        .string(input)
+SubString.create(input)
         .endDelimiter("?")
-        .build()
-        .getString();
-System.out.println("URL: " + url);
+        .getStr()
+        .plnWithPrefix("URL: ");
 //Get host, i.e. "www.example.com"
-String host = SubString.builder().string(input)
+SubString.create(input)
         .startDelimiter("http://")
         .endDelimiter("/index")
-        .build()
-        .getString();
-System.out.println("Host: " + host);
+        .getStr()
+        .plnWithPrefix("Host: ");
 //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
-String page = SubString.builder().string(input)
+SubString.create(input)
         .startDelimiter("//")
         .endDelimiter("?")
-        .build()
-        .getBuilder()
+        .newSubString()
         .startDelimiter("/")
-        .build()
-        .getString();
-System.out.println("Page: " + page);
+        .getStr()
+        .plnWithPrefix("Page: ");
+//Get everything after the second equals sign 
+SubString.create(input)
+        .startDelimiter("=")
+        .startOccurrence(2)
+        .getStr()
+        .plnWithPrefix("Second value: ");
+```
+
+Output:
+```java
+Query string: key1=val1&key2=val2
+URL: http://www.example.com/index.html
+Host: www.example.com
+Page: index.html
+Second value: val2
 ```
 
 

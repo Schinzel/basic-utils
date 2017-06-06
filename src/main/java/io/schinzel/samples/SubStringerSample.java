@@ -34,7 +34,7 @@ public class SubStringerSample {
                 .startDelimiter("/")
                 .getStr()
                 .plnWithPrefix("Page: ");
-        //Get everything after the second 
+        //Get everything after the second equals sign
         SubString.create(input)
                 .startDelimiter("=")
                 .startOccurrence(2)
