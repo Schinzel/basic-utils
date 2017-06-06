@@ -147,7 +147,6 @@ public class Thrower {
      * Throw if argument expression is true.
      *
      * @param object The object to check for null
-     * @return Thrower message for chaining the exception message.
      */
     public static void throwIfNull(Object object, String message) {
         Thrower.throwIfNull(object).message(message);
