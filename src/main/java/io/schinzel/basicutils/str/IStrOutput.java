@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.str;
 
+import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
 
 import java.io.File;
@@ -56,12 +57,11 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T writeToFile(String fileName, boolean append) {
-        File file = new File(fileName);
         try {
             if (append) {
-                Files.append(this.getString(), new File(fileName), IStr.ENCODING);
+                Files.asCharSink(new File(fileName), IStr.ENCODING, FileWriteMode.APPEND).write(this.getString());
             } else {
-                Files.write(this.getString(), new File(fileName), IStr.ENCODING);
+                Files.asCharSink(new File(fileName), IStr.ENCODING).write(this.getString());
             }
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
