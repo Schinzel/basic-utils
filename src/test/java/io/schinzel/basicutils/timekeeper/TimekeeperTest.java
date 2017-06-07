@@ -10,8 +10,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * @author schinzel
@@ -140,12 +140,10 @@ public class TimekeeperTest {
         JSONObject B2 = secondLevelChildren.getJSONObject(1);
         //Check that B1's average is close to 10
         Double b1Avg = B1.getDouble("Avg");
-        assertThat(b1Avg, greaterThan(10d));
-        assertThat(b1Avg, lessThan(15d));
+        assertThat(b1Avg).isBetween(10d, 15d);
         //Check that B2's average is close to 20
         Double b2Avg = B2.getDouble("Avg");
-        assertThat(b2Avg, greaterThan(20d));
-        assertThat(b2Avg, lessThan(30d));
+        assertThat(b2Avg).isBetween(20d, 35d);
     }
 
 
@@ -160,12 +158,10 @@ public class TimekeeperTest {
         JSONObject B2 = secondLevelChildren.getJSONObject(1);
         //Check that B1's total time is between 100 and 130 ms
         Double b1Tot = B1.getDouble("Tot");
-        assertThat(b1Tot, greaterThanOrEqualTo(100d));
-        assertThat(b1Tot, lessThan(130d));
+        assertThat(b1Tot).isBetween(100d, 130d);
         //Check that B2's total times is between 100 and 130 ms
         Double b2Tot = B2.getDouble("Tot");
-        assertThat(b2Tot, greaterThanOrEqualTo(100d));
-        assertThat(b2Tot, lessThan(130d));
+        assertThat(b2Tot).isBetween(100d, 130d);
     }
 
 
