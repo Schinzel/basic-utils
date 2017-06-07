@@ -1,14 +1,13 @@
 package io.schinzel.basicutils;
 
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
-import static org.exparity.hamcrest.date.LocalDateTimeMatchers.within;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 
 /**
  * @author schinzel
@@ -22,8 +21,7 @@ public class SandmanTest extends Sandman {
         Sandman.snoozeMillis(20);
         //Calc the time to do all iterations
         long executionTimeInMS = (System.nanoTime() - start) / 1000000;
-        assertThat(executionTimeInMS, Matchers.lessThan(30l));
-        assertThat(executionTimeInMS, Matchers.greaterThanOrEqualTo(20l));
+        assertThat(executionTimeInMS).isBetween(20l, 30l);
     }
 
 
@@ -31,23 +29,19 @@ public class SandmanTest extends Sandman {
     public void testSnoozeSeconds() {
         int snoozeTimeInSeconds = 1;
         LocalDateTime start = LocalDateTime.now();
+        Instant oneSecondFromNow = Instant.now().plusSeconds(snoozeTimeInSeconds);
         Sandman.snoozeSeconds(snoozeTimeInSeconds);
         //Check that the snooze does not differ more than 20 ms of the requested snooze time.
-        assertThat(LocalDateTime.now(),
-                within(50, ChronoUnit.MILLIS, start.plus(snoozeTimeInSeconds, ChronoUnit.SECONDS)));
+        assertThat(Instant.now()).isBetween(oneSecondFromNow.minusMillis(50), oneSecondFromNow.plusMillis(50));
     }
 
 
     @Test
     public void testSnoozeWithInterrupt() {
         Thread t1 = new Thread(() -> {
-            boolean gotException = false;
-            try {
+            assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
                 Sandman.snoozeMillis(100);
-            } catch (RuntimeException e) {
-                gotException = true;
-            }
-            assertTrue("Got an interrupted exception", gotException);
+            });
         });
         t1.start();
         //Interrupt the snooze in the thread and thus trigger exception

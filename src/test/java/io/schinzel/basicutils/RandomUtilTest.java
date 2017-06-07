@@ -1,14 +1,15 @@
 package io.schinzel.basicutils;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.regex.Pattern;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Pattern;
+
+import static org.assertj.core.api.Assertions.assertThat;
 /**
  *
  * @author schinzel
@@ -171,8 +172,7 @@ public class RandomUtilTest {
         int max = 5;
         for (int i = 0; i < 1000; i++) {
             int number = RandomUtil.getRandomNumber(min, max);
-            Assert.assertThat(number, Matchers.greaterThanOrEqualTo(min));
-            Assert.assertThat(number, Matchers.lessThanOrEqualTo(max));
+            assertThat(number).isBetween(min, max);
         }
     }
 
@@ -190,17 +190,17 @@ public class RandomUtilTest {
         String randomString;
         //Test that length is correct
         randomString = RandomUtil.getRandomString(5);
-        Assert.assertTrue(randomString.length() == 5);
-        //Test short 
+        assertThat(randomString).hasSize(5);
+        //Test short
         randomString = RandomUtil.getRandomString(1);
-        Assert.assertTrue(randomString.length() == 1);
+        assertThat(randomString).hasSize(1);
         //Test long
         randomString = RandomUtil.getRandomString(400);
-        Assert.assertTrue(randomString.length() == 400);
+        assertThat(randomString).hasSize(400);
         //Test that only alphnum chars lower case
         randomString = RandomUtil.getRandomString(100);
         Pattern pattern = Pattern.compile("^[a-z0-9]*");
-        Assert.assertTrue(pattern.matcher(randomString).matches());
+        assertThat(randomString).matches(pattern);
     }
 
 
@@ -228,8 +228,8 @@ public class RandomUtilTest {
             double min = 0d;
             double max = 1000d;
             double number = rand.getDouble(min, max);
-            Assert.assertThat(number, Matchers.greaterThanOrEqualTo(min));
-            Assert.assertThat(number, Matchers.lessThanOrEqualTo(max));
+            assertThat(number).isGreaterThanOrEqualTo(min);
+            assertThat(number).isLessThanOrEqualTo(max);
         }
     }
 

@@ -1,11 +1,12 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Sandman;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author schinzel
@@ -95,16 +96,14 @@ public class StopWatchTest {
         sw.start();
         Sandman.snoozeMillis(20);
         sw.stop();
-        Assert.assertThat(sw.getTotTimeInMs(), Matchers.lessThan(30d));
-        Assert.assertThat(sw.getTotTimeInMs(), Matchers.greaterThanOrEqualTo(20d));
+        assertThat(sw.getTotTimeInMs()).isBetween(20d, 30d);
         sw.start();
         Sandman.snoozeMillis(10);
         sw.stop();
         sw.start();
         Sandman.snoozeMillis(10);
         sw.stop();
-        Assert.assertThat(sw.getTotTimeInMs(), Matchers.greaterThanOrEqualTo(40d));
-        Assert.assertThat(sw.getTotTimeInMs(), Matchers.lessThan(60d));
+        assertThat(sw.getTotTimeInMs()).isBetween(40d, 60d);
     }
 
 
@@ -114,13 +113,11 @@ public class StopWatchTest {
         sw.start();
         Sandman.snoozeMillis(20);
         sw.stop();
-        Assert.assertThat(sw.getAvgInMs(), Matchers.greaterThanOrEqualTo(20d));
-        Assert.assertThat(sw.getAvgInMs(), Matchers.lessThan(30d));
+        assertThat(sw.getTotTimeInMs()).isBetween(20d, 30d);
         sw.start();
         Sandman.snoozeMillis(10);
         sw.stop();
-        Assert.assertThat(sw.getAvgInMs(), Matchers.greaterThanOrEqualTo(15d));
-        Assert.assertThat(sw.getAvgInMs(), Matchers.lessThan(20d));
+        assertThat(sw.getAvgInMs()).isBetween(15d, 20d);
     }
 
 

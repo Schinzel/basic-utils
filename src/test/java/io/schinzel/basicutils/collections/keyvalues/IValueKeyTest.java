@@ -2,14 +2,15 @@ package io.schinzel.basicutils.collections.keyvalues;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static java.util.stream.Collectors.*;
-import static org.hamcrest.Matchers.greaterThan;
+import static java.util.stream.Collectors.toList;
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 
 /**
  * Created by schinzel on 2017-02-26.
@@ -42,7 +43,7 @@ public class IValueKeyTest {
         int prev = -100;
         for (MyClass myClass : list) {
             int current = myClass.mOrder;
-            Assert.assertThat(current, greaterThan(prev));
+            assertThat(current).isGreaterThan(prev);
             prev = current;
         }
     }

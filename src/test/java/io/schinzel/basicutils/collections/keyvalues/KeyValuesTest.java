@@ -1,16 +1,16 @@
 package io.schinzel.basicutils.collections.keyvalues;
 
-import java.util.*;
-import java.util.stream.Stream;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import java.util.*;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author schinzel
@@ -90,35 +90,28 @@ public class KeyValuesTest {
                 .add(bird1)
                 .add(bird2)
                 .add(moon1);
-        List<MyVal> actual, expected;
+        List<MyVal> actual;
         //
         actual = coll.getUsingWildCards("Ma*");
-        expected = Arrays.asList(man1, man2);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(man1, man2);
         //
         actual = coll.getUsingWildCards("Man*");
-        expected = Arrays.asList(man1, man2);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(man1, man2);
         //
         actual = coll.getUsingWildCards("man*");
-        expected = Arrays.asList(man1, man2);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(man1, man2);
         //
         actual = coll.getUsingWildCards("man2");
-        expected = Arrays.asList(man2);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(man2);
         //
         actual = coll.getUsingWildCards("Man2*");
-        expected = Collections.singletonList(man2);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(man2);
         //
         actual = coll.getUsingWildCards("M*n*");
-        expected = Arrays.asList(man1, man2, moon1);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(man1, man2, moon1);
         //
         actual = coll.getUsingWildCards("*1");
-        expected = Arrays.asList(bird1, man1, moon1);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(bird1, man1, moon1);
     }
 
 
@@ -135,10 +128,8 @@ public class KeyValuesTest {
                 .add(bird1)
                 .add(bird2)
                 .add(moon1);
-        List<MyVal> actual, expected;
-        actual = coll.getUsingWildCards("*");
-        expected = Arrays.asList(bird1, bird2, man1, man2, moon1);
-        Assert.assertThat(actual, Matchers.is(expected));
+        List<MyVal> actual = coll.getUsingWildCards("*");
+        assertThat(actual).containsExactly(bird1, bird2, man1, man2, moon1);
     }
 
 
@@ -155,15 +146,13 @@ public class KeyValuesTest {
                 .add(bird1)
                 .add(bird2)
                 .add(moon1);
-        List<MyVal> actual, expected;
+        List<MyVal> actual;
         //
         actual = coll.get(Collections.singletonList("Man1"));
-        expected = Collections.singletonList(man1);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(man1);
         //
         actual = coll.get(Arrays.asList("Bird2", "Man1"));
-        expected = Arrays.asList(bird2, man1);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(bird2, man1);
     }
 
 
@@ -180,11 +169,10 @@ public class KeyValuesTest {
                 .add(bird1)
                 .add(bird2)
                 .add(moon1);
-        List<MyVal> actual, expected;
+        List<MyVal> actual;
         //
         actual = coll.get(Arrays.asList("Bird2", "Man1"));
-        expected = Arrays.asList(bird2, man1);
-        Assert.assertThat(actual, Matchers.is(expected));
+        assertThat(actual).containsExactly(bird2, man1);
         //
         exception.expect(RuntimeException.class);
         coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"));
@@ -306,12 +294,10 @@ public class KeyValuesTest {
         Assert.assertEquals(valA, coll.get("alias1"));
         //
         List<MyVal> list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"));
-        List<MyVal> expected = Arrays.asList(valA, valA, valB, valB);
-        Assert.assertThat(list, Matchers.is(expected));
+        assertThat(list).containsExactly(valA, valA, valB, valB);
         //
         list = coll.get(Arrays.asList("A", "alias1", "B", "alias3"));
-        expected = Arrays.asList(valA, valA, valB, valB);
-        Assert.assertThat(list, Matchers.is(expected));
+        assertThat(list).containsExactly(valA, valA, valB, valB);
     }
 
 
