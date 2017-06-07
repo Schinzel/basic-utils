@@ -7,8 +7,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
+import static org.assertj.core.api.Assertions.*;
 
-import static org.hamcrest.Matchers.greaterThan;
 
 /**
  * @author schinzel
@@ -97,8 +97,7 @@ public class StateTest {
                 .build().getProperties();
         Long prevValue = 0l;
         for (Property prop : props) {
-            Assert.assertThat("value", (Long) prop.getObject(),
-                    greaterThan(prevValue));
+            assertThat((Long)prop.getObject()).isGreaterThan(prevValue);
             prevValue = (Long) prop.getObject();
         }
     }

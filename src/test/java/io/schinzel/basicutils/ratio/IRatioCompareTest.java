@@ -3,7 +3,6 @@ package io.schinzel.basicutils.ratio;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +12,9 @@ import java.util.Collections;
 import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.Assert.assertTrue;
+
 
 @Accessors(prefix = "m")
 public class IRatioCompareTest implements IRatioCompare<IRatioCompareTest> {
@@ -45,10 +46,10 @@ public class IRatioCompareTest implements IRatioCompare<IRatioCompareTest> {
         r1 = IRatioCompareTest.create(1, 3);
         r2 = IRatioCompareTest.create(2, 3);
         result = r1.compareTo(r2);
-        Assert.assertThat(result, Matchers.lessThan(0));
+        assertThat(result).isLessThan(0);
         //
         result = r2.compareTo(r1);
-        Assert.assertThat(result, Matchers.greaterThan(0));
+        assertThat(result).isGreaterThan(0);
     }
 
 
