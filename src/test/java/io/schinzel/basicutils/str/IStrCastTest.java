@@ -4,8 +4,7 @@ import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.UTF8;
 import org.junit.Assert;
 import org.junit.Test;
-
-import static org.fest.assertions.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class IStrCastTest {
     private class StrCast extends AbstractIStr<StrCast> implements IStrCast<StrCast> {
