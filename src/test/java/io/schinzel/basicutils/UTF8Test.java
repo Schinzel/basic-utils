@@ -4,11 +4,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
 public class UTF8Test {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
 
     @Test
     public void getBytesAndGetString_ConvertCharsToBytesAndThenBackToString_OriginalString() {
@@ -29,9 +30,36 @@ public class UTF8Test {
 
 
     @Test
-    public void constructor_Use_ThrowsException(){
+    public void constructor_Use_ThrowsException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("should not be instantiated");
         new UTF8();
     }
+
+
+    @Test
+    public void getBytes_Null_Null() {
+        assertNull(UTF8.getBytes(null));
+    }
+
+
+    @Test
+    public void getBytes_EmptyString_EmptyArray() {
+        assertArrayEquals(EmptyObjects.EMPTY_BYTE_ARRAY, UTF8.getBytes(""));
+    }
+
+
+    @Test
+    public void getString_Null_Null() {
+        assertNull(UTF8.getString(null));
+
+    }
+
+
+    @Test
+    public void getString_EmptyArray_EmptyString() {
+        assertEquals("", UTF8.getString(EmptyObjects.EMPTY_BYTE_ARRAY));
+
+    }
+
 }
