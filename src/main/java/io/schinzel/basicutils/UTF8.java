@@ -22,7 +22,7 @@ public class UTF8 {
      * @return The argument string as UTF-8 byte array.
      */
     public static byte[] getBytes(String string) {
-        return string.getBytes(StandardCharsets.UTF_8);
+        return (string == null) ? null : string.getBytes(StandardCharsets.UTF_8);
     }
 
 
@@ -31,6 +31,6 @@ public class UTF8 {
      * @return The argument UTF-8 encoded bytes as a string.
      */
     public static String getString(byte[] bytes) {
-        return new String(bytes, StandardCharsets.UTF_8);
+        return (bytes == null) ? null : new String(bytes, StandardCharsets.UTF_8);
     }
 }
