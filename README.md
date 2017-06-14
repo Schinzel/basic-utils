@@ -44,7 +44,7 @@ if (Checker.isEmpty(str)) {
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.19</version>
+		<version>1.20</version>
 	</dependency>
 </dependencies>    
 ```
