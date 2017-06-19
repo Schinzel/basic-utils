@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.crypto.hashlibrary;
+package io.schinzel.basicutils.crypto;
 
 import io.schinzel.basicutils.crypto.hash.IHash;
 

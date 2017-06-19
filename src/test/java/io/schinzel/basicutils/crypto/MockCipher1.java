@@ -1,11 +1,11 @@
-package io.schinzel.basicutils.crypto.cipherlibrary;
+package io.schinzel.basicutils.crypto;
 
 import io.schinzel.basicutils.crypto.cipher.ICipher;
 
-public class MockCipher2 implements ICipher {
+class MockCipher1 implements ICipher {
     @Override
     public String encrypt(String clearText) {
-        return "two_" + clearText;
+        return "one_" + clearText;
     }
 
 

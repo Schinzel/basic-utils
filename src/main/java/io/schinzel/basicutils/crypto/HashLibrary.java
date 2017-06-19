@@ -1,21 +1,61 @@
 
-package io.schinzel.basicutils.crypto.hashlibrary;
+package io.schinzel.basicutils.crypto;
 
-import com.google.common.collect.ImmutableMap;
 import io.schinzel.basicutils.Thrower;
-import io.schinzel.basicutils.crypto.VersionPrefix;
 import io.schinzel.basicutils.crypto.hash.IHash;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.val;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The purpose of this class is to hold a set of hash functions.
  * <p>
  * Created by schinzel on 2017-04-30.
  */
-@Builder
 public class HashLibrary {
-    @Singular("addHash") @Getter(AccessLevel.PRIVATE)
-    private ImmutableMap<Integer, IHash> hashes;
+    /** Singleton instance */
+    static HashLibrary SINGLETON_INSTANCE = new HashLibrary();
+    @Getter(AccessLevel.PRIVATE)
+    private Map<Integer, IHash> hashes = new HashMap<>();
+
+
+    /**
+     * Package private so that only create method is used.
+     */
+    HashLibrary() {
+    }
+
+
+    /**
+     * @return A new instance.
+     */
+    public static HashLibrary create() {
+        return new HashLibrary();
+    }
+
+
+    /**
+     * @return A singleton instance
+     */
+    public static HashLibrary getSingleton() {
+        return SINGLETON_INSTANCE;
+    }
+
+    /**
+     * @param version The version of the hash to add
+     * @param hash    The hash to add
+     * @return This for chaining
+     */
+    public HashLibrary addHash(Integer version, IHash hash) {
+        if (this.getHashes().containsKey(version)) {
+            throw new RuntimeException("Cannot add hash to HashLibrary. This as there already exists a hash with version " + version);
+        }
+        this.getHashes().put(version, hash);
+        return this;
+    }
 
 
     /**

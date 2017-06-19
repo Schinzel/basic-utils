@@ -1,8 +1,8 @@
 package io.schinzel.samples.crypto;
 
 import io.schinzel.basicutils.crypto.cipher.Aes256;
-import io.schinzel.basicutils.crypto.cipherlibrary.CipherLibrarySingleton;
 import io.schinzel.basicutils.crypto.cipher.ICipher;
+import io.schinzel.basicutils.crypto.CipherLibrary;
 
 /**
  * Using an enum can be beneficial for readability.
@@ -24,19 +24,19 @@ public class CipherLibraryEnumSample {
 
 
         MyCipher(Integer version, ICipher cipher) {
-            CipherLibrarySingleton.getBuilder().addCipher(version, cipher);
+            CipherLibrary.getSingleton().addCipher(version, cipher);
             this.mCipherVersion = version;
 
         }
 
 
         String encrypt(String clearTextString) {
-            return CipherLibrarySingleton.getLibrary().encrypt(mCipherVersion, clearTextString);
+            return CipherLibrary.getSingleton().encrypt(mCipherVersion, clearTextString);
         }
 
 
         static String decrypt(String encryptedString) {
-            return CipherLibrarySingleton.getLibrary().decrypt(encryptedString);
+            return CipherLibrary.getSingleton().decrypt(encryptedString);
         }
     }
 
