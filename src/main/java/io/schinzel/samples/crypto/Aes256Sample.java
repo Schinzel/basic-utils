@@ -1,6 +1,6 @@
 package io.schinzel.samples.crypto;
 
-import io.schinzel.basicutils.crypto.cipher.Aes256;
+import io.schinzel.basicutils.crypto.cipher.Aes256Gcm;
 import io.schinzel.basicutils.crypto.cipher.ICipher;
 import io.schinzel.basicutils.crypto.encoding.Encoding;
 
@@ -15,7 +15,7 @@ public class Aes256Sample {
 
     private static void sampleForDocumentation() {
         System.out.println("*** Example 1 ***");
-        Aes256 aes = new Aes256("0123456789abcdef0123456789abcdef");
+        Aes256Gcm aes = new Aes256Gcm("0123456789abcdef0123456789abcdef");
         String encrypted1 = aes.encrypt("This is a string");
         String encrypted2 = aes.encrypt("This is a string");
         System.out.println("Encrypted 1: " + encrypted1);
@@ -27,7 +27,7 @@ public class Aes256Sample {
 
     private static void sampleEncryptAndDecrypt() {
         System.out.println("*** Example 2 ***");
-        ICipher aes = new Aes256("0123456789abcdef0123456789abcdef", Encoding.HEX);
+        ICipher aes = new Aes256Gcm("0123456789abcdef0123456789abcdef", Encoding.HEX);
         String encrypted = aes.encrypt("This is a string");
         String decrypted = aes.decrypt(encrypted);
         System.out.println("Encrypted: " + encrypted);
@@ -37,7 +37,7 @@ public class Aes256Sample {
 
     private static void sampleSameClearTextBecomesDifferentEncryptedString() {
         System.out.println("*** Example 3 ***");
-        ICipher aes = new Aes256("0123456789abcdef0123456789abcdef", Encoding.BASE64);
+        ICipher aes = new Aes256Gcm("0123456789abcdef0123456789abcdef", Encoding.BASE64);
         //The same clear text string becomes a different encrypted string each time
         System.out.println(aes.encrypt("This is a string"));
         System.out.println(aes.encrypt("This is a string"));
