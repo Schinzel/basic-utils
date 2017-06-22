@@ -36,7 +36,7 @@ import java.security.spec.AlgorithmParameterSpec;
  * Created by schinzel on 2017-04-29.
  */
 @Accessors(prefix = "m")
-public class Aes256 implements ICipher {
+public class Aes256Gcm implements ICipher {
     /** The encryption key */
     @Getter(AccessLevel.PRIVATE) private final byte[] mKey;
     /** The encoding used to encode the encrypted strings. */
@@ -48,7 +48,7 @@ public class Aes256 implements ICipher {
     /**
      * @param key The key must result in 32 bytes (32 * 8 = 256 bits)
      */
-    public Aes256(String key) {
+    public Aes256Gcm(String key) {
         this(key, null);
     }
 
@@ -56,7 +56,7 @@ public class Aes256 implements ICipher {
     /**
      * @param key The key must result in 32 bytes (32 * 8 = 256 bits)
      */
-    public Aes256(String key, IEncoding encoding) {
+    public Aes256Gcm(String key, IEncoding encoding) {
         this(checkKeyAndGetBytes(key), encoding);
     }
 
@@ -66,7 +66,7 @@ public class Aes256 implements ICipher {
      * @param encoding What encoding to use to encode the encrypted string.
      */
     @SneakyThrows
-    public Aes256(byte[] key, IEncoding encoding) {
+    public Aes256Gcm(byte[] key, IEncoding encoding) {
         //Throw if argument key empty
         Thrower.throwIfTrue(Checker.isEmpty(key)).message("The key cannot be empty");
         //Throw if key length is not 32
@@ -104,7 +104,7 @@ public class Aes256 implements ICipher {
         //Convert the clear text string to as utf8 bytes
         byte[] clearTextAsBytes = UTF8.getBytes(clearText);
         //Encrypt
-        byte[] encryptedTextAsBytes = Aes256.crypt(clearTextAsBytes, Cipher.ENCRYPT_MODE, this.getKey(), abInitVector);
+        byte[] encryptedTextAsBytes = Aes256Gcm.crypt(clearTextAsBytes, Cipher.ENCRYPT_MODE, this.getKey(), abInitVector);
         //Encode the bytes to string
         String encryptedTextAsString = this.getEncoding().encode(encryptedTextAsBytes);
         //Concat the hec encoded init vector and the encrypted string and return
@@ -127,7 +127,7 @@ public class Aes256 implements ICipher {
         //Decode the encrypted string
         byte[] abEncryptedTextDecoded = this.getEncoding().decode(encryptedText);
         //Decrypt
-        byte[] decryptedText = Aes256.crypt(abEncryptedTextDecoded, Cipher.DECRYPT_MODE, this.getKey(), abInitVector);
+        byte[] decryptedText = Aes256Gcm.crypt(abEncryptedTextDecoded, Cipher.DECRYPT_MODE, this.getKey(), abInitVector);
         //Convert the encrypted byte array to a string and return
         return UTF8.getString(decryptedText);
     }
