@@ -15,7 +15,8 @@ import java.util.TreeMap;
 import java.util.stream.Stream;
 
 /**
- * The purpose of this class is offer a collection that stores values that hold their own unique string-keys.
+ * The purpose of this class is offer a collection that stores values that hold their own unique
+ * string-keys.
  *
  * @param <V> The type of element to store in the collection.
  * @author schinzel
@@ -39,6 +40,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
 
     /**
+     * @param <Q> An bapa
      * @return A freshly minted instance.
      */
     public static <Q extends IValueKey> KeyValues<Q> create() {
@@ -48,6 +50,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
     /**
      * @param collectionName The name of the collection. Useful for error messages and debugging.
+     * @param <Q>            An bapa
      * @return A freshly minted instance.
      */
     public static <Q extends IValueKey> KeyValues<Q> create(String collectionName) {
@@ -111,7 +114,8 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
 
     /**
-     * Removes the value with argument key from collection. If no value with argument key exists, an error is thrown.
+     * Removes the value with argument key from collection. If no value with argument key exists, an
+     * error is thrown.
      *
      * @param key The key of the value to remove.
      * @return This for chaining.
@@ -225,7 +229,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * @return A list of values in alphabetical order that matches the argument.
      */
     public List<V> getUsingWildCards(String stringWithWildCards) {
-        String regex =  "(?i)" + stringWithWildCards.replace("*", "\\w*");
+        String regex = "(?i)" + stringWithWildCards.replace("*", "\\w*");
         List<V> values = new ArrayList<>();
         for (Map.Entry<String, V> entry : mValues.entrySet()) {
             if (entry.getKey().matches(regex)) {
