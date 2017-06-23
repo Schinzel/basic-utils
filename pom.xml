@@ -119,9 +119,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.schinzel</groupId>
-            <artifactId>json-ordered</artifactId>
-            <version>1.1</version>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20170516</version>
         </dependency>
         <dependency>
             <!-- Annotations that generates getters, setters and more that
