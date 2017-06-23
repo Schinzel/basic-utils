@@ -20,6 +20,7 @@ import java.util.stream.Stream;
  * @param <V> The type of element to store in the collection.
  * @author schinzel
  */
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class KeyValues<V extends IValueKey> implements Iterable<V> {
     /** The internal storage. Set key sort order to be compareToIgnoreCase. */
     private final TreeMap<String, V> mValues = new TreeMap<>(String::compareToIgnoreCase);
@@ -50,7 +51,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * @return A freshly minted instance.
      */
     public static <Q extends IValueKey> KeyValues<Q> create(String collectionName) {
-        return new KeyValues<Q>(collectionName);
+        return new KeyValues<>(collectionName);
     }
     //*************************************************************************
     //* ADD

@@ -35,6 +35,7 @@ import java.security.spec.AlgorithmParameterSpec;
  * <p>
  * Created by schinzel on 2017-04-29.
  */
+@SuppressWarnings("WeakerAccess")
 @Accessors(prefix = "m")
 public class Aes256Gcm implements ICipher {
     /** The encryption key */
@@ -54,7 +55,8 @@ public class Aes256Gcm implements ICipher {
 
 
     /**
-     * @param key The key must result in 32 bytes (32 * 8 = 256 bits)
+     * @param key      The key must result in 32 bytes (32 * 8 = 256 bits)
+     * @param encoding The encoding to use to encode the encrypted strings.
      */
     public Aes256Gcm(String key, IEncoding encoding) {
         this(checkKeyAndGetBytes(key), encoding);
@@ -63,7 +65,7 @@ public class Aes256Gcm implements ICipher {
 
     /**
      * @param key      The key must be of length 32 bytes (256 bits).
-     * @param encoding What encoding to use to encode the encrypted string.
+     * @param encoding The encoding to use to encode the encrypted strings.
      */
     @SneakyThrows
     public Aes256Gcm(byte[] key, IEncoding encoding) {

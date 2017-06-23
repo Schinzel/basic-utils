@@ -15,17 +15,17 @@ package io.schinzel.basicutils.crypto.hash;
 public interface IHash {
 
     /**
-     * @param clearText
-     * @return The argument string hashed.
+     * @param clearText A clear text string to hash
+     * @return The argument string hashed
      */
     String hash(String clearText);
 
 
     /**
-     * @param clearText
-     * @param hashedText
+     * @param clearText  A clear text string to compare to the argument hashed text
+     * @param hashedText A hashed test which to compare to the argument clear text string
      * @return True if the argument clear text string is the same string as was input when
-     * the argument hashed string was created.
+     * the argument hashed string was created
      */
     boolean matches(String clearText, String hashedText);
 }

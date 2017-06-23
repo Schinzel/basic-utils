@@ -10,6 +10,7 @@ import java.util.Arrays;
  *
  * @author schinzel
  */
+@SuppressWarnings("WeakerAccess")
 public class Thrower {
 
 
@@ -146,7 +147,8 @@ public class Thrower {
     /**
      * Throw if argument expression is true.
      *
-     * @param object The object to check for null
+     * @param object  The object to check for null
+     * @param message The exception message
      */
     public static void throwIfNull(Object object, String message) {
         Thrower.throwIfNull(object).message(message);
