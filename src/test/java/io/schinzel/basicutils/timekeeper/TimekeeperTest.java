@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Sandman;
-import io.schinzel.json.JsonOrdered;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -88,7 +87,7 @@ public class TimekeeperTest {
         tk.stopLap().startLap("C");
         Sandman.snoozeMillis(10);
         tk.stopLap().stop();
-        JsonOrdered json = tk.toJson();
+        JSONObject json = tk.toJson();
         //Check that are 5 attributes "name", "tot", "avg" and so forth
         Assert.assertEquals(5, json.length());
         //Check that has 3 children
@@ -110,7 +109,7 @@ public class TimekeeperTest {
     @Test
     public void testHits() {
         Timekeeper timekeeper = TestInstanceWithDataUtil.getTimekeeper();
-        JsonOrdered json = timekeeper.toJson();
+        JSONObject json = timekeeper.toJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject A = firstLevelChildren.getJSONObject(0);
@@ -131,7 +130,7 @@ public class TimekeeperTest {
 
     @Test
     public void testAvg() {
-        JsonOrdered json = TestInstanceWithDataUtil.getTimekeeper().toJson();
+        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().toJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
@@ -149,7 +148,7 @@ public class TimekeeperTest {
 
     @Test
     public void testTot() {
-        JsonOrdered json = TestInstanceWithDataUtil.getTimekeeper().toJson();
+        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().toJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
