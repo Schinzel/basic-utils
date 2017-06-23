@@ -6,7 +6,7 @@
 
 [![Build Status](https://travis-ci.org/Schinzel/basic-utils.svg?branch=master)](https://travis-ci.org/Schinzel/basic-utils)
 
-Some basic utilities I tend to use in projects. 
+Some basic utilities. 
 Most commonly less verbose versions of common code snippets.
 
 Some examples
@@ -44,7 +44,7 @@ if (Checker.isEmpty(str)) {
 	<dependency>
 		<groupId>io.schinzel</groupId>
 		<artifactId>basic-utils</artifactId>
-		<version>1.20</version>
+		<version>1.23</version>
 	</dependency>
 </dependencies>    
 ```
