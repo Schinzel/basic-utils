@@ -1,12 +1,12 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.json.JsonOrdered;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.List;
+
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -66,7 +66,7 @@ public class StateTest {
     @Test
     public void testFloatProperty() {
         List<Property> props = State.getBuilder()
-                .addProp().key("the_float").val( 12356.6666f).decimals(3).buildProp()
+                .addProp().key("the_float").val(12356.6666f).decimals(3).buildProp()
                 .build().getProperties();
         Assert.assertEquals("the_float", props.get(0).getKey());
         Assert.assertEquals("12,356.667", props.get(0).getValueAsString());
@@ -97,7 +97,7 @@ public class StateTest {
                 .build().getProperties();
         Long prevValue = 0l;
         for (Property prop : props) {
-            assertThat((Long)prop.getObject()).isGreaterThan(prevValue);
+            assertThat((Long) prop.getObject()).isGreaterThan(prevValue);
             prevValue = (Long) prop.getObject();
         }
     }
@@ -114,8 +114,9 @@ public class StateTest {
         Assert.assertEquals(expected, result);
     }
 
+
     @Test
-    public void toString_AddSomeData_SameAsGetString(){
+    public void toString_AddSomeData_SameAsGetString() {
         MyClass a1 = new MyClass("A1", 10);
         MyClass b1 = new MyClass("B1", 17);
         MyClass b2 = new MyClass("B2", 18);
@@ -137,6 +138,7 @@ public class StateTest {
         String result = a1.getState().toString();
         Assert.assertEquals(expected, result);
     }
+
 
     @Test
     public void testGetString() {
@@ -174,7 +176,7 @@ public class StateTest {
         b2.mChildren.add(b2x);
         b2.mLeft = new MyClass("Left", 111);
         b2.mRight = new MyClass("Right", 222);
-        JsonOrdered a1json = a1.getState().getJson();
+        JSONObject a1json = a1.getState().getJson();
         Assert.assertEquals("A1", a1json.getString("Name"));
         Assert.assertEquals(10, a1json.getInt("Cost"));
         JSONArray a1kids = a1json.getJSONArray("mykids");

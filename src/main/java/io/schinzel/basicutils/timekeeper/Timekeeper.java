@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.str.Str;
-import io.schinzel.json.JsonOrdered;
+import org.json.JSONObject;
 
 /**
  * The purpose of this class is for measuring the time one or several lines of
@@ -110,7 +110,7 @@ public class Timekeeper {
     /**
      * @return The results of the times measured as JSON.
      */
-    public JsonOrdered toJson() {
+    public JSONObject toJson() {
         return mCurrentLap.getRoot().getState().getJson();
     }
 

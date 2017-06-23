@@ -2,12 +2,13 @@ package io.schinzel.basicutils.state;
 
 import com.google.common.base.Strings;
 import io.schinzel.basicutils.str.Str;
-import io.schinzel.json.JsonOrdered;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.json.JSONArray;
+import org.json.JSONObject;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -94,8 +95,8 @@ public class State {
     /**
      * @return A snapshot of the state of this object and its children.
      */
-    public JsonOrdered getJson() {
-        JsonOrdered json = JsonOrdered.create();
+    public JSONObject getJson() {
+        JSONObject json = new JSONObject(new LinkedHashMap<>());
         //Add all properties to return
         for (Property prop : mProperties) {
             json.put(prop.getKey(), prop.getObject());
