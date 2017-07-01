@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.beta.configvar;
 
+import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -34,6 +35,32 @@ public class ConfigVarTest {
         Map<String, String> envVar = Collections.singletonMap("ape", "gorilla");
         Map<String, String> propFromFile = Collections.singletonMap("ape", "chimp");
         ConfigVar configVar = new ConfigVar("anyfile.txt", envVar, propFromFile);
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                configVar.getValue("bird"));
+    }
+
+
+    @Test
+    public void Constructor_NoSuchFile_DoesNotTrowException() {
+        assertThatCode(() -> {
+            new ConfigVar("no_such_file.txt");
+        }).doesNotThrowAnyException();
+    }
+
+
+    @Test
+    public void getValue_FileWithPropertyExistsContainsProperty_ShouldReturnPropValue() {
+        String fileName = Str.create().anl("ape=gibbon").writeToTempFile();
+        ConfigVar configVar = new ConfigVar(fileName);
+        String actaul = configVar.getValue("ape");
+        assertThat(actaul).isEqualTo("gibbon");
+    }
+
+
+    @Test
+    public void getValue_FileWithPropertyExistsDoesNotContainProp_ThrowsException() {
+        String fileName = Str.create().anl("ape=gibbon").writeToTempFile();
+        ConfigVar configVar = new ConfigVar(fileName);
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 configVar.getValue("bird"));
     }
