@@ -8,10 +8,26 @@ import org.junit.Test;
 import java.io.File;
 import java.util.Properties;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 
 public class PropertiesFileTest {
+
+
+    @Test
+    public void getProperties_EmptyFileName_ThrowsException() {
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
+            PropertiesFile.getProperties("");
+        });
+    }
+
+
+    @Test
+    public void getProperties_NullFileName_ThrowsException() {
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
+            PropertiesFile.getProperties(null);
+        });
+    }
 
 
     @Test
@@ -46,7 +62,7 @@ public class PropertiesFileTest {
 
 
     @Test
-    public void get_FileDoesNotExist_ShouldGetEmptyProperties() {
+    public void getProperties_FileDoesNotExist_ShouldGetEmptyProperties() {
         Properties properties = PropertiesFile.getProperties("i_do_not_exists.properties");
         assertThat(properties).isNotNull();
         assertThat(properties.size()).isEqualTo(0);
@@ -55,7 +71,7 @@ public class PropertiesFileTest {
 
 
     @Test
-    public void get_EmptyFile_ShouldGetEmptyProperties() {
+    public void getProperties_EmptyFile_ShouldGetEmptyProperties() {
         String filename = RandomUtil.getRandomString(5) + ".properties";
         Str.create().writeToFile(filename);
         Properties properties = PropertiesFile.getProperties(filename);
@@ -66,7 +82,7 @@ public class PropertiesFileTest {
 
 
     @Test
-    public void get_PolishChars_ShouldGetTheSameCharsAsWroteToFile() {
+    public void getProperties_PolishChars_ShouldGetTheSameCharsAsWroteToFile() {
         String filename = RandomUtil.getRandomString(5) + ".properties";
         Str.create()
                 .a("polish=").anl(FunnyChars.POLISH_LETTERS.getString())

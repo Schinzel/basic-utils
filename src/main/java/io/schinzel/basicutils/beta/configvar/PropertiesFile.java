@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.beta.configvar;
 
 import com.google.common.base.Charsets;
+import io.schinzel.basicutils.Thrower;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,6 +26,7 @@ class PropertiesFile {
      * @return
      */
     static Properties getProperties(String filename) {
+        Thrower.throwIfVarEmpty(filename, "filename");
         Path path = Paths.get(filename);
         Properties props = new Properties();
         if (Files.exists(path)) {
