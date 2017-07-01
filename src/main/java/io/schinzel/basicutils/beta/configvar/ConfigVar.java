@@ -12,12 +12,12 @@ import java.util.Map;
  * Created by schinzel on 2017-06-25.
  */
 public class ConfigVar implements IConfigVar {
+    /** A representation of the system variables. */
+    @Getter(AccessLevel.PRIVATE) private final Map<String, String> environmentVariables;
     /** The file name of the properties file */
     @Getter(AccessLevel.PRIVATE) private final String propertiesFileName;
     /** A representation of the properties file. */
     @Getter(AccessLevel.PRIVATE) private final Map<String, String> propertiesFromFile;
-    /** A representation of the system variables. */
-    @Getter(AccessLevel.PRIVATE) private final Map<String, String> environmentVariables;
 
 
     ConfigVar(String propertiesFileName) {
@@ -27,15 +27,15 @@ public class ConfigVar implements IConfigVar {
     }
 
 
-    ConfigVar(String propertiesFileName, Map<String, String> propertiesFromFile, Map<String, String> envVars) {
+    ConfigVar(String propertiesFileName, Map<String, String> envVars, Map<String, String> propertiesFromFile) {
+        this.environmentVariables = envVars;
         this.propertiesFileName = propertiesFileName;
         this.propertiesFromFile = propertiesFromFile;
-        this.environmentVariables = envVars;
     }
 
 
     /**
-     * Returns the value for the argument key. First the property is looked for in environment
+     * Returns the value for the argument key. First the property is looked for among environment
      * variables. If the property was not an environment variable, the property is looked for in
      * the properties file. If the property is not found in the properties file either, then a
      * RuntimeException is thrown.
@@ -48,7 +48,7 @@ public class ConfigVar implements IConfigVar {
      */
     public String getValue(String keyName) {
         //If there was a environment variables with the argument key
-        String value = Checker.isNotEmpty(System.getenv(keyName))
+        String value = this.getEnvironmentVariables().containsKey(keyName)
                 //Set the environment variable value
                 ? this.getEnvironmentVariables().get(keyName)
                 //Else, set the property file value
