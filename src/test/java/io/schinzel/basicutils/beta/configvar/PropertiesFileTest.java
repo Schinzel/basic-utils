@@ -5,7 +5,6 @@ import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 
-import java.io.File;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +39,6 @@ public class PropertiesFileTest {
                 .writeToTempFile(filename);
         Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties.get("ape")).isEqualTo("gorilla");
-        new File(filename).delete();
     }
 
 
@@ -58,7 +56,6 @@ public class PropertiesFileTest {
                 .writeToTempFile(filename);
         Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties.size()).isEqualTo(2);
-        //new File(filename).delete();
     }
 
 
@@ -67,7 +64,6 @@ public class PropertiesFileTest {
         Map<String, String> properties = PropertiesFile.getProperties("i_do_not_exists.properties");
         assertThat(properties).isNotNull();
         assertThat(properties.size()).isEqualTo(0);
-
     }
 
 
@@ -89,7 +85,6 @@ public class PropertiesFileTest {
                 .writeToTempFile(filename);
         Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties.get("polish")).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
-        new File(filename).delete();
     }
 
 }
