@@ -112,29 +112,14 @@ public class IStrOutputTest {
      * Test append to file.
      */
     @Test
-    public void writeToFile_append() throws Exception {
+    public void appendToFile() throws Exception {
         String fileName = getFileName();
         String strWritten = "chimp";
         String strWritten2 = "gorilla";
         new StrOutput().a(strWritten).writeToFile(fileName);
-        new StrOutput().a(strWritten2).writeToFile(fileName, true);
+        new StrOutput().a(strWritten2).appendToFile(fileName);
         String strRead = Files.toString(new File(fileName), IStr.ENCODING);
         Assert.assertEquals(strWritten + strWritten2, strRead);
-    }
-
-
-    /**
-     * Test do not append to file.
-     */
-    @Test
-    public void writeToFile_doNotAppend() throws Exception {
-        String fileName = getFileName();
-        String strWritten = "chimp";
-        String strWritten2 = "gorilla";
-        new StrOutput().a(strWritten).writeToFile(fileName);
-        new StrOutput().a(strWritten2).writeToFile(fileName, false);
-        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
-        Assert.assertEquals(strWritten2, strRead);
     }
 
 

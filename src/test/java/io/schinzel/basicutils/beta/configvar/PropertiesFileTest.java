@@ -37,7 +37,7 @@ public class PropertiesFileTest {
         Str.create()
                 .anl("ape=gorilla")
                 .anl("bird=falcon")
-                .writeToFile(filename);
+                .writeToTempFile(filename);
         Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties.get("ape")).isEqualTo("gorilla");
         new File(filename).delete();
@@ -55,10 +55,10 @@ public class PropertiesFileTest {
                 .anl("bird=falcon")
                 .anl("#Comment")
                 .anl()
-                .writeToFile(filename);
+                .writeToTempFile(filename);
         Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties.size()).isEqualTo(2);
-        new File(filename).delete();
+        //new File(filename).delete();
     }
 
 
@@ -74,11 +74,10 @@ public class PropertiesFileTest {
     @Test
     public void getProperties_EmptyFile_ShouldGetEmptyProperties() {
         String filename = RandomUtil.getRandomString(5) + ".properties";
-        Str.create().writeToFile(filename);
+        Str.create().writeToTempFile(filename);
         Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties).isNotNull();
         assertThat(properties.size()).isEqualTo(0);
-        new File(filename).delete();
     }
 
 
@@ -87,7 +86,7 @@ public class PropertiesFileTest {
         String filename = RandomUtil.getRandomString(5) + ".properties";
         Str.create()
                 .a("polish=").anl(FunnyChars.POLISH_LETTERS.getString())
-                .writeToFile(filename);
+                .writeToTempFile(filename);
         Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties.get("polish")).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
         new File(filename).delete();

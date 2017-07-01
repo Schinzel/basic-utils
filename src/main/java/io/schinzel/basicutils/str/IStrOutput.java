@@ -2,6 +2,7 @@ package io.schinzel.basicutils.str;
 
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
+import io.schinzel.basicutils.Checker;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.io.IOException;
  * <p>
  * Created by schinzel on 2017-02-27.
  */
+@SuppressWarnings("UnusedReturnValue")
 interface IStrOutput<T extends IStr<T>> extends IStr<T> {
 
     /**
@@ -45,28 +47,69 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T writeToFile(String fileName) {
-        return this.writeToFile(fileName, false);
+        IStrOutput.writeToFile(fileName, this.getString(), FileOp.NOTHING);
+        return this.getThis();
+    }
+
+
+    default T writeToTempFile(String fileName) {
+        IStrOutput.writeToFile(fileName, this.getString(), FileOp.DELETE_ON_EXIT);
+        return this.getThis();
+    }
+
+
+    default T appendToFile(String fileName) {
+        IStrOutput.writeToFile(fileName, this.getString(), FileOp.APPEND);
+        return this.getThis();
     }
 
 
     /**
-     * Write the string held to a file with argument name.
+     * Different file operations
+     */
+    enum FileOp {
+        NOTHING, APPEND, DELETE_ON_EXIT;
+
+
+        /**
+         * @param fileOps Zero, one or more file operations
+         * @return True if this file operation is in the argument array. Else false.
+         */
+        boolean isIn(FileOp... fileOps) {
+            if (Checker.isEmpty(fileOps)) {
+                return false;
+            }
+            for (FileOp fileOp : fileOps) {
+                if (fileOp == this) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+
+    /**
+     * Write the argument string to a file with argument name and perform the argument operations.
      *
      * @param fileName The name of the file to write to.
-     * @param append   If true append to file, else overwrite.
-     * @return This for chaining.
+     * @param fileOps  One or several operations to carry out on file
      */
-    default T writeToFile(String fileName, boolean append) {
+    static void writeToFile(String fileName, String stringToWrite, FileOp... fileOps) {
         try {
-            if (append) {
-                Files.asCharSink(new File(fileName), IStr.ENCODING, FileWriteMode.APPEND).write(this.getString());
+            File file = new File(fileName);
+            if (FileOp.DELETE_ON_EXIT.isIn(fileOps)) {
+                file.deleteOnExit();
+            }
+            if (FileOp.APPEND.isIn(fileOps)) {
+                Files.asCharSink(file, IStr.ENCODING, FileWriteMode.APPEND).write(stringToWrite);
             } else {
-                Files.asCharSink(new File(fileName), IStr.ENCODING).write(this.getString());
+                Files.asCharSink(file, IStr.ENCODING).write(stringToWrite);
             }
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-        return this.getThis();
     }
+
 
 }
