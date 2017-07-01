@@ -92,8 +92,9 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
     /**
      * Write the argument string to a file with argument name and perform the argument operations.
      *
-     * @param fileName The name of the file to write to.
-     * @param fileOps  One or several operations to carry out on file
+     * @param fileName      The name of the file to write to.
+     * @param stringToWrite The string to write to file
+     * @param fileOps       One or several operations to carry out on file
      */
     static void writeToFile(String fileName, String stringToWrite, FileOp... fileOps) {
         try {

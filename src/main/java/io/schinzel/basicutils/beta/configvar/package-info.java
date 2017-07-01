@@ -1,7 +1,6 @@
 /**
  * The purpose of this package is to return values config variable keys.
  * <p>
- * <p>
  * Måste arbetra med java temp filer.
  * Gauva Files.createTempDir
  * Kan man lägga till det i Str??

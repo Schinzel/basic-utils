@@ -206,7 +206,7 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void getArgs_Null_EmptyString() {
-        String actual = Thrower.getArgs(null).getString();
+        String actual = Thrower.getArgs((String)null).getString();
         String expected = EmptyObjects.EMPTY_STRING;
         Assert.assertEquals(expected, actual);
     }

@@ -53,9 +53,9 @@ public class CheckerTest extends Checker {
     public void testIsEmptyList() {
         List list = null;
         assertTrue(Checker.isEmpty(list));
-        ArrayList arrayList = null;
+        List<String> arrayList = null;
         assertTrue(Checker.isEmpty(arrayList));
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<>();
         assertTrue(Checker.isEmpty(arrayList));
         arrayList.add("monkey");
         assertFalse(Checker.isEmpty(arrayList));
