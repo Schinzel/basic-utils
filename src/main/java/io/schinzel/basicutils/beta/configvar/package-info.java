@@ -1,8 +1,5 @@
 /**
- * The purpose of this package is to read config vars.
- * <p>
- * The config var will first be looked for as a environment variable, i.e. with System.getenv.
- * If the the is no such variable, then variable is looked for in the file .env.
+ * The purpose of this package is to return values config variable keys.
  * <p>
  *     To Do:
  *     - Tester.
