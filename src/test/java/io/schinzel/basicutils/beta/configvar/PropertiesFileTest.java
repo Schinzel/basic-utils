@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.beta.configvar;
 
 import io.schinzel.basicutils.FunnyChars;
-import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 
@@ -32,20 +31,18 @@ public class PropertiesFileTest {
 
     @Test
     public void getProperties_GetApe_ShouldGetGorilla() {
-        String filename = RandomUtil.getRandomString(5) + ".properties";
-        Str.create()
+        String fileName = Str.create()
                 .anl("ape=gorilla")
                 .anl("bird=falcon")
-                .writeToTempFile(filename);
-        Map<String, String> properties = PropertiesFile.getProperties(filename);
+                .writeToTempFile();
+        Map<String, String> properties = PropertiesFile.getProperties(fileName);
         assertThat(properties.get("ape")).isEqualTo("gorilla");
     }
 
 
     @Test
     public void getProperties_PropFileHasTwoProps_SizeShouldBeTwo() {
-        String filename = RandomUtil.getRandomString(5) + ".properties";
-        Str.create()
+        String fileName = Str.create()
                 .anl("ape=gorilla")
                 .anl("#Comment")
                 .anl("#Comment")
@@ -53,8 +50,8 @@ public class PropertiesFileTest {
                 .anl("bird=falcon")
                 .anl("#Comment")
                 .anl()
-                .writeToTempFile(filename);
-        Map<String, String> properties = PropertiesFile.getProperties(filename);
+                .writeToTempFile();
+        Map<String, String> properties = PropertiesFile.getProperties(fileName);
         assertThat(properties.size()).isEqualTo(2);
     }
 
@@ -69,9 +66,8 @@ public class PropertiesFileTest {
 
     @Test
     public void getProperties_EmptyFile_ShouldGetEmptyProperties() {
-        String filename = RandomUtil.getRandomString(5) + ".properties";
-        Str.create().writeToTempFile(filename);
-        Map<String, String> properties = PropertiesFile.getProperties(filename);
+        String fileName = Str.create().writeToTempFile();
+        Map<String, String> properties = PropertiesFile.getProperties(fileName);
         assertThat(properties).isNotNull();
         assertThat(properties.size()).isEqualTo(0);
     }
@@ -79,11 +75,10 @@ public class PropertiesFileTest {
 
     @Test
     public void getProperties_PolishChars_ShouldGetTheSameCharsAsWroteToFile() {
-        String filename = RandomUtil.getRandomString(5) + ".properties";
-        Str.create()
+        String fileName = Str.create()
                 .a("polish=").anl(FunnyChars.POLISH_LETTERS.getString())
-                .writeToTempFile(filename);
-        Map<String, String> properties = PropertiesFile.getProperties(filename);
+                .writeToTempFile();
+        Map<String, String> properties = PropertiesFile.getProperties(fileName);
         assertThat(properties.get("polish")).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
     }
 

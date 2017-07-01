@@ -3,6 +3,7 @@ package io.schinzel.basicutils.str;
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
 import io.schinzel.basicutils.Checker;
+import io.schinzel.basicutils.RandomUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,12 +53,36 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
     }
 
 
+    /**
+     * Writes the string held to a file with the argument name.
+     *
+     * @param fileName The name of the file to write to
+     * @return This for chaining.
+     */
     default T writeToTempFile(String fileName) {
         IStrOutput.writeToFile(fileName, this.getString(), FileOp.DELETE_ON_EXIT);
         return this.getThis();
     }
 
 
+    /**
+     * Writes the string held to a temp file with a random name.
+     *
+     * @return The name of the temp file created.
+     */
+    default String writeToTempFile() {
+        String fileName = RandomUtil.getRandomString(10) + ".txt";
+        IStrOutput.writeToFile(fileName, this.getString(), FileOp.DELETE_ON_EXIT);
+        return fileName;
+    }
+
+
+    /**
+     * Appends the string held to a file with the argument name.
+     *
+     * @param fileName The name of the file to write to
+     * @return This for chaining
+     */
     default T appendToFile(String fileName) {
         IStrOutput.writeToFile(fileName, this.getString(), FileOp.APPEND);
         return this.getThis();
