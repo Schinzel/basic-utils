@@ -133,4 +133,22 @@ public class IStrOutputTest {
         new StrOutput().a("chimp").writeToFile("");
     }
 
+
+    @Test
+    public void writeToTempFile_NoFileNameArg_ReadFileWithReturnedNameShouldContainSameString() throws Exception {
+        String strWritten = RandomUtil.getRandomString(10);
+        String fileName = new StrOutput().a(strWritten).writeToTempFile();
+        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
+        Assert.assertEquals(strWritten, strRead);
+    }
+
+
+    @Test
+    public void writeToTempFile_FileNameArg_ReadFileWithReturnedNameShouldContainSameString() throws Exception {
+        String strWritten = RandomUtil.getRandomString(10);
+        String fileName = RandomUtil.getRandomString(10) + ".txt";
+        new StrOutput().a(strWritten).writeToTempFile(fileName);
+        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
+        Assert.assertEquals(strWritten, strRead);
+    }
 }
