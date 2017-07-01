@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * The purpose of this class is to return config variables.
@@ -13,18 +12,25 @@ import java.util.Properties;
  * Created by schinzel on 2017-06-25.
  */
 public class ConfigVar implements IConfigVar {
-    @Getter(AccessLevel.PRIVATE)
-    private final String propertiesFileName;
-    @Getter(AccessLevel.PRIVATE)
-    private final Properties dotEnvFile;
-    @Getter(AccessLevel.PRIVATE)
-    private final Map<String, String> environmentVariables;
+    /** The file name of the properties file */
+    @Getter(AccessLevel.PRIVATE) private final String propertiesFileName;
+    /** A representation of the properties file. */
+    @Getter(AccessLevel.PRIVATE) private final Map<String, String> propertiesFromFile;
+    /** A representation of the system variables. */
+    @Getter(AccessLevel.PRIVATE) private final Map<String, String> environmentVariables;
 
 
     ConfigVar(String propertiesFileName) {
+        this(propertiesFileName,
+                PropertiesFile.getProperties(propertiesFileName),
+                System.getenv());
+    }
+
+
+    ConfigVar(String propertiesFileName, Map<String, String> propertiesFromFile, Map<String, String> envVars) {
         this.propertiesFileName = propertiesFileName;
-        this.dotEnvFile = PropertiesFile.getProperties(this.getPropertiesFileName());
-        this.environmentVariables = System.getenv();
+        this.propertiesFromFile = propertiesFromFile;
+        this.environmentVariables = envVars;
     }
 
 
@@ -46,11 +52,11 @@ public class ConfigVar implements IConfigVar {
                 //Set the environment variable value
                 ? this.getEnvironmentVariables().get(keyName)
                 //Else, set the property file value
-                : this.getDotEnvFile().getProperty(keyName);
+                : this.getPropertiesFromFile().get(keyName);
         //If still no property was found
         if (Checker.isEmpty(value)) {
             throw new RuntimeException("Configuration variable for key '" + keyName + "' missing. "
-                    + "No property with this key in either the environment variables not in the properties file '" + this.getPropertiesFileName() + "'.");
+                    + "No property with this key in either the environment variables nor in the properties file '" + this.getPropertiesFileName() + "'.");
         }
         //If the variable is the empty-value placeholder, then return empty string else return value.
         return (value.equals("#EMPTY#")) ? "" : value;

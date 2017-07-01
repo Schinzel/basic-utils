@@ -6,9 +6,10 @@ import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Properties;
+import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
 public class PropertiesFileTest {
@@ -37,8 +38,8 @@ public class PropertiesFileTest {
                 .anl("ape=gorilla")
                 .anl("bird=falcon")
                 .writeToFile(filename);
-        Properties properties = PropertiesFile.getProperties(filename);
-        assertThat(properties.getProperty("ape")).isEqualTo("gorilla");
+        Map<String, String> properties = PropertiesFile.getProperties(filename);
+        assertThat(properties.get("ape")).isEqualTo("gorilla");
         new File(filename).delete();
     }
 
@@ -55,7 +56,7 @@ public class PropertiesFileTest {
                 .anl("#Comment")
                 .anl()
                 .writeToFile(filename);
-        Properties properties = PropertiesFile.getProperties(filename);
+        Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties.size()).isEqualTo(2);
         new File(filename).delete();
     }
@@ -63,7 +64,7 @@ public class PropertiesFileTest {
 
     @Test
     public void getProperties_FileDoesNotExist_ShouldGetEmptyProperties() {
-        Properties properties = PropertiesFile.getProperties("i_do_not_exists.properties");
+        Map<String, String> properties = PropertiesFile.getProperties("i_do_not_exists.properties");
         assertThat(properties).isNotNull();
         assertThat(properties.size()).isEqualTo(0);
 
@@ -74,7 +75,7 @@ public class PropertiesFileTest {
     public void getProperties_EmptyFile_ShouldGetEmptyProperties() {
         String filename = RandomUtil.getRandomString(5) + ".properties";
         Str.create().writeToFile(filename);
-        Properties properties = PropertiesFile.getProperties(filename);
+        Map<String, String> properties = PropertiesFile.getProperties(filename);
         assertThat(properties).isNotNull();
         assertThat(properties.size()).isEqualTo(0);
         new File(filename).delete();
@@ -87,8 +88,8 @@ public class PropertiesFileTest {
         Str.create()
                 .a("polish=").anl(FunnyChars.POLISH_LETTERS.getString())
                 .writeToFile(filename);
-        Properties properties = PropertiesFile.getProperties(filename);
-        assertThat(properties.getProperty("polish")).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
+        Map<String, String> properties = PropertiesFile.getProperties(filename);
+        assertThat(properties.get("polish")).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
         new File(filename).delete();
     }
 

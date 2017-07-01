@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 /**
  * The purpose of this class is to load a properties file from the file system.
@@ -25,16 +28,17 @@ class PropertiesFile {
      * @param filename
      * @return
      */
-    static Properties getProperties(String filename) {
+    static Map<String, String> getProperties(String filename) {
         Thrower.throwIfVarEmpty(filename, "filename");
         Path path = Paths.get(filename);
-        Properties props = new Properties();
         if (Files.exists(path)) {
             BufferedReader bufferedReader = null;
             try {
                 bufferedReader = Files.newBufferedReader(path, Charsets.UTF_8);
-                props.load(bufferedReader);
-                return props;
+                Properties propsFromFile = new Properties();
+                propsFromFile.load(bufferedReader);
+                return propsFromFile.stringPropertyNames().stream()
+                        .collect(Collectors.toMap(p -> p, p -> propsFromFile.getProperty(p)));
             } catch (IOException e) {
                 throw new RuntimeException("Problems reading properties file '" + filename + "'. " + e.getMessage());
             } finally {
@@ -47,7 +51,7 @@ class PropertiesFile {
                 }
             }
         }
-        return props;
+        return Collections.emptyMap();
     }
 
 }
