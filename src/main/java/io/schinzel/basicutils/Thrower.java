@@ -182,17 +182,18 @@ public class Thrower {
      * @return The argument vararg as string.
      */
     static Str getArgs(String... keyValues) {
-        Str str = Str.create();
-        if (!Checker.isEmpty(keyValues)) {
-            Str args = Str.create();
-            for (int i = 0; i < keyValues.length; i += 2) {
-                if (!args.isEmpty()) {
-                    args.asp();
-                }
-                args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
-            }
-            str.a("Props:{").a(args).a("}");
+        //A (String)null as argument to vararg is represented as a new String[]{null}
+        //Hence the condition after the or
+        if (Checker.isEmpty(keyValues) || keyValues[0] == null) {
+            return Str.create();
         }
-        return str;
+        Str args = Str.create();
+        for (int i = 0; i < keyValues.length; i += 2) {
+            if (!args.isEmpty()) {
+                args.asp();
+            }
+            args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
+        }
+        return Str.create().a("Props:{").a(args).a("}");
     }
 }
