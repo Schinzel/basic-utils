@@ -3,6 +3,7 @@
  * <p>
  * <p>
  * Måste arbetra med java temp filer.
+ * Gauva Files.createTempDir
  * Kan man lägga till det i Str??
  * Created by schinzel on 2017-06-25.
  */
