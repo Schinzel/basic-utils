@@ -35,6 +35,15 @@ public class ConfigVar implements IConfigVar {
 
 
     /**
+     * @param propertiesFileName The name of the properties file. E.g. ".env"
+     * @return A new instance.
+     */
+    public static ConfigVar create(String propertiesFileName) {
+        return new ConfigVar(propertiesFileName);
+    }
+
+
+    /**
      * Returns the value for the argument key. First the property is looked for among environment
      * variables. If the property was not an environment variable, the property is looked for in
      * the properties file. If the property is not found in the properties file either, then a

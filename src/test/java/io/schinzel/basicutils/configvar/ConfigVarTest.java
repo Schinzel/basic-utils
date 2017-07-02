@@ -13,6 +13,14 @@ public class ConfigVarTest {
 
 
     @Test
+    public void create_SetConfigFile_ShouldReadFromFile() {
+        String fileName = Str.create().anl("ape=gibbon").writeToTempFile();
+        String valFromFile = ConfigVar.create(fileName).getValue("ape");
+        assertThat(valFromFile).isEqualTo("gibbon");
+    }
+
+
+    @Test
     public void getValue_ValueInBothEnvVarAndInPropFromFile_ShouldReturnValueFromEnvVar() {
         Map<String, String> envVar = Collections.singletonMap("ape", "gorilla");
         Map<String, String> propFromFile = Collections.singletonMap("ape", "chimp");
@@ -42,9 +50,7 @@ public class ConfigVarTest {
 
     @Test
     public void Constructor_NoSuchFile_DoesNotTrowException() {
-        assertThatCode(() -> {
-            new ConfigVar("no_such_file.txt");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> new ConfigVar("no_such_file.txt")).doesNotThrowAnyException();
     }
 
 
