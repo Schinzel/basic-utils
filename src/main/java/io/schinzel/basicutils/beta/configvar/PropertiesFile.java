@@ -21,8 +21,8 @@ class PropertiesFile {
      * Returns the argument files as a properties object. The file location is relative the run
      * directory. If no such file, an empty properties is returned.
      *
-     * @param fileName
-     * @return
+     * @param fileName The name of the properties file.
+     * @return The properties file as a map
      */
     static Map<String, String> getProperties(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "filenNme");
@@ -33,7 +33,7 @@ class PropertiesFile {
         Properties propsFromFile = PropertiesFile.readPropertiesFile(fileName);
         //Convert the properties to a map and return
         return propsFromFile.stringPropertyNames().stream()
-                .collect(Collectors.toMap(p -> p, p -> propsFromFile.getProperty(p)));
+                .collect(Collectors.toMap(p -> p, propsFromFile::getProperty));
     }
 
 
