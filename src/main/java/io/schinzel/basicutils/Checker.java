@@ -150,28 +150,28 @@ public class Checker {
 
 
     /**
-     * Check if an var arg of objects is empty. Is a special case as
-     * for example a for string vararg (String)null as argument
+     * Check if a varargs of objects is empty. Is a special case as
+     * for example for string varargs (String)null as argument
      * is represented as a new String[]{null}
      *
-     * @param <T>   The type of the array
+     * @param <T>   The type of the varargs
      * @param value The value to check
      * @return True if argument is empty, else false.
      */
-    public static <T> boolean isEmptyVarArg(T... value) {
+    public static <T> boolean isEmptyVarArgs(T... value) {
         return (value == null || value.length == 0 || value[0] == null);
     }
 
 
     /**
-     * Check if an var arg of objects is not empty.
+     * Check if a varargs of objects is not empty.
      *
-     * @param <T>   The type of the array
+     * @param <T>   The type of the varargs
      * @param value The value to check
-     * @return True if argument is empty, else false.
+     * @return True if argument is not empty, else false.
      */
-    public static <T> boolean isNotEmptyVarArg(T... value) {
-        return !Checker.isEmptyVarArg(value);
+    public static <T> boolean isNotEmptyVarArgs(T... value) {
+        return !Checker.isEmptyVarArgs(value);
     }
 
 }

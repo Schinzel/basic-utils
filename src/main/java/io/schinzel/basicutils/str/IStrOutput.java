@@ -101,7 +101,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
          * @return True if this file operation is in the argument array. Else false.
          */
         boolean isIn(FileOp... fileOps) {
-            if (Checker.isEmptyVarArg(fileOps)) {
+            if (Checker.isEmptyVarArgs(fileOps)) {
                 return false;
             }
             for (FileOp fileOp : fileOps) {
