@@ -158,6 +158,7 @@ public class Checker {
      * @param value The value to check
      * @return True if argument is empty, else false.
      */
+    @SafeVarargs
     public static <T> boolean isEmptyVarArgs(T... value) {
         return (value == null || value.length == 0 || value[0] == null);
     }
@@ -170,6 +171,7 @@ public class Checker {
      * @param value The value to check
      * @return True if argument is not empty, else false.
      */
+    @SafeVarargs
     public static <T> boolean isNotEmptyVarArgs(T... value) {
         return !Checker.isEmptyVarArgs(value);
     }
