@@ -124,12 +124,15 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
     static void writeToFile(String fileName, String stringToWrite, FileOp... fileOps) {
         try {
             File file = new File(fileName);
+            //If should delete file on exit
             if (FileOp.DELETE_ON_EXIT.isIn(fileOps)) {
                 file.deleteOnExit();
             }
+            //If should append to file
             if (FileOp.APPEND.isIn(fileOps)) {
                 Files.asCharSink(file, IStr.ENCODING, FileWriteMode.APPEND).write(stringToWrite);
-            } else {
+            } //else write to file and overwrite and possible previous content
+            else {
                 Files.asCharSink(file, IStr.ENCODING).write(stringToWrite);
             }
         } catch (IOException e) {
