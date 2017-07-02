@@ -11,6 +11,9 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.assertj.core.api.Assertions.*;
+
+
 public class IStrOutputTest {
     private String mFileName;
 
@@ -151,4 +154,19 @@ public class IStrOutputTest {
         String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
         Assert.assertEquals(strWritten, strRead);
     }
+
+
+    @Test
+    public void FileOpIsIn_NullFileOp_ReturnFalse() {
+        assertThat(IStrOutput.FileOp.APPEND.isIn((IStrOutput.FileOp) null))
+                .isFalse();
+    }
+
+
+    @Test
+    public void FileOpIsIn_NullFileOpArr_ReturnFalse() {
+        assertThat(IStrOutput.FileOp.APPEND.isIn((IStrOutput.FileOp[]) null))
+                .isFalse();
+    }
+
 }
