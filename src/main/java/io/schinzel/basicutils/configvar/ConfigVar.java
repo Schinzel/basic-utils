@@ -59,7 +59,7 @@ public class ConfigVar implements IConfigVar {
                     + "No property with this key in either the environment variables nor in the properties file '" + this.getPropertiesFileName() + "'.");
         }
         //If the variable is the empty-value placeholder, then return empty string else return value.
-        return (value.equals("#EMPTY#")) ? "" : value;
+        return ("#EMPTY#".equals(value)) ? "" : value;
     }
 
 
