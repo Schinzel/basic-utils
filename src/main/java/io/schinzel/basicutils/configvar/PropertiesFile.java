@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.beta.configvar;
+package io.schinzel.basicutils.configvar;
 
 import com.google.common.io.Closeables;
 import io.schinzel.basicutils.Thrower;

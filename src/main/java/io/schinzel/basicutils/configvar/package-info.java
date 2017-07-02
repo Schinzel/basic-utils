@@ -6,4 +6,4 @@
  * Kan man lägga till det i Str??
  * Created by schinzel on 2017-06-25.
  */
-package io.schinzel.basicutils.beta.configvar;
+package io.schinzel.basicutils.configvar;

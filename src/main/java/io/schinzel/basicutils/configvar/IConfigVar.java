@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.beta.configvar;
+package io.schinzel.basicutils.configvar;
 
 /**
  * The purpose of this interface is to return values for properties keys.

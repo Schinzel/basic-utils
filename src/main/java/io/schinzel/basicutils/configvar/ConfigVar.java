@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.beta.configvar;
+package io.schinzel.basicutils.configvar;
 
 import io.schinzel.basicutils.Checker;
 import lombok.AccessLevel;
