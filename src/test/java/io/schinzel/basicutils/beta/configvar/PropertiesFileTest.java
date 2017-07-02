@@ -15,17 +15,15 @@ public class PropertiesFileTest {
 
     @Test
     public void getProperties_EmptyFileName_ThrowsException() {
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            PropertiesFile.getProperties("");
-        });
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                PropertiesFile.getProperties(""));
     }
 
 
     @Test
     public void getProperties_NullFileName_ThrowsException() {
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            PropertiesFile.getProperties(null);
-        });
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                PropertiesFile.getProperties(null));
     }
 
 
@@ -80,6 +78,13 @@ public class PropertiesFileTest {
                 .writeToTempFile();
         Map<String, String> properties = PropertiesFile.getProperties(fileName);
         assertThat(properties.get("polish")).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
+    }
+
+
+    @Test
+    public void readPropertiesFile_NoSuchFile_ThrowsException() {
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                PropertiesFile.readPropertiesFile("no_such_file.txt"));
     }
 
 }
