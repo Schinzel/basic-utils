@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.str;
 
-import com.google.common.io.Files;
 import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.RandomUtil;
 import org.junit.*;
@@ -9,6 +8,11 @@ import org.junit.rules.ExpectedException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static org.assertj.core.api.Assertions.*;
+
 
 public class IStrOutputTest {
     private String mFileName;
@@ -73,7 +77,7 @@ public class IStrOutputTest {
         String fileName = getFileName();
         String strWritten = "chimp";
         new StrOutput().a(strWritten).writeToFile(fileName);
-        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
+        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
         Assert.assertEquals(strWritten, strRead);
     }
 
@@ -88,7 +92,7 @@ public class IStrOutputTest {
         String strWritten2 = "gorilla";
         new StrOutput().a(strWritten).writeToFile(fileName);
         new StrOutput().a(strWritten2).writeToFile(fileName);
-        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
+        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
         Assert.assertEquals(strWritten2, strRead);
     }
 
@@ -102,7 +106,7 @@ public class IStrOutputTest {
             String fileName = getFileName();
             String strWritten = funnyChars.getString();
             new StrOutput().a(strWritten).writeToFile(fileName);
-            String strRead = Files.toString(new File(fileName), IStr.ENCODING);
+            String strRead = new String(Files.readAllBytes(Paths.get(fileName)));
             Assert.assertEquals(strWritten, strRead);
         }
     }
@@ -112,29 +116,14 @@ public class IStrOutputTest {
      * Test append to file.
      */
     @Test
-    public void writeToFile_append() throws Exception {
+    public void appendToFile() throws Exception {
         String fileName = getFileName();
         String strWritten = "chimp";
         String strWritten2 = "gorilla";
         new StrOutput().a(strWritten).writeToFile(fileName);
-        new StrOutput().a(strWritten2).writeToFile(fileName, true);
-        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
+        new StrOutput().a(strWritten2).appendToFile(fileName);
+        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
         Assert.assertEquals(strWritten + strWritten2, strRead);
-    }
-
-
-    /**
-     * Test do not append to file.
-     */
-    @Test
-    public void writeToFile_doNotAppend() throws Exception {
-        String fileName = getFileName();
-        String strWritten = "chimp";
-        String strWritten2 = "gorilla";
-        new StrOutput().a(strWritten).writeToFile(fileName);
-        new StrOutput().a(strWritten2).writeToFile(fileName, false);
-        String strRead = Files.toString(new File(fileName), IStr.ENCODING);
-        Assert.assertEquals(strWritten2, strRead);
     }
 
 
@@ -145,6 +134,39 @@ public class IStrOutputTest {
     public void writeToFile_throwException() {
         exception.expect(RuntimeException.class);
         new StrOutput().a("chimp").writeToFile("");
+    }
+
+
+    @Test
+    public void writeToTempFile_NoFileNameArg_ReadFileWithReturnedNameShouldContainSameString() throws Exception {
+        String strWritten = RandomUtil.getRandomString(10);
+        String fileName = new StrOutput().a(strWritten).writeToTempFile();
+        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
+        Assert.assertEquals(strWritten, strRead);
+    }
+
+
+    @Test
+    public void writeToTempFile_FileNameArg_ReadFileWithReturnedNameShouldContainSameString() throws Exception {
+        String strWritten = RandomUtil.getRandomString(10);
+        String fileName = RandomUtil.getRandomString(10) + ".txt";
+        new StrOutput().a(strWritten).writeToTempFile(fileName);
+        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
+        Assert.assertEquals(strWritten, strRead);
+    }
+
+
+    @Test
+    public void FileOpIsIn_NullFileOp_ReturnFalse() {
+        assertThat(IStrOutput.FileOp.APPEND.isIn((IStrOutput.FileOp) null))
+                .isFalse();
+    }
+
+
+    @Test
+    public void FileOpIsIn_NullFileOpArr_ReturnFalse() {
+        assertThat(IStrOutput.FileOp.APPEND.isIn((IStrOutput.FileOp[]) null))
+                .isFalse();
     }
 
 }

@@ -162,7 +162,7 @@ public class Thrower {
      */
     public static void throwIfTrue(boolean expression, String message, String... keyValues) {
         //If key values are empty && the number of key values is not empty
-        if (!Checker.isEmpty(keyValues) && keyValues.length % 2 != 0) {
+        if (!Checker.isEmptyVarArgs(keyValues) && keyValues.length % 2 != 0) {
             throw new RuntimeException("The number of key values is not even: '" + Arrays.toString(keyValues) + "'");
         }
         //If argument expression is true
@@ -182,17 +182,16 @@ public class Thrower {
      * @return The argument vararg as string.
      */
     static Str getArgs(String... keyValues) {
-        Str str = Str.create();
-        if (!Checker.isEmpty(keyValues)) {
-            Str args = Str.create();
-            for (int i = 0; i < keyValues.length; i += 2) {
-                if (!args.isEmpty()) {
-                    args.asp();
-                }
-                args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
-            }
-            str.a("Props:{").a(args).a("}");
+        if (Checker.isEmptyVarArgs(keyValues)) {
+            return Str.create();
         }
-        return str;
+        Str args = Str.create();
+        for (int i = 0; i < keyValues.length; i += 2) {
+            if (!args.isEmpty()) {
+                args.asp();
+            }
+            args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
+        }
+        return Str.create().a("Props:{").a(args).a("}");
     }
 }

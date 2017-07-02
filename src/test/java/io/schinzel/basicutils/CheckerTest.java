@@ -9,6 +9,8 @@ import java.util.Map;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.*;
+
 
 /**
  * @author schinzel
@@ -53,9 +55,9 @@ public class CheckerTest extends Checker {
     public void testIsEmptyList() {
         List list = null;
         assertTrue(Checker.isEmpty(list));
-        ArrayList arrayList = null;
+        List<String> arrayList = null;
         assertTrue(Checker.isEmpty(arrayList));
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<>();
         assertTrue(Checker.isEmpty(arrayList));
         arrayList.add("monkey");
         assertFalse(Checker.isEmpty(arrayList));
@@ -278,6 +280,37 @@ public class CheckerTest extends Checker {
     public void testIsNotEmpty_NotEmptyObjectArray() {
         ArbitraryObjectForTestingIsEmpty[] arr = new ArbitraryObjectForTestingIsEmpty[1];
         assertTrue(Checker.isNotEmpty(arr));
+    }
+
+
+    @Test
+    public void isEmptyVarArg_NullString_True() {
+        assertThat(Checker.isEmptyVarArgs((String) null)).isTrue();
+    }
+
+
+    @Test
+    public void isEmptyVarArg_NullStringArray_True() {
+        assertThat(Checker.isEmptyVarArgs((String[]) null)).isTrue();
+    }
+
+
+    @Test
+    public void isEmptyVarArg_EmptyStringArray_True() {
+        assertThat(Checker.isEmptyVarArgs(new String[0])).isTrue();
+    }
+
+
+    @Test
+    public void isNotEmptyVarArg_NonEmptyString_True() {
+        assertThat(Checker.isNotEmptyVarArgs("monkey")).isTrue();
+    }
+
+
+    @Test
+    public void isNotEmptyVarArg_OneElemStringArray_True() {
+        String[] arr = {"monkey"};
+        assertThat(Checker.isNotEmptyVarArgs(arr)).isTrue();
     }
 
 
