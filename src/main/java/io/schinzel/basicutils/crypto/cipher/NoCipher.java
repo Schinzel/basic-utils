@@ -8,6 +8,12 @@ package io.schinzel.basicutils.crypto.cipher;
  * Created by schinzel on 2017-05-09.
  */
 public class NoCipher implements ICipher {
+
+    public static NoCipher create() {
+        return new NoCipher();
+    }
+
+
     @Override
     public String encrypt(String clearText) {
         return clearText;

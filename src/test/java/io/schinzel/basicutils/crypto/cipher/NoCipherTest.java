@@ -4,8 +4,17 @@ import io.schinzel.basicutils.RandomUtil;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.*;
+
 
 public class NoCipherTest {
+
+    @Test
+    public void create_NoArgs_NoCipherInstance() {
+        assertThat(NoCipher.create().getClass().getSimpleName())
+                .isEqualTo(NoCipher.class.getSimpleName());
+    }
+
 
     @Test
     public void encrypt_RandomString_SameString() {
