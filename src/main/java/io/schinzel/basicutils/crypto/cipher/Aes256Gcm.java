@@ -39,11 +39,20 @@ import java.security.spec.AlgorithmParameterSpec;
 @Accessors(prefix = "m")
 public class Aes256Gcm implements ICipher {
     /** The encryption key */
-    @Getter(AccessLevel.PRIVATE) private final byte[] mKey;
+    @Getter(AccessLevel.PACKAGE) private final byte[] mKey;
     /** The encoding used to encode the encrypted strings. */
-    @Getter(AccessLevel.PRIVATE) private final IEncoding mEncoding;
+    @Getter(AccessLevel.PACKAGE) private final IEncoding mEncoding;
     /** Used to create random init vectors. */
     @Getter(AccessLevel.PRIVATE) private final SaltShaker mSaltShaker;
+
+
+    /**
+     * @param key The key must result in 32 bytes (32 * 8 = 256 bits)
+     * @return A new instance
+     */
+    public static Aes256Gcm create(String key) {
+        return new Aes256Gcm(key);
+    }
 
 
     /**

@@ -13,10 +13,26 @@ import javax.crypto.Cipher;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.assertj.core.api.Assertions.*;
+
 
 public class Aes256GcmTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+
+    @Test
+    public void create_KeyArg_HexEncoding() {
+        Aes256Gcm aes256Gcm = Aes256Gcm.create("0123456789abcdef0123456789abcdef");
+        assertThat(aes256Gcm.getEncoding().getClass().getSimpleName()).isEqualTo(Encoding.HEX.getClass().getSimpleName());
+    }
+
+
+    @Test
+    public void create_KeyArg_DefaultArgHex() {
+        String key = "0123456789abcdef0123456789abcdef";
+        assertThat(Aes256Gcm.create(key).getKey()).containsExactly(UTF8.getBytes(key));
+    }
 
 
     @Test
