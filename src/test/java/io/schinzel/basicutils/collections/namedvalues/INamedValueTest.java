@@ -11,16 +11,12 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-
-/**
- * Created by schinzel on 2017-02-26.
- */
 public class INamedValueTest {
     @AllArgsConstructor
     class MyClass implements INamedValue {
         final int mOrder;
         @Getter
-        private final String key;
+        private final String name;
     }
 
 

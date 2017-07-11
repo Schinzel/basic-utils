@@ -12,9 +12,6 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author schinzel
- */
 public class NamedValuesTest {
 
     @Rule
@@ -24,7 +21,7 @@ public class NamedValuesTest {
     class MyVal implements INamedValue {
 
         @Getter
-        private final String key;
+        private final String name;
     }
 
 
