@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.keyvalues;
+package io.schinzel.basicutils.collections.namedvalues;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,31 +12,28 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * @author schinzel
- */
-public class KeyValuesTest {
+public class NamedValuesTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
 
     @AllArgsConstructor
-    class MyVal implements IValueKey {
+    class MyVal implements INamedValue {
 
         @Getter
-        private final String key;
+        private final String name;
     }
 
 
     @Test
     public void testSetCollectionName() {
-        Assert.assertEquals("MyCollName", KeyValues.create("MyCollName").mName);
+        Assert.assertEquals("MyCollName", NamedValues.create("MyCollName").mCollectionName);
     }
 
 
     @Test
     public void testAdd_sameIdTwice() {
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -47,7 +44,7 @@ public class KeyValuesTest {
 
     @Test
     public void testSize() {
-        KeyValues<MyVal> coll = KeyValues.create();
+        NamedValues<MyVal> coll = NamedValues.create();
         Assert.assertEquals(0, coll.size());
         coll.add(new MyVal("MyName1"));
         Assert.assertEquals(1, coll.size());
@@ -66,12 +63,12 @@ public class KeyValuesTest {
 
     @Test
     public void testGet() {
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
         MyVal myValue = coll.get("MyName2");
-        Assert.assertEquals("MyName2", myValue.getKey());
+        Assert.assertEquals("MyName2", myValue.getName());
         exception.expect(RuntimeException.class);
         coll.get("no name");
     }
@@ -84,7 +81,7 @@ public class KeyValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -122,7 +119,7 @@ public class KeyValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -140,7 +137,7 @@ public class KeyValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -163,7 +160,7 @@ public class KeyValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -181,7 +178,7 @@ public class KeyValuesTest {
 
     @Test
     public void testGet_emptyList() {
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -197,7 +194,7 @@ public class KeyValuesTest {
      */
     @Test
     public void testOrder() {
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("myName1"))
                 .add(new MyVal("MyName3"))
@@ -208,7 +205,7 @@ public class KeyValuesTest {
         List<String> expected = Arrays.asList("A", "B", "C", "myName1", "MyName2", "MyName3", "myName4");
         Iterator<String> it = expected.iterator();
         for (MyVal myVal : coll) {
-            Assert.assertEquals(it.next(), myVal.getKey());
+            Assert.assertEquals(it.next(), myVal.getName());
         }
     }
 
@@ -218,7 +215,7 @@ public class KeyValuesTest {
         MyVal val1 = new MyVal("C");
         MyVal val2 = new MyVal("A");
         MyVal val3 = new MyVal("B");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(val1)
                 .add(val2)
                 .add(val3);
@@ -235,7 +232,7 @@ public class KeyValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -254,7 +251,7 @@ public class KeyValuesTest {
 
     @Test
     public void testAlias_addAliasIdExists() {
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
         exception.expect(RuntimeException.class);
         coll.addAlias("B", "A");
     }
@@ -262,7 +259,7 @@ public class KeyValuesTest {
 
     @Test
     public void testAlias_addSameAliasTwice() {
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
         coll.addAlias("B", "alias1");
         exception.expect(RuntimeException.class);
         coll.addAlias("A", "alias1");
@@ -271,7 +268,7 @@ public class KeyValuesTest {
 
     @Test
     public void testAlias_addValueWhenThereExistsValueWithId() {
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
         exception.expect(RuntimeException.class);
         coll.addAlias("A", "B");
     }
@@ -282,7 +279,7 @@ public class KeyValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -306,7 +303,7 @@ public class KeyValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -326,7 +323,7 @@ public class KeyValuesTest {
 
     @Test
     public void testIsEmpty() {
-        KeyValues<MyVal> coll = KeyValues.create();
+        NamedValues<MyVal> coll = NamedValues.create();
         Assert.assertTrue(coll.isEmpty());
         coll.add(new MyVal("A"));
         Assert.assertFalse(coll.isEmpty());
@@ -337,7 +334,7 @@ public class KeyValuesTest {
 
     @Test
     public void testAddAndReturn() {
-        KeyValues<MyVal> coll = KeyValues.create();
+        NamedValues<MyVal> coll = NamedValues.create();
         MyVal myVal = new MyVal("A");
         MyVal myVal2 = coll.addAndGet(myVal);
         Assert.assertEquals(myVal2, myVal);
@@ -349,7 +346,7 @@ public class KeyValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -369,7 +366,7 @@ public class KeyValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        KeyValues<MyVal> coll = KeyValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
                 .add(valC)
                 .add(valA)
                 .add(valB);

@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.keyvalues;
+package io.schinzel.basicutils.collections.namedvalues;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.EmptyObjects;
@@ -16,26 +16,26 @@ import java.util.stream.Stream;
 
 /**
  * The purpose of this class is offer a collection that stores values that hold their own unique
- * string-keys.
+ * names.
  *
  * @param <V> The type of element to store in the collection.
  * @author schinzel
  */
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
-public class KeyValues<V extends IValueKey> implements Iterable<V> {
-    /** The internal storage. Set key sort order to be compareToIgnoreCase. */
+public class NamedValues<V extends INamedValue> implements Iterable<V> {
+    /** The internal storage. Set sort order to be compareToIgnoreCase. */
     private final TreeMap<String, V> mValues = new TreeMap<>(String::compareToIgnoreCase);
-    /** Holds mapping between aliases and keys. */
+    /** Holds mapping between aliases and names. */
     private final Map<String, String> mAliasMap = new HashMap<>();
     /** The name of this collection. */
-    final String mName;
+    final String mCollectionName;
     //*************************************************************************
     //* CONSTRUCTION
     //*************************************************************************
 
 
-    protected KeyValues(String collectionName) {
-        mName = collectionName;
+    protected NamedValues(String collectionName) {
+        mCollectionName = collectionName;
     }
 
 
@@ -43,8 +43,8 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * @param <Q> An bapa
      * @return A freshly minted instance.
      */
-    public static <Q extends IValueKey> KeyValues<Q> create() {
-        return new KeyValues<>(EmptyObjects.EMPTY_STRING);
+    public static <Q extends INamedValue> NamedValues<Q> create() {
+        return new NamedValues<>(EmptyObjects.EMPTY_STRING);
     }
 
 
@@ -53,8 +53,8 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * @param <Q>            An bapa
      * @return A freshly minted instance.
      */
-    public static <Q extends IValueKey> KeyValues<Q> create(String collectionName) {
-        return new KeyValues<>(collectionName);
+    public static <Q extends INamedValue> NamedValues<Q> create(String collectionName) {
+        return new NamedValues<>(collectionName);
     }
     //*************************************************************************
     //* ADD
@@ -65,37 +65,37 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      * @param value A value to addChild to collection.
      * @return This for chaining.
      */
-    public KeyValues<V> add(V value) {
+    public NamedValues<V> add(V value) {
         Thrower.throwIfVarNull(value, "value");
-        String key = value.getKey();
-        Thrower.throwIfTrue(mAliasMap.containsKey(key), "Value cannot be added as there exists an alias with the same key.", "key", key, "collectionName", mName);
-        Thrower.throwIfTrue(this.has(key), "Value cannot be added as a value with that key already exists", "key", key, "collectionName", mName);
-        mValues.put(key, value);
+        String name = value.getName();
+        Thrower.throwIfTrue(mAliasMap.containsKey(name), "Value cannot be added as there exists an alias with the same name.", "name", name, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(this.has(name), "Value cannot be added as a value with that name already exists", "name", name, "collectionName", mCollectionName);
+        mValues.put(name, value);
         return this;
     }
 
 
     /**
-     * Adds an alias for an key. For example: Lets assume there is an object
-     * "thing" that returns the key "myFunkyKey". The thing is added to the collection
+     * Adds an alias for a name. For example: Lets assume there is an object
+     * "thing" that returns the name "myFunkyName". The thing is added to the collection
      * with a couple of aliases
-     * coll.addChild(thing).addAlias("myFunkyKey", "aliasA").addAlias("myFunkyKey", "aliasB");
+     * coll.addChild(thing).addAlias("myFunkyName", "aliasA").addAlias("myFunkyName", "aliasB");
      * <p>
      * Then all three below would return the thing:
-     * coll.get("theKey")
+     * coll.get("myFunkyName")
      * coll.get("aliasA")
      * coll.get("aliasB")
      *
-     * @param key   The key for which to associate the argument alias.
-     * @param alias The alias to addChild for argument key.
+     * @param name  The name for which to associate the argument alias.
+     * @param alias The alias to addChild for argument name.
      * @return This for chaining.
      */
-    public KeyValues<V> addAlias(String key, String alias) {
-        Thrower.throwIfTrue(!this.has(key), "Alias cannot be added as there exist no value with this key in collection.", "alias", alias, "key", key, "collectionName", mName);
+    public NamedValues<V> addAlias(String name, String alias) {
+        Thrower.throwIfTrue(!this.has(name), "Alias cannot be added as there exist no value with this name in collection.", "alias", alias, "name", name, "collectionName", mCollectionName);
         //if the argument value exists in the alias set
-        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias cannot be added as there already exists such an alias.", "alias", alias, "collectionName", mName);
-        Thrower.throwIfTrue(this.has(alias), "Alias cannot be added as there exists a value with the same key.", "alias", alias, "collectionName", mName);
-        mAliasMap.put(alias, key);
+        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias cannot be added as there already exists such an alias.", "alias", alias, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(this.has(alias), "Alias cannot be added as there exists a value with the same name.", "alias", alias, "collectionName", mCollectionName);
+        mAliasMap.put(alias, name);
         return this;
     }
 
@@ -114,17 +114,17 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
 
     /**
-     * Removes the value with argument key from collection. If no value with argument key exists, an
-     * error is thrown.
+     * Removes the value with argument name from collection. If no value with argument name exists,
+     * an error is thrown.
      *
-     * @param key The key of the value to remove.
+     * @param name The name of the value to remove.
      * @return This for chaining.
      */
-    public KeyValues<V> remove(String key) {
-        Thrower.throwIfTrue(!this.has(key), "Cannot remove value as no such value exists.", "key", key, "collectionName", mName);
-        //Remove all entries in alias map with argument key.
-        while (mAliasMap.values().remove(key)) ;
-        mValues.remove(key);
+    public NamedValues<V> remove(String name) {
+        Thrower.throwIfTrue(!this.has(name), "Cannot remove value as no such value exists.", "name", name, "collectionName", mCollectionName);
+        //Remove all entries in alias map with argument name.
+        while (mAliasMap.values().remove(name)) ;
+        mValues.remove(name);
         return this;
     }
 
@@ -134,7 +134,7 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
      *
      * @return This for chaining.
      */
-    public KeyValues<V> clear() {
+    public NamedValues<V> clear() {
         mAliasMap.clear();
         mValues.clear();
         return this;
@@ -161,11 +161,11 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
 
     /**
-     * @param key The key to lookup.
-     * @return True if value with argument key is present in set.
+     * @param name The name to lookup.
+     * @return True if value with argument name is present in set.
      */
-    public boolean has(String key) {
-        return mValues.containsKey(key);
+    public boolean has(String name) {
+        return mValues.containsKey(name);
     }
 
 
@@ -179,39 +179,38 @@ public class KeyValues<V extends IValueKey> implements Iterable<V> {
 
 
     /**
-     * @param key The key to look up.
-     * @return The value with the argument key.
-     * @throws RuntimeException If there is no value with argument key.
+     * @param name The name to look up.
+     * @return The value with the argument name.
+     * @throws RuntimeException If there is no value with argument name.
      */
-    public V get(String key) {
-        Thrower.throwIfVarEmpty(key, "key");
-        //If there exists an alias for argument key
-        if (mAliasMap.containsKey(key)) {
-            //Set the key to be the alias
-            key = mAliasMap.get(key);
+    public V get(String name) {
+        Thrower.throwIfVarEmpty(name, "name");
+        //If argument name is the alias for an actual name
+        if (mAliasMap.containsKey(name)) {
+            //Set the actual name
+            name = mAliasMap.get(name);
         }
-        //Get the value of the argument key
-        V value = mValues.get(key);
+        //Get the value of the argument name
+        V value = mValues.get(name);
         //If no value was found, throw error. 
-        Thrower.throwIfTrue(value == null, "No value with argument key in collection.", "key", key, "collectionName", mName);
+        Thrower.throwIfTrue(value == null, "No value with argument name in collection.", "name", name, "collectionName", mCollectionName);
         return value;
     }
 
 
     /**
-     * @param keys The keys to find values for.
-     * @return A list of values that have the argument keys. The elements
-     * are returned in the order of the argument list.
-     * @throws RuntimeException If one or more of the argument keys does
-     *                          not exist.
+     * @param names The names to find values for.
+     * @return A list of values that have the argument names. The elements are returned in the order
+     * of the argument list.
+     * @throws RuntimeException If one or more of the argument names do not exist.
      */
-    public List<V> get(List<String> keys) {
-        if (Checker.isEmpty(keys)) {
+    public List<V> get(List<String> names) {
+        if (Checker.isEmpty(names)) {
             return Collections.emptyList();
         }
-        List<V> values = new ArrayList<>(keys.size());
-        for (String key : keys) {
-            V val = this.get(key);
+        List<V> values = new ArrayList<>(names.size());
+        for (String name : names) {
+            V val = this.get(name);
             if (val != null) {
                 values.add(val);
             }

@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.keyvalues;
+package io.schinzel.basicutils.collections.namedvalues;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,16 +11,12 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-
-/**
- * Created by schinzel on 2017-02-26.
- */
-public class IValueKeyTest {
+public class INamedValueTest {
     @AllArgsConstructor
-    class MyClass implements IValueKey {
+    class MyClass implements INamedValue {
         final int mOrder;
         @Getter
-        private final String key;
+        private final String name;
     }
 
 
