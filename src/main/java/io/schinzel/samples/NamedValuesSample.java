@@ -8,10 +8,10 @@ import io.schinzel.basicutils.collections.namedvalues.NamedValues;
  * <p>
  * Created by schinzel on 2017-03-27.
  */
-class KeyValuesSample {
+class NamedValuesSample {
 
     public static void main(String[] args) {
-        new KeyValuesSample().doIt();
+        new NamedValuesSample().doIt();
 
     }
 
