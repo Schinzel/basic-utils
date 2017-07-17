@@ -7,6 +7,7 @@ import io.schinzel.basicutils.EmptyObjects;
  * <p>
  * Created by schinzel on 2017-03-10.
  */
+@SuppressWarnings("SameParameterValue")
 interface IStrQuote<T extends IStr<T>> extends IStr<T> {
 
 

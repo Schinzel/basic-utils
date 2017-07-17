@@ -9,11 +9,11 @@ interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
 
 
     /**
-     * The argument value is added with a thousand separator for readability.
+     * The argument value is append with a thousand separator for readability
      *
-     * @param f             The float to addChild
-     * @param numOfDecimals The number of decimals to display.
-     * @return This for chaining,
+     * @param f             The float to append
+     * @param numOfDecimals The number of decimals to display
+     * @return This for chaining
      */
     default T af(float f, int numOfDecimals) {
         return this.af((double) f, numOfDecimals);
@@ -21,11 +21,11 @@ interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
 
 
     /**
-     * The argument value is added with a thousand separator for readability.
+     * The argument value is append with a thousand separator for readability
      *
-     * @param d             The double to addChild
-     * @param numOfDecimals The number of decimals to display.
-     * @return This for chaining,
+     * @param d             The double to append
+     * @param numOfDecimals The number of decimals to display
+     * @return This for chaining
      */
     default T af(double d, int numOfDecimals) {
         String s = String.format(this.getLocale(), "%,." + numOfDecimals + "f", d);
@@ -34,21 +34,21 @@ interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
 
 
     /**
-     * The argument value is added with a thousand separator for readability.
+     * The argument value is append with a thousand separator for readability
      *
-     * @param l The long to addChild.
-     * @return This for chaining.
+     * @param i The int to append
+     * @return This for chaining
      */
-    default T af(int l) {
-        return this.af((long) l);
+    default T af(int i) {
+        return this.af((long) i);
     }
 
 
     /**
-     * The argument value is added with a thousand separator for readability.
+     * The argument value is append with a thousand separator for readability
      *
-     * @param l The long to addChild.
-     * @return This for chaining.
+     * @param l The long to append
+     * @return This for chaining
      */
     default T af(long l) {
         String s = String.format(this.getLocale(), "%,d", l);

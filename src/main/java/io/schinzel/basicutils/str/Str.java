@@ -12,10 +12,9 @@ import java.util.Locale;
 
 public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<Str>, IStrQuote<Str>,
         IStrString<Str>, IStrUtil<Str>, IStrWhitespace<Str> {
-    StringBuilder sb = new StringBuilder();
-    /**
-     * If true, the adding of strings is paused.
-     */
+    /** Holds the stings added. */
+    private StringBuilder mSb = new StringBuilder();
+    /** If true, the adding of strings is paused. */
     private boolean mAddingPaused;
 
 
@@ -40,7 +39,7 @@ public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<St
     public Str a(String s) {
         Thrower.throwIfVarNull(s, "s");
         if (!mAddingPaused) {
-            sb.append(s);
+            mSb.append(s);
         }
         return this;
     }
@@ -60,7 +59,7 @@ public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<St
 
     @Override
     public String getString() {
-        return sb.toString();
+        return mSb.toString();
     }
 
 

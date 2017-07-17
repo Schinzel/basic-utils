@@ -5,6 +5,7 @@ package io.schinzel.basicutils.str;
  * <p>
  * Created by Schinzel on 2017-02-26.
  */
+@SuppressWarnings("SameParameterValue")
 interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
     /**
      * Enum for whitespaces.
