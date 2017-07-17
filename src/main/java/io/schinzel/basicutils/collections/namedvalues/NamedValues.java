@@ -1,17 +1,9 @@
 package io.schinzel.basicutils.collections.namedvalues;
 
 import io.schinzel.basicutils.Checker;
-import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.Thrower;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Stream;
 
 /**
@@ -34,23 +26,14 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
     //*************************************************************************
 
 
-    protected NamedValues(String collectionName) {
+    public NamedValues(String collectionName) {
         mCollectionName = collectionName;
     }
 
 
     /**
-     * @param <Q> An bapa
-     * @return A freshly minted instance.
-     */
-    public static <Q extends INamedValue> NamedValues<Q> create() {
-        return new NamedValues<>(EmptyObjects.EMPTY_STRING);
-    }
-
-
-    /**
      * @param collectionName The name of the collection. Useful for error messages and debugging.
-     * @param <Q>            An bapa
+     * @param <Q>            The class that will be added to this collection.
      * @return A freshly minted instance.
      */
     public static <Q extends INamedValue> NamedValues<Q> create(String collectionName) {
