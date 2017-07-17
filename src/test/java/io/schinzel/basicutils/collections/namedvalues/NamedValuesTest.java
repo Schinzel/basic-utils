@@ -33,7 +33,7 @@ public class NamedValuesTest {
 
     @Test
     public void testAdd_sameIdTwice() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -44,7 +44,7 @@ public class NamedValuesTest {
 
     @Test
     public void testSize() {
-        NamedValues<MyVal> coll = NamedValues.create();
+        NamedValues<MyVal> coll = NamedValues.create("MyCollName");
         Assert.assertEquals(0, coll.size());
         coll.add(new MyVal("MyName1"));
         Assert.assertEquals(1, coll.size());
@@ -63,7 +63,7 @@ public class NamedValuesTest {
 
     @Test
     public void testGet() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -81,7 +81,7 @@ public class NamedValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -119,7 +119,7 @@ public class NamedValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -137,7 +137,7 @@ public class NamedValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -160,7 +160,7 @@ public class NamedValuesTest {
         MyVal bird1 = new MyVal("Bird1");
         MyVal bird2 = new MyVal("Bird2");
         MyVal moon1 = new MyVal("Moon1");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(man1)
                 .add(man2)
                 .add(bird1)
@@ -178,7 +178,7 @@ public class NamedValuesTest {
 
     @Test
     public void testGet_emptyList() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
@@ -194,7 +194,7 @@ public class NamedValuesTest {
      */
     @Test
     public void testOrder() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("myName1"))
                 .add(new MyVal("MyName3"))
@@ -215,7 +215,7 @@ public class NamedValuesTest {
         MyVal val1 = new MyVal("C");
         MyVal val2 = new MyVal("A");
         MyVal val3 = new MyVal("B");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(val1)
                 .add(val2)
                 .add(val3);
@@ -232,7 +232,7 @@ public class NamedValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -251,7 +251,7 @@ public class NamedValuesTest {
 
     @Test
     public void testAlias_addAliasIdExists() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
         exception.expect(RuntimeException.class);
         coll.addAlias("B", "A");
     }
@@ -259,7 +259,7 @@ public class NamedValuesTest {
 
     @Test
     public void testAlias_addSameAliasTwice() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
         coll.addAlias("B", "alias1");
         exception.expect(RuntimeException.class);
         coll.addAlias("A", "alias1");
@@ -268,7 +268,7 @@ public class NamedValuesTest {
 
     @Test
     public void testAlias_addValueWhenThereExistsValueWithId() {
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create().add(new MyVal("A")).add(new MyVal("B"));
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
         exception.expect(RuntimeException.class);
         coll.addAlias("A", "B");
     }
@@ -279,7 +279,7 @@ public class NamedValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -303,7 +303,7 @@ public class NamedValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -323,7 +323,7 @@ public class NamedValuesTest {
 
     @Test
     public void testIsEmpty() {
-        NamedValues<MyVal> coll = NamedValues.create();
+        NamedValues<MyVal> coll = NamedValues.create("MyCollName");
         Assert.assertTrue(coll.isEmpty());
         coll.add(new MyVal("A"));
         Assert.assertFalse(coll.isEmpty());
@@ -334,7 +334,7 @@ public class NamedValuesTest {
 
     @Test
     public void testAddAndReturn() {
-        NamedValues<MyVal> coll = NamedValues.create();
+        NamedValues<MyVal> coll = NamedValues.create("MyCollName");
         MyVal myVal = new MyVal("A");
         MyVal myVal2 = coll.addAndGet(myVal);
         Assert.assertEquals(myVal2, myVal);
@@ -346,7 +346,7 @@ public class NamedValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(valC)
                 .add(valA)
                 .add(valB)
@@ -366,7 +366,7 @@ public class NamedValuesTest {
         MyVal valC = new MyVal("C");
         MyVal valA = new MyVal("A");
         MyVal valB = new MyVal("B");
-        NamedValues<MyVal> coll = NamedValues.<MyVal>create()
+        NamedValues<MyVal> coll = NamedValues.<MyVal>create("MyCollName")
                 .add(valC)
                 .add(valA)
                 .add(valB);
