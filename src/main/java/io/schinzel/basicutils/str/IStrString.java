@@ -6,6 +6,7 @@ package io.schinzel.basicutils.str;
  * Created by Schinzel on 2017-02-27.
  */
 interface IStrString<T extends IStr<T>> extends IStr<T> {
+    String NULL_STRING = "null";
 
 
     /**
@@ -47,8 +48,10 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @param f The float to append
      * @return This for chaining.
      */
-    default T a(float f) {
-        return this.a(String.valueOf(f));
+    default T a(Float f) {
+        return (f == null)
+                ? this.a(NULL_STRING)
+                : this.a(String.valueOf(f));
     }
 
 
@@ -58,8 +61,10 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @param d The double to append
      * @return This for chaining.
      */
-    default T a(double d) {
-        return this.a(String.valueOf(d));
+    default T a(Double d) {
+        return (d == null)
+                ? this.a(NULL_STRING)
+                : this.a(String.valueOf(d));
     }
 
 
@@ -69,8 +74,10 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @param l The long to append
      * @return This for chaining.
      */
-    default T a(long l) {
-        return this.a(String.valueOf(l));
+    default T a(Long l) {
+        return (l == null)
+                ? this.a(NULL_STRING)
+                : this.a(String.valueOf(l));
     }
 
 
@@ -80,9 +87,12 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @param i The int to append
      * @return This for chaining.
      */
-    default T a(int i) {
-        return this.a(String.valueOf(i));
+    default T a(Integer i) {
+        return (i == null)
+                ? this.a(NULL_STRING)
+                : this.a(String.valueOf(i));
     }
+
 
     /**
      * Appends the argument boolean.
@@ -90,9 +100,12 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @param b The boolean to append
      * @return This for chaining.
      */
-    default T a(boolean b) {
-        return this.a(String.valueOf(b));
+    default T a(Boolean b) {
+        return (b == null)
+                ? this.a(NULL_STRING)
+                : this.a(String.valueOf(b));
     }
+
 
 }
 
