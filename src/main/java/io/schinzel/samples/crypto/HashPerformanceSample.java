@@ -40,8 +40,8 @@ public class HashPerformanceSample {
         long totTime = (System.currentTimeMillis() - start);
         double timePerLap = totTime / (numberOfIterations * 1d);
         Str.create()
-                .a("Total run time: ").a(totTime).a(" ms").anl()
-                .a("Time per hash: ").a(timePerLap, 2).a(" ms")
+                .a("Total run time: ").af(totTime).a(" ms").anl()
+                .a("Time per hash: ").af(timePerLap, 2).a(" ms")
                 .pln();
     }
 }

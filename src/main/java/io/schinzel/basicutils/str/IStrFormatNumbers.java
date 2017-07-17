@@ -5,7 +5,7 @@ package io.schinzel.basicutils.str;
  *
  * Created by schinzel on 2017-02-26.
  */
-interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
+interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
 
 
     /**
@@ -15,8 +15,8 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
      * @param numOfDecimals The number of decimals to display.
      * @return This for chaining,
      */
-    default T a(float f, int numOfDecimals) {
-        return this.a((double) f, numOfDecimals);
+    default T af(float f, int numOfDecimals) {
+        return this.af((double) f, numOfDecimals);
     }
 
 
@@ -27,7 +27,7 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
      * @param numOfDecimals The number of decimals to display.
      * @return This for chaining,
      */
-    default T a(double d, int numOfDecimals) {
+    default T af(double d, int numOfDecimals) {
         String s = String.format(this.getLocale(), "%,." + numOfDecimals + "f", d);
         this.a(s);
         return this.getThis();
@@ -40,8 +40,8 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
      * @param l The long to addChild.
      * @return This for chaining.
      */
-    default T a(int l) {
-        return this.a((long) l);
+    default T af(int l) {
+        return this.af((long) l);
     }
 
 
@@ -51,7 +51,7 @@ interface IStrNumbers<T extends IStr<T>> extends IStr<T> {
      * @param l The long to addChild.
      * @return This for chaining.
      */
-    default T a(long l) {
+    default T af(long l) {
         String s = String.format(this.getLocale(), "%,d", l);
         this.a(s);
         return this.getThis();

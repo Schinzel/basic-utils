@@ -10,7 +10,7 @@ import java.util.Locale;
  * Created by schinzel on 2017-02-26.
  */
 
-public class Str implements IStrCast<Str>, IStrNumbers<Str>, IStrOutput<Str>, IStrQuote<Str>,
+public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<Str>, IStrQuote<Str>,
         IStrString<Str>, IStrUtil<Str>, IStrWhitespace<Str> {
     StringBuilder sb = new StringBuilder();
     /**

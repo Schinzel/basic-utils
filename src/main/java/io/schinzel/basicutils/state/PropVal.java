@@ -41,7 +41,7 @@ public class PropVal {
      * @return  Property unit adder.
      */
     public PropUnit val(long val) {
-        return this.getUnit(Str.create().a(val).toString(), val);
+        return this.getUnit(Str.create().af(val).toString(), val);
     }
 
 
