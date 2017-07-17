@@ -17,8 +17,7 @@ interface IStrQuote<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T aq(String s) {
-        this.aq(s, "'", "'");
-        return this.getThis();
+        return this.aq(s, "'", "'");
     }
 
 
@@ -30,9 +29,9 @@ interface IStrQuote<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T aq(String s, char quote) {
-        this.aq(s, String.valueOf(quote), String.valueOf(quote));
-        return this.getThis();
+        return this.aq(s, String.valueOf(quote), String.valueOf(quote));
     }
+
 
     /**
      * Appends the argument string surrounded with argument quote string.
@@ -42,9 +41,9 @@ interface IStrQuote<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T aq(String s, String quote) {
-        this.aq(s, quote, quote);
-        return this.getThis();
+        return this.aq(s, quote, quote);
     }
+
 
     /**
      * Appends the argument string surrounded with argument start and end quote chars.
@@ -55,9 +54,9 @@ interface IStrQuote<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T aq(String s, char startQuote, char endQuote) {
-        this.aq(s, String.valueOf(startQuote), String.valueOf(endQuote));
-        return this.getThis();
+        return this.aq(s, String.valueOf(startQuote), String.valueOf(endQuote));
     }
+
 
     /**
      * Appends the argument string surrounded with argument start and end quote String.
@@ -71,7 +70,6 @@ interface IStrQuote<T extends IStr<T>> extends IStr<T> {
         if (s == null) {
             s = EmptyObjects.EMPTY_STRING;
         }
-        this.a(startQuote + s + endQuote);
-        return this.getThis();
+        return this.a(startQuote + s + endQuote);
     }
 }

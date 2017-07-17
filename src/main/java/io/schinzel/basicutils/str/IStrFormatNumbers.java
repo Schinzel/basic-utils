@@ -2,7 +2,7 @@ package io.schinzel.basicutils.str;
 
 /**
  * The purpose of this interface is to add numbers and format them for human readability.
- *
+ * <p>
  * Created by schinzel on 2017-02-26.
  */
 interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
@@ -29,8 +29,7 @@ interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
      */
     default T af(double d, int numOfDecimals) {
         String s = String.format(this.getLocale(), "%,." + numOfDecimals + "f", d);
-        this.a(s);
-        return this.getThis();
+        return this.a(s);
     }
 
 
@@ -53,7 +52,6 @@ interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
      */
     default T af(long l) {
         String s = String.format(this.getLocale(), "%,d", l);
-        this.a(s);
-        return this.getThis();
+        return this.a(s);
     }
 }

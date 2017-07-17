@@ -15,8 +15,7 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T a(StringBuilder sb) {
-        this.a(sb.toString());
-        return this.getThis();
+        return this.a(sb.toString());
     }
 
 
@@ -27,8 +26,7 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T a(T s) {
-        this.a(s.getString());
-        return this.getThis();
+        return this.a(s.getString());
     }
 
 
@@ -39,7 +37,6 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T a(char c) {
-        this.a(String.valueOf(c));
-        return this.getThis();
+        return this.a(String.valueOf(c));
     }
 }

@@ -37,8 +37,7 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T aws(WS whitespace) {
-        this.a(whitespace.toString());
-        return this.getThis();
+        return this.a(whitespace.toString());
     }
 
 
@@ -46,13 +45,11 @@ interface IStrWhitespace<T extends IStr<T>> extends IStr<T> {
      * Append a white space.
      *
      * @param whitespace The white space to a.
-     * @param s The string to add before white space.
+     * @param s          The string to add before white space.
      * @return This for chaining.
      */
     default T aws(WS whitespace, String s) {
-        this.a(s);
-        this.a(whitespace.toString());
-        return this.getThis();
+        return this.a(s).a(whitespace.toString());
     }
 
 
