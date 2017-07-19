@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 public class StateBuilder {
     /** A list of properties. */
     @Getter(AccessLevel.PACKAGE)
-    private List<Property> mProperties = new ArrayList<>();
+    private final List<Property> mProperties;
     /** Named children of state being built. */
     @Getter(AccessLevel.PACKAGE)
-    private Map<String, State> mChildren = new LinkedHashMap<>();
+    private final Map<String, State> mChildren;
     /** Named lists of children of the state being built. */
     @Getter(AccessLevel.PACKAGE)
-    private Map<String, List<State>> mChildLists = new LinkedHashMap<>();
+    private final Map<String, List<State>> mChildLists;
     //------------------------------------------------------------------------
     // CONSTRUCTION
     //------------------------------------------------------------------------
@@ -36,6 +36,7 @@ public class StateBuilder {
      * package.
      */
     StateBuilder() {
+        this(null);
     }
 
 
@@ -45,10 +46,13 @@ public class StateBuilder {
      */
 
     StateBuilder(State state) {
-        mProperties = new ArrayList<>(state.getProperties());
-        mChildren = new HashMap<>(mChildren);
-        mChildLists = new HashMap<>(mChildLists);
+        mProperties = (state != null)
+                ? new ArrayList<>(state.getProperties())
+                : new ArrayList<>();
+        mChildren = new LinkedHashMap<>();
+        mChildLists = new LinkedHashMap<>();
     }
+
 
 
     /**
