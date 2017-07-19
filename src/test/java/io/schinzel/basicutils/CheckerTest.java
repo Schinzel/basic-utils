@@ -12,6 +12,7 @@ import static org.assertj.core.api.Assertions.*;
 /**
  * @author schinzel
  */
+@SuppressWarnings("ConstantConditions")
 public class CheckerTest extends Checker {
 
     @Test
@@ -50,33 +51,31 @@ public class CheckerTest extends Checker {
 
     @Test
     public void testIsEmptyList() {
-        List list = null;
+        List<String> list = null;
         assertTrue(Checker.isEmpty(list));
-        List<String> arrayList = null;
-        assertTrue(Checker.isEmpty(arrayList));
-        arrayList = new ArrayList<>();
-        assertTrue(Checker.isEmpty(arrayList));
-        arrayList.add("monkey");
-        assertFalse(Checker.isEmpty(arrayList));
-        arrayList.remove("monkey");
-        assertTrue(Checker.isEmpty(arrayList));
-        arrayList.add("monkey");
-        assertFalse(Checker.isEmpty(arrayList));
-        arrayList.clear();
-        assertTrue(Checker.isEmpty(arrayList));
+        list = new ArrayList<>();
+        assertTrue(Checker.isEmpty(list));
+        list.add("monkey");
+        assertFalse(Checker.isEmpty(list));
+        list.remove("monkey");
+        assertTrue(Checker.isEmpty(list));
+        list.add("monkey");
+        assertFalse(Checker.isEmpty(list));
+        list.clear();
+        assertTrue(Checker.isEmpty(list));
     }
 
 
     @Test
     public void testIsNotEmpty_NullList() {
-        List list = null;
+        List<String> list = null;
         assertFalse(Checker.isNotEmpty(list));
     }
 
 
     @Test
     public void testIsNotEmpty_EmptyList() {
-        List list = new ArrayList();
+        List<String> list = new ArrayList<>();
         assertFalse(Checker.isNotEmpty(list));
     }
 
@@ -311,6 +310,6 @@ public class CheckerTest extends Checker {
     }
 
 
-    static class ArbitraryObjectForTestingIsEmpty {
+    private static class ArbitraryObjectForTestingIsEmpty {
     }
 }
