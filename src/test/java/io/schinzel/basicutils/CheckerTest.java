@@ -2,10 +2,7 @@ package io.schinzel.basicutils;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -19,7 +16,7 @@ public class CheckerTest extends Checker {
 
     @Test
     public void testIsEmptyMap() {
-        assertTrue(Checker.isEmpty(EmptyObjects.EMPTY_MAP));
+        assertTrue(Checker.isEmpty(Collections.emptyMap()));
         Map<String, String> map = new HashMap<>();
         map.put("a", "b");
         assertFalse(Checker.isEmpty(map));
@@ -28,7 +25,7 @@ public class CheckerTest extends Checker {
 
     @Test
     public void testIsNotEmpty_NullMap() {
-        assertTrue(Checker.isEmpty(EmptyObjects.EMPTY_MAP));
+        assertTrue(Checker.isEmpty(Collections.emptyMap()));
         Map<String, String> map = null;
         assertFalse(Checker.isNotEmpty(map));
     }
@@ -36,7 +33,7 @@ public class CheckerTest extends Checker {
 
     @Test
     public void testIsNotEmpty_EmptyMap() {
-        assertTrue(Checker.isEmpty(EmptyObjects.EMPTY_MAP));
+        assertTrue(Checker.isEmpty(Collections.emptyMap()));
         Map<String, String> map = new HashMap<>();
         assertFalse(Checker.isNotEmpty(map));
     }
@@ -44,7 +41,7 @@ public class CheckerTest extends Checker {
 
     @Test
     public void testIsNotEmpty_NotEmptyMap() {
-        assertTrue(Checker.isEmpty(EmptyObjects.EMPTY_MAP));
+        assertTrue(Checker.isEmpty(Collections.emptyMap()));
         Map<String, String> map = new HashMap<>();
         map.put("a", "b");
         assertTrue(Checker.isNotEmpty(map));

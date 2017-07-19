@@ -45,7 +45,7 @@ public class UTF8Test {
 
     @Test
     public void getBytes_EmptyString_EmptyArray() {
-        assertArrayEquals(EmptyObjects.EMPTY_BYTE_ARRAY, UTF8.getBytes(""));
+        assertArrayEquals(new byte[0], UTF8.getBytes(""));
     }
 
 
@@ -58,7 +58,7 @@ public class UTF8Test {
 
     @Test
     public void getString_EmptyArray_EmptyString() {
-        assertEquals("", UTF8.getString(EmptyObjects.EMPTY_BYTE_ARRAY));
+        assertEquals("", UTF8.getString(new byte[0]));
 
     }
 

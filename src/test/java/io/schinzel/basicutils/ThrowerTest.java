@@ -222,7 +222,7 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void getArgs_EmptyString_EmptyString() {
-        String actual = Thrower.getArgs(EmptyObjects.EMPTY_STRING_ARRAY).getString();
+        String actual = Thrower.getArgs(new String[0]).getString();
         String expected = EmptyObjects.EMPTY_STRING;
         Assert.assertEquals(expected, actual);
     }
