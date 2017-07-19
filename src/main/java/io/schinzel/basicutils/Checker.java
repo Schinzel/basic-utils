@@ -37,36 +37,42 @@ public class Checker {
 
     /**
      * @param value The value to check
+     * @param <T>   The type of the list
      * @return True if argument is null or empty, else false.
      */
-    public static boolean isEmpty(List value) {
+    public static <T> boolean isEmpty(List<T> value) {
         return (value == null || value.isEmpty());
     }
 
 
     /**
      * @param value The value to check
+     * @param <T>   The type of the list
      * @return True if argument is not null or empty, else false.
      */
-    public static boolean isNotEmpty(List value) {
+    public static <T> boolean isNotEmpty(List<T> value) {
         return !Checker.isEmpty(value);
     }
 
 
     /**
      * @param value The value to check
+     * @param <K>   The type of the key of the map
+     * @param <V>   The value of the key of the map
      * @return True if argument is null or empty, else false.
      */
-    public static boolean isEmpty(Map value) {
+    public static <K, V> boolean isEmpty(Map<K, V> value) {
         return (value == null || value.isEmpty());
     }
 
 
     /**
      * @param value The value to check
+     * @param <K>   The type of the key of the map
+     * @param <V>   The value of the key of the map
      * @return True if argument is not null nor empty, else false.
      */
-    public static boolean isNotEmpty(Map value) {
+    public static <K, V> boolean isNotEmpty(Map<K, V> value) {
         return !Checker.isEmpty(value);
     }
 
@@ -141,7 +147,7 @@ public class Checker {
      * Check if an array of objects is null or empty
      *
      * @param <T>   The type of the array
-     * @param value The value to check
+     * @param value The type of the value to check
      * @return True if argument is not empty nor length 0, else false.
      */
     public static <T> boolean isNotEmpty(T[] value) {
