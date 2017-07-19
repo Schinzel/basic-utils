@@ -2,7 +2,6 @@ package io.schinzel.basicutils.str;
 
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
-import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.RandomUtil;
 
 import java.io.File;
@@ -94,23 +93,6 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      */
     enum FileOp {
         NOTHING, APPEND, DELETE_ON_EXIT;
-
-
-        /**
-         * @param fileOps Zero, one or more file operations
-         * @return True if this file operation is in the argument array. Else false.
-         */
-        boolean isIn(FileOp... fileOps) {
-            if (Checker.isEmptyVarArgs(fileOps)) {
-                return false;
-            }
-            for (FileOp fileOp : fileOps) {
-                if (fileOp == this) {
-                    return true;
-                }
-            }
-            return false;
-        }
     }
 
 
@@ -119,19 +101,19 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      *
      * @param fileName      The name of the file to write to.
      * @param stringToWrite The string to write to file
-     * @param fileOps       One or several operations to carry out on file
+     * @param fileOp        The operations to carry out on file
      */
-    static void writeToFile(String fileName, String stringToWrite, FileOp... fileOps) {
+    static void writeToFile(String fileName, String stringToWrite, FileOp fileOp) {
         try {
             File file = new File(fileName);
             //If should delete file on exit
-            if (FileOp.DELETE_ON_EXIT.isIn(fileOps)) {
+            if (fileOp == FileOp.DELETE_ON_EXIT) {
                 file.deleteOnExit();
             }
             //If should append to file
-            if (FileOp.APPEND.isIn(fileOps)) {
+            if (fileOp == FileOp.APPEND) {
                 Files.asCharSink(file, IStr.ENCODING, FileWriteMode.APPEND).write(stringToWrite);
-            } //else write to file and overwrite and possible previous content
+            } //else write to file and overwrite possible previous content
             else {
                 Files.asCharSink(file, IStr.ENCODING).write(stringToWrite);
             }

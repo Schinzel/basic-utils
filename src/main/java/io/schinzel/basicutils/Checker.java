@@ -160,12 +160,10 @@ public class Checker {
      * for example for string varargs (String)null as argument
      * is represented as a new String[]{null}
      *
-     * @param <T>   The type of the varargs
      * @param value The value to check
      * @return True if argument is empty, else false.
      */
-    @SafeVarargs
-    public static <T> boolean isEmptyVarArgs(T... value) {
+    public static boolean isEmptyVarArgs(String... value) {
         return (value == null || value.length == 0 || value[0] == null);
     }
 
@@ -173,12 +171,11 @@ public class Checker {
     /**
      * Check if a varargs of objects is not empty.
      *
-     * @param <T>   The type of the varargs
      * @param value The value to check
      * @return True if argument is not empty, else false.
      */
-    @SafeVarargs
-    public static <T> boolean isNotEmptyVarArgs(T... value) {
+    public static boolean isNotEmptyVarArgs(String... value) {
+        //return (value != null && value.length > 0 || value[0] != null);
         return !Checker.isEmptyVarArgs(value);
     }
 
