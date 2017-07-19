@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.str;
 
-import io.schinzel.basicutils.EmptyObjects;
 
 /**
  * Appends quoted strings.
@@ -69,7 +68,7 @@ interface IStrQuote<T extends IStr<T>> extends IStr<T> {
      */
     default T aq(String s, String startQuote, String endQuote) {
         if (s == null) {
-            s = EmptyObjects.EMPTY_STRING;
+            s = "";
         }
         return this.a(startQuote + s + endQuote);
     }

@@ -207,7 +207,7 @@ public class ThrowerTest extends Thrower {
     @Test
     public void getArgs_NullString_EmptyString() {
         String actual = Thrower.getArgs((String) null).getString();
-        String expected = EmptyObjects.EMPTY_STRING;
+        String expected = "";
         Assert.assertEquals(expected, actual);
     }
 
@@ -215,15 +215,15 @@ public class ThrowerTest extends Thrower {
     @Test
     public void getArgs_NullStringArray_EmptyString() {
         String actual = Thrower.getArgs((String[]) null).getString();
-        String expected = EmptyObjects.EMPTY_STRING;
+        String expected = "";
         Assert.assertEquals(expected, actual);
     }
 
 
     @Test
     public void getArgs_EmptyString_EmptyString() {
-        String actual = Thrower.getArgs(EmptyObjects.EMPTY_STRING_ARRAY).getString();
-        String expected = EmptyObjects.EMPTY_STRING;
+        String actual = Thrower.getArgs(new String[0]).getString();
+        String expected = "";
         Assert.assertEquals(expected, actual);
     }
 
