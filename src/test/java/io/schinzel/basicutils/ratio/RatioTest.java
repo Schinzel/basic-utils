@@ -62,14 +62,6 @@ public class RatioTest {
     }
 
 
-    @Test
-    public void testGetThis() {
-        Ratio ratio = Ratio.create(1, -2);
-        Assert.assertEquals(ratio, ratio.getThis());
-        Assert.assertEquals("Ratio", ratio.getThis().getClass().getSimpleName());
-    }
-
-
     /**
      * Do this a bunch of times
      * - generate a random ratio

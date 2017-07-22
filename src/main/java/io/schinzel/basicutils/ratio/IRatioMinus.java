@@ -53,8 +53,7 @@ interface IRatioMinus<T extends IRatio<T>> extends IRatio<T> {
         BigInteger newNum = (this.getNumerator().multiply(denominator))
                 .subtract(numerator.multiply(this.getDenominator()));
         BigInteger newDen = this.getDenominator().multiply(denominator);
-        this.setRatio(newNum, newDen);
-        return this.getThis();
+        return this.newInstance(newNum, newDen);
     }
 
 }

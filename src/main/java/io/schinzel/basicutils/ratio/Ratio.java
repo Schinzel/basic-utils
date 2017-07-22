@@ -1,13 +1,14 @@
 package io.schinzel.basicutils.ratio;
 
+import io.schinzel.basicutils.Thrower;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import java.math.BigInteger;
 
 /**
- * The purpose of this class enable the basic arithmetic operations on rational numbers and not lose precision.
+ * The purpose of this class enable the basic arithmetic operations on rational numbers and not lose
+ * precision.
  * Precision might be lost as decimal numbers cannot be represented in binary code.
  * <p>
  * Formulas from here
@@ -20,10 +21,8 @@ import java.math.BigInteger;
 @Accessors(prefix = "m")
 public class Ratio implements IRatioCompare<Ratio>, IRatioDividedBy<Ratio>, IRatioMinus<Ratio>,
         IRatioOutput<Ratio>, IRatioPlus<Ratio>, IRatioTimes<Ratio> {
-    @Getter @Setter
-    private BigInteger mNumerator;
-    @Getter @Setter
-    private BigInteger mDenominator;
+    @Getter private final BigInteger mNumerator;
+    @Getter private final BigInteger mDenominator;
 
 
     /**
@@ -31,6 +30,8 @@ public class Ratio implements IRatioCompare<Ratio>, IRatioDividedBy<Ratio>, IRat
      * @param denominator The denominator
      */
     private Ratio(BigInteger numerator, BigInteger denominator) {
+        Thrower.throwIfVarNull(numerator, "numerator");
+        Thrower.throwIfVarNull(denominator, "denominator");
         if (BigInteger.ZERO.equals(denominator)) {
             throw new RuntimeException("Denominator cannot be zero");
         }
@@ -70,9 +71,8 @@ public class Ratio implements IRatioCompare<Ratio>, IRatioDividedBy<Ratio>, IRat
     }
 
 
-    @Override
-    public Ratio getThis() {
-        return this;
+    public Ratio newInstance(BigInteger numerator, BigInteger denominator) {
+        return new Ratio(numerator, denominator);
     }
 
 
@@ -83,7 +83,7 @@ public class Ratio implements IRatioCompare<Ratio>, IRatioDividedBy<Ratio>, IRat
 
 
     @Override
-    public boolean equals(Object o){
-        return (o instanceof Ratio) && this.equals((Ratio)o);
+    public boolean equals(Object o) {
+        return (o instanceof Ratio) && this.equals((Ratio) o);
     }
 }

@@ -4,12 +4,11 @@ import java.math.BigInteger;
 
 /**
  * Handles multiplication of ratios.
- *
+ * <p>
  * Created by schinzel on 2017-03-19.
  */
 interface IRatioTimes<T extends IRatio<T>> extends IRatio<T> {
     /**
-     *
      * @param val The value to multiply this by.
      * @return This for chaining.
      */
@@ -19,7 +18,7 @@ interface IRatioTimes<T extends IRatio<T>> extends IRatio<T> {
 
 
     /**
-     * @param numerator A numerator
+     * @param numerator   A numerator
      * @param denominator A denominator
      * @return This for chaining
      */
@@ -43,17 +42,16 @@ interface IRatioTimes<T extends IRatio<T>> extends IRatio<T> {
      * New num: mNum * num
      * New den: mDen * den
      *
-     * @param numerator A numerator
+     * @param numerator   A numerator
      * @param denominator A denominator
      * @return This for chaining
      */
     @SuppressWarnings("Duplicates")
     default T times(BigInteger numerator, BigInteger denominator) {
         //Formula here https://en.wikipedia.org/wiki/Rational_number#Multiplication
-        BigInteger newNum =  this.getNumerator().multiply(numerator);
-        BigInteger newDen =  this.getDenominator().multiply(denominator);
-        this.setRatio(newNum, newDen);
-        return this.getThis();
+        BigInteger newNum = this.getNumerator().multiply(numerator);
+        BigInteger newDen = this.getDenominator().multiply(denominator);
+        return this.newInstance(newNum, newDen);
     }
 
 }

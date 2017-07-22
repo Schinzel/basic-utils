@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 /**
  * Handles addition of ratios.
- *
+ * <p>
  * Created by schinzel on 2017-03-19.
  */
 interface IRatioPlus<T extends IRatio<T>> extends IRatio<T> {
@@ -47,7 +47,6 @@ interface IRatioPlus<T extends IRatio<T>> extends IRatio<T> {
         BigInteger newNum = (this.getNumerator().multiply(denominator))
                 .add(numerator.multiply(this.getDenominator()));
         BigInteger newDen = this.getDenominator().multiply(denominator);
-        this.setRatio(newNum, newDen);
-        return this.getThis();
+        return this.newInstance(newNum, newDen);
     }
 }
