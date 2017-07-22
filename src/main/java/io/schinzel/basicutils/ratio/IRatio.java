@@ -1,7 +1,5 @@
 package io.schinzel.basicutils.ratio;
 
-import io.schinzel.basicutils.Thrower;
-
 import java.math.BigInteger;
 
 /**
@@ -24,19 +22,6 @@ interface IRatio<T extends IRatio<T>> {
      * @return A new ratio instance.
      */
     T newInstance(BigInteger numerator, BigInteger denominator);
-
-
-    default T newInstance2(BigInteger numerator, BigInteger denominator) {
-        Thrower.throwIfVarNull(numerator, "numerator");
-        Thrower.throwIfVarNull(denominator, "denominator");
-        if (BigInteger.ZERO.equals(denominator)) {
-            throw new RuntimeException("Denominator cannot be zero");
-        }
-        BigInteger greatestCommonDenominator = numerator.gcd(denominator);
-        numerator = numerator.divide(greatestCommonDenominator);
-        denominator = denominator.divide(greatestCommonDenominator);
-        return this.newInstance(numerator, denominator);
-    }
 
 
     /**

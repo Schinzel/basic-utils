@@ -5,16 +5,15 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
-public class RatioMinusTest extends AbstractIRatio<RatioMinusTest> implements IRatioMinus<RatioMinusTest> {
-
+public class RatioMinusTest extends AbstractRatio<RatioMinusTest> implements IRatioMinus<RatioMinusTest> {
 
     public RatioMinusTest() {
-        super(0, 0);
+        this(1, 1);
     }
 
 
-    RatioMinusTest(int num, int den) {
-        super(num, den);
+    RatioMinusTest(int num, int den){
+        super(BigInteger.valueOf(num), BigInteger.valueOf(den));
     }
 
 
@@ -24,11 +23,12 @@ public class RatioMinusTest extends AbstractIRatio<RatioMinusTest> implements IR
     }
 
 
+
     @Test
     public void testMinus() {
         RatioMinusTest r1 = new RatioMinusTest(1, 2);
         RatioMinusTest r2 = new RatioMinusTest(1, 4);
-        r1.minus(r2);
+        r1 = r1.minus(r2);
         Assert.assertEquals("1", r1.getNumerator().toString());
         Assert.assertEquals("4", r1.getDenominator().toString());
     }
@@ -37,7 +37,7 @@ public class RatioMinusTest extends AbstractIRatio<RatioMinusTest> implements IR
     @Test
     public void testMinusInt() {
         RatioMinusTest r1 = new RatioMinusTest(7, 4);
-        r1.minus(1);
+        r1 = r1.minus(1);
         Assert.assertEquals("3", r1.getNumerator().toString());
         Assert.assertEquals("4", r1.getDenominator().toString());
     }

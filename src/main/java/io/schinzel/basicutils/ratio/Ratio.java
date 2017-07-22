@@ -1,7 +1,5 @@
 package io.schinzel.basicutils.ratio;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.math.BigInteger;
@@ -19,11 +17,13 @@ import java.math.BigInteger;
  */
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 @Accessors(prefix = "m")
-@AllArgsConstructor
-public class Ratio implements IRatioCompare<Ratio>, IRatioDividedBy<Ratio>, IRatioMinus<Ratio>,
+public class Ratio extends AbstractRatio<Ratio> implements IRatioCompare<Ratio>, IRatioDividedBy<Ratio>, IRatioMinus<Ratio>,
         IRatioOutput<Ratio>, IRatioPlus<Ratio>, IRatioTimes<Ratio> {
-    @Getter private final BigInteger mNumerator;
-    @Getter private final BigInteger mDenominator;
+
+
+    public Ratio(BigInteger num, BigInteger den) {
+        super(num, den);
+    }
 
 
     /**

@@ -5,15 +5,16 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
-public class IRatioOutputTest extends AbstractIRatio<IRatioOutputTest> implements IRatioOutput<IRatioOutputTest> {
+public class IRatioOutputTest extends AbstractRatio<IRatioOutputTest> implements IRatioOutput<IRatioOutputTest> {
 
 
     public IRatioOutputTest() {
-        super(0, 0);
+        this(1, 1);
     }
 
-    IRatioOutputTest(int num, int den) {
-        super(num, den);
+
+    IRatioOutputTest(int num, int den){
+        super(BigInteger.valueOf(num), BigInteger.valueOf(den));
     }
 
 

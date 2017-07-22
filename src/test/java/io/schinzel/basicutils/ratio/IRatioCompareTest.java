@@ -13,15 +13,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 
-public class IRatioCompareTest extends AbstractIRatio<IRatioCompareTest> implements IRatioCompare<IRatioCompareTest> {
+public class IRatioCompareTest extends AbstractRatio<IRatioCompareTest> implements IRatioCompare<IRatioCompareTest> {
 
     public IRatioCompareTest() {
-        super(0, 0);
+        this(1, 1);
     }
 
 
-    IRatioCompareTest(int num, int den) {
-        super(num, den);
+    IRatioCompareTest(int num, int den){
+        super(BigInteger.valueOf(num), BigInteger.valueOf(den));
     }
 
 

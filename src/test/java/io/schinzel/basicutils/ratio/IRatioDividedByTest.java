@@ -8,16 +8,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
-public class IRatioDividedByTest extends AbstractIRatio<IRatioDividedByTest> implements IRatioDividedBy<IRatioDividedByTest> {
-
+public class IRatioDividedByTest extends AbstractRatio<IRatioDividedByTest> implements IRatioDividedBy<IRatioDividedByTest> {
 
     public IRatioDividedByTest() {
-        super(0, 0);
+        this(1, 1);
     }
 
-
-    IRatioDividedByTest(int num, int den) {
-        super(num, den);
+    IRatioDividedByTest(int num, int den){
+        super(BigInteger.valueOf(num), BigInteger.valueOf(den));
     }
 
 
