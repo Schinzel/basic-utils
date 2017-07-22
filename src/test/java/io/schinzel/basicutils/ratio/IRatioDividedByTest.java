@@ -1,15 +1,15 @@
 package io.schinzel.basicutils.ratio;
 
-import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.math.BigInteger;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+
 public class IRatioDividedByTest extends AbstractIRatio<IRatioDividedByTest> implements IRatioDividedBy<IRatioDividedByTest> {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
+
 
     public IRatioDividedByTest() {
         super(0, 0);
@@ -31,22 +31,22 @@ public class IRatioDividedByTest extends AbstractIRatio<IRatioDividedByTest> imp
     public void testDividedBy() {
         IRatioDividedByTest r1 = new IRatioDividedByTest(1, 3);
         IRatioDividedByTest r2 = new IRatioDividedByTest(5, 4);
-        r1.dividedBy(r2);
-        Assert.assertEquals("4", r1.getNumerator().toString());
-        Assert.assertEquals("15", r1.getDenominator().toString());
+        r1 = r1.dividedBy(r2);
+        assertThat(r1.getNumerator()).isEqualTo(4);
+        assertThat(r1.getDenominator()).isEqualTo(15);
     }
 
 
     @Test
     public void testDividedByInt() {
         IRatioDividedByTest r1 = new IRatioDividedByTest(1, 3);
-        r1.dividedBy(2);
-        Assert.assertEquals("1", r1.getNumerator().toString());
-        Assert.assertEquals("6", r1.getDenominator().toString());
+        r1 = r1.dividedBy(2);
+        assertThat(r1.getNumerator()).isEqualTo(1);
+        assertThat(r1.getDenominator()).isEqualTo(6);
         r1 = new IRatioDividedByTest(2, 5);
-        r1.dividedBy(3);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("15", r1.getDenominator().toString());
+        r1 = r1.dividedBy(3);
+        assertThat(r1.getNumerator()).isEqualTo(2);
+        assertThat(r1.getDenominator()).isEqualTo(15);
     }
 
 
@@ -54,17 +54,16 @@ public class IRatioDividedByTest extends AbstractIRatio<IRatioDividedByTest> imp
     public void testDividedByInt2() {
         IRatioDividedByTest r1 = new IRatioDividedByTest(1, 3);
         r1 = r1.dividedBy(1, 3);
-        Assert.assertEquals("1", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
+        assertThat(r1.getNumerator()).isEqualTo(1);
+        assertThat(r1.getDenominator()).isEqualTo(1);
     }
 
 
     @Test
     public void testDivisionByZero() {
-        IRatioDividedByTest r1 = new IRatioDividedByTest(1, 3);
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Cannot do division by zero.");
-        r1.dividedBy(0);
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
+            new IRatioDividedByTest(1, 3).dividedBy(0);
+        }).withMessageContaining("Cannot do division by zero.");
     }
 
 }

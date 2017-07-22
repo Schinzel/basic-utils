@@ -57,7 +57,7 @@ interface IRatioDividedBy<T extends IRatio<T>> extends IRatio<T> {
         //Formula here https://en.wikipedia.org/wiki/Rational_number#Division
         BigInteger newNum = this.getNumerator().multiply(denominator);
         BigInteger newDen = this.getDenominator().multiply(numerator);
-        return this.newInstance(newNum, newDen);
+        return this.newInstance2(newNum, newDen);
     }
 
 }

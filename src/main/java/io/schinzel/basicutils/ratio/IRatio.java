@@ -1,5 +1,7 @@
 package io.schinzel.basicutils.ratio;
 
+import io.schinzel.basicutils.Thrower;
+
 import java.math.BigInteger;
 
 /**
@@ -13,7 +15,6 @@ import java.math.BigInteger;
 interface IRatio<T extends IRatio<T>> {
 
 
-
     /**
      * This should really be package private or protected. But as this is not an option, it has to
      * be public.
@@ -23,6 +24,19 @@ interface IRatio<T extends IRatio<T>> {
      * @return A new ratio instance.
      */
     T newInstance(BigInteger numerator, BigInteger denominator);
+
+
+    default T newInstance2(BigInteger numerator, BigInteger denominator) {
+        Thrower.throwIfVarNull(numerator, "numerator");
+        Thrower.throwIfVarNull(denominator, "denominator");
+        if (BigInteger.ZERO.equals(denominator)) {
+            throw new RuntimeException("Denominator cannot be zero");
+        }
+        BigInteger greatestCommonDenominator = numerator.gcd(denominator);
+        numerator = numerator.divide(greatestCommonDenominator);
+        denominator = denominator.divide(greatestCommonDenominator);
+        return this.newInstance(numerator, denominator);
+    }
 
 
     /**
@@ -35,7 +49,6 @@ interface IRatio<T extends IRatio<T>> {
      * @return The denominator of this ratio.
      */
     BigInteger getDenominator();
-
 
 
 }
