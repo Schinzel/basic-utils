@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.ratio;
 
-import org.junit.Assert;
+import io.schinzel.basicutils.RandomUtil;
 import org.junit.Test;
 
 import java.math.BigInteger;
@@ -8,9 +8,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static junit.framework.TestCase.assertFalse;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 
 
 public class IRatioCompareTest {
@@ -30,88 +28,121 @@ public class IRatioCompareTest {
 
 
     @Test
-    public void testCompare() {
-        RatioCompare r1 = new RatioCompare(1, 3);
-        RatioCompare r2 = new RatioCompare(1, 3);
-        int result = r1.compareTo(r2);
-        Assert.assertEquals(0, result);
-        //
-        r1 = new RatioCompare(1, 3);
-        r2 = new RatioCompare(2, 3);
-        result = r1.compareTo(r2);
-        assertThat(result).isLessThan(0);
-        //
-        result = r2.compareTo(r1);
-        assertThat(result).isGreaterThan(0);
+    public void compareTo_LessThan_Negative() {
+        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        int den2 = RandomUtil.getRandomNumber(1, den1);
+        RatioCompare r1 = new RatioCompare(1, den1);
+        RatioCompare r2 = new RatioCompare(1, den2);
+        int actual = r1.compareTo(r2);
+        assertThat(actual).isNegative();
     }
 
 
     @Test
-    public void testGreaterThan() {
-        RatioCompare r1 = new RatioCompare(1, 4);
-        RatioCompare r2 = new RatioCompare(2, 4);
-        RatioCompare r3 = new RatioCompare(3, 4);
-        RatioCompare r4 = new RatioCompare(4, 4);
-        assertTrue(r4.greaterThan(r3));
-        assertTrue(r3.greaterThan(r2));
-        assertTrue(r2.greaterThan(r1));
+    public void compareTo_Equal_Zero() {
+        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den);
+        RatioCompare r2 = new RatioCompare(1, den);
+        int actual = r1.compareTo(r2);
+        assertThat(actual).isZero();
     }
 
 
     @Test
-    public void testGreaterThan2() {
-        RatioCompare r1 = new RatioCompare(1, 4);
-        RatioCompare r2 = new RatioCompare(1, 3);
-        RatioCompare r3 = new RatioCompare(1, 2);
-        assertTrue(r3.greaterThan(r2));
-        assertTrue(r2.greaterThan(r1));
+    public void compareTo_LargerThan_Positive() {
+        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        int den2 = RandomUtil.getRandomNumber(den1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den1);
+        RatioCompare r2 = new RatioCompare(1, den2);
+        int actual = r1.compareTo(r2);
+        assertThat(actual).isPositive();
     }
 
 
     @Test
-    public void testLessThan() {
-        RatioCompare r1 = new RatioCompare(4, 4);
-        RatioCompare r2 = new RatioCompare(3, 4);
-        RatioCompare r3 = new RatioCompare(2, 4);
-        RatioCompare r4 = new RatioCompare(1, 4);
-        assertTrue(r4.lessThan(r3));
-        assertTrue(r3.lessThan(r2));
-        assertTrue(r2.lessThan(r1));
+    public void greaterThan_GreaterThan_True() {
+        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        int den2 = RandomUtil.getRandomNumber(den1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den1);
+        RatioCompare r2 = new RatioCompare(1, den2);
+        assertThat(r1.greaterThan(r2)).isTrue();
     }
 
 
     @Test
-    public void testLessThan2() {
-        RatioCompare r1 = new RatioCompare(1, 2);
-        RatioCompare r2 = new RatioCompare(1, 3);
-        RatioCompare r3 = new RatioCompare(1, 4);
-        assertTrue(r3.lessThan(r2));
-        assertTrue(r2.lessThan(r1));
+    public void greaterThan_Equal_False() {
+        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den);
+        RatioCompare r2 = new RatioCompare(1, den);
+        assertThat(r1.greaterThan(r2)).isFalse();
     }
 
 
     @Test
-    public void testSort() {
+    public void greaterThan_LessThan_False() {
+        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        int den2 = RandomUtil.getRandomNumber(1, den1);
+        RatioCompare r1 = new RatioCompare(1, den1);
+        RatioCompare r2 = new RatioCompare(1, den2);
+        assertThat(r1.greaterThan(r2)).isFalse();
+    }
+
+
+    @Test
+    public void lessThan_GreaterThan_False() {
+        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        int den2 = RandomUtil.getRandomNumber(den1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den1);
+        RatioCompare r2 = new RatioCompare(1, den2);
+        assertThat(r1.lessThan(r2)).isFalse();
+    }
+
+
+    @Test
+    public void lessThan_Equal_False() {
+        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den);
+        RatioCompare r2 = new RatioCompare(1, den);
+        assertThat(r1.lessThan(r2)).isFalse();
+    }
+
+
+    @Test
+    public void lessThan_LessThan_True() {
+        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        int den2 = RandomUtil.getRandomNumber(1, den1);
+        RatioCompare r1 = new RatioCompare(1, den1);
+        RatioCompare r2 = new RatioCompare(1, den2);
+        assertThat(r1.lessThan(r2)).isTrue();
+    }
+
+
+    @Test
+    public void ComparableImplementation_Sort_AscendingOrder() {
         RatioCompare r1 = new RatioCompare(3, 4);
         RatioCompare r2 = new RatioCompare(1, 4);
         RatioCompare r3 = new RatioCompare(2, 4);
         List<RatioCompare> list = Arrays.asList(r1, r2, r3);
         Collections.sort(list);
-        assertTrue(list.get(0).lessThan(list.get(1)));
-        assertTrue(list.get(1).lessThan(list.get(2)));
+        assertThat(list).containsExactly(r2, r3, r1);
+
     }
 
 
     @Test
-    public void testEquals() {
+    public void equals_AreEqual_True() {
         RatioCompare r1 = new RatioCompare(2, 4);
         RatioCompare r2 = new RatioCompare(1, 2);
-        assertTrue(r1.equals(r2));
-        assertTrue(r2.equals(r1));
-        r1 = new RatioCompare(1, 3);
-        r2 = new RatioCompare(1, 2);
-        assertFalse(r1.equals(r2));
-        assertFalse(r2.equals(r1));
+        assertThat(r1.equals(r2)).isTrue();
+        assertThat(r2.equals(r1)).isTrue();
     }
 
+
+    @Test
+    public void equals_NotEqual_True() {
+        RatioCompare r1 = new RatioCompare(1, 3);
+        RatioCompare r2 = new RatioCompare(1, 2);
+        assertThat(r1.equals(r2)).isFalse();
+        assertThat(r2.equals(r1)).isFalse();
+    }
 }

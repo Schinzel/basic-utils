@@ -10,6 +10,9 @@ import java.math.BigInteger;
  * Created by schinzel on 2017-03-19.
  */
 interface IRatioCompare<T extends IRatio<T>> extends IRatio<T>, Comparable<T> {
+
+
+    @Override
     default int compareTo(T other) {
         Thrower.throwIfVarNull(other, "other");
         BigInteger a1 = this.getNumerator();
