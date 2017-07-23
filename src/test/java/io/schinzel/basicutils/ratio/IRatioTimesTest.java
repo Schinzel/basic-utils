@@ -8,26 +8,26 @@ import java.math.BigInteger;
 
 
 @Accessors(prefix = "m")
-public class IRatioTimesTest extends AbstractRatio<IRatioTimesTest> implements IRatioTimes<IRatioTimesTest> {
+public class IRatioTimesTest {
 
-    public IRatioTimesTest() {
-        this(1, 1);
-    }
+    private class RatioTimes extends AbstractRatio<RatioTimes> implements IRatioTimes<RatioTimes> {
+        RatioTimes(int num, int den) {
+            super(BigInteger.valueOf(num), BigInteger.valueOf(den));
+        }
 
 
-    IRatioTimesTest(int num, int den){
-        super(BigInteger.valueOf(num), BigInteger.valueOf(den));
-    }
-    @Override
-    public IRatioTimesTest newInstance(BigInteger numerator, BigInteger denominator) {
-        return new IRatioTimesTest(numerator.intValue(), denominator.intValue());
+        @Override
+        public RatioTimes newInstance(BigInteger num, BigInteger den) {
+            return new RatioTimes(num.intValue(), den.intValue());
+        }
+
     }
 
 
     @Test
     public void testTimes() {
-        IRatioTimesTest r1 = new IRatioTimesTest(4, 8);
-        IRatioTimesTest r2 = new IRatioTimesTest(1, 2);
+        RatioTimes r1 = new RatioTimes(4, 8);
+        RatioTimes r2 = new RatioTimes(1, 2);
         r1 = r1.times(r2);
         Assert.assertEquals("1", r1.getNumerator().toString());
         Assert.assertEquals("4", r1.getDenominator().toString());
@@ -36,11 +36,11 @@ public class IRatioTimesTest extends AbstractRatio<IRatioTimesTest> implements I
 
     @Test
     public void testTimesInt() {
-        IRatioTimesTest r1 = new IRatioTimesTest(7, 4);
+        RatioTimes r1 = new RatioTimes(7, 4);
         r1 = r1 = r1.times(2);
         Assert.assertEquals("7", r1.getNumerator().toString());
         Assert.assertEquals("2", r1.getDenominator().toString());
-        r1 = r1 = new IRatioTimesTest(7, 4);
+        r1 = r1 = new RatioTimes(7, 4);
         r1 = r1 = r1.times(3);
         Assert.assertEquals("21", r1.getNumerator().toString());
         Assert.assertEquals("4", r1.getDenominator().toString());
@@ -49,11 +49,11 @@ public class IRatioTimesTest extends AbstractRatio<IRatioTimesTest> implements I
 
     @Test
     public void testTimesInt2() {
-        IRatioTimesTest r1 = new IRatioTimesTest(7, 4);
+        RatioTimes r1 = new RatioTimes(7, 4);
         r1 = r1.times(1, 3);
         Assert.assertEquals("7", r1.getNumerator().toString());
         Assert.assertEquals("12", r1.getDenominator().toString());
-        r1 = new IRatioTimesTest(7, 4);
+        r1 = new RatioTimes(7, 4);
         r1 = r1.times(1, 2);
         Assert.assertEquals("7", r1.getNumerator().toString());
         Assert.assertEquals("8", r1.getDenominator().toString());
