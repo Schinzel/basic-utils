@@ -1,46 +1,55 @@
 package io.schinzel.basicutils.ratio;
 
-import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.within;
+
 
 public class IRatioCastTest {
 
 
-    private class RatioOutput extends AbstractRatio<RatioOutput> implements IRatioCast<RatioOutput> {
-        RatioOutput(int num, int den) {
+    private class RatioCast extends AbstractRatio<RatioCast> implements IRatioCast<RatioCast> {
+        RatioCast(int num, int den) {
             super(BigInteger.valueOf(num), BigInteger.valueOf(den));
         }
 
 
         @Override
-        public RatioOutput newInstance(BigInteger num, BigInteger den) {
-            return new RatioOutput(num.intValue(), den.intValue());
+        public RatioCast newInstance(BigInteger num, BigInteger den) {
+            return new RatioCast(num.intValue(), den.intValue());
         }
     }
 
 
     @Test
-    public void getStringTest() {
-        RatioOutput r = new RatioOutput(3, 7);
-        Assert.assertEquals("3/7", r.getStr().getString());
+    public void getBigDecimal_num1den2_0dot5() {
+        BigDecimal actual = new RatioCast(1, 2).getBigDecimal();
+        assertThat(actual).isEqualTo("0.5");
     }
 
 
     @Test
-    public void getStrTest() {
-        RatioOutput r = new RatioOutput(3, 7);
-        Assert.assertEquals("3/7", r.getStr().getString());
+    public void getStr_num3debn7_3slash7() {
+        String actual = new RatioCast(3, 7).getStr().getString();
+        assertThat(actual).isEqualTo("3/7");
     }
 
 
     @Test
-    public void getDoubleTest() {
-        RatioOutput r = new RatioOutput(1, 2);
-        Assert.assertEquals(0.5D, r.getDouble(), 0);
-        r = new RatioOutput(1, 3);
-        Assert.assertEquals(0.33333D, r.getDouble(), 0.001);
+    public void getDouble_num1den2_0dot5() {
+        double actual = new RatioCast(1, 2).getDouble();
+        assertThat(actual).isEqualTo(0.5d);
+    }
+
+
+    @Test
+    public void getDouble_num1den3_0dot3333333() {
+        double actual = new RatioCast(1, 3).getDouble();
+        assertThat(actual).isCloseTo(0.33333d, within(0.00001d));
     }
 
 }

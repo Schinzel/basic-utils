@@ -15,7 +15,7 @@ class RatioSample {
                 .dividedBy(2)
                 .minus(1, 6);
         System.out.println("Str: " + ratio.toString());
-        System.out.println("Big dec: " + ratio.getBigDec());
+        System.out.println("Big dec: " + ratio.getBigDecimal());
         System.out.println("Double: " + ratio.getDouble());
     }
 }

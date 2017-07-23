@@ -15,7 +15,7 @@ interface IRatioCast<T extends IRatio<T>> extends IRatio<T> {
     /**
      * @return The ratio held by this instance.
      */
-    default BigDecimal getBigDec() {
+    default BigDecimal getBigDecimal() {
         BigDecimal num = new BigDecimal(this.getNumerator());
         BigDecimal dec = new BigDecimal(this.getDenominator());
         return num.divide(dec, MathContext.DECIMAL128);
@@ -26,7 +26,7 @@ interface IRatioCast<T extends IRatio<T>> extends IRatio<T> {
      * @return The ratio held by this instance.
      */
     default double getDouble() {
-        return this.getBigDec().doubleValue();
+        return this.getBigDecimal().doubleValue();
     }
 
 
@@ -39,6 +39,8 @@ interface IRatioCast<T extends IRatio<T>> extends IRatio<T> {
         String s = this.getNumerator().toString() + "/" + this.getDenominator().toString();
         return Str.create().a(s);
     }
+
+
 
 
 }
