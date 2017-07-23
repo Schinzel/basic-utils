@@ -1,5 +1,7 @@
 package io.schinzel.basicutils.ratio;
 
+import io.schinzel.basicutils.str.Str;
+
 import java.math.BigInteger;
 
 /**
@@ -36,4 +38,15 @@ interface IRatio<T extends IRatio<T>> {
     BigInteger getDenominator();
 
 
+    /**
+     * Sample output: "1/3".
+     * Could be argued that this method should be in IRatioCast, but is here for
+     * easier testing.
+     *
+     * @return The ratio as a Str.
+     */
+    default Str getStr() {
+        String s = this.getNumerator().toString() + "/" + this.getDenominator().toString();
+        return Str.create().a(s);
+    }
 }
