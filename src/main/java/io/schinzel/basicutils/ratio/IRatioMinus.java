@@ -4,56 +4,50 @@ import java.math.BigInteger;
 
 /**
  * Handles subtraction of ratios.
- *
+ * <p>
  * Created by schinzel on 2017-03-19.
  */
 @SuppressWarnings("SameParameterValue")
 interface IRatioMinus<T extends IRatio<T>> extends IRatio<T> {
 
     /**
-     * @param val The value to subtract from this.
-     * @return This for chaining
+     * @param val A value to subtract
+     * @return The new ratio resulting from the operation
      */
     default T minus(int val) {
-        return this.minus(val, 1);
+        return this.minus(BigInteger.valueOf(val));
     }
 
 
     /**
-     * @param numerator   A numerator
-     * @param denominator A denominator
-     * @return This for chaining
+     * @param val A value to subtract
+     * @return The new ratio resulting from the operation
      */
-    default T minus(int numerator, int denominator) {
-        BigInteger a2 = BigInteger.valueOf(numerator);
-        BigInteger b2 = BigInteger.valueOf(denominator);
-        return this.minus(a2, b2);
+    default T minus(Long val) {
+        return this.minus(BigInteger.valueOf(val));
     }
 
 
     /**
-     * @param ratio A ratio
-     * @return This for chaining
+     * @param val A value to subtract
+     * @return The new ratio resulting from the operation
      */
-    default T minus(T ratio) {
-        return this.minus(ratio.getNumerator(), ratio.getDenominator());
+    default T minus(BigInteger val) {
+        return this.minus(this.newInstance(val, BigInteger.ONE));
     }
 
 
     /**
-     * New num = (mNum * den) - (mDen * num)
-     * New den = mDen * den
-     *
-     * @param numerator   A numerator
-     * @param denominator A denominator
-     * @return This for chaining
+     * @param val A value to subtract
+     * @return The new ratio resulting from the operation
      */
-    default T minus(BigInteger numerator, BigInteger denominator) {
+    default T minus(T val) {
         //Formula here https://en.wikipedia.org/wiki/Rational_number#Subtraction
-        BigInteger newNum = (this.getNumerator().multiply(denominator))
-                .subtract(numerator.multiply(this.getDenominator()));
-        BigInteger newDen = this.getDenominator().multiply(denominator);
+        BigInteger newNum = (this.getNumerator().multiply(val.getDenominator()))
+                .subtract(val.getNumerator().multiply(this.getDenominator()));
+        BigInteger newDen = this.getDenominator().multiply(val.getDenominator());
         return this.newInstance(newNum, newDen);
     }
+
 
 }

@@ -27,7 +27,7 @@ public class IRatioPlusTest {
 
 
     @Test
-    public void plus_IntOneHalfPlus2_5slash2() {
+    public void plus_OneHalfPlusInt2_5slash2() {
         RatioPlus r1 = new RatioPlus(1, 2);
         String actual = r1.plus(2).getStr().toString();
         assertThat(actual).isEqualTo("5/2");
@@ -35,7 +35,7 @@ public class IRatioPlusTest {
 
 
     @Test
-    public void plus_LongOneHalfPlus2_5slash2() {
+    public void plus_OneHalfPlusLong2_5slash2() {
         RatioPlus r1 = new RatioPlus(1, 2);
         String actual = r1.plus(2L).getStr().toString();
         assertThat(actual).isEqualTo("5/2");
@@ -43,7 +43,7 @@ public class IRatioPlusTest {
 
 
     @Test
-    public void plus_BigIntegerOneHalfPlus2_5slash2() {
+    public void plus_OneHalfPlusBigInteger2_5slash2() {
         RatioPlus r1 = new RatioPlus(1, 2);
         String actual = r1.plus(BigInteger.valueOf(2)).getStr().toString();
         assertThat(actual).isEqualTo("5/2");
@@ -51,7 +51,7 @@ public class IRatioPlusTest {
 
 
     @Test
-    public void plus_RatioOneHalfPlus2_5slash2() {
+    public void plus_OneHalfPlusRatio2_5slash2() {
         RatioPlus r1 = new RatioPlus(1, 2);
         RatioPlus r2 = new RatioPlus(2, 1);
         String actual = r1.plus(r2).getStr().toString();
@@ -60,7 +60,7 @@ public class IRatioPlusTest {
 
 
     @Test
-    public void plus_RatioOneHalfPlus0_OneHalf() {
+    public void plus_OneHalfPlusRatio0_OneHalf() {
         RatioPlus r1 = new RatioPlus(1, 2);
         RatioPlus r2 = new RatioPlus(0, 1);
         String actual = r1.plus(r2).getStr().toString();
@@ -69,7 +69,7 @@ public class IRatioPlusTest {
 
 
     @Test
-    public void plus_Ratio10Over20plus4Over16_ThreeOverFour() {
+    public void plus_10Over20plus4Over16_ThreeOverFour() {
         RatioPlus r1 = new RatioPlus(10, 20);
         RatioPlus r2 = new RatioPlus(4, 16);
         String actual = r1.plus(r2).getStr().toString();
