@@ -131,8 +131,9 @@ public class IRatioCompareTest {
 
     @Test
     public void equals_AreEqual_True() {
-        RatioCompare r1 = new RatioCompare(2, 4);
-        RatioCompare r2 = new RatioCompare(1, 2);
+        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den);
+        RatioCompare r2 = new RatioCompare(1, den);
         assertThat(r1.equals(r2)).isTrue();
         assertThat(r2.equals(r1)).isTrue();
     }
@@ -140,8 +141,9 @@ public class IRatioCompareTest {
 
     @Test
     public void equals_NotEqual_True() {
-        RatioCompare r1 = new RatioCompare(1, 3);
-        RatioCompare r2 = new RatioCompare(1, 2);
+        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
+        RatioCompare r1 = new RatioCompare(1, den);
+        RatioCompare r2 = new RatioCompare(2, den);
         assertThat(r1.equals(r2)).isFalse();
         assertThat(r2.equals(r1)).isFalse();
     }
