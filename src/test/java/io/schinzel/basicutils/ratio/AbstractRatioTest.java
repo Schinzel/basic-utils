@@ -25,35 +25,45 @@ public class AbstractRatioTest {
 
 
     @Test
-    public void getNumerator_NormalCase_NumShouldBeSetNum() {
+    public void getNumerator_NormalCase_NumIsConstructorValue() {
         AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, 2);
         assertThat(r1.getNumerator()).isEqualTo(5);
     }
 
 
     @Test
-    public void getDenominator_NormalCase_NumShouldBeSetNum() {
+    public void getDenominator_NormalCase_DenIsConstructorValue() {
         AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, 2);
         assertThat(r1.getDenominator()).isEqualTo(2);
     }
 
 
     @Test
-    public void getNumerator_NegativeNumAndDen_NumShouldBeSetNum() {
+    public void getDenominator_NegativeNumAndDen_NumAndDenBePositive() {
         AbstractRatioTestClass r1 = new AbstractRatioTestClass(-5, -2);
         assertThat(r1.getNumerator()).isEqualTo(5);
-    }
-
-
-    @Test
-    public void getDenominator_NegativeNumAndDen_NumShouldBeSetNum() {
-        AbstractRatioTestClass r1 = new AbstractRatioTestClass(-5, -2);
         assertThat(r1.getDenominator()).isEqualTo(2);
     }
 
 
     @Test
-    public void getNumerator_ZeroNumAndNegativeDen_NumShouldBeSetNum() {
+    public void getDenominator_NegativeNum_NumNegativeAndDenPostive() {
+        AbstractRatioTestClass r1 = new AbstractRatioTestClass(-5, 2);
+        assertThat(r1.getNumerator()).isEqualTo(-5);
+        assertThat(r1.getDenominator()).isEqualTo(2);
+    }
+
+
+    @Test
+    public void getDenominator_NegativeDen_NumNegativeAndAndDenPositive() {
+        AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, -2);
+        assertThat(r1.getNumerator()).isEqualTo(-5);
+        assertThat(r1.getDenominator()).isEqualTo(2);
+    }
+
+
+    @Test
+    public void getNumerator_ZeroNumAndNegativeDen_NumZeroDenOne() {
         AbstractRatioTestClass r1 = new AbstractRatioTestClass(0, -5);
         assertThat(r1.getNumerator()).isEqualTo(0);
         assertThat(r1.getDenominator()).isEqualTo(1);
@@ -61,15 +71,9 @@ public class AbstractRatioTest {
 
 
     @Test
-    public void getNumerator_GcdShouldBeUsed_ShouldBeMinPossibleValue() {
+    public void getNumerator_GcdShouldBeUsed_MinPossibleValue() {
         AbstractRatioTestClass r1 = new AbstractRatioTestClass(8000, 4000);
         assertThat(r1.getNumerator()).isEqualTo(2);
-    }
-
-
-    @Test
-    public void getDenominator_GcdShouldBeUsed_ShouldBeMinPossibleValue() {
-        AbstractRatioTestClass r1 = new AbstractRatioTestClass(8000, 4000);
         assertThat(r1.getDenominator()).isEqualTo(1);
     }
 

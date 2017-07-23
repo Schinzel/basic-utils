@@ -21,26 +21,36 @@ public abstract class AbstractRatio<T extends IRatio<T>> implements IRatio<T> {
     @Getter private final BigInteger mDenominator;
 
 
-    AbstractRatio(BigInteger numerator, BigInteger denominator) {
-        Thrower.throwIfVarNull(numerator, "numerator");
-        Thrower.throwIfVarNull(denominator, "denominator");
-        if (denominator.equals(BigInteger.ZERO)) {
+    AbstractRatio(BigInteger num, BigInteger den) {
+        Thrower.throwIfVarNull(num, "num");
+        Thrower.throwIfVarNull(den, "den");
+        //If den is zero
+        if (den.equals(BigInteger.ZERO)) {
+            //A legal fraction cannot have a zero den
             throw new RuntimeException("Denominator cannot be zero");
         }
-        if (numerator.equals(BigInteger.ZERO)) {
-            mNumerator = BigInteger.ZERO;
-            mDenominator = BigInteger.ONE;
-        } else {
-            //If both num and den are negative
-            if (numerator.signum() == -1 && denominator.signum() == -1) {
-                //Make both den and num postive
-                numerator = numerator.negate();
-                denominator = denominator.negate();
-            }
-            BigInteger greatestCommonDenominator = numerator.gcd(denominator);
-            mNumerator = numerator.divide(greatestCommonDenominator);
-            mDenominator = denominator.divide(greatestCommonDenominator);
+        //If the num is zero
+        if (num.equals(BigInteger.ZERO)) {
+            //Then the fraction is equal to all other fractions with zero num
+            num = BigInteger.ZERO;
+            den = BigInteger.ONE;
         }
+        //If den is negative and the num is not zero
+        if (den.signum() == -1 && !num.equals(BigInteger.ZERO)) {
+            /**
+             * We know that the numerator is not zero.
+             * The cases are:
+             * 1) the num is positive and the den is negative, then the minus sign should be moved from den to num
+             * 2) both num and den are negative, then both should be made positive.
+             * Thus is both cases the num and den should be negated.
+             */
+            num = num.negate();
+            den = den.negate();
+        }
+        BigInteger greatestCommonDenominator = num.gcd(den);
+        mNumerator = num.divide(greatestCommonDenominator);
+        mDenominator = den.divide(greatestCommonDenominator);
+
     }
 
 
