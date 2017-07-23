@@ -6,6 +6,9 @@ import org.junit.Test;
 import java.math.BigInteger;
 import java.util.Random;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 public class RatioTest {
 
 
@@ -83,4 +86,20 @@ public class RatioTest {
         Ratio ratio = Ratio.create(123, 456);
         Assert.assertEquals("41/152", ratio.toString());
     }
+
+
+    @Test
+    public void hashCode_AandBEqualButNotSameObject_SameHashCode() {
+        Ratio a = Ratio.create(5, 2);
+        Ratio b = Ratio.create(10, 4);
+        assertThat(a.hashCode()).isEqualTo(b.hashCode());
+    }
+
+
+    @Test
+    public void hashCode_SameObject_SameHashCode() {
+        Ratio a = Ratio.create(5, 2);
+        assertThat(a.hashCode()).isEqualTo(a.hashCode());
+    }
+
 }

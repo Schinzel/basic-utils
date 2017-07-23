@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.ratio;
 
+import com.google.common.base.Objects;
 import lombok.experimental.Accessors;
 
 import java.math.BigInteger;
@@ -73,4 +74,8 @@ public class Ratio extends AbstractRatio<Ratio> implements IRatioCompare<Ratio>,
     }
 
 
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(this.getNumerator(), this.getDenominator());
+    }
 }
