@@ -1,46 +1,12 @@
 package io.schinzel.basicutils.ratio;
 
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.math.BigInteger;
 import java.util.Random;
 
 public class RatioTest {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
-
-    @Test
-    public void testConstructor() {
-        Ratio r1 = Ratio.create(4, 2);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        //
-        r1 = Ratio.create(8000, 4000);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        //
-        r1 = Ratio.create(16, 8);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        r1 = Ratio.create(16L, 8L);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        r1 = Ratio.create(BigInteger.valueOf(16), BigInteger.valueOf(8));
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-    }
-
-
-    @Test
-    public void testConstructor_ZeroDenominator() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Denominator cannot be zero");
-        Ratio.create(4, 0);
-    }
 
 
     @Test
