@@ -11,6 +11,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RatioTest {
 
+    @Test
+    public void create_LongArguments(){
+        Ratio r1 = Ratio.create(16L, 8L);
+        Assert.assertEquals("2", r1.getNumerator().toString());
+        Assert.assertEquals("1", r1.getDenominator().toString());
+    }
+
 
     @Test
     public void testNegativeRatios() {

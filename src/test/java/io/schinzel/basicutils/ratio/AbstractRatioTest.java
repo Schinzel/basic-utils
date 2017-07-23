@@ -1,40 +1,61 @@
 package io.schinzel.basicutils.ratio;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 
 public class AbstractRatioTest {
 
-    @Test
-    public void testConstructor() {
-        Ratio r1 = Ratio.create(4, 2);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        //
-        r1 = Ratio.create(8000, 4000);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        //
-        r1 = Ratio.create(16, 8);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        r1 = Ratio.create(16L, 8L);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
-        r1 = Ratio.create(BigInteger.valueOf(16), BigInteger.valueOf(8));
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
+
+    private class AbstractRatioTestClass extends AbstractRatio<AbstractRatioTestClass> {
+        AbstractRatioTestClass(int num, int den) {
+            super(BigInteger.valueOf(num), BigInteger.valueOf(den));
+        }
+
+
+        @Override
+        public AbstractRatioTestClass newInstance(BigInteger num, BigInteger den) {
+            return new AbstractRatioTestClass(num.intValue(), den.intValue());
+        }
     }
 
 
     @Test
-    public void testConstructor_ZeroDenominator() {
+    public void getNumerator_NormalCase_NumShouldBeSetNum() {
+        AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, 2);
+        assertThat(r1.getNumerator()).isEqualTo(5);
+    }
+
+
+    @Test
+    public void getDenominator_NormalCase_NumShouldBeSetNum() {
+        AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, 2);
+        assertThat(r1.getDenominator()).isEqualTo(2);
+    }
+
+
+    @Test
+    public void getNumerator_GcdShouldBeUsed_ShouldBeMinPossibleValue() {
+        AbstractRatioTestClass r1 = new AbstractRatioTestClass(8000, 4000);
+        assertThat(r1.getNumerator()).isEqualTo(2);
+    }
+
+
+    @Test
+    public void getDenominator_GcdShouldBeUsed_ShouldBeMinPossibleValue() {
+        AbstractRatioTestClass r1 = new AbstractRatioTestClass(8000, 4000);
+        assertThat(r1.getDenominator()).isEqualTo(1);
+    }
+
+
+    @Test
+    public void constructor_ZeroDenominator_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            Ratio.create(4, 0);
+            new AbstractRatioTestClass(4, 0);
         }).withMessageContaining("Denominator cannot be zero");
     }
 }
