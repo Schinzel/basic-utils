@@ -16,7 +16,7 @@ import java.math.BigInteger;
  * Created by schinzel on 2017-07-22.
  */
 @Accessors(prefix = "m")
-public abstract class AbstractRatio<T extends IRatio<T>> implements IRatio<T> {
+abstract class AbstractRatio<T extends IRatio<T>> implements IRatio<T> {
     @Getter private final BigInteger mNumerator;
     @Getter private final BigInteger mDenominator;
 
@@ -37,7 +37,7 @@ public abstract class AbstractRatio<T extends IRatio<T>> implements IRatio<T> {
         }
         //If den is negative and the num is not zero
         if (den.signum() == -1 && !num.equals(BigInteger.ZERO)) {
-            /**
+            /*
              * We know that the numerator is not zero.
              * The cases are:
              * 1) the num is positive and the den is negative, then the minus sign should be moved from den to num
