@@ -24,12 +24,23 @@ public abstract class AbstractRatio<T extends IRatio<T>> implements IRatio<T> {
     AbstractRatio(BigInteger numerator, BigInteger denominator) {
         Thrower.throwIfVarNull(numerator, "numerator");
         Thrower.throwIfVarNull(denominator, "denominator");
-        if (BigInteger.ZERO.equals(denominator)) {
+        if (denominator.equals(BigInteger.ZERO)) {
             throw new RuntimeException("Denominator cannot be zero");
         }
-        BigInteger greatestCommonDenominator = numerator.gcd(denominator);
-        mNumerator = numerator.divide(greatestCommonDenominator);
-        mDenominator = denominator.divide(greatestCommonDenominator);
+        if (numerator.equals(BigInteger.ZERO)) {
+            mNumerator = BigInteger.ZERO;
+            mDenominator = BigInteger.ONE;
+        } else {
+            //If both num and den are negative
+            if (numerator.signum() == -1 && denominator.signum() == -1) {
+                //Make both den and num postive
+                numerator = numerator.negate();
+                denominator = denominator.negate();
+            }
+            BigInteger greatestCommonDenominator = numerator.gcd(denominator);
+            mNumerator = numerator.divide(greatestCommonDenominator);
+            mDenominator = denominator.divide(greatestCommonDenominator);
+        }
     }
 
 

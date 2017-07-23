@@ -12,10 +12,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RatioTest {
 
     @Test
-    public void create_LongArguments(){
+    public void create_IntArguments() {
+        Ratio r1 = Ratio.create(16, 8);
+        assertThat(r1.getNumerator()).isEqualTo(2);
+        assertThat(r1.getDenominator()).isEqualTo(1);
+    }
+
+
+    @Test
+    public void create_LongArguments() {
         Ratio r1 = Ratio.create(16L, 8L);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("1", r1.getDenominator().toString());
+        assertThat(r1.getNumerator()).isEqualTo(2);
+        assertThat(r1.getDenominator()).isEqualTo(1);
+    }
+
+
+    @Test
+    public void create_BigIntegerArguments() {
+        Ratio r1 = Ratio.create(BigInteger.valueOf(16), BigInteger.valueOf(8));
+        assertThat(r1.getNumerator()).isEqualTo(2);
+        assertThat(r1.getDenominator()).isEqualTo(1);
     }
 
 
@@ -45,22 +61,22 @@ public class RatioTest {
      * - test: ratio * multiplier/multiplier = ratio
      */
     @Test
-    public void testRandomTimesDiv() {
+    public void timesDividedBy_RandomValues() {
         RandomBigIntUtil randomBigIntUtil = new RandomBigIntUtil(123);
         Random randMultiplier = new Random(123);
         for (int i = 0; i < 1000; i++) {
-            BigInteger numerator = randomBigIntUtil.getNext();
-            BigInteger denom = randomBigIntUtil.getNext();
-            if (denom.equals(BigInteger.ZERO)) {
+            BigInteger num = randomBigIntUtil.getNext();
+            BigInteger den = randomBigIntUtil.getNext();
+            if (den.equals(BigInteger.ZERO)) {
                 continue;
             }
-            Ratio r1 = Ratio.create(numerator, denom);
-            Ratio r2 = Ratio.create(numerator, denom);
+            Ratio r1 = Ratio.create(num, den);
             int multiplier = randMultiplier.nextInt();
-            r1.times(multiplier).dividedBy(multiplier);
-            Assert.assertEquals(r1, r2);
+            Ratio r2 = r1.times(multiplier).dividedBy(multiplier);
+            assertThat(r1.toString()).isEqualTo(r2.toString());
         }
     }
+
 
 
     /**

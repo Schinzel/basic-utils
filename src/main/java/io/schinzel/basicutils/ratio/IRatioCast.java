@@ -33,20 +33,11 @@ interface IRatioCast<T extends IRatio<T>> extends IRatio<T> {
     /**
      * Sample output: "1/3"
      *
-     * @return The ratio as a string.
-     */
-    default String getString() {
-        return this.getNumerator().toString() + "/" + this.getDenominator().toString();
-    }
-
-
-    /**
-     * Sample output: "1/3"
-     *
      * @return The ratio as a Str.
      */
     default Str getStr() {
-        return Str.create().a(this.getString());
+        String s = this.getNumerator().toString() + "/" + this.getDenominator().toString();
+        return Str.create().a(s);
     }
 
 

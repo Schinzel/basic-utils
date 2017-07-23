@@ -24,7 +24,7 @@ public class IRatioCastTest {
     @Test
     public void getStringTest() {
         RatioOutput r = new RatioOutput(3, 7);
-        Assert.assertEquals("3/7", r.getString());
+        Assert.assertEquals("3/7", r.getStr().getString());
     }
 
 

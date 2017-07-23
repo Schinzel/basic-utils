@@ -64,7 +64,7 @@ public class Ratio extends AbstractRatio<Ratio> implements IRatioCompare<Ratio>,
 
     @Override
     public String toString() {
-        return this.getString();
+        return this.getStr().toString();
     }
 
 
