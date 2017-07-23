@@ -24,7 +24,7 @@ public class IRatioDividedByTest {
 
 
     @Test
-    public void dividedBy_Ratio() {
+    public void dividedBy_RatioOneThirdDividedBy2_OneSixth() {
         RatioDividedBy r1 = new RatioDividedBy(1, 3);
         RatioDividedBy r2 = new RatioDividedBy(2, 1);
         String actual = r1.dividedBy(r2).getStr().toString();
@@ -33,7 +33,7 @@ public class IRatioDividedByTest {
 
 
     @Test
-    public void dividedBy_Int() {
+    public void dividedBy_IntOneThirdDividedBy2_OneSixth() {
         RatioDividedBy r1 = new RatioDividedBy(1, 3);
         String actual = r1.dividedBy(2).getStr().toString();
         assertThat(actual).isEqualTo("1/6");
@@ -41,7 +41,7 @@ public class IRatioDividedByTest {
 
 
     @Test
-    public void dividedBy_Long() {
+    public void dividedBy_LongOneThirdDividedBy2_OneSixth() {
         RatioDividedBy r1 = new RatioDividedBy(1, 3);
         String actual = r1.dividedBy(2L).getStr().toString();
         assertThat(actual).isEqualTo("1/6");
@@ -49,7 +49,7 @@ public class IRatioDividedByTest {
 
 
     @Test
-    public void dividedBy_BigInteger() {
+    public void dividedBy_BigIntegerOneThirdDividedBy2_OneSixth() {
         RatioDividedBy r1 = new RatioDividedBy(1, 3);
         String actual = r1.dividedBy(BigInteger.valueOf(2)).getStr().toString();
         assertThat(actual).isEqualTo("1/6");

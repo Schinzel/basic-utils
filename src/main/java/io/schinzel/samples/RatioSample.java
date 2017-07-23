@@ -11,7 +11,7 @@ class RatioSample {
     public static void main(String[] args) {
         Ratio ratio = Ratio.create(1, 3)
                 .times(1, 3)
-                .plus(1, 3)
+                .plus(3)
                 .dividedBy(2)
                 .minus(1, 6);
         System.out.println("Str: " + ratio.toString());

@@ -1,10 +1,11 @@
 package io.schinzel.basicutils.ratio;
 
 import lombok.experimental.Accessors;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Accessors(prefix = "m")
@@ -26,33 +27,53 @@ public class IRatioPlusTest {
 
 
     @Test
-    public void testAdd() {
+    public void plus_IntOneHalfPlus2_5slash2() {
         RatioPlus r1 = new RatioPlus(1, 2);
-        RatioPlus r2 = new RatioPlus(1, 4);
-        r1 = r1.plus(r2);
-        Assert.assertEquals("3", r1.getNumerator().toString());
-        Assert.assertEquals("4", r1.getDenominator().toString());
-        //
-        r1 = new RatioPlus(10, 20);
-        r2 = new RatioPlus(4, 16);
-        r1 = r1.plus(r2);
-        Assert.assertEquals("3", r1.getNumerator().toString());
-        Assert.assertEquals("4", r1.getDenominator().toString());
-        //
-        r1 = new RatioPlus(10, 20);
-        r1 = r1.plus(2);
-        Assert.assertEquals("5", r1.getNumerator().toString());
-        Assert.assertEquals("2", r1.getDenominator().toString());
-        //
-        r1 = new RatioPlus(10, 20);
-        r1 = r1.plus(4);
-        Assert.assertEquals("9", r1.getNumerator().toString());
-        Assert.assertEquals("2", r1.getDenominator().toString());
-        //
-        r1 = new RatioPlus(1, 3);
-        r1 = r1.plus(1, 3);
-        Assert.assertEquals("2", r1.getNumerator().toString());
-        Assert.assertEquals("3", r1.getDenominator().toString());
+        String actual = r1.plus(2).getStr().toString();
+        assertThat(actual).isEqualTo("5/2");
+    }
+
+
+    @Test
+    public void plus_LongOneHalfPlus2_5slash2() {
+        RatioPlus r1 = new RatioPlus(1, 2);
+        String actual = r1.plus(2L).getStr().toString();
+        assertThat(actual).isEqualTo("5/2");
+    }
+
+
+    @Test
+    public void plus_BigIntegerOneHalfPlus2_5slash2() {
+        RatioPlus r1 = new RatioPlus(1, 2);
+        String actual = r1.plus(BigInteger.valueOf(2)).getStr().toString();
+        assertThat(actual).isEqualTo("5/2");
+    }
+
+
+    @Test
+    public void plus_RatioOneHalfPlus2_5slash2() {
+        RatioPlus r1 = new RatioPlus(1, 2);
+        RatioPlus r2 = new RatioPlus(2, 1);
+        String actual = r1.plus(r2).getStr().toString();
+        assertThat(actual).isEqualTo("5/2");
+    }
+
+
+    @Test
+    public void plus_RatioOneHalfPlus0_OneHalf() {
+        RatioPlus r1 = new RatioPlus(1, 2);
+        RatioPlus r2 = new RatioPlus(0, 1);
+        String actual = r1.plus(r2).getStr().toString();
+        assertThat(actual).isEqualTo("1/2");
+    }
+
+
+    @Test
+    public void plus_Ratio10Over20plus4Over16_ThreeOverFour() {
+        RatioPlus r1 = new RatioPlus(10, 20);
+        RatioPlus r2 = new RatioPlus(4, 16);
+        String actual = r1.plus(r2).getStr().toString();
+        assertThat(actual).isEqualTo("3/4");
     }
 
 

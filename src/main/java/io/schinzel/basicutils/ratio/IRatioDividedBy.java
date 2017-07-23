@@ -17,7 +17,7 @@ interface IRatioDividedBy<T extends IRatio<T>> extends IRatio<T> {
      * @return The new ratio resulting from the operation
      */
     default T dividedBy(int divisor) {
-        return this.dividedBy((long) divisor);
+        return this.dividedBy(BigInteger.valueOf(divisor));
     }
 
 
