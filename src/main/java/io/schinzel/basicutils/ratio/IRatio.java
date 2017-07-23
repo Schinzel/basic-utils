@@ -17,8 +17,8 @@ interface IRatio<T extends IRatio<T>> {
      * This should really be package private or protected. But as this is not an option, it has to
      * be public.
      *
-     * @param numerator
-     * @param denominator
+     * @param numerator   The numerator
+     * @param denominator The denominator
      * @return A new ratio instance.
      */
     T newInstance(BigInteger numerator, BigInteger denominator);
