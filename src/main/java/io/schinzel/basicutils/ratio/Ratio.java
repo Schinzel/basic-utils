@@ -19,7 +19,7 @@ import java.math.BigInteger;
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 @Accessors(prefix = "m")
 public class Ratio extends AbstractRatio<Ratio> implements IRatioCompare<Ratio>, IRatioDividedBy<Ratio>, IRatioMinus<Ratio>,
-        IRatioOutput<Ratio>, IRatioPlus<Ratio>, IRatioTimes<Ratio> {
+        IRatioCast<Ratio>, IRatioPlus<Ratio>, IRatioTimes<Ratio> {
 
 
     public Ratio(BigInteger num, BigInteger den) {

@@ -5,10 +5,10 @@ import org.junit.Test;
 
 import java.math.BigInteger;
 
-public class IRatioOutputTest {
+public class IRatioCastTest {
 
 
-    private class RatioOutput extends AbstractRatio<RatioOutput> implements IRatioOutput<RatioOutput> {
+    private class RatioOutput extends AbstractRatio<RatioOutput> implements IRatioCast<RatioOutput> {
         RatioOutput(int num, int den) {
             super(BigInteger.valueOf(num), BigInteger.valueOf(den));
         }

@@ -10,7 +10,7 @@ import java.math.MathContext;
  * <p>
  * Created by schinzel on 2017-03-19.
  */
-interface IRatioOutput<T extends IRatio<T>> extends IRatio<T> {
+interface IRatioCast<T extends IRatio<T>> extends IRatio<T> {
 
     /**
      * @return The ratio held by this instance.
