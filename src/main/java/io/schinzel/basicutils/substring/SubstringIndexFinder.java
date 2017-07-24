@@ -16,13 +16,17 @@ class SubstringIndexFinder {
     @Getter private final boolean mSubstringFound;
     /** The index of the substring */
     @Getter private final int mSubstringPosition;
-    /** Flag for last occurrence */
-    static final int LAST_OCCURRENCE = Integer.MAX_VALUE;
 
 
     @Builder
-    SubstringIndexFinder(String string, String subString, int occurrence, int startPos) {
-        mSubstringPosition = getPos(string, subString, occurrence, startPos);
+    SubstringIndexFinder(String string, String subString, Occurrence occurrence, int startPos) {
+        Thrower.throwIfVarTooSmall(startPos, "startPos", 0);
+        //If this is a request for the last occurrence for the argument sub string
+        mSubstringPosition = (occurrence == Occurrence.LAST)
+                //Get index last of the last occurrence
+                ? string.lastIndexOf(subString)
+                //else, get the position of the requested occurrence
+                : getPos(string, subString, occurrence.getPosition(), startPos);
         mSubstringFound = (mSubstringPosition > -1);
     }
 
@@ -35,27 +39,16 @@ class SubstringIndexFinder {
      * @return The index of the argument sub string in the argument string. -1 if the substring was
      * not found.
      */
-    static int getPos(String string, String subString, int occurrence, int startPos) {
+    int getPos(String string, String subString, int occurrence, int startPos) {
         Thrower.throwIfVarTooSmall(occurrence, "occurrence", 1);
         Thrower.throwIfVarTooSmall(startPos, "startPos", 0);
-        //If looking for the last occurrence
-        int pos = (occurrence == LAST_OCCURRENCE)
-                //Get the last index of the string
-                ? string.lastIndexOf(subString)
-                //Get the index of the sub string in the string
-                : string.indexOf(subString, startPos);
-        //If substring was not found
-        if (pos == -1) {
-            //Return not found flag
-            return -1;
-        }// else, i.e. the sub string was found
-        else {
-            //If this was the look after substring occurrence
-            return (occurrence == 1 || occurrence == LAST_OCCURRENCE)
-                    //Return this position
-                    ? pos
-                    //Do recursive request for the next occurrence of the substring
-                    : getPos(string, subString, --occurrence, pos + subString.length());
-        }
+        //Get the index of the sub string in the string
+        int pos = string.indexOf(subString, startPos);
+        //If this was the requested sub string occurrence or the sub string was not found
+        return (occurrence == 1 || pos == -1)
+                //Return this position, which is a position or -1 for sub string not found flag
+                ? pos
+                //else, Do recursive request for the next occurrence of the substring
+                : this.getPos(string, subString, --occurrence, pos + subString.length());
     }
 }

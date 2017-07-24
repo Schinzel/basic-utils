@@ -1,5 +1,6 @@
 package io.schinzel.samples;
 
+import io.schinzel.basicutils.substring.Occurrence;
 import io.schinzel.basicutils.substring.SubString;
 
 /**
@@ -36,14 +37,12 @@ class SubStringSample {
                 .plnWithPrefix("Page: ");
         //Get everything after the second equals sign
         SubString.create(input)
-                .startDelimiter("=")
-                .startDelimiterOccurrence(2)
+                .startDelimiter("=", Occurrence.SECOND)
                 .getStr()
                 .plnWithPrefix("Second value: ");
         //Get everything after the second equals sign
         SubString.create(input)
-                .startDelimiter("=")
-                .startDelimiterLastOccurrence()
+                .startDelimiter("=", Occurrence.LAST)
                 .getStr()
                 .plnWithPrefix("After last occurrence: ");
     }

@@ -111,8 +111,7 @@ public class SubStringTest {
     public void getString_RequestOccurrenceOfStartDelimiterThatDoesNotExist_EmptyString() {
         String actual = SubString
                 .create("rrrSTARTiiiSTARTaaaENDuuuENDooo")
-                .startDelimiter("START")
-                .startDelimiterOccurrence(40)
+                .startDelimiter("START", Occurrence.TENTH)
                 .getString();
         assertThat(actual).isEqualTo("");
     }
@@ -132,8 +131,7 @@ public class SubStringTest {
     public void getString_SecondStartDelimiterOfThree_StringAfterSecondStartDelimiter() {
         String actual = SubString
                 .create("uuuSTARToooSTARTeeeSTARTccc")
-                .startDelimiter("START")
-                .startDelimiterOccurrence(2)
+                .startDelimiter("START", Occurrence.SECOND)
                 .getString();
         assertThat(actual).isEqualTo("eeeSTARTccc");
     }
@@ -176,8 +174,7 @@ public class SubStringTest {
     public void getString_SecondEndDelimiterOfThree_StringBeforeSecondOccurrence() {
         String actual = SubString
                 .create("uuuENDoooENDiiiENDeee")
-                .endDelimiter("END")
-                .endDelimiterOccurrence(2)
+                .endDelimiter("END", Occurrence.SECOND)
                 .getString();
         assertThat(actual).isEqualTo("uuuENDooo");
     }
@@ -187,8 +184,7 @@ public class SubStringTest {
     public void getString_RequestOccurrenceOfEndDelimiterThatDoesNotExist_WholeString() {
         String actual = SubString
                 .create("uuuENDoooENDiiiENDeee")
-                .endDelimiter("END")
-                .endDelimiterOccurrence(40)
+                .endDelimiter("END", Occurrence.TENTH)
                 .getString();
         assertThat(actual).isEqualTo("uuuENDoooENDiiiENDeee");
     }
@@ -297,8 +293,7 @@ public class SubStringTest {
     public void getString_StartDelimiterLastOcc() {
         String actual = SubString
                 .create("aaa__bbb__ccc__ddd__eee__fff")
-                .startDelimiter("__")
-                .startDelimiterLastOccurrence()
+                .startDelimiter("__", Occurrence.LAST)
                 .getString();
         assertThat(actual).isEqualTo("fff");
     }
@@ -308,8 +303,7 @@ public class SubStringTest {
     public void getString_EndDelimiterLastOcc() {
         String actual = SubString
                 .create("aaa__bbb__ccc__ddd__eee__fff")
-                .endDelimiter("__")
-                .endDelimiterLastOccurrence()
+                .endDelimiter("__", Occurrence.LAST)
                 .getString();
         assertThat(actual).isEqualTo("aaa__bbb__ccc__ddd__eee");
     }
@@ -319,10 +313,8 @@ public class SubStringTest {
     public void getString_StartAndEndDelimiterLastOcc() {
         String actual = SubString
                 .create("aaa--bbb--ccc--ddd__eee__fff")
-                .startDelimiter("--")
-                .startDelimiterLastOccurrence()
-                .endDelimiter("__")
-                .endDelimiterLastOccurrence()
+                .startDelimiter("--", Occurrence.LAST)
+                .endDelimiter("__", Occurrence.LAST)
                 .getString();
         assertThat(actual).isEqualTo("ddd__eee");
     }
