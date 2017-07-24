@@ -37,7 +37,7 @@ class SubstringIndexFinder {
      */
     static int getPos(String string, String subString, int occurrence, int startPos) {
         Thrower.throwIfVarTooSmall(occurrence, "occurrence", 1);
-        Thrower.throwIfVarTooSmall(occurrence, "startPos", 0);
+        Thrower.throwIfVarTooSmall(startPos, "startPos", 0);
         //If looking for the last occurrence
         int pos = (occurrence == LAST_OCCURRENCE)
                 //Get the last index of the string
