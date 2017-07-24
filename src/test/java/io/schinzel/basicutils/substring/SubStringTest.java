@@ -288,6 +288,43 @@ public class SubStringTest {
                 .getString();
         assertThat(actual).isEqualTo("uuu");
     }
+    //------------------------------------------------------------------------
+    // Last Occurrence
+    //------------------------------------------------------------------------
 
+
+    @Test
+    public void getString_StartDelimiterLastOcc() {
+        String actual = SubString
+                .create("aaa__bbb__ccc__ddd__eee__fff")
+                .startDelimiter("__")
+                .startDelimiterLastOccurrence()
+                .getString();
+        assertThat(actual).isEqualTo("fff");
+    }
+
+
+    @Test
+    public void getString_EndDelimiterLastOcc() {
+        String actual = SubString
+                .create("aaa__bbb__ccc__ddd__eee__fff")
+                .endDelimiter("__")
+                .endDelimiterLastOccurrence()
+                .getString();
+        assertThat(actual).isEqualTo("aaa__bbb__ccc__ddd__eee");
+    }
+
+
+    @Test
+    public void getString_StartAndEndDelimiterLastOcc() {
+        String actual = SubString
+                .create("aaa--bbb--ccc--ddd__eee__fff")
+                .startDelimiter("--")
+                .startDelimiterLastOccurrence()
+                .endDelimiter("__")
+                .endDelimiterLastOccurrence()
+                .getString();
+        assertThat(actual).isEqualTo("ddd__eee");
+    }
 
 }
