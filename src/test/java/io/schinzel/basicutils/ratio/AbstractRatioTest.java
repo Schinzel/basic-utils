@@ -25,56 +25,51 @@ public class AbstractRatioTest {
 
 
     @Test
-    public void getNumerator_NormalCase_NumIsConstructorValue() {
+    public void getNumerator_5over2_5() {
         AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, 2);
         assertThat(r1.getNumerator()).isEqualTo(5);
     }
 
 
     @Test
-    public void getDenominator_NormalCase_DenIsConstructorValue() {
+    public void getDenominator_5over2_2() {
         AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, 2);
         assertThat(r1.getDenominator()).isEqualTo(2);
     }
 
 
     @Test
-    public void getDenominator_NegativeNumAndDen_NumAndDenBePositive() {
-        AbstractRatioTestClass r1 = new AbstractRatioTestClass(-5, -2);
-        assertThat(r1.getNumerator()).isEqualTo(5);
-        assertThat(r1.getDenominator()).isEqualTo(2);
+    public void constructor_minus5overMinus2_5over2() {
+        String actual = new AbstractRatioTestClass(-5, -2).getStr().toString();
+        assertThat(actual).isEqualTo("5/2");
     }
 
 
     @Test
-    public void getDenominator_NegativeNum_NumNegativeAndDenPostive() {
-        AbstractRatioTestClass r1 = new AbstractRatioTestClass(-5, 2);
-        assertThat(r1.getNumerator()).isEqualTo(-5);
-        assertThat(r1.getDenominator()).isEqualTo(2);
+    public void constructor_minus5over2_minus5over2() {
+        String actual = new AbstractRatioTestClass(-5, 2).getStr().toString();
+        assertThat(actual).isEqualTo("-5/2");
     }
 
 
     @Test
-    public void getDenominator_NegativeDen_NumNegativeAndAndDenPositive() {
-        AbstractRatioTestClass r1 = new AbstractRatioTestClass(5, -2);
-        assertThat(r1.getNumerator()).isEqualTo(-5);
-        assertThat(r1.getDenominator()).isEqualTo(2);
+    public void constructor_5overMinus2_minus5over2() {
+        String actual = new AbstractRatioTestClass(5, -2).getStr().toString();
+        assertThat(actual).isEqualTo("-5/2");
     }
 
 
     @Test
-    public void getNumerator_ZeroNumAndNegativeDen_NumZeroDenOne() {
-        AbstractRatioTestClass r1 = new AbstractRatioTestClass(0, -5);
-        assertThat(r1.getNumerator()).isEqualTo(0);
-        assertThat(r1.getDenominator()).isEqualTo(1);
+    public void constructor_0overMinus5_0over1() {
+        String actual = new AbstractRatioTestClass(0, -5).getStr().toString();
+        assertThat(actual).isEqualTo("0/1");
     }
 
 
     @Test
-    public void getNumerator_GcdShouldBeUsed_MinPossibleValue() {
-        AbstractRatioTestClass r1 = new AbstractRatioTestClass(8000, 4000);
-        assertThat(r1.getNumerator()).isEqualTo(2);
-        assertThat(r1.getDenominator()).isEqualTo(1);
+    public void constructor_GcdShouldBeUsed_MinPossibleValue() {
+        String actual = new AbstractRatioTestClass(8000, 4000).getStr().toString();
+        assertThat(actual).isEqualTo("2/1");
     }
 
 
