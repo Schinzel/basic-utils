@@ -25,33 +25,36 @@ public class IRatioDividedByTest {
 
     @Test
     public void dividedBy_OneThirdDividedByRatio2_OneSixth() {
-        RatioDividedBy r1 = new RatioDividedBy(1, 3);
-        RatioDividedBy r2 = new RatioDividedBy(2, 1);
-        String actual = r1.dividedBy(r2).getStr().toString();
+        String actual = new RatioDividedBy(1, 3)
+                .dividedBy(new RatioDividedBy(2, 1))
+                .getStr().toString();
         assertThat(actual).isEqualTo("1/6");
     }
 
 
     @Test
     public void dividedBy_OneThirdDividedByInt2_OneSixth() {
-        RatioDividedBy r1 = new RatioDividedBy(1, 3);
-        String actual = r1.dividedBy(2).getStr().toString();
+        String actual = new RatioDividedBy(1, 3)
+                .dividedBy(2)
+                .getStr().toString();
         assertThat(actual).isEqualTo("1/6");
     }
 
 
     @Test
     public void dividedBy_OneThirdDividedByLong2_OneSixth() {
-        RatioDividedBy r1 = new RatioDividedBy(1, 3);
-        String actual = r1.dividedBy(2L).getStr().toString();
+        String actual = new RatioDividedBy(1, 3)
+                .dividedBy(2L)
+                .getStr().toString();
         assertThat(actual).isEqualTo("1/6");
     }
 
 
     @Test
     public void dividedBy_OneThirdDividedByBigInteger2_OneSixth() {
-        RatioDividedBy r1 = new RatioDividedBy(1, 3);
-        String actual = r1.dividedBy(BigInteger.valueOf(2)).getStr().toString();
+        String actual = new RatioDividedBy(1, 3)
+                .dividedBy(BigInteger.valueOf(2))
+                .getStr().toString();
         assertThat(actual).isEqualTo("1/6");
     }
 

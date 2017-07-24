@@ -70,4 +70,30 @@ public class IRatioTimesTest {
     }
 
 
+    @Test
+    public void time_7over4timesRatio0over1_0over1() {
+        String actual = new RatioTimes(7, 4)
+                .times(new RatioTimes(0, 1))
+                .getStr().toString();
+        assertThat(actual).isEqualTo("0/1");
+    }
+
+
+    @Test
+    public void time_7over4timesRatio0overMinus1_0over1() {
+        String actual = new RatioTimes(7, 4)
+                .times(new RatioTimes(0, -11))
+                .getStr().toString();
+        assertThat(actual).isEqualTo("0/1");
+    }
+
+
+    @Test
+    public void time_7over4timesInt0_0over1() {
+        String actual = new RatioTimes(7, 4)
+                .times(0)
+                .getStr().toString();
+        assertThat(actual).isEqualTo("0/1");
+    }
+
 }

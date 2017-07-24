@@ -25,42 +25,45 @@ public class IRatioMinusTest {
 
     @Test
     public void test_7over4minusInt2_Minus1over4() {
-        RatioMinus r1 = new RatioMinus(7, 4);
-        String actual = r1.minus(2).getStr().toString();
+        String actual = new RatioMinus(7, 4)
+                .minus(2)
+                .getStr().toString();
         assertThat(actual).isEqualTo("-1/4");
     }
 
 
     @Test
     public void test_7over4minusLong2_Minus1over4() {
-        RatioMinus r1 = new RatioMinus(7, 4);
-        String actual = r1.minus(2L).getStr().toString();
+        String actual = new RatioMinus(7, 4)
+                .minus(2L)
+                .getStr().toString();
         assertThat(actual).isEqualTo("-1/4");
     }
 
 
     @Test
     public void test_7over4minusBigInteger2_Minus1over4() {
-        RatioMinus r1 = new RatioMinus(7, 4);
-        String actual = r1.minus(2L).getStr().toString();
+        String actual = new RatioMinus(7, 4)
+                .minus(2L)
+                .getStr().toString();
         assertThat(actual).isEqualTo("-1/4");
     }
 
 
     @Test
     public void test_2minusRatioZero_2() {
-        RatioMinus r1 = new RatioMinus(2, 1);
-        RatioMinus r2 = new RatioMinus(0, 2);
-        String actual = r1.minus(r2).getStr().toString();
+        String actual = new RatioMinus(2, 1)
+                .minus(new RatioMinus(0, 2))
+                .getStr().toString();
         assertThat(actual).isEqualTo("2/1");
     }
 
 
     @Test
     public void test_Ratio7over4minus5over2_Minus3over4() {
-        RatioMinus r1 = new RatioMinus(7, 4);
-        RatioMinus r2 = new RatioMinus(5, 2);
-        String actual = r1.minus(r2).getStr().toString();
+        String actual = new RatioMinus(7, 4)
+                .minus(new RatioMinus(5, 2))
+                .getStr().toString();
         assertThat(actual).isEqualTo("-3/4");
     }
 
