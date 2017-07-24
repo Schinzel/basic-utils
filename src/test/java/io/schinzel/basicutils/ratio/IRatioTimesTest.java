@@ -1,10 +1,11 @@
 package io.schinzel.basicutils.ratio;
 
 import lombok.experimental.Accessors;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigInteger;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @Accessors(prefix = "m")
@@ -25,38 +26,47 @@ public class IRatioTimesTest {
 
 
     @Test
-    public void testTimes() {
-        RatioTimes r1 = new RatioTimes(4, 8);
-        RatioTimes r2 = new RatioTimes(1, 2);
-        r1 = r1.times(r2);
-        Assert.assertEquals("1", r1.getNumerator().toString());
-        Assert.assertEquals("4", r1.getDenominator().toString());
+    public void time_7over4timesInt3_21slash4() {
+        String actual = new RatioTimes(7, 4)
+                .times(3)
+                .getStr().toString();
+        assertThat(actual).isEqualTo("21/4");
     }
 
 
     @Test
-    public void testTimesInt() {
-        RatioTimes r1 = new RatioTimes(7, 4);
-        r1 = r1 = r1.times(2);
-        Assert.assertEquals("7", r1.getNumerator().toString());
-        Assert.assertEquals("2", r1.getDenominator().toString());
-        r1 = r1 = new RatioTimes(7, 4);
-        r1 = r1 = r1.times(3);
-        Assert.assertEquals("21", r1.getNumerator().toString());
-        Assert.assertEquals("4", r1.getDenominator().toString());
+    public void time_7over4timesLong3_21slash4() {
+        String actual = new RatioTimes(7, 4)
+                .times(3L)
+                .getStr().toString();
+        assertThat(actual).isEqualTo("21/4");
     }
 
 
     @Test
-    public void testTimesInt2() {
-        RatioTimes r1 = new RatioTimes(7, 4);
-        r1 = r1.times(1, 3);
-        Assert.assertEquals("7", r1.getNumerator().toString());
-        Assert.assertEquals("12", r1.getDenominator().toString());
-        r1 = new RatioTimes(7, 4);
-        r1 = r1.times(1, 2);
-        Assert.assertEquals("7", r1.getNumerator().toString());
-        Assert.assertEquals("8", r1.getDenominator().toString());
+    public void time_7over4timesBigInteger3_21slash4() {
+        String actual = new RatioTimes(7, 4)
+                .times(3L)
+                .getStr().toString();
+        assertThat(actual).isEqualTo("21/4");
+    }
+
+
+    @Test
+    public void time_7over4timesRatio3_21slash4() {
+        String actual = new RatioTimes(7, 4)
+                .times(new RatioTimes(3, 1))
+                .getStr().toString();
+        assertThat(actual).isEqualTo("21/4");
+    }
+
+
+    @Test
+    public void time_7over4timesRatio2overMinus3_21slash4() {
+        String actual = new RatioTimes(7, 4)
+                .times(new RatioTimes(2, -3))
+                .getStr().toString();
+        assertThat(actual).isEqualTo("-7/6");
     }
 
 

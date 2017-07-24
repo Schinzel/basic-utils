@@ -10,7 +10,7 @@ import java.math.BigInteger;
 interface IRatioPlus<T extends IRatio<T>> extends IRatio<T> {
     /**
      * @param val The value to add to this value.
-     * @return The new ratio resulting from the operation
+     * @return The new value resulting from the operation
      */
     default T plus(int val) {
         return this.plus(BigInteger.valueOf(val));
@@ -19,7 +19,7 @@ interface IRatioPlus<T extends IRatio<T>> extends IRatio<T> {
 
     /**
      * @param val The value to add to this value.
-     * @return The new ratio resulting from the operation
+     * @return The new value resulting from the operation
      */
     default T plus(Long val) {
         return this.plus(BigInteger.valueOf(val));
@@ -28,7 +28,7 @@ interface IRatioPlus<T extends IRatio<T>> extends IRatio<T> {
 
     /**
      * @param val The value to add to this value.
-     * @return The new ratio resulting from the operation
+     * @return The new value resulting from the operation
      */
     default T plus(BigInteger val) {
         return this.plus(this.newInstance(val, BigInteger.ONE));
@@ -37,7 +37,7 @@ interface IRatioPlus<T extends IRatio<T>> extends IRatio<T> {
 
     /**
      * @param val The value to add to this value.
-     * @return The new ratio resulting from the operation
+     * @return The new value resulting from the operation
      */
     default T plus(T val) {
         //Formula here https://en.wikipedia.org/wiki/Rational_number#Addition

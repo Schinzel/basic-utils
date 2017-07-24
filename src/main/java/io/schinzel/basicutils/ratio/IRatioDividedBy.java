@@ -14,7 +14,7 @@ interface IRatioDividedBy<T extends IRatio<T>> extends IRatio<T> {
 
     /**
      * @param divisor The value to divide by
-     * @return The new ratio resulting from the operation
+     * @return The new value resulting from the operation
      */
     default T dividedBy(int divisor) {
         return this.dividedBy(BigInteger.valueOf(divisor));
@@ -23,7 +23,7 @@ interface IRatioDividedBy<T extends IRatio<T>> extends IRatio<T> {
 
     /**
      * @param divisor The value to divide by
-     * @return The new ratio resulting from the operation
+     * @return The new value resulting from the operation
      */
     default T dividedBy(long divisor) {
         return this.dividedBy(BigInteger.valueOf(divisor));
@@ -32,7 +32,7 @@ interface IRatioDividedBy<T extends IRatio<T>> extends IRatio<T> {
 
     /**
      * @param divisor The value to divide by
-     * @return The new ratio resulting from the operation
+     * @return The new value resulting from the operation
      */
     default T dividedBy(BigInteger divisor) {
         return this.dividedBy(this.newInstance(divisor, BigInteger.ONE));
@@ -40,8 +40,8 @@ interface IRatioDividedBy<T extends IRatio<T>> extends IRatio<T> {
 
 
     /**
-     * @param divisor A ratio to divide by
-     * @return The new ratio resulting from the operation
+     * @param divisor The value to divide by
+     * @return The new value resulting from the operation
      */
     default T dividedBy(T divisor) {
         Thrower.throwIfTrue(divisor.getNumerator().equals(BigInteger.ZERO))

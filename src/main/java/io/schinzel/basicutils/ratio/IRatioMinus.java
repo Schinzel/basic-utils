@@ -11,8 +11,8 @@ import java.math.BigInteger;
 interface IRatioMinus<T extends IRatio<T>> extends IRatio<T> {
 
     /**
-     * @param val A value to subtract
-     * @return The new ratio resulting from the operation
+     * @param val The value to subtract
+     * @return The new value resulting from the operation
      */
     default T minus(int val) {
         return this.minus(BigInteger.valueOf(val));
@@ -20,8 +20,8 @@ interface IRatioMinus<T extends IRatio<T>> extends IRatio<T> {
 
 
     /**
-     * @param val A value to subtract
-     * @return The new ratio resulting from the operation
+     * @param val The value to subtract
+     * @return The new value resulting from the operation
      */
     default T minus(Long val) {
         return this.minus(BigInteger.valueOf(val));
@@ -29,8 +29,8 @@ interface IRatioMinus<T extends IRatio<T>> extends IRatio<T> {
 
 
     /**
-     * @param val A value to subtract
-     * @return The new ratio resulting from the operation
+     * @param val The value to subtract
+     * @return The new value resulting from the operation
      */
     default T minus(BigInteger val) {
         return this.minus(this.newInstance(val, BigInteger.ONE));
@@ -38,8 +38,8 @@ interface IRatioMinus<T extends IRatio<T>> extends IRatio<T> {
 
 
     /**
-     * @param val A value to subtract
-     * @return The new ratio resulting from the operation
+     * @param val The value to subtract
+     * @return The new value resulting from the operation
      */
     default T minus(T val) {
         //Formula here https://en.wikipedia.org/wiki/Rational_number#Subtraction

@@ -9,49 +9,42 @@ import java.math.BigInteger;
  */
 interface IRatioTimes<T extends IRatio<T>> extends IRatio<T> {
     /**
-     * @param val The value to multiply this by.
-     * @return This for chaining.
+     * @param val The val to multiply this value by
+     * @return The new value resulting from the operation
      */
     default T times(int val) {
-        return this.times(val, 1);
+        return this.times(BigInteger.valueOf(val));
     }
 
 
     /**
-     * @param numerator   A numerator
-     * @param denominator A denominator
-     * @return This for chaining
+     * @param val The val to multiply this value by
+     * @return The new value resulting from the operation
      */
-    default T times(int numerator, int denominator) {
-        BigInteger a2 = BigInteger.valueOf(numerator);
-        BigInteger b2 = BigInteger.valueOf(denominator);
-        return this.times(a2, b2);
+    default T times(long val) {
+        return this.times(BigInteger.valueOf(val));
     }
 
 
     /**
-     * @param ratio A ratio
-     * @return This for chaining
+     * @param val The val to multiply this value by
+     * @return The new value resulting from the operation
      */
-    default T times(T ratio) {
-        return this.times(ratio.getNumerator(), ratio.getDenominator());
+    default T times(BigInteger val) {
+        return this.times(this.newInstance(val, BigInteger.ONE));
     }
 
 
     /**
-     * New num: mNum * num
-     * New den: mDen * den
-     *
-     * @param numerator   A numerator
-     * @param denominator A denominator
-     * @return This for chaining
+     * @param val The val to multiply this value by
+     * @return The new value resulting from the operation
      */
-    @SuppressWarnings("Duplicates")
-    default T times(BigInteger numerator, BigInteger denominator) {
+    default T times(T val) {
         //Formula here https://en.wikipedia.org/wiki/Rational_number#Multiplication
-        BigInteger newNum = this.getNumerator().multiply(numerator);
-        BigInteger newDen = this.getDenominator().multiply(denominator);
+        BigInteger newNum = this.getNumerator().multiply(val.getNumerator());
+        BigInteger newDen = this.getDenominator().multiply(val.getDenominator());
         return this.newInstance(newNum, newDen);
     }
+
 
 }
