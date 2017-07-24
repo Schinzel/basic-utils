@@ -16,8 +16,8 @@ class RandomBigIntUtil {
     private final RandomUtil mBitLength;
 
 
-    RandomBigIntUtil(int seed) {
-        mBigIntRand = new Random(seed);
+    RandomBigIntUtil() {
+        mBigIntRand = new Random(RandomUtil.getRandomNumber(1000, 10000000));
         mBitLength = RandomUtil.create(mBigIntRand.nextInt());
     }
 

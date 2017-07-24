@@ -57,6 +57,7 @@ public class Ratio extends AbstractRatio<Ratio> implements IRatioCompare<Ratio>,
     }
 
 
+    @Override
     public Ratio newInstance(BigInteger numerator, BigInteger denominator) {
         return new Ratio(numerator, denominator);
     }
