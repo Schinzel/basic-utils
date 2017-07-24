@@ -120,7 +120,7 @@ public class SubStringTest {
         String actual = SubString
                 .create("rrrSTARTiiiSTARTaaaENDuuuENDooo")
                 .startDelimiter("START")
-                .startOccurrence(40)
+                .startDelimiterOccurrence(40)
                 .getString();
         assertEquals(expected, actual);
     }
@@ -143,7 +143,7 @@ public class SubStringTest {
         String actual = SubString
                 .create("uuuSTARToooSTARTeeeSTARTccc")
                 .startDelimiter("START")
-                .startOccurrence(2)
+                .startDelimiterOccurrence(2)
                 .getString();
         assertEquals(expected, actual);
     }
@@ -191,7 +191,7 @@ public class SubStringTest {
         String actual = SubString
                 .create("uuuENDoooENDiiiENDeee")
                 .endDelimiter("END")
-                .endOccurrence(2)
+                .endDelimiterOccurrence(2)
                 .getString();
         assertEquals(expected, actual);
     }
@@ -203,7 +203,7 @@ public class SubStringTest {
         String actual = SubString
                 .create("uuuENDoooENDiiiENDeee")
                 .endDelimiter("END")
-                .endOccurrence(40)
+                .endDelimiterOccurrence(40)
                 .getString();
         assertEquals(expected, actual);
     }

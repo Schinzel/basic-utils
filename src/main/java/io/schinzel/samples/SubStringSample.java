@@ -37,8 +37,14 @@ class SubStringSample {
         //Get everything after the second equals sign
         SubString.create(input)
                 .startDelimiter("=")
-                .startOccurrence(2)
+                .startDelimiterOccurrence(2)
                 .getStr()
                 .plnWithPrefix("Second value: ");
+        //Get everything after the second equals sign
+        SubString.create(input)
+                .startDelimiter("=")
+                .startDelimiterLastOccurrence()
+                .getStr()
+                .plnWithPrefix("After last occurrence: ");
     }
 }
