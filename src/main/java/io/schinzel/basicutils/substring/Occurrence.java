@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
+/**
+ * The purpose of this enum it to represent an occurrence.
+ */
+
 @Accessors(prefix = "m")
 @AllArgsConstructor
 public enum Occurrence {
