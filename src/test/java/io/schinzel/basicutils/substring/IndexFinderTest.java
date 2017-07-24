@@ -76,29 +76,27 @@ public class IndexFinderTest {
 
     @Test
     public void getSubstringPosition_OccurrenceMinus4_ThrowsException() {
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            SubstringIndexFinder.builder()
-                    .string("___GG__GG__GG___")
-                    .subString("GG")
-                    .occurrence(-4)
-                    .startPos(0)
-                    .build()
-                    .getSubstringPosition();
-        }).withMessageContaining("The value -4 in variable 'occurrence' is too small.");
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                SubstringIndexFinder.builder()
+                        .string("___GG__GG__GG___")
+                        .subString("GG")
+                        .occurrence(-4)
+                        .startPos(0)
+                        .build()
+        ).withMessageContaining("The value -4 in variable 'occurrence' is too small.");
     }
 
 
     @Test
     public void getSubstringPosition_StartPosMinus1_ThrowsException() {
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            SubstringIndexFinder.builder()
-                    .string("___GG__GG__GG___")
-                    .subString("GG")
-                    .occurrence(1)
-                    .startPos(-1)
-                    .build()
-                    .getSubstringPosition();
-        }).withMessageContaining("The value -1 in variable 'startPos' is too small.");
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                SubstringIndexFinder.builder()
+                        .string("___GG__GG__GG___")
+                        .subString("GG")
+                        .occurrence(1)
+                        .startPos(-1)
+                        .build()
+        ).withMessageContaining("The value -1 in variable 'startPos' is too small.");
     }
 
 
