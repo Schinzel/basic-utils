@@ -29,10 +29,10 @@ public class RandomUtil {
         }
         SYMBOLS = tmp.toString().toCharArray();
     }
-
     //*************************************************************************
     //* Construction
     //*************************************************************************
+
 
     private RandomUtil(long seed) {
         mRandom = new Random(seed);
@@ -40,7 +40,6 @@ public class RandomUtil {
 
 
     /**
-     *
      * @return A newly created instance with random seed.
      */
     public static RandomUtil create() {
@@ -49,7 +48,6 @@ public class RandomUtil {
 
 
     /**
-     *
      * @param seed The seed for random values
      * @return An newly created instance with the argument seed.
      */
@@ -77,13 +75,12 @@ public class RandomUtil {
         seed *= milliOfSecond;
         return seed;
     }
-
-
     //*************************************************************************
     //* Random methods
     //*************************************************************************
+
+
     /**
-     *
      * @param min The min (inclusive) of the returned number
      * @param max The max (inclusive) of the returned number
      * @return A random number
@@ -92,8 +89,8 @@ public class RandomUtil {
         if (min > max) {
             throw new RuntimeException("Max need to be larger than min");
         }
-        Thrower.throwIfVarOutsideRange(min, "min", -100, Integer.MAX_VALUE);
-        Thrower.throwIfVarOutsideRange(max, "max", 1, Integer.MAX_VALUE);
+        Thrower.throwIfVarTooSmall(min, "min", 0);
+        Thrower.throwIfVarTooSmall(max, "max", 0);
         return mRandom.nextInt(max - min + 1) + min;
     }
 
@@ -111,7 +108,6 @@ public class RandomUtil {
 
 
     /**
-     *
      * @param length The length of the string to return.
      * @return A string with random chars.
      */
@@ -128,19 +124,18 @@ public class RandomUtil {
     /**
      * Adds leading zeros to returned number so that returned string always is
      * same or larger than the argument padding.
-     *
+     * <p>
      * For example, min=1 and max=9 and padding 2 yields a string "04" for
      * example.
-     *
+     * <p>
      * If padding is smaller than the length of the returned value, the value is
      * returned as is. For example, the random generated is 123 and the padding
      * argument is 1, then "123" will be returned.
      *
-     *
-     * @param min The minimum value of the returned number
-     * @param max The maximum value of the returned number
+     * @param min     The minimum value of the returned number
+     * @param max     The maximum value of the returned number
      * @param padding The returned string will at least have this length. Min 1
-     * and max 100.
+     *                and max 100.
      * @return A padded int as a string.
      */
     public String getPaddedInt(int min, int max, int padding) {
@@ -154,7 +149,7 @@ public class RandomUtil {
      * Populates an integer array with random values.
      *
      * @param arraySize The number of elements in the returned array.
-     * @param arraySum The sum of the values in the returned array.
+     * @param arraySum  The sum of the values in the returned array.
      * @return A random integer array.
      */
     public int[] getIntArray(int arraySize, int arraySum) {
@@ -163,15 +158,12 @@ public class RandomUtil {
         if (sum <= arraySize) {
             throw new RuntimeException("Array size needs to be larger than sum");
         }
-
         int vals[] = new int[arraySize];
         sum -= arraySize;
-
         for (int i = 0; i < arraySize - 1; ++i) {
             vals[i] = mRandom.nextInt(sum);
         }
         vals[arraySize - 1] = sum;
-
         Arrays.sort(vals);
         for (int i = arraySize - 1; i > 0; --i) {
             vals[i] -= vals[i - 1];
@@ -181,13 +173,12 @@ public class RandomUtil {
         }
         return vals;
     }
-
-
     //*************************************************************************
     //* Static Random methods
     //*************************************************************************
+
+
     /**
-     *
      * @param min The min value of the returned number
      * @param max The max value of the returned number
      * @return A random number
@@ -198,7 +189,6 @@ public class RandomUtil {
 
 
     /**
-     *
      * @param length The length of the string to return.
      * @return A string with random chars.
      */
