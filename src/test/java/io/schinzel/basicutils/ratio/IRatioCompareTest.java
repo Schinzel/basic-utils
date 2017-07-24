@@ -147,4 +147,11 @@ public class IRatioCompareTest {
         assertThat(r1.equals(r2)).isFalse();
         assertThat(r2.equals(r1)).isFalse();
     }
+
+
+    @Test
+    public void equals_Null_False() {
+        assertThat(new RatioCompare(1, 1).equals(null)).isFalse();
+    }
+
 }

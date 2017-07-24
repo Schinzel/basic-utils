@@ -101,4 +101,33 @@ public class RatioTest {
         assertThat(a.hashCode()).isEqualTo(a.hashCode());
     }
 
+
+    @Test
+    public void equals_null_False() {
+        assertThat(Ratio.create(4, 5).equals(null)).isFalse();
+    }
+
+
+    @Test
+    public void equals_String_False() {
+        assertThat(Ratio.create(4, 5).equals("monkey")).isFalse();
+    }
+
+
+    @Test
+    public void equals_SameObject_True() {
+        Ratio a = Ratio.create(5, 2);
+        Ratio b = a;
+        assertThat(a.equals(b)).isTrue();
+        assertThat(b.equals(a)).isTrue();
+    }
+
+
+    @Test
+    public void equals_DifferentObjectsSameValue_True() {
+        Ratio a = Ratio.create(5, 2);
+        Ratio b = Ratio.create(10, 4);
+        assertThat(a.equals(b)).isTrue();
+        assertThat(b.equals(a)).isTrue();
+    }
 }

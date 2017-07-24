@@ -49,7 +49,7 @@ interface IRatioCompare<T extends IRatio<T>> extends IRatio<T>, Comparable<T> {
      * @return True if the value held by the argument ratio is the same as this.
      */
     default boolean equals(T other) {
-        return (this.compareTo(other) == 0);
+        return (other != null) && (this.compareTo(other) == 0);
     }
 }
 

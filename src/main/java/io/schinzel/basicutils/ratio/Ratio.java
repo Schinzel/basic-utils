@@ -65,7 +65,7 @@ public class Ratio extends AbstractRatio<Ratio> implements IRatioCompare<Ratio>,
 
     @Override
     public boolean equals(Object o) {
-        return (o instanceof Ratio) && this.equals((Ratio) o);
+        return (o != null) && (o instanceof Ratio) && this.equals((Ratio) o);
     }
 
 
