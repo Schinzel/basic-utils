@@ -28,92 +28,74 @@ public class IRatioCompareTest {
 
 
     @Test
-    public void compareTo_LessThan_Negative() {
-        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        int den2 = RandomUtil.getRandomNumber(1, den1);
-        RatioCompare r1 = new RatioCompare(1, den1);
-        RatioCompare r2 = new RatioCompare(1, den2);
-        int actual = r1.compareTo(r2);
+    public void compareTo_2to4_Negative() {
+        int actual = new RatioCompare(2, 1)
+                .compareTo(new RatioCompare(4, 1));
         assertThat(actual).isNegative();
     }
 
 
     @Test
-    public void compareTo_Equal_Zero() {
-        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        RatioCompare r1 = new RatioCompare(1, den);
-        RatioCompare r2 = new RatioCompare(1, den);
-        int actual = r1.compareTo(r2);
+    public void compareTo_2to2_Zero() {
+        int actual = new RatioCompare(2, 1)
+                .compareTo(new RatioCompare(2, 1));
         assertThat(actual).isZero();
     }
 
 
     @Test
-    public void compareTo_LargerThan_Positive() {
-        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        int den2 = RandomUtil.getRandomNumber(den1, Integer.MAX_VALUE);
-        RatioCompare r1 = new RatioCompare(1, den1);
-        RatioCompare r2 = new RatioCompare(1, den2);
-        int actual = r1.compareTo(r2);
+    public void compareTo_4to2_Positive() {
+        int actual = new RatioCompare(4, 1)
+                .compareTo(new RatioCompare(2, 1));
         assertThat(actual).isPositive();
     }
 
 
     @Test
-    public void greaterThan_GreaterThan_True() {
-        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        int den2 = RandomUtil.getRandomNumber(den1, Integer.MAX_VALUE);
-        RatioCompare r1 = new RatioCompare(1, den1);
-        RatioCompare r2 = new RatioCompare(1, den2);
-        assertThat(r1.greaterThan(r2)).isTrue();
+    public void greaterThan_2GreaterThan4_False() {
+        boolean greaterThan = new RatioCompare(2, 1)
+                .greaterThan(new RatioCompare(4, 1));
+        assertThat(greaterThan).isFalse();
     }
 
 
     @Test
-    public void greaterThan_Equal_False() {
-        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        RatioCompare r1 = new RatioCompare(1, den);
-        RatioCompare r2 = new RatioCompare(1, den);
-        assertThat(r1.greaterThan(r2)).isFalse();
+    public void greaterThan_4GreaterThan2_True() {
+        boolean greaterThan = new RatioCompare(4, 1)
+                .greaterThan(new RatioCompare(2, 1));
+        assertThat(greaterThan).isTrue();
     }
 
 
     @Test
-    public void greaterThan_LessThan_False() {
-        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        int den2 = RandomUtil.getRandomNumber(1, den1);
-        RatioCompare r1 = new RatioCompare(1, den1);
-        RatioCompare r2 = new RatioCompare(1, den2);
-        assertThat(r1.greaterThan(r2)).isFalse();
+    public void greaterThan_2GreaterThan2_False() {
+        boolean greaterThan = new RatioCompare(2, 1)
+                .greaterThan(new RatioCompare(2, 1));
+        assertThat(greaterThan).isFalse();
     }
 
 
     @Test
-    public void lessThan_GreaterThan_False() {
-        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        int den2 = RandomUtil.getRandomNumber(den1, Integer.MAX_VALUE);
-        RatioCompare r1 = new RatioCompare(1, den1);
-        RatioCompare r2 = new RatioCompare(1, den2);
-        assertThat(r1.lessThan(r2)).isFalse();
+    public void lessThan_2LessThan4_True() {
+        boolean lessThan = new RatioCompare(2, 1)
+                .lessThan(new RatioCompare(4, 1));
+        assertThat(lessThan).isTrue();
     }
 
 
     @Test
-    public void lessThan_Equal_False() {
-        int den = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        RatioCompare r1 = new RatioCompare(1, den);
-        RatioCompare r2 = new RatioCompare(1, den);
-        assertThat(r1.lessThan(r2)).isFalse();
+    public void lessThan_4LessThan2_False() {
+        boolean lessThan = new RatioCompare(4, 1)
+                .lessThan(new RatioCompare(2, 1));
+        assertThat(lessThan).isFalse();
     }
 
 
     @Test
-    public void lessThan_LessThan_True() {
-        int den1 = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-        int den2 = RandomUtil.getRandomNumber(1, den1);
-        RatioCompare r1 = new RatioCompare(1, den1);
-        RatioCompare r2 = new RatioCompare(1, den2);
-        assertThat(r1.lessThan(r2)).isTrue();
+    public void lessThan_2LessThan2_False() {
+        boolean lessThan = new RatioCompare(2, 1)
+                .lessThan(new RatioCompare(2, 1));
+        assertThat(lessThan).isFalse();
     }
 
 

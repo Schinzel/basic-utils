@@ -21,15 +21,19 @@ abstract class AbstractRatio<T extends IRatio<T>> implements IRatio<T> {
     @Getter private final BigInteger mDenominator;
 
 
+    /**
+     * @param num The numerator
+     * @param den The denominator
+     */
     AbstractRatio(BigInteger num, BigInteger den) {
         Thrower.throwIfVarNull(num, "num");
         Thrower.throwIfVarNull(den, "den");
         //If den is zero
         if (den.equals(BigInteger.ZERO)) {
-            //A legal fraction cannot have a zero den
+            //A legal fraction cannot have a zero denominator
             throw new RuntimeException("Denominator cannot be zero");
         }
-        //If the num is zero
+        //If the numerator is zero
         if (num.equals(BigInteger.ZERO)) {
             //Then the fraction is equal to all other fractions with zero num
             num = BigInteger.ZERO;

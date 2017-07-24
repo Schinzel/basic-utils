@@ -28,7 +28,7 @@ interface IRatioCompare<T extends IRatio<T>> extends IRatio<T>, Comparable<T> {
 
     /**
      * @param ratio A ratio
-     * @return True if the argument ratio is greater than this.
+     * @return True if this is greater than argument. Else false.
      */
     default boolean greaterThan(T ratio) {
         return (this.compareTo(ratio) > 0);
@@ -37,7 +37,7 @@ interface IRatioCompare<T extends IRatio<T>> extends IRatio<T>, Comparable<T> {
 
     /**
      * @param ratio A ratio
-     * @return True if the argument ratio is less than this.
+     * @return True if this is less than argument. Else false.
      */
     default boolean lessThan(T ratio) {
         return (this.compareTo(ratio) < 0);
