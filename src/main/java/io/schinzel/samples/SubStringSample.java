@@ -7,7 +7,7 @@ import io.schinzel.basicutils.substring.SubString;
  * <p>
  * Created by schinzel on 2017-02-27.
  */
-class SubStringerSample {
+class SubStringSample {
     public static void main(String[] args) {
         String input = "http://www.example.com/index.html?key1=val1&key2=val2";
         //Get everything after question mark, i.e. "key1=val1&key2=val2"
@@ -37,8 +37,14 @@ class SubStringerSample {
         //Get everything after the second equals sign
         SubString.create(input)
                 .startDelimiter("=")
-                .startOccurrence(2)
+                .startDelimiterOccurrence(2)
                 .getStr()
                 .plnWithPrefix("Second value: ");
+        //Get everything after the second equals sign
+        SubString.create(input)
+                .startDelimiter("=")
+                .startDelimiterLastOccurrence()
+                .getStr()
+                .plnWithPrefix("After last occurrence: ");
     }
 }

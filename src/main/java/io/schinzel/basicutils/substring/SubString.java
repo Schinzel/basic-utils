@@ -29,13 +29,25 @@ public class SubString {
     public static class Builder {
         private final String mString;
         @Setter private String mStartDelimiter = NO_VAL_SET;
-        @Setter private int mStartOccurrence = 1;
+        @Setter private int mStartDelimiterOccurrence = 1;
         @Setter private String mEndDelimiter = NO_VAL_SET;
-        @Setter private int mEndOccurrence = 1;
+        @Setter private int mEndDelimiterOccurrence = 1;
 
 
         Builder(String string) {
             mString = string;
+        }
+
+
+        public Builder startDelimiterLastOccurrence() {
+            mStartDelimiterOccurrence = SubstringIndexFinder.LAST_OCCURRENCE;
+            return this;
+        }
+
+
+        public Builder endDelimiterLastOccurrence() {
+            mEndDelimiterOccurrence = SubstringIndexFinder.LAST_OCCURRENCE;
+            return this;
         }
 
 
@@ -76,8 +88,8 @@ public class SubString {
     private SubString(Builder builder) {
         String string = builder.mString;
         Thrower.throwIfVarNull(string, "string");
-        int startPos = getStartPos(string, builder.mStartDelimiter, builder.mStartOccurrence);
-        int endPos = getEndPos(string, builder.mEndDelimiter, builder.mEndOccurrence, startPos);
+        int startPos = getStartPos(string, builder.mStartDelimiter, builder.mStartDelimiterOccurrence);
+        int endPos = getEndPos(string, builder.mEndDelimiter, builder.mEndDelimiterOccurrence, startPos);
         mString = string.substring(startPos, endPos);
 
     }
