@@ -14,7 +14,7 @@ public class IndexFinderTest {
         int actualPos = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(1)
+                .occurrence(Occurrence.FIRST)
                 .startPos(0)
                 .build()
                 .getSubstringPosition();
@@ -27,7 +27,7 @@ public class IndexFinderTest {
         int actualPos = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(2)
+                .occurrence(Occurrence.SECOND)
                 .startPos(0)
                 .build()
                 .getSubstringPosition();
@@ -40,7 +40,7 @@ public class IndexFinderTest {
         int actualPos = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(3)
+                .occurrence(Occurrence.THIRD)
                 .startPos(0)
                 .build()
                 .getSubstringPosition();
@@ -53,7 +53,7 @@ public class IndexFinderTest {
         int actualPos = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(4)
+                .occurrence(Occurrence.FOURTH)
                 .startPos(0)
                 .build()
                 .getSubstringPosition();
@@ -66,24 +66,11 @@ public class IndexFinderTest {
         int actualPos = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(2)
+                .occurrence(Occurrence.SECOND)
                 .startPos(6)
                 .build()
                 .getSubstringPosition();
         assertThat(actualPos).isEqualTo(11);
-    }
-
-
-    @Test
-    public void getSubstringPosition_OccurrenceMinus4_ThrowsException() {
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                SubstringIndexFinder.builder()
-                        .string("___GG__GG__GG___")
-                        .subString("GG")
-                        .occurrence(-4)
-                        .startPos(0)
-                        .build()
-        ).withMessageContaining("The value -4 in variable 'occurrence' is too small.");
     }
 
 
@@ -93,7 +80,7 @@ public class IndexFinderTest {
                 SubstringIndexFinder.builder()
                         .string("___GG__GG__GG___")
                         .subString("GG")
-                        .occurrence(1)
+                        .occurrence(Occurrence.FIRST)
                         .startPos(-1)
                         .build()
         ).withMessageContaining("The value -1 in variable 'startPos' is too small.");
@@ -105,7 +92,7 @@ public class IndexFinderTest {
         int actualPos = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(SubstringIndexFinder.LAST_OCCURRENCE)
+                .occurrence(Occurrence.LAST)
                 .startPos(0)
                 .build()
                 .getSubstringPosition();
@@ -118,7 +105,7 @@ public class IndexFinderTest {
         boolean actual = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(1)
+                .occurrence(Occurrence.FIRST)
                 .startPos(0)
                 .build()
                 .isSubstringFound();
@@ -131,7 +118,7 @@ public class IndexFinderTest {
         boolean actual = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
-                .occurrence(11)
+                .occurrence(Occurrence.TENTH)
                 .startPos(0)
                 .build()
                 .isSubstringFound();
@@ -144,7 +131,7 @@ public class IndexFinderTest {
         boolean actual = SubstringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GGGGGGG")
-                .occurrence(1)
+                .occurrence(Occurrence.FIRST)
                 .startPos(0)
                 .build()
                 .isSubstringFound();

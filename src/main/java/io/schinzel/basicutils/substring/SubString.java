@@ -29,9 +29,9 @@ public class SubString {
     public static class Builder {
         private final String mString;
         @Setter private String mStartDelimiter = NO_VAL_SET;
-        @Setter private int mStartDelimiterOccurrence = 1;
+        private Occurrence mStartDelimiterOccurrence = Occurrence.FIRST;
         @Setter private String mEndDelimiter = NO_VAL_SET;
-        @Setter private int mEndDelimiterOccurrence = 1;
+        private Occurrence mEndDelimiterOccurrence = Occurrence.FIRST;
 
 
         Builder(String string) {
@@ -39,14 +39,16 @@ public class SubString {
         }
 
 
-        public Builder startDelimiterLastOccurrence() {
-            mStartDelimiterOccurrence = SubstringIndexFinder.LAST_OCCURRENCE;
+        public Builder startDelimiter(String delimiter, Occurrence occurrence) {
+            mStartDelimiter = delimiter;
+            mStartDelimiterOccurrence = occurrence;
             return this;
         }
 
 
-        public Builder endDelimiterLastOccurrence() {
-            mEndDelimiterOccurrence = SubstringIndexFinder.LAST_OCCURRENCE;
+        public Builder endDelimiter(String delimiter, Occurrence occurrence) {
+            mEndDelimiter = delimiter;
+            mEndDelimiterOccurrence = occurrence;
             return this;
         }
 
@@ -95,7 +97,7 @@ public class SubString {
     }
 
 
-    static int getStartPos(String string, String startDelimiter, int startOccurrence) {
+    private static int getStartPos(String string, String startDelimiter, Occurrence startOccurrence) {
         //If no start delimiter has been set
         if (!valueSet(startDelimiter)) {
             //Let the start pos be start of string.
@@ -112,7 +114,7 @@ public class SubString {
     }
 
 
-    static int getEndPos(String string, String endDelimiter, int endOccurrence, int startPos) {
+    private static int getEndPos(String string, String endDelimiter, Occurrence endOccurrence, int startPos) {
         //If not end delimiter has been set
         if (!valueSet(endDelimiter)) {
             //Let the end pos be end of string
