@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.timekeeper;
 
+import io.schinzel.basicutils.state.State;
 import io.schinzel.basicutils.str.Str;
-import org.json.JSONObject;
 
 /**
  * The purpose of this class is for measuring the time one or several lines of
@@ -95,29 +95,18 @@ public class Timekeeper {
     /**
      * @return The results of the times measured from the root node and down.
      */
-    public Str getResults() {
+    public State getResults() {
         Lap root = mCurrentLap.getRoot();
         if (root.getStopWatch().isStarted()) {
             root.stop();
         }
-        return root.getState().getStr();
+        return root.getState();
     }
 
 
+    @Override
     public String toString() {
         return Str.create("Current lap: ").aq(mCurrentLap.getName()).toString();
-    }
-
-
-    /**
-     * @return The results of the times measured from the root node and down.
-     */
-    public JSONObject getResultsAsJson() {
-        Lap root = mCurrentLap.getRoot();
-        if (root.getStopWatch().isStarted()) {
-            root.stop();
-        }
-        return root.getState().getJson();
     }
 
 

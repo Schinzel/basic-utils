@@ -20,12 +20,12 @@ public class StopWatchTest {
     @Test
     public void testGetLaps() {
         StopWatch sw = StopWatch.create();
-        Assert.assertEquals(0, sw.getLaps());
+        Assert.assertEquals(0, sw.getNumberOfLaps());
         sw.start().stop();
-        Assert.assertEquals(1, sw.getLaps());
+        Assert.assertEquals(1, sw.getNumberOfLaps());
         sw.start().stop();
         sw.start().stop();
-        Assert.assertEquals(3, sw.getLaps());
+        Assert.assertEquals(3, sw.getNumberOfLaps());
     }
 
 
@@ -39,24 +39,6 @@ public class StopWatchTest {
         Assert.assertFalse(sw.isStarted());
         sw.start();
         Assert.assertTrue(sw.isStarted());
-    }
-
-
-    @Test
-    public void testToMillis() {
-        long input = 1000000000l;
-        double result = StopWatch.toMillis(input);
-        double expected = 1000d;
-        Assert.assertEquals(expected, result, 0d);
-    }
-
-
-    @Test
-    public void testToMillis2() {
-        double input = 1000000000d;
-        double result = StopWatch.toMillis(input);
-        double expected = 1000d;
-        Assert.assertEquals(expected, result, 0d);
     }
 
 

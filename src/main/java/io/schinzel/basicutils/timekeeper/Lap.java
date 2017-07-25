@@ -1,15 +1,12 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.collections.namedvalues.INamedValue;
+import io.schinzel.basicutils.collections.namedvalues.NamedValues;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
-import io.schinzel.basicutils.state.StateBuilder;
 import lombok.Getter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * The purpose of this class be a lap in a tree of laps. The laps knows it's
@@ -18,46 +15,40 @@ import java.util.Map;
  * @author schinzel
  */
 @Accessors(prefix = "m")
-@ToString
-class Lap implements IStateNode {
-    /** The name of this lap. */
+class Lap implements IStateNode, INamedValue {
+    /** The name of this lap */
     @Getter private final String mName;
-    /** The parent of this lap. */
-    final Lap mParent;
-    /** The children of this lap. */
-    private final Map<String, Lap> mChildren = new LinkedHashMap<>();
-    /** Measures the time. */
+    /** The parent of this lap */
+    final Lap mParentLap;
+    /** The children of this lap */
+    private final NamedValues<Lap> mChildLaps = new NamedValues<>("ChildLaps");
+    /** Measures the time */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 
 
     /**
-     * @param lapName The name of this lap.
-     * @param parent  The parent of this lap.
+     * @param lapName The name of this lap
+     * @param parent  The parent of this lap
      */
     Lap(String lapName, Lap parent) {
         Thrower.throwIfVarEmpty("lapName", lapName);
         mName = lapName;
-        mParent = parent;
+        mParentLap = parent;
     }
 
 
     /**
-     * Start
+     * Start a new lap. This new lap will be a child lap of this lap.
      *
-     * @param lapName
-     * @return The child node that was started
+     * @param lapName The name of the lap to start
+     * @return The lap that was started
      */
     Lap start(String lapName) {
-        Lap subLap;
-        if (mChildren.containsKey(lapName)) {
-            subLap = mChildren.get(lapName);
-            if (subLap.mStopWatch.isStarted()) {
-                throw new RuntimeException("Cannot start '" + lapName + "' as there is already a lap with this name started.");
-            }
-        } else {
-            subLap = new Lap(lapName, this);
-            mChildren.put(lapName, subLap);
-        }
+        Lap subLap = mChildLaps.has(lapName)
+                ? mChildLaps.get(lapName)
+                : mChildLaps.addAndGet(new Lap(lapName, this));
+        Thrower.throwIfTrue(subLap.mStopWatch.isStarted())
+                .message("Cannot start '" + lapName + "' as there is already a lap with this name started.");
         return subLap.start();
     }
 
@@ -79,15 +70,12 @@ class Lap implements IStateNode {
      * @return The parent of this lap.
      */
     Lap stop() {
-        //If this lap is stopwatch is mid-lap, i.e. currently measuring a lap
-        if (!mStopWatch.isStarted()) {
-            //Throw an error as the a stop is requested for a lap that is not started.
-            throw new RuntimeException("Cannot stop lap '" + mName + "' as it has not been started");
-        }
+        Thrower.throwIfFalse(mStopWatch.isStarted())
+                .message("Cannot stop lap '" + mName + "' as it has not been started");
         //Stop the stopwatch
         mStopWatch.stop();
         //Return the parent of this lap
-        return mParent;
+        return mParentLap;
     }
 
 
@@ -97,7 +85,7 @@ class Lap implements IStateNode {
     Lap getRoot() {
         //If current node has no parent, then is root and as such return this
         //else request root from parent.
-        return (mParent == null) ? this : mParent.getRoot();
+        return (mParentLap == null) ? this : mParentLap.getRoot();
     }
 
 
@@ -106,8 +94,8 @@ class Lap implements IStateNode {
      * parent's lap execution time.
      */
     double getPercentOfParent() {
-        return (mParent == null) ? 0d
-                : mStopWatch.getTotTimeInMs() / mParent.mStopWatch.getTotTimeInMs() * 100d;
+        return (mParentLap == null) ? 0d
+                : mStopWatch.getTotTimeInMs() / mParentLap.mStopWatch.getTotTimeInMs() * 100d;
     }
 
 
@@ -116,29 +104,28 @@ class Lap implements IStateNode {
      * lap execution time.
      */
     double getPercentOfRoot() {
-        return (mParent == null) ? 0d
+        return (mParentLap == null) ? 0d
                 : mStopWatch.getTotTimeInMs() / this.getRoot().mStopWatch.getTotTimeInMs() * 100d;
     }
 
 
     @Override
     public State getState() {
-        Thrower.throwIfTrue(mStopWatch.isStarted(), "Cannot get results for '" + mName + "' as has not been stopped.");
-        StateBuilder stateBuilder = State.getBuilder()
-                .addProp().key("Name").val(mName).buildProp();
-        if (mParent != null) {
-            stateBuilder.addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp();
-            stateBuilder.addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp();
-        }
-        stateBuilder
+        Thrower.throwIfTrue(mStopWatch.isStarted())
+                .message("Cannot get results for lap '" + mName + "' as it has not been stopped.");
+        return State.getBuilder()
+                .addProp().key("Name").val(mName).buildProp()
+                .ifTrue(mParentLap != null)
+                .addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp()
+                .addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp()
+                .endIf()
                 .addProp().key("Tot").val(mStopWatch.getTotTimeInMs()).decimals(0).unit("ms").buildProp()
                 .addProp().key("Avg").val(mStopWatch.getAvgInMs()).decimals(2).unit("ms").buildProp()
-                .addProp().key("Hits").val(mStopWatch.getLaps()).buildProp();
-        if (!mChildren.isEmpty()) {
-            stateBuilder.addChildren("sublaps", mChildren.values());
-        }
-        return stateBuilder.build();
-
+                .addProp().key("Hits").val(mStopWatch.getNumberOfLaps()).buildProp()
+                .ifTrue(!mChildLaps.isEmpty())
+                .addChildren("sublaps", mChildLaps.values())
+                .endIf()
+                .build();
     }
 
 }
