@@ -72,7 +72,7 @@ public class Timekeeper {
      * Stops the current lap and starts a new lap. Starts tracking a new lap. This lap will be a
      * sub-lap to the currently running lap.
      *
-     * @param lapName
+     * @param lapName The name of the lap to start
      * @return This for chaining
      */
     public Timekeeper stopAndStartLap(String lapName) {
