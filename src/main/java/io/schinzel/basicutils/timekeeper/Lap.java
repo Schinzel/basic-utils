@@ -50,7 +50,8 @@ class Lap implements IStateNode, INamedValue {
         Lap subLap = mChildLaps.has(lapName)
                 ? mChildLaps.get(lapName)
                 : mChildLaps.addAndGet(new Lap(lapName, this));
-        Thrower.throwIfTrue(subLap.mStopWatch.isStarted()).message("Cannot start '" + lapName + "' as there is already a lap with this name started.");
+        Thrower.throwIfTrue(subLap.mStopWatch.isStarted())
+                .message("Cannot start '" + lapName + "' as there is already a lap with this name started.");
         return subLap.start();
     }
 
@@ -72,11 +73,8 @@ class Lap implements IStateNode, INamedValue {
      * @return The parent of this lap.
      */
     Lap stop() {
-        //If this lap is stopwatch is mid-lap, i.e. currently measuring a lap
-        if (!mStopWatch.isStarted()) {
-            //Throw an error as the a stop is requested for a lap that is not started.
-            throw new RuntimeException("Cannot stop lap '" + mName + "' as it has not been started");
-        }
+        Thrower.throwIfFalse(mStopWatch.isStarted())
+                .message("Cannot stop lap '" + mName + "' as it has not been started");
         //Stop the stopwatch
         mStopWatch.stop();
         //Return the parent of this lap
