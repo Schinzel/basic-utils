@@ -31,8 +31,9 @@ class TimekeeperSample {
         timekeeper.stopAndStartLap("C");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
+        //Stop current lap, i.e. lap C
         timekeeper.stopLap();
-        //Stop the whole timekeeper
+        //Get results and render
         timekeeper.getResults().getStr().pln();
     }
 }
