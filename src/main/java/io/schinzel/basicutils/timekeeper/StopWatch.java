@@ -1,17 +1,22 @@
 package io.schinzel.basicutils.timekeeper;
 
+import lombok.ToString;
+import lombok.experimental.Accessors;
+
 /**
  * The purpose of this class act as a StopWatch, no more no less.
  *
  * @author schinzel
  */
+@Accessors(prefix = "m")
+@ToString
 class StopWatch {
     /** The time when the lap started */
     private long mLapStartTime = 0l;
     /** Number of laps measured. */
     private int mNumberOfLaps = 0;
     /** The time of all laps. */
-    private long mSumOfAllLaps;
+    private long mSumTimeOfAllLaps;
     /** The current state of this stop watch. */
     private State mState = State.STOPPED;
 
@@ -58,7 +63,7 @@ class StopWatch {
         }
         long currentLapTime = System.nanoTime() - mLapStartTime;
         mState = State.STOPPED;
-        mSumOfAllLaps += currentLapTime;
+        mSumTimeOfAllLaps += currentLapTime;
         mLapStartTime = 0;
         mNumberOfLaps++;
         return this;
@@ -85,7 +90,7 @@ class StopWatch {
      * @return The average lap time in ms.
      */
     double getAvgInMs() {
-        double avg = mSumOfAllLaps / mNumberOfLaps * 1d;
+        double avg = mSumTimeOfAllLaps / mNumberOfLaps * 1d;
         return toMillis(avg);
     }
 
@@ -94,7 +99,7 @@ class StopWatch {
      * @return The total time of all laps measured.
      */
     double getTotTimeInMs() {
-        return toMillis(mSumOfAllLaps);
+        return toMillis(mSumTimeOfAllLaps);
     }
 
 

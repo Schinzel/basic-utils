@@ -15,8 +15,7 @@ class TimekeeperSample {
         timekeeper.startLap("A");
         //Some code runs here that will be measured as lap A
         Sandman.snoozeMillis(5);
-        timekeeper.stopLap();
-        timekeeper.startLap("B");
+        timekeeper.stopAndStartLap("B");
         for (int i = 0; i < 10; i++) {
             //Start lab B1. As lap B is running, B1 will be a sub-lap to B.
             timekeeper.startLap("B1");
@@ -29,13 +28,11 @@ class TimekeeperSample {
             Sandman.snoozeMillis(20);
             timekeeper.stopLap();
         }
-        timekeeper.stopLap();
-        timekeeper.startLap("C");
+        timekeeper.stopAndStartLap("C");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
         timekeeper.stopLap();
-        //Stop the whole stopwatch
-        timekeeper.stop();
-        System.out.println(timekeeper.toString());
+        //Stop the whole timekeeper
+        timekeeper.getResults().pln();
     }
 }

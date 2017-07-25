@@ -45,8 +45,8 @@ public class Timekeeper {
 
 
     /**
-     * Starts tracking a new time measurement. This measurement will be a
-     * sub-measurement to the currently running measurement.
+     * Starts tracking a new lap. This lap will be a
+     * sub-lap to the currently running lap.
      *
      * @param lapName The label to the measurement.
      * @return This for chaining
@@ -69,12 +69,14 @@ public class Timekeeper {
 
 
     /**
-     * Stops the whole timekeeper.
+     * Stops the current lap and starts a new lap. Starts tracking a new lap. This lap will be a
+     * sub-lap to the currently running lap.
      *
+     * @param lapName
      * @return This for chaining
      */
-    public Timekeeper stop() {
-        mCurrentLap.getRoot().stop();
+    public Timekeeper stopAndStartLap(String lapName) {
+        mCurrentLap = mCurrentLap.stop().start(lapName);
         return this;
     }
 
@@ -93,25 +95,29 @@ public class Timekeeper {
     /**
      * @return The results of the times measured from the root node and down.
      */
-    public Str toStr() {
-        return mCurrentLap.getRoot().getState().getStr();
+    public Str getResults() {
+        Lap root = mCurrentLap.getRoot();
+        if (root.getStopWatch().isStarted()) {
+            root.stop();
+        }
+        return root.getState().getStr();
+    }
+
+
+    public String toString() {
+        return Str.create("Current lap: ").aq(mCurrentLap.getName()).toString();
     }
 
 
     /**
      * @return The results of the times measured from the root node and down.
      */
-    @Override
-    public String toString() {
-        return mCurrentLap.getRoot().getState().getString();
-    }
-
-
-    /**
-     * @return The results of the times measured as JSON.
-     */
-    public JSONObject toJson() {
-        return mCurrentLap.getRoot().getState().getJson();
+    public JSONObject getResultsAsJson() {
+        Lap root = mCurrentLap.getRoot();
+        if (root.getStopWatch().isStarted()) {
+            root.stop();
+        }
+        return root.getState().getJson();
     }
 
 

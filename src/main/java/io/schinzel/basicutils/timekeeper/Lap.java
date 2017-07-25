@@ -4,6 +4,9 @@ import io.schinzel.basicutils.Thrower;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
 import io.schinzel.basicutils.state.StateBuilder;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.experimental.Accessors;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -14,21 +17,22 @@ import java.util.Map;
  *
  * @author schinzel
  */
+@Accessors(prefix = "m")
+@ToString
 class Lap implements IStateNode {
-    /** The name of this lap.*/
-    private final String mName;
+    /** The name of this lap. */
+    @Getter private final String mName;
     /** The parent of this lap. */
     final Lap mParent;
     /** The children of this lap. */
     private final Map<String, Lap> mChildren = new LinkedHashMap<>();
     /** Measures the time. */
-    private final StopWatch mStopWatch = StopWatch.create();
+    @Getter private final StopWatch mStopWatch = StopWatch.create();
 
 
     /**
-     *
      * @param lapName The name of this lap.
-     * @param parent The parent of this lap.
+     * @param parent  The parent of this lap.
      */
     Lap(String lapName, Lap parent) {
         Thrower.throwIfVarEmpty("lapName", lapName);
@@ -41,7 +45,7 @@ class Lap implements IStateNode {
      * Start
      *
      * @param lapName
-     * @return The child not that was started
+     * @return The child node that was started
      */
     Lap start(String lapName) {
         Lap subLap;
@@ -58,6 +62,11 @@ class Lap implements IStateNode {
     }
 
 
+    /**
+     * Starts measuring a lap. Requires that this lap has not already been started.
+     *
+     * @return This for chaining.
+     */
     Lap start() {
         mStopWatch.start();
         return this;
@@ -65,6 +74,7 @@ class Lap implements IStateNode {
 
 
     /**
+     * Stops measurement of current lap.
      *
      * @return The parent of this lap.
      */
@@ -82,48 +92,32 @@ class Lap implements IStateNode {
 
 
     /**
-     *
      * @return Returns the root lap of the tree.
      */
     Lap getRoot() {
-        //If this object has not parent, i.e. it is root.
-        if (mParent == null) {
-            //Return this object as it is root.
-            return this;
-        }
-        return mParent.getRoot();
-    }
-
-
-    @Override
-    public String toString() {
-        return mName;
+        //If current node has no parent, then is root and as such return this
+        //else request root from parent.
+        return (mParent == null) ? this : mParent.getRoot();
     }
 
 
     /**
-     *
      * @return Get the percent of this lap execution time makes up of the
      * parent's lap execution time.
      */
     double getPercentOfParent() {
-        if (mParent != null) {
-            return mStopWatch.getTotTimeInMs() / mParent.mStopWatch.getTotTimeInMs() * 100d;
-        }
-        return 0d;
+        return (mParent == null) ? 0d
+                : mStopWatch.getTotTimeInMs() / mParent.mStopWatch.getTotTimeInMs() * 100d;
     }
 
 
     /**
-     *
      * @return Get the percent of this laps execution time makes up of the root
      * lap execution time.
      */
     double getPercentOfRoot() {
-        if (mParent != null) {
-            return mStopWatch.getTotTimeInMs() / this.getRoot().mStopWatch.getTotTimeInMs() * 100d;
-        }
-        return 0d;
+        return (mParent == null) ? 0d
+                : mStopWatch.getTotTimeInMs() / this.getRoot().mStopWatch.getTotTimeInMs() * 100d;
     }
 
 
