@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
 import lombok.Getter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -10,7 +9,6 @@ import lombok.experimental.Accessors;
  * @author schinzel
  */
 @Accessors(prefix = "m")
-@ToString
 class StopWatch {
     /** The time when the lap started */
     private long mLapStartTime = 0l;

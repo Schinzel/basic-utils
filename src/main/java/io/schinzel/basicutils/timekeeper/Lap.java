@@ -6,7 +6,6 @@ import io.schinzel.basicutils.collections.namedvalues.NamedValues;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
 import lombok.Getter;
-import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -16,7 +15,6 @@ import lombok.experimental.Accessors;
  * @author schinzel
  */
 @Accessors(prefix = "m")
-@ToString
 class Lap implements IStateNode, INamedValue {
     /** The name of this lap */
     @Getter private final String mName;
