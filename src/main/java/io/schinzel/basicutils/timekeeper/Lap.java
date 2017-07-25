@@ -18,19 +18,19 @@ import lombok.experimental.Accessors;
 @Accessors(prefix = "m")
 @ToString
 class Lap implements IStateNode, INamedValue {
-    /** The name of this lap. */
+    /** The name of this lap */
     @Getter private final String mName;
-    /** The parent of this lap. */
+    /** The parent of this lap */
     final Lap mParentLap;
-    /** The children of this lap. */
+    /** The children of this lap */
     private final NamedValues<Lap> mChildLaps = new NamedValues<>("ChildLaps");
-    /** Measures the time. */
+    /** Measures the time */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 
 
     /**
-     * @param lapName The name of this lap.
-     * @param parent  The parent of this lap.
+     * @param lapName The name of this lap
+     * @param parent  The parent of this lap
      */
     Lap(String lapName, Lap parent) {
         Thrower.throwIfVarEmpty("lapName", lapName);
@@ -40,10 +40,10 @@ class Lap implements IStateNode, INamedValue {
 
 
     /**
-     * Start
+     * Start a new lap. This new lap will be a child lap of this lap.
      *
-     * @param lapName
-     * @return The child node that was started
+     * @param lapName The name of the lap to start
+     * @return The lap that was started
      */
     Lap start(String lapName) {
         Lap subLap = mChildLaps.has(lapName)

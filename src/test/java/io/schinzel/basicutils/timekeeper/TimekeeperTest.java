@@ -75,7 +75,7 @@ public class TimekeeperTest {
         tk.stopLap().startLap("C");
         Sandman.snoozeMillis(10);
         tk.stopLap();
-        JSONObject json = tk.getResultsAsJson();
+        JSONObject json = tk.getResults().getJson();
         //Check that are 5 attributes "name", "tot", "avg" and so forth
         Assert.assertEquals(5, json.length());
         //Check that has 3 children
@@ -97,7 +97,7 @@ public class TimekeeperTest {
     @Test
     public void testHits() {
         Timekeeper timekeeper = TestInstanceWithDataUtil.getTimekeeper();
-        JSONObject json = timekeeper.getResultsAsJson();
+        JSONObject json = timekeeper.getResults().getJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject A = firstLevelChildren.getJSONObject(0);
@@ -118,7 +118,8 @@ public class TimekeeperTest {
 
     @Test
     public void testAvg() {
-        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().getResultsAsJson();
+        JSONObject json = TestInstanceWithDataUtil.getTimekeeper()
+                .getResults().getJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
@@ -136,7 +137,7 @@ public class TimekeeperTest {
 
     @Test
     public void testTot() {
-        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().getResultsAsJson();
+        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().getResults().getJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);

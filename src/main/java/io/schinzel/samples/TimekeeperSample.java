@@ -33,6 +33,6 @@ class TimekeeperSample {
         Sandman.snoozeMillis(10);
         timekeeper.stopLap();
         //Stop the whole timekeeper
-        timekeeper.getResults().pln();
+        timekeeper.getResults().getStr().pln();
     }
 }
