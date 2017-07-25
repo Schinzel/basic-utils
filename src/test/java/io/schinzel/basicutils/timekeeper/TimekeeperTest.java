@@ -163,4 +163,21 @@ public class TimekeeperTest {
         Timekeeper t2 = Timekeeper.create();
         Assert.assertNotEquals(t1, t2);
     }
+
+
+    @Test
+    public void toString_RootLap_CurrentLapShouldBeRoot() {
+        String actual = Timekeeper.create().toString();
+        assertThat(actual).contains("Current lap: 'root'");
+    }
+
+
+    @Test
+    public void toString_LapAAA_CurrentLapShouldBeRoot() {
+        String actual = Timekeeper.create()
+                .startLap("AAA")
+                .toString();
+        assertThat(actual).contains("Current lap: 'AAA'");
+    }
+
 }
