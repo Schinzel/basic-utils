@@ -29,30 +29,20 @@ public class TimekeeperTest {
 
 
     @Test
-    public void testGetResults_nonStoppedNode() {
-        Timekeeper tk = Timekeeper.getSingleton();
-        tk.startLap("A");
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Cannot get results for");
-        tk.toString();
-    }
-
-
-    @Test
     public void testToString() {
         Timekeeper tk = Timekeeper
                 .create()
                 .startLap("A").stopLap()
                 .startLap("B").stopLap()
-                .startLap("C").stopLap().stop();
-        String str = tk.toString();
+                .startLap("C").stopLap();
+        String str = tk.getResults().toString();
         int result = str.split("\n").length;
         int expected = 5;
         Assert.assertEquals(expected, result);
         tk.reset();
         tk = Timekeeper.create();
-        tk.startLap("A").stopLap().startLap("B").stopLap().stop();
-        str = tk.toString();
+        tk.startLap("A").stopLap().startLap("B").stopLap();
+        str = tk.getResults().toString();
         result = str.split("\n").length;
         expected = 4;
         Assert.assertEquals(expected, result);
@@ -65,9 +55,7 @@ public class TimekeeperTest {
                 .create()
                 .startLap("A").stopLap()
                 .startLap("B").stopLap()
-                .stop()
-                .toStr()
-                .toString();
+                .getResults().toString();
         int actual = str.split("\n").length;
         int expected = 4;
         Assert.assertEquals(expected, actual);
@@ -86,8 +74,8 @@ public class TimekeeperTest {
         Sandman.snoozeMillis(10);
         tk.stopLap().startLap("C");
         Sandman.snoozeMillis(10);
-        tk.stopLap().stop();
-        JSONObject json = tk.toJson();
+        tk.stopLap();
+        JSONObject json = tk.getResultsAsJson();
         //Check that are 5 attributes "name", "tot", "avg" and so forth
         Assert.assertEquals(5, json.length());
         //Check that has 3 children
@@ -109,7 +97,7 @@ public class TimekeeperTest {
     @Test
     public void testHits() {
         Timekeeper timekeeper = TestInstanceWithDataUtil.getTimekeeper();
-        JSONObject json = timekeeper.toJson();
+        JSONObject json = timekeeper.getResultsAsJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject A = firstLevelChildren.getJSONObject(0);
@@ -130,7 +118,7 @@ public class TimekeeperTest {
 
     @Test
     public void testAvg() {
-        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().toJson();
+        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().getResultsAsJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
@@ -148,7 +136,7 @@ public class TimekeeperTest {
 
     @Test
     public void testTot() {
-        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().toJson();
+        JSONObject json = TestInstanceWithDataUtil.getTimekeeper().getResultsAsJson();
         //Extract children
         JSONArray firstLevelChildren = json.getJSONArray("sublaps");
         JSONObject B = firstLevelChildren.getJSONObject(1);
