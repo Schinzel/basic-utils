@@ -8,10 +8,38 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.*;
+
 
 public class StateBuilderTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+
+    @Test
+    public void ifTrue_False_ShouldNotAdd() {
+        int actual = StateBuilder.create()
+                .add("k1", "v1")
+                .ifTrue(false)
+                .add("k2", "v2")
+                .endIf()
+                .add("k3", "v3")
+                .build().getProperties().size();
+        assertThat(actual).isEqualTo(2);
+    }
+
+
+    @Test
+    public void ifTrue_True_ShouldAdd() {
+        int actual = StateBuilder.create()
+                .add("k1", "v1")
+                .ifTrue(true)
+                .add("k2", "v2")
+                .endIf()
+                .add("k3", "v3")
+                .build().getProperties().size();
+        assertThat(actual).isEqualTo(3);
+    }
 
 
     @Test

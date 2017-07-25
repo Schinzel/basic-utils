@@ -6,7 +6,10 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -26,9 +29,16 @@ public class StateBuilder {
     /** Named lists of children of the state being built. */
     @Getter(AccessLevel.PACKAGE)
     private final Map<String, List<State>> mChildLists;
+    /** If true, the adding of properties is paused. */
+    private boolean mAddingPaused;
     //------------------------------------------------------------------------
     // CONSTRUCTION
     //------------------------------------------------------------------------
+
+
+    public static StateBuilder create() {
+        return new StateBuilder();
+    }
 
 
     /**
@@ -52,7 +62,6 @@ public class StateBuilder {
         mChildren = new LinkedHashMap<>();
         mChildLists = new LinkedHashMap<>();
     }
-
 
 
     /**
@@ -82,8 +91,7 @@ public class StateBuilder {
      * @return This for chaining
      */
     public StateBuilder add(String key, String value) {
-        this.addProp().key(key).val(value).buildProp();
-        return this;
+        return this.addProp().key(key).val(value).buildProp();
     }
 
 
@@ -93,8 +101,7 @@ public class StateBuilder {
      * @return This for chaining
      */
     public StateBuilder add(String key, int value) {
-        this.addProp().key(key).val(value).buildProp();
-        return this;
+        return this.addProp().key(key).val(value).buildProp();
     }
 
 
@@ -104,8 +111,7 @@ public class StateBuilder {
      * @return This for chaining
      */
     public StateBuilder add(String key, boolean value) {
-        this.addProp().key(key).val(value).buildProp();
-        return this;
+        return this.addProp().key(key).val(value).buildProp();
     }
 
 
@@ -115,8 +121,7 @@ public class StateBuilder {
      * @return This for chaining
      */
     public StateBuilder add(String key, long value) {
-        this.addProp().key(key).val(value).buildProp();
-        return this;
+        return this.addProp().key(key).val(value).buildProp();
     }
 
 
@@ -127,7 +132,33 @@ public class StateBuilder {
      * @return This for chaining.
      */
     StateBuilder addProperty(Property property) {
-        mProperties.add(property);
+        if (!mAddingPaused) {
+            mProperties.add(property);
+        }
+        return this;
+    }
+    //------------------------------------------------------------------------
+    // CONDITIONAL ADDING
+    //------------------------------------------------------------------------
+
+
+    /**
+     * @param condition If false, strings added until and endIf request are ignored.
+     * @return This for chaining
+     */
+    public StateBuilder ifTrue(boolean condition) {
+        mAddingPaused = !condition;
+        return this;
+    }
+
+
+    /**
+     * Unpauses any potential pause in string adding set by ifTrue(true).
+     *
+     * @return This for chaining
+     */
+    public StateBuilder endIf() {
+        mAddingPaused = false;
         return this;
     }
     //------------------------------------------------------------------------
