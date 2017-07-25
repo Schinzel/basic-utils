@@ -36,11 +36,6 @@ public class StateBuilder {
     //------------------------------------------------------------------------
 
 
-    public static StateBuilder create() {
-        return new StateBuilder();
-    }
-
-
     /**
      * Package private constructor so that this cannot be used outside this
      * package.

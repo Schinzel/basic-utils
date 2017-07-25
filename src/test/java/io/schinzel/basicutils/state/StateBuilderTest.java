@@ -18,7 +18,7 @@ public class StateBuilderTest {
 
     @Test
     public void ifTrue_False_ShouldNotAdd() {
-        int actual = StateBuilder.create()
+        int actual = new StateBuilder()
                 .add("k1", "v1")
                 .ifTrue(false)
                 .add("k2", "v2")
@@ -31,7 +31,7 @@ public class StateBuilderTest {
 
     @Test
     public void ifTrue_True_ShouldAdd() {
-        int actual = StateBuilder.create()
+        int actual = new StateBuilder()
                 .add("k1", "v1")
                 .ifTrue(true)
                 .add("k2", "v2")

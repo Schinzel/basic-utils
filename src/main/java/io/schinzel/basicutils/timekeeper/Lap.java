@@ -5,7 +5,6 @@ import io.schinzel.basicutils.collections.namedvalues.INamedValue;
 import io.schinzel.basicutils.collections.namedvalues.NamedValues;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
-import io.schinzel.basicutils.state.StateBuilder;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
@@ -114,22 +113,21 @@ class Lap implements IStateNode, INamedValue {
 
     @Override
     public State getState() {
-        Thrower.throwIfTrue(mStopWatch.isStarted(), "Cannot get results for '" + mName + "' as has not been stopped.");
-        StateBuilder stateBuilder = State.getBuilder()
-                .addProp().key("Name").val(mName).buildProp();
-        if (mParentLap != null) {
-            stateBuilder.addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp();
-            stateBuilder.addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp();
-        }
-        stateBuilder
+        Thrower.throwIfTrue(mStopWatch.isStarted())
+                .message("Cannot get results for lap '" + mName + "' as it has not been stopped.");
+        return State.getBuilder()
+                .addProp().key("Name").val(mName).buildProp()
+                .ifTrue(mParentLap != null)
+                .addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp()
+                .addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp()
+                .endIf()
                 .addProp().key("Tot").val(mStopWatch.getTotTimeInMs()).decimals(0).unit("ms").buildProp()
                 .addProp().key("Avg").val(mStopWatch.getAvgInMs()).decimals(2).unit("ms").buildProp()
-                .addProp().key("Hits").val(mStopWatch.getNumberOfLaps()).buildProp();
-        if (!mChildLaps.isEmpty()) {
-            stateBuilder.addChildren("sublaps", mChildLaps.values());
-        }
-        return stateBuilder.build();
-
+                .addProp().key("Hits").val(mStopWatch.getNumberOfLaps()).buildProp()
+                .ifTrue(!mChildLaps.isEmpty())
+                .addChildren("sublaps", mChildLaps.values())
+                .endIf()
+                .build();
     }
 
 }
