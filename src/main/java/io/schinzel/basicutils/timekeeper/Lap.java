@@ -23,9 +23,9 @@ class Lap implements IStateNode {
     /** The name of this lap. */
     @Getter private final String mName;
     /** The parent of this lap. */
-    final Lap mParent;
+    final Lap mParentLap;
     /** The children of this lap. */
-    private final Map<String, Lap> mChildren = new LinkedHashMap<>();
+    private final Map<String, Lap> mChildLaps = new LinkedHashMap<>();
     /** Measures the time. */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 
@@ -37,7 +37,7 @@ class Lap implements IStateNode {
     Lap(String lapName, Lap parent) {
         Thrower.throwIfVarEmpty("lapName", lapName);
         mName = lapName;
-        mParent = parent;
+        mParentLap = parent;
     }
 
 
@@ -49,14 +49,15 @@ class Lap implements IStateNode {
      */
     Lap start(String lapName) {
         Lap subLap;
-        if (mChildren.containsKey(lapName)) {
-            subLap = mChildren.get(lapName);
-            if (subLap.mStopWatch.isStarted()) {
-                throw new RuntimeException("Cannot start '" + lapName + "' as there is already a lap with this name started.");
-            }
-        } else {
+        //If this lap has a child lap with argument name
+        if (mChildLaps.containsKey(lapName)) {
+            //Get existing sub lap
+            subLap = mChildLaps.get(lapName);
+            Thrower.throwIfTrue(subLap.mStopWatch.isStarted()).message("Cannot start '" + lapName + "' as there is already a lap with this name started.");
+        } //else, this lap has not child lap with argument name.
+        else {
             subLap = new Lap(lapName, this);
-            mChildren.put(lapName, subLap);
+            mChildLaps.put(lapName, subLap);
         }
         return subLap.start();
     }
@@ -87,7 +88,7 @@ class Lap implements IStateNode {
         //Stop the stopwatch
         mStopWatch.stop();
         //Return the parent of this lap
-        return mParent;
+        return mParentLap;
     }
 
 
@@ -97,7 +98,7 @@ class Lap implements IStateNode {
     Lap getRoot() {
         //If current node has no parent, then is root and as such return this
         //else request root from parent.
-        return (mParent == null) ? this : mParent.getRoot();
+        return (mParentLap == null) ? this : mParentLap.getRoot();
     }
 
 
@@ -106,8 +107,8 @@ class Lap implements IStateNode {
      * parent's lap execution time.
      */
     double getPercentOfParent() {
-        return (mParent == null) ? 0d
-                : mStopWatch.getTotTimeInMs() / mParent.mStopWatch.getTotTimeInMs() * 100d;
+        return (mParentLap == null) ? 0d
+                : mStopWatch.getTotTimeInMs() / mParentLap.mStopWatch.getTotTimeInMs() * 100d;
     }
 
 
@@ -116,7 +117,7 @@ class Lap implements IStateNode {
      * lap execution time.
      */
     double getPercentOfRoot() {
-        return (mParent == null) ? 0d
+        return (mParentLap == null) ? 0d
                 : mStopWatch.getTotTimeInMs() / this.getRoot().mStopWatch.getTotTimeInMs() * 100d;
     }
 
@@ -126,16 +127,16 @@ class Lap implements IStateNode {
         Thrower.throwIfTrue(mStopWatch.isStarted(), "Cannot get results for '" + mName + "' as has not been stopped.");
         StateBuilder stateBuilder = State.getBuilder()
                 .addProp().key("Name").val(mName).buildProp();
-        if (mParent != null) {
+        if (mParentLap != null) {
             stateBuilder.addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp();
             stateBuilder.addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp();
         }
         stateBuilder
                 .addProp().key("Tot").val(mStopWatch.getTotTimeInMs()).decimals(0).unit("ms").buildProp()
                 .addProp().key("Avg").val(mStopWatch.getAvgInMs()).decimals(2).unit("ms").buildProp()
-                .addProp().key("Hits").val(mStopWatch.getLaps()).buildProp();
-        if (!mChildren.isEmpty()) {
-            stateBuilder.addChildren("sublaps", mChildren.values());
+                .addProp().key("Hits").val(mStopWatch.getNumberOfLaps()).buildProp();
+        if (!mChildLaps.isEmpty()) {
+            stateBuilder.addChildren("sublaps", mChildLaps.values());
         }
         return stateBuilder.build();
 

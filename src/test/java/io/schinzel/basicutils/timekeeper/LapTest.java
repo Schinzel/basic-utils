@@ -21,11 +21,11 @@ public class LapTest {
         Assert.assertEquals("root", node.getName());
         node = node.start("A");
         Assert.assertEquals("A", node.getName());
-        Assert.assertEquals("root", node.mParent.getName());
+        Assert.assertEquals("root", node.mParentLap.getName());
         node = node.start("AA");
         Assert.assertEquals("AA", node.getName());
-        Assert.assertEquals("A", node.mParent.getName());
-        Assert.assertEquals("root", node.mParent.mParent.getName());
+        Assert.assertEquals("A", node.mParentLap.getName());
+        Assert.assertEquals("root", node.mParentLap.mParentLap.getName());
         node = node.stop();
         Assert.assertEquals("A", node.getName());
         node = node.stop();

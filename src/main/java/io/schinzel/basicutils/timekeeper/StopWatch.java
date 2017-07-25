@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
+import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
@@ -14,7 +15,7 @@ class StopWatch {
     /** The time when the lap started */
     private long mLapStartTime = 0l;
     /** Number of laps measured. */
-    private int mNumberOfLaps = 0;
+    @Getter private int mNumberOfLaps = 0;
     /** The time of all laps. */
     private long mSumTimeOfAllLaps;
     /** The current state of this stop watch. */
@@ -79,19 +80,12 @@ class StopWatch {
 
 
     /**
-     * @return The number of laps measured.
-     */
-    int getLaps() {
-        return mNumberOfLaps;
-    }
-
-
-    /**
      * @return The average lap time in ms.
      */
     double getAvgInMs() {
         double avg = mSumTimeOfAllLaps / mNumberOfLaps * 1d;
-        return toMillis(avg);
+        //Convert nanos to millis
+        return avg / 1_000_000;
     }
 
 
@@ -99,25 +93,9 @@ class StopWatch {
      * @return The total time of all laps measured.
      */
     double getTotTimeInMs() {
-        return toMillis(mSumTimeOfAllLaps);
+        //Convert from nanos to millis
+        return mSumTimeOfAllLaps / 1_000_000;
     }
 
-
-    /**
-     * @param nanos
-     * @return The argument nanos as millis.
-     */
-    static double toMillis(long nanos) {
-        return nanos / 1000000;
-    }
-
-
-    /**
-     * @param nanos
-     * @return The argument nanos as millis.
-     */
-    static double toMillis(double nanos) {
-        return nanos / 1000000;
-    }
 
 }
