@@ -1,15 +1,14 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.collections.namedvalues.INamedValue;
+import io.schinzel.basicutils.collections.namedvalues.NamedValues;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
 import io.schinzel.basicutils.state.StateBuilder;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.experimental.Accessors;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * The purpose of this class be a lap in a tree of laps. The laps knows it's
@@ -19,13 +18,13 @@ import java.util.Map;
  */
 @Accessors(prefix = "m")
 @ToString
-class Lap implements IStateNode {
+class Lap implements IStateNode, INamedValue {
     /** The name of this lap. */
     @Getter private final String mName;
     /** The parent of this lap. */
     final Lap mParentLap;
     /** The children of this lap. */
-    private final Map<String, Lap> mChildLaps = new LinkedHashMap<>();
+    private final NamedValues<Lap> mChildLaps = new NamedValues<>("ChildLaps");
     /** Measures the time. */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 
@@ -48,17 +47,10 @@ class Lap implements IStateNode {
      * @return The child node that was started
      */
     Lap start(String lapName) {
-        Lap subLap;
-        //If this lap has a child lap with argument name
-        if (mChildLaps.containsKey(lapName)) {
-            //Get existing sub lap
-            subLap = mChildLaps.get(lapName);
-            Thrower.throwIfTrue(subLap.mStopWatch.isStarted()).message("Cannot start '" + lapName + "' as there is already a lap with this name started.");
-        } //else, this lap has not child lap with argument name.
-        else {
-            subLap = new Lap(lapName, this);
-            mChildLaps.put(lapName, subLap);
-        }
+        Lap subLap = mChildLaps.has(lapName)
+                ? mChildLaps.get(lapName)
+                : mChildLaps.addAndGet(new Lap(lapName, this));
+        Thrower.throwIfTrue(subLap.mStopWatch.isStarted()).message("Cannot start '" + lapName + "' as there is already a lap with this name started.");
         return subLap.start();
     }
 
