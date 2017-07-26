@@ -2,6 +2,8 @@ package io.schinzel.basicutils.collections.namedvalues;
 
 import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.Thrower;
+import lombok.Getter;
+import lombok.experimental.Accessors;
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -14,13 +16,14 @@ import java.util.stream.Stream;
  * @author schinzel
  */
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
+@Accessors(prefix = "m")
 public class NamedValues<V extends INamedValue> implements Iterable<V> {
     /** The internal storage. Set sort order to be compareToIgnoreCase. */
     private final TreeMap<String, V> mValues = new TreeMap<>(String::compareToIgnoreCase);
     /** Holds mapping between aliases and names. */
     private final Map<String, String> mAliasMap = new HashMap<>();
     /** The name of this collection. */
-    final String mCollectionName;
+    @Getter final String mCollectionName;
     //*************************************************************************
     //* CONSTRUCTION
     //*************************************************************************

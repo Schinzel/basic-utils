@@ -2,6 +2,7 @@ package io.schinzel.basicutils.state;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
+import io.schinzel.basicutils.collections.namedvalues.NamedValues;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -166,7 +167,7 @@ public class StateBuilder {
      * constructed.
      *
      * @param key   The key of the argument child.
-     * @param child The child to addChild.
+     * @param child The child to add.
      * @return This for chaining.
      */
     public StateBuilder addChild(String key, IStateNode child) {
@@ -179,11 +180,11 @@ public class StateBuilder {
 
 
     /**
-     * Adds a collection of children. This so that an hierarchy of state can be
+     * Adds a collection of children. This so that an hierarchy of states can be
      * constructed.
      *
      * @param key      The key of the argument children.
-     * @param children The children to addChild.
+     * @param children The children to add.
      * @return This for chaining.
      */
     public StateBuilder addChildren(String key, Iterable<? extends IStateNode> children) {
@@ -198,4 +199,17 @@ public class StateBuilder {
         }
         return this;
     }
+
+
+    /**
+     * Adds a collection of children. This so that an hierarchy of states can be
+     * constructed. The key of the entry will be the name of the argument collection.
+     *
+     * @param collection The children to add.
+     * @return This for chaining.
+     */
+    public StateBuilder addChildren(NamedValues collection) {
+        return this.addChildren(collection.getCollectionName(), collection.values());
+    }
+
 }
