@@ -1,5 +1,9 @@
 package io.schinzel.basicutils.state;
 
+import io.schinzel.basicutils.collections.namedvalues.INamedValue;
+import lombok.Getter;
+import lombok.experimental.Accessors;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +12,14 @@ import java.util.List;
  *
  * @author schinzel
  */
-class MyClass implements IStateNode {
-
-    final String mName;
+@Accessors(prefix = "m")
+class MyClass implements IStateNode, INamedValue {
+    @Getter final String mName;
     final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();
     MyClass mLeft;
     MyClass mRight;
+
 
     MyClass(String name, int cost) {
         mName = name;
@@ -28,18 +33,19 @@ class MyClass implements IStateNode {
                 .addProp().key("Name").val(mName).buildProp()
                 .addProp().key("Cost").val(mCost).buildProp()
                 .addChildren("mykids", mChildren);
-        if (mLeft != null){
+        if (mLeft != null) {
             builder.addChild("Left", mLeft);
         }
-        if (mRight != null){
+        if (mRight != null) {
             builder.addChild("Right", mRight);
         }
         return builder.build();
-                
+
     }
 
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.getState().toString();
     }
 

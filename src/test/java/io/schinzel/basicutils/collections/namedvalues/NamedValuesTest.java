@@ -44,6 +44,7 @@ public class NamedValuesTest {
     }
 
 
+
     @Test
     public void getCollectionName_SetNameWithConstructor_ConstructorSetName() {
         String expected = RandomUtil.getRandomString(50);
