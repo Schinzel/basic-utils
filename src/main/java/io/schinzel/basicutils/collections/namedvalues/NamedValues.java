@@ -30,6 +30,7 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
 
 
     public NamedValues(String collectionName) {
+        Thrower.throwIfVarEmpty(collectionName, "collectionName");
         mCollectionName = collectionName;
     }
 

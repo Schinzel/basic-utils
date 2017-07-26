@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.collections.namedvalues;
 
+import io.schinzel.basicutils.RandomUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.junit.Assert;
@@ -11,6 +12,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 public class NamedValuesTest {
 
@@ -39,6 +41,30 @@ public class NamedValuesTest {
                 .add(new MyVal("MyName3"));
         exception.expect(RuntimeException.class);
         coll.add(new MyVal("MyName2"));
+    }
+
+
+    @Test
+    public void getCollectionName_SetNameWithConstructor_ConstructorSetName() {
+        String expected = RandomUtil.getRandomString(50);
+        String actual = NamedValues.create(expected).getCollectionName();
+        assertThat(actual).isEqualTo(expected);
+    }
+
+
+    @Test
+    public void create_CollectionNameEmptyString_Exception() {
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                NamedValues.create("")
+        );
+    }
+
+
+    @Test
+    public void create_CollectionNameNull_Exception() {
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                NamedValues.create(null)
+        );
     }
 
 
