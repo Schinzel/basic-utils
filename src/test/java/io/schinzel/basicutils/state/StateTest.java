@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.state;
 
+import io.schinzel.basicutils.collections.namedvalues.NamedValues;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -7,13 +8,32 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 /**
  * @author schinzel
  */
 public class StateTest {
+
+
+    @Test
+    public void addNamedValueCollectionAsChild() {
+        NamedValues<MyClass> coll1 = NamedValues.<MyClass>create("MyCollName1")
+                .add(new MyClass("MyName1", 1))
+                .add(new MyClass("MyName2", 2))
+                .add(new MyClass("MyName3", 3));
+        NamedValues<MyClass> coll2 = NamedValues.<MyClass>create("MyCollName2")
+                .add(new MyClass("MyName1", 1));
+        State state = State.getBuilder()
+                .addChildren(coll1)
+                .addChildren(coll2)
+                .build();
+        assertThat(state.getChildLists()).containsKeys("MyCollName1", "MyCollName2");
+        assertThat(state.getChildLists().get("MyCollName1").size()).isEqualTo(3);
+        assertThat(state.getChildLists().get("MyCollName2").size()).isEqualTo(1);
+    }
+
 
     @Test
     public void testStringProperty() {

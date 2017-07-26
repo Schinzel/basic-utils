@@ -27,6 +27,7 @@ public class State {
     /** Named children of this state object. */
     private final Map<String, State> mChildren;
     /** Named lists of children of this state object. */
+    @Getter(AccessLevel.PACKAGE)
     private final Map<String, List<State>> mChildLists;
     //------------------------------------------------------------------------
     // CONSTRUCTION

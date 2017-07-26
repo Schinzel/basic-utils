@@ -21,7 +21,7 @@ class Lap implements IStateNode, INamedValue {
     /** The parent of this lap */
     final Lap mParentLap;
     /** The children of this lap */
-    private final NamedValues<Lap> mChildLaps = new NamedValues<>("ChildLaps");
+    private final NamedValues<Lap> mChildLaps = new NamedValues<>("sublaps");
     /** Measures the time */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 
@@ -123,7 +123,7 @@ class Lap implements IStateNode, INamedValue {
                 .addProp().key("Avg").val(mStopWatch.getAvgInMs()).decimals(2).unit("ms").buildProp()
                 .addProp().key("Hits").val(mStopWatch.getNumberOfLaps()).buildProp()
                 .ifTrue(!mChildLaps.isEmpty())
-                .addChildren("sublaps", mChildLaps.values())
+                .addChildren( mChildLaps)
                 .endIf()
                 .build();
     }
