@@ -208,7 +208,7 @@ public class StateBuilder {
      * @param collection The children to add.
      * @return This for chaining.
      */
-    public StateBuilder addChildren(NamedValues collection) {
+    public StateBuilder addChildren(NamedValues<? extends IStateNode>  collection) {
         return this.addChildren(collection.getCollectionName(), collection.values());
     }
 
