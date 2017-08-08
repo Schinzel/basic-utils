@@ -89,8 +89,8 @@ public class RandomUtil {
         if (min > max) {
             throw new RuntimeException("Max need to be larger than min");
         }
-        Thrower.throwIfVarTooSmall(min, "min", 0);
-        Thrower.throwIfVarTooSmall(max, "max", 0);
+        Thrower.throwIfVarOutsideRange(min, "min", -100, Integer.MAX_VALUE);
+        Thrower.throwIfVarOutsideRange(max, "max", 1, Integer.MAX_VALUE);
         return mRandom.nextInt(max - min + 1) + min;
     }
 
