@@ -180,7 +180,7 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
         //Get the value of the argument name
         V value = mValues.get(name);
         //If no value was found, throw error. 
-        Thrower.throwIfTrue(value == null, "No value with argument name in collection.", "name", name, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(value == null, "No value with name '" + name + "' in collection '" + mCollectionName + "'.");
         return value;
     }
 
