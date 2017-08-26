@@ -10,14 +10,15 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
 /**
- *
  * @author schinzel
  */
 public class RandomUtilTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
 
     @Test
     public void testGetSeed() {
@@ -54,22 +55,12 @@ public class RandomUtilTest {
 
 
     @Test
-    public void test_getInt_OrderIsPredictable() {
-        int seed = 456789;
-        RandomUtil rand = RandomUtil.create(seed);
-        int min = 0;
-        int max = 100;
-        int sequenceSize = 1000;
-        int[] sequence = new int[sequenceSize];
-        //Populate sequence
-        for (int i = 0; i < sequenceSize; i++) {
-            sequence[i] = rand.getInt(min, max);
-        }
-        for (int j = 0; j < sequence.length; j++) {
-            rand = RandomUtil.create(seed);
-            for (int i = 0; i < sequence.length; i++) {
-                Assert.assertEquals(sequence[i], rand.getInt(min, max));
-            }
+    public void getInt_TwoRandObjectWithSameSeedGenerate1000numbers_NumbersEqual() {
+        int seed = RandomUtil.getRandomNumber(10000, 20000);
+        RandomUtil rand1 = RandomUtil.create(seed);
+        RandomUtil rand2 = RandomUtil.create(seed);
+        for (int i = 0; i < 1000; i++) {
+            assertThat(rand1.getInt(0, 100)).isEqualTo(rand2.getInt(0, 100));
         }
     }
 
@@ -134,7 +125,6 @@ public class RandomUtilTest {
     @Test
     public void testGetRandomNumber() {
         int min, max, result;
-
         min = 1;
         max = 10;
         for (int i = 0; i < 100; i++) {
@@ -147,7 +137,6 @@ public class RandomUtilTest {
             result = RandomUtil.getRandomNumber(min, max);
             Assert.assertTrue((result >= min) && (result <= max));
         }
-
         min = 1;
         max = 2;
         for (int i = 0; i < 100; i++) {
