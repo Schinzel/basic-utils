@@ -1,11 +1,8 @@
 package io.schinzel.basicutils;
 
-import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 
 
 /**
@@ -13,47 +10,40 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class ThrowerTest extends Thrower {
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
-
 
     @Test
     public void throwIfVarNull_NonNullStringArray_NoException() {
-        try {
-            String[] stringArray = {"a"};
+        String[] stringArray = {"a"};
+        assertThatCode(() -> {
             Thrower.throwIfVarNull(stringArray, "argumentName");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfVarNull_NullStringArray_ThrowException() {
         String[] stringArray = null;
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'argumentName' cannot be null");
-        Thrower.throwIfVarNull(stringArray, "argumentName");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarNull(stringArray, "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be null");
     }
 
 
     @Test
     public void throwIfVarNull_NonNullString_NoException() {
-        try {
-            String string = "a";
+        String string = "a";
+        assertThatCode(() -> {
             Thrower.throwIfVarNull(string, "argumentName");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfVarNull_NullString_ThrowsException() {
         String string = null;
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'argumentName' cannot be null");
-        Thrower.throwIfVarNull(string, "argumentName");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarNull(string, "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be null");
     }
 
 
@@ -75,31 +65,26 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfVarEmpty_NonEmptyString_NoException() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfVarEmpty("a", "argumentName");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'argumentName' cannot be empty");
-        Thrower.throwIfVarEmpty("", "argumentName");
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfVarEmpty_EmptyString_ThrowException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'argumentName' cannot be empty");
-        Thrower.throwIfVarEmpty("", "argumentName");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarEmpty("", "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be empty");
     }
 
 
     @Test
     public void throwIfVarEmpty_NullString_ThrowException() {
         String string = null;
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Argument 'argumentName' cannot be empty");
-        Thrower.throwIfVarEmpty(string, "argumentName");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarEmpty(string, "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be empty");
     }
 
 
@@ -113,103 +98,95 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfVarOutsideRange_InSideRanges_NoException() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfVarOutsideRange(1, "varre", 1, 1);
             Thrower.throwIfVarOutsideRange(1, "varre", 1, 10);
             Thrower.throwIfVarOutsideRange(-1000, "varre", -1000, 10);
             Thrower.throwIfVarOutsideRange(10, "varre", 1, 10);
             Thrower.throwIfVarOutsideRange(-1000, "varre", -2000, -1000);
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfVarOutsideRange_MinLargerThanMax_ExceptionUsingMethod() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Error using method.");
-        Thrower.throwIfVarOutsideRange(-1000, null, 100, 10);
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(-1000, null, 100, 10))
+                .withMessageStartingWith("Error using method.");
     }
 
 
     @Test
     public void throwIfVarOutsideRange_Val0Min1_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The value 0 in variable 'varre' is too small. Min value is 1.");
-        Thrower.throwIfVarOutsideRange(0, "varre", 1, 10);
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(0, "varre", 1, 10))
+                .withMessage("The value 0 in variable 'varre' is too small. Min value is 1.");
     }
 
 
     @Test
     public void throwIfVarOutsideRange_Val11Max10_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The value ");
-        Thrower.throwIfVarOutsideRange(11, "varre", 1, 10);
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(11, "varre", 1, 10))
+                .withMessageStartingWith("The value ");
     }
 
 
     @Test
     public void throwIfVarOutsideRange_ValMinus101MinMinus100_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The value ");
-        Thrower.throwIfVarOutsideRange(-101, "varre", -100, -10);
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(-101, "varre", -100, -10))
+                .withMessageStartingWith("The value ");
+
     }
 
 
     @Test
     public void throwIfTrue_False_NoException() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfTrue(false, "");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfTrue_True_ThrowsException() {
         String errorMessage = "my error message";
-        exception.expect(RuntimeException.class);
-        exception.expectMessage(errorMessage);
-        Thrower.throwIfTrue(true, errorMessage);
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfTrue(true, errorMessage))
+                .withMessage(errorMessage);
     }
 
 
     @Test
     public void throwIfFalse_True_NoException() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfFalse(true, null);
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfFalse_False_ThrowsException() {
         String errorMessage = "my error message";
-        exception.expect(RuntimeException.class);
-        exception.expectMessage(errorMessage);
-        Thrower.throwIfFalse(false, errorMessage);
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                Thrower.throwIfFalse(false, errorMessage));
     }
 
 
     @Test
     public void throwIfVarTooSmall_Val9Min10_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The value 9 in variable 'varre' is too small. Min value is 10.");
-        Thrower.throwIfVarTooSmall(9, "varre", 10);
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarTooSmall(9, "varre", 10))
+                .withMessage("The value 9 in variable 'varre' is too small. Min value is 10.");
     }
 
 
     @Test
     public void testThrowIfTooSmall_Val10Min10_NoException() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfVarTooSmall(10, "varre", 10);
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
@@ -223,9 +200,9 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfVarTooLarge_Val11Max10_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The value 11 in variable 'varre' is too large. Max value is 10.");
-        Thrower.throwIfVarTooLarge(11, "varre", 10);
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarTooLarge(11, "varre", 10))
+                .withMessageStartingWith("The value 11 in variable 'varre' is too large. Max value is 10.");
     }
 
 
@@ -239,11 +216,9 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfVarTooLarge_Val10Max10_NoException() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfVarTooLarge(10, "varre", 10);
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
     //------------------------------------------------------------------------
     // Test of extensive error message
@@ -252,80 +227,65 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfTrue_ChainedMessageAndIsTrue_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("My message");
-        Thrower.throwIfTrue(true).message("My message");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfTrue(true).message("My message"))
+                .withMessage("My message");
     }
 
 
     @Test
     public void throwIfTrue_ChainedMessageAndIsFalse_NoException() {
-        try {
-            Thrower.throwIfTrue(false)
-                    .message("My message");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        assertThatCode(() -> {
+            Thrower.throwIfTrue(false).message("My message");
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfFalse_ChainedMessageAndIsFalse_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("My message");
-        Thrower.throwIfFalse(false).message("My message");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfFalse(false).message("My message"))
+                .withMessage("My message");
     }
 
 
     @Test
     public void throwIfFalse_ChainedMessageAndIsTrue_NoException() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfFalse(true).message("My message");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfNull_OneArgumentShouldThrow_ExceptionThrown() {
-        try {
-            Thrower.throwIfNull(null).message("My message");
-            Assert.fail("Exception should be thrown");
-        } catch (Throwable t) {
-            Assert.assertEquals("My message", t.getMessage());
-        }
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfNull(null).message("My message"))
+                .withMessage("My message");
     }
 
 
     @Test
     public void throwIfNull_OneArgumentShouldNotThrow_NoExceptionThrown() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfNull(new Object()).message("My message");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 
 
     @Test
     public void throwIfNull_TwoArgumentsAndShouldThrow_ExceptionThrown() {
-        try {
-            Thrower.throwIfNull(null, "My message");
-            Assert.fail("Exception should be thrown");
-        } catch (Throwable t) {
-            Assert.assertEquals("My message", t.getMessage());
-        }
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfNull(null, "My message"))
+                .withMessageStartingWith("My message");
     }
 
 
     @Test
     public void throwIfNull_TwoArgumentsAndShouldNotThrow_NoExceptionThrown() {
-        try {
+        assertThatCode(() -> {
             Thrower.throwIfNull(new Object(), "My message");
-        } catch (Throwable t) {
-            Assert.fail("Exception should not be thrown");
-        }
+        }).doesNotThrowAnyException();
     }
 }
 
