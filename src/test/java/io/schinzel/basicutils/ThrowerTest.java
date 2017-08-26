@@ -8,15 +8,15 @@ import static org.assertj.core.api.Assertions.*;
 /**
  * @author schinzel
  */
+@SuppressWarnings("ConstantConditions")
 public class ThrowerTest extends Thrower {
 
 
     @Test
     public void throwIfVarNull_NonNullStringArray_NoException() {
         String[] stringArray = {"a"};
-        assertThatCode(() -> {
-            Thrower.throwIfVarNull(stringArray, "argumentName");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfVarNull(stringArray, "argumentName"))
+                .doesNotThrowAnyException();
     }
 
 
@@ -32,9 +32,8 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfVarNull_NonNullString_NoException() {
         String string = "a";
-        assertThatCode(() -> {
-            Thrower.throwIfVarNull(string, "argumentName");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfVarNull(string, "argumentName"))
+                .doesNotThrowAnyException();
     }
 
 
@@ -65,9 +64,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfVarEmpty_NonEmptyString_NoException() {
-        assertThatCode(() -> {
-            Thrower.throwIfVarEmpty("a", "argumentName");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfVarEmpty("a", "argumentName"))
+                .doesNotThrowAnyException();
     }
 
 
@@ -99,11 +97,11 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfVarOutsideRange_InSideRanges_NoException() {
         assertThatCode(() -> {
-            Thrower.throwIfVarOutsideRange(1, "varre", 1, 1);
-            Thrower.throwIfVarOutsideRange(1, "varre", 1, 10);
-            Thrower.throwIfVarOutsideRange(-1000, "varre", -1000, 10);
-            Thrower.throwIfVarOutsideRange(10, "varre", 1, 10);
-            Thrower.throwIfVarOutsideRange(-1000, "varre", -2000, -1000);
+            Thrower.throwIfVarOutsideRange(1, "myVariable", 1, 1);
+            Thrower.throwIfVarOutsideRange(1, "myVariable", 1, 10);
+            Thrower.throwIfVarOutsideRange(-1000, "myVariable", -1000, 10);
+            Thrower.throwIfVarOutsideRange(10, "myVariable", 1, 10);
+            Thrower.throwIfVarOutsideRange(-1000, "myVariable", -2000, -1000);
         }).doesNotThrowAnyException();
     }
 
@@ -119,15 +117,15 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfVarOutsideRange_Val0Min1_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(0, "varre", 1, 10))
-                .withMessage("The value 0 in variable 'varre' is too small. Min value is 1.");
+                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(0, "myVariable", 1, 10))
+                .withMessage("The value 0 in variable 'myVariable' is too small. Min value is 1.");
     }
 
 
     @Test
     public void throwIfVarOutsideRange_Val11Max10_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(11, "varre", 1, 10))
+                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(11, "myVariable", 1, 10))
                 .withMessageStartingWith("The value ");
     }
 
@@ -135,7 +133,7 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfVarOutsideRange_ValMinus101MinMinus100_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(-101, "varre", -100, -10))
+                .isThrownBy(() -> Thrower.throwIfVarOutsideRange(-101, "myVariable", -100, -10))
                 .withMessageStartingWith("The value ");
 
     }
@@ -143,9 +141,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfTrue_False_NoException() {
-        assertThatCode(() -> {
-            Thrower.throwIfTrue(false, "");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfTrue(false, ""))
+                .doesNotThrowAnyException();
     }
 
 
@@ -160,9 +157,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfFalse_True_NoException() {
-        assertThatCode(() -> {
-            Thrower.throwIfFalse(true, null);
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfFalse(true, null))
+                .doesNotThrowAnyException();
     }
 
 
@@ -177,16 +173,15 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfVarTooSmall_Val9Min10_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> Thrower.throwIfVarTooSmall(9, "varre", 10))
-                .withMessage("The value 9 in variable 'varre' is too small. Min value is 10.");
+                .isThrownBy(() -> Thrower.throwIfVarTooSmall(9, "myVariable", 10))
+                .withMessage("The value 9 in variable 'myVariable' is too small. Min value is 10.");
     }
 
 
     @Test
     public void testThrowIfTooSmall_Val10Min10_NoException() {
-        assertThatCode(() -> {
-            Thrower.throwIfVarTooSmall(10, "varre", 10);
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfVarTooSmall(10, "myVariable", 10))
+                .doesNotThrowAnyException();
     }
 
 
@@ -201,8 +196,8 @@ public class ThrowerTest extends Thrower {
     @Test
     public void throwIfVarTooLarge_Val11Max10_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> Thrower.throwIfVarTooLarge(11, "varre", 10))
-                .withMessageStartingWith("The value 11 in variable 'varre' is too large. Max value is 10.");
+                .isThrownBy(() -> Thrower.throwIfVarTooLarge(11, "myVariable", 10))
+                .withMessageStartingWith("The value 11 in variable 'myVariable' is too large. Max value is 10.");
     }
 
 
@@ -216,9 +211,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfVarTooLarge_Val10Max10_NoException() {
-        assertThatCode(() -> {
-            Thrower.throwIfVarTooLarge(10, "varre", 10);
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfVarTooLarge(10, "myVariable", 10))
+                .doesNotThrowAnyException();
     }
     //------------------------------------------------------------------------
     // Test of extensive error message
@@ -235,9 +229,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfTrue_ChainedMessageAndIsFalse_NoException() {
-        assertThatCode(() -> {
-            Thrower.throwIfTrue(false).message("My message");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfTrue(false).message("My message"))
+                .doesNotThrowAnyException();
     }
 
 
@@ -251,9 +244,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfFalse_ChainedMessageAndIsTrue_NoException() {
-        assertThatCode(() -> {
-            Thrower.throwIfFalse(true).message("My message");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfFalse(true).message("My message"))
+                .doesNotThrowAnyException();
     }
 
 
@@ -267,9 +259,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfNull_OneArgumentShouldNotThrow_NoExceptionThrown() {
-        assertThatCode(() -> {
-            Thrower.throwIfNull(new Object()).message("My message");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfNull(new Object()).message("My message"))
+                .doesNotThrowAnyException();
     }
 
 
@@ -283,9 +274,8 @@ public class ThrowerTest extends Thrower {
 
     @Test
     public void throwIfNull_TwoArgumentsAndShouldNotThrow_NoExceptionThrown() {
-        assertThatCode(() -> {
-            Thrower.throwIfNull(new Object(), "My message");
-        }).doesNotThrowAnyException();
+        assertThatCode(() -> Thrower.throwIfNull(new Object(), "My message"))
+                .doesNotThrowAnyException();
     }
 }
 
