@@ -22,6 +22,7 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
     private final TreeMap<String, V> mValues = new TreeMap<>(String::compareToIgnoreCase);
     /** Holds mapping between aliases and names. */
     private final Map<String, String> mAliasMap = new HashMap<>();
+    private final String mErrorMessageSuffix;
     /** The name of this collection. */
     @Getter final String mCollectionName;
     //*************************************************************************
@@ -32,6 +33,7 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
     public NamedValues(String collectionName) {
         Thrower.throwIfVarEmpty(collectionName, "collectionName");
         mCollectionName = collectionName;
+        mErrorMessageSuffix = " in collection named '" + mCollectionName + "'";
     }
 
 
@@ -55,8 +57,8 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
     public NamedValues<V> add(V value) {
         Thrower.throwIfVarNull(value, "value");
         String name = value.getName();
-        Thrower.throwIfTrue(mAliasMap.containsKey(name), "Value cannot be added as there exists an alias with the same name.", "name", name, "collectionName", mCollectionName);
-        Thrower.throwIfTrue(this.has(name), "Value cannot be added as a value with that name already exists", "name", name, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(mAliasMap.containsKey(name), "Value named '" + value.getName() + "' cannot be added as there exists an alias with the same name " + mErrorMessageSuffix);
+        Thrower.throwIfTrue(this.has(name), "Value names '" + value.getName() + "' cannot be added as a value with that name already exists " + mErrorMessageSuffix);
         mValues.put(name, value);
         return this;
     }
@@ -78,10 +80,10 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
      * @return This for chaining.
      */
     public NamedValues<V> addAlias(String name, String alias) {
-        Thrower.throwIfTrue(!this.has(name), "Alias cannot be added as there exist no value with this name in collection.", "alias", alias, "name", name, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(!this.has(name), "Alias '" + alias + "' cannot be added for value named '" + name + "' as there exist no value with this name " + mErrorMessageSuffix);
         //if the argument value exists in the alias set
-        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias cannot be added as there already exists such an alias.", "alias", alias, "collectionName", mCollectionName);
-        Thrower.throwIfTrue(this.has(alias), "Alias cannot be added as there exists a value with the same name.", "alias", alias, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(mAliasMap.containsKey(alias), "Alias '" + alias + "' cannot be added as there already exists such an alias " + mErrorMessageSuffix);
+        Thrower.throwIfTrue(this.has(alias), "Alias '" + alias + "' cannot be added as there exists a value with the same name " + mErrorMessageSuffix);
         mAliasMap.put(alias, name);
         return this;
     }
@@ -108,7 +110,7 @@ public class NamedValues<V extends INamedValue> implements Iterable<V> {
      * @return This for chaining.
      */
     public NamedValues<V> remove(String name) {
-        Thrower.throwIfTrue(!this.has(name), "Cannot remove value as no such value exists.", "name", name, "collectionName", mCollectionName);
+        Thrower.throwIfTrue(!this.has(name), "Cannot remove value as there is no value named '" + name + "' " + mErrorMessageSuffix);
         //Remove all entries in alias map with argument name.
         while (mAliasMap.values().remove(name)) ;
         mValues.remove(name);

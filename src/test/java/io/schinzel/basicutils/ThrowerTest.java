@@ -202,94 +202,9 @@ public class ThrowerTest extends Thrower {
             Assert.fail("Exception should not be thrown");
         }
     }
-
-
-    @Test
-    public void getArgs_NullString_EmptyString() {
-        String actual = Thrower.getArgs((String) null).getString();
-        String expected = "";
-        Assert.assertEquals(expected, actual);
-    }
-
-
-    @Test
-    public void getArgs_NullStringArray_EmptyString() {
-        String actual = Thrower.getArgs((String[]) null).getString();
-        String expected = "";
-        Assert.assertEquals(expected, actual);
-    }
-
-
-    @Test
-    public void getArgs_EmptyString_EmptyString() {
-        String actual = Thrower.getArgs(new String[0]).getString();
-        String expected = "";
-        Assert.assertEquals(expected, actual);
-    }
-
-
-    @Test
-    public void getArgs_SingleKeyValue_String() {
-        String actual = Thrower.getArgs("k1", "v1").getString();
-        String expected = "Props:{k1:'v1'}";
-        Assert.assertEquals(expected, actual);
-    }
-
-
-    @Test
-    public void getArgs_TwoKeyValues_String() {
-        String actual = Thrower.getArgs("k1", "v1", "k2", "v2").getString();
-        String expected = "Props:{k1:'v1' k2:'v2'}";
-        Assert.assertEquals(expected, actual);
-    }
     //------------------------------------------------------------------------
     // Test of extensive error message
     //------------------------------------------------------------------------
-
-
-    /**
-     * Test class so that the position in the stacktrace from which for example method
-     * name is extracted can be simulated.
-     */
-    private class MyTestClass {
-        private void myMethod(boolean throwException, String exceptionMessage, String... keyValues) {
-            Thrower.throwIfTrue(throwException, exceptionMessage, keyValues);
-        }
-    }
-
-
-    /**
-     * Validate a full message.
-     */
-    @Test
-    public void testThrowIfTrue_extensiveErrorMessage() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("MyMessage Props:{k1:'v1'}");
-        new MyTestClass().myMethod(true, "MyMessage", "k1", "v1");
-    }
-
-
-    /**
-     * Verify that exception is not thrown if first arg is false.
-     */
-    @Test
-    public void testThrowIfTrue_doNotThrow() {
-        boolean exceptionThrown = false;
-        try {
-            new MyTestClass().myMethod(false, "MyMessage", "k1", "v1");
-        } catch (RuntimeException e) {
-            exceptionThrown = true;
-        }
-        Assert.assertFalse("Exception should not have been thrown", exceptionThrown);
-    }
-
-
-    @Test
-    public void testThrowIfTrue_wrongNumberOfKeyValues() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("The number of key values is not even");
-        new MyTestClass().myMethod(false, "MyMessage", "k1");
-    }
 
 
     @Test

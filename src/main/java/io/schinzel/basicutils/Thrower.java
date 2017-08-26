@@ -1,9 +1,5 @@
 package io.schinzel.basicutils;
 
-import io.schinzel.basicutils.str.Str;
-
-import java.util.Arrays;
-
 /**
  * The purpose of this class is to offer less verbose exception throwing in
  * general and variable checking in particular.
@@ -159,43 +155,4 @@ public class Thrower {
     }
 
 
-    /**
-     * @param expression If evaluates to true, then a RuntimeException is thrown.
-     * @param message    The exception message.
-     * @param keyValues  A series of key values. As such the number of elements need to be even.
-     */
-    public static void throwIfTrue(boolean expression, String message, String... keyValues) {
-        //If key values are empty && the number of key values is not empty
-        if (!Checker.isEmptyVarArgs(keyValues) && keyValues.length % 2 != 0) {
-            throw new RuntimeException("The number of key values is not even: '" + Arrays.toString(keyValues) + "'");
-        }
-        //If argument expression is true
-        if (expression) {
-            //Compile more extensive exception message.
-            Str str = Str.create().asp(message).a(Thrower.getArgs(keyValues));
-            throw new RuntimeException(str.getString());
-        }
-    }
-
-
-    /**
-     * Sample return:
-     * Arguments: {k1:'v1' k2:'v2'}
-     *
-     * @param keyValues A series of key values. As such the number of elements need to be even.
-     * @return The argument vararg as string.
-     */
-    static Str getArgs(String... keyValues) {
-        if (Checker.isEmptyVarArgs(keyValues)) {
-            return Str.create();
-        }
-        Str args = Str.create();
-        for (int i = 0; i < keyValues.length; i += 2) {
-            if (!args.isEmpty()) {
-                args.asp();
-            }
-            args.a(keyValues[i]).a(":").aq(keyValues[i + 1]);
-        }
-        return Str.create().a("Props:{").a(args).a("}");
-    }
 }
