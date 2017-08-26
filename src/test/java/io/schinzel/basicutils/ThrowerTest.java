@@ -5,6 +5,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+
 /**
  * @author schinzel
  */
@@ -55,6 +58,22 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
+    public void throwIfVarNull_AnObject_ReturnsSameObject() {
+        RandomUtil randomUtilIn = RandomUtil.create(123);
+        Object randomUtilOut = Thrower.throwIfVarNull(randomUtilIn, "");
+        assertThat(randomUtilOut).isEqualTo(randomUtilIn);
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_StringIn_SameStringReturned() {
+        String stringIn = "gibbon";
+        String stringOut = Thrower.throwIfVarEmpty(stringIn, "");
+        assertThat(stringOut).isEqualTo(stringIn);
+    }
+
+
+    @Test
     public void throwIfVarEmpty_NonEmptyString_NoException() {
         try {
             Thrower.throwIfVarEmpty("a", "argumentName");
@@ -81,6 +100,14 @@ public class ThrowerTest extends Thrower {
         exception.expect(RuntimeException.class);
         exception.expectMessage("Argument 'argumentName' cannot be empty");
         Thrower.throwIfVarEmpty(string, "argumentName");
+    }
+
+
+    @Test
+    public void throwIfVarOutsideRange_IntIn_SameIntOut() {
+        int intIn = RandomUtil.getRandomNumber(1000, 30000);
+        int intOut = Thrower.throwIfVarOutsideRange(intIn, "var name", Integer.MIN_VALUE, Integer.MAX_VALUE);
+        assertThat(intOut).isEqualTo(intIn);
     }
 
 
@@ -187,10 +214,26 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
+    public void throwIfVarTooSmall_IntIn_SameIntOut() {
+        int intIn = RandomUtil.getRandomNumber(1000, 30000);
+        int intOut = Thrower.throwIfVarTooSmall(intIn, "", Integer.MIN_VALUE);
+        assertThat(intOut).isEqualTo(intIn);
+    }
+
+
+    @Test
     public void throwIfVarTooLarge_Val11Max10_ThrowsException() {
         exception.expect(RuntimeException.class);
         exception.expectMessage("The value 11 in variable 'varre' is too large. Max value is 10.");
         Thrower.throwIfVarTooLarge(11, "varre", 10);
+    }
+
+
+    @Test
+    public void throwIfVarTooLarge_IntIn_SameIntOut() {
+        int intIn = RandomUtil.getRandomNumber(1000, 30000);
+        int intOut = Thrower.throwIfVarTooLarge(intIn, "", Integer.MAX_VALUE);
+        assertThat(intOut).isEqualTo(intIn);
     }
 
 
