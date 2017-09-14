@@ -20,7 +20,7 @@ public class ValuesWithKeysTest {
     public ExpectedException exception = ExpectedException.none();
 
     @AllArgsConstructor
-    class MyVal implements IValueWithKey {
+    private class MyVal implements IValueWithKey {
 
         @Getter
         private final String key;

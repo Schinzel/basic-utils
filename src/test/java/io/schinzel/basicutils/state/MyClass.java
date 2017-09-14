@@ -7,15 +7,10 @@ import lombok.experimental.Accessors;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The purpose of this class ...
- *
- * @author schinzel
- */
 @Accessors(prefix = "m")
 class MyClass implements IStateNode, IValueWithKey {
     @Getter final String mKey;
-    final int mCost;
+    private final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();
     MyClass mLeft;
     MyClass mRight;
