@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.collections.namedvalues.INamedValue;
+import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -13,7 +13,7 @@ import java.util.List;
  * @author schinzel
  */
 @Accessors(prefix = "m")
-class MyClass implements IStateNode, INamedValue {
+class MyClass implements IStateNode, IValueWithKey {
     @Getter final String mName;
     final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();

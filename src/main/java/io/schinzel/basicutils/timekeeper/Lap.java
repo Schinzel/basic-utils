@@ -1,8 +1,8 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Thrower;
-import io.schinzel.basicutils.collections.namedvalues.INamedValue;
-import io.schinzel.basicutils.collections.namedvalues.NamedValues;
+import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
+import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
 import lombok.Getter;
@@ -15,13 +15,13 @@ import lombok.experimental.Accessors;
  * @author schinzel
  */
 @Accessors(prefix = "m")
-class Lap implements IStateNode, INamedValue {
+class Lap implements IStateNode, IValueWithKey {
     /** The name of this lap */
     @Getter private final String mName;
     /** The parent of this lap */
     final Lap mParentLap;
     /** The children of this lap */
-    private final NamedValues<Lap> mChildLaps = new NamedValues<>("sublaps");
+    private final ValuesWithKeys<Lap> mChildLaps = new ValuesWithKeys<>("sublaps");
     /** Measures the time */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 

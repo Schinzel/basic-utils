@@ -2,7 +2,7 @@ package io.schinzel.basicutils.state;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
-import io.schinzel.basicutils.collections.namedvalues.NamedValues;
+import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;
@@ -208,7 +208,7 @@ public class StateBuilder {
      * @param collection The children to add.
      * @return This for chaining.
      */
-    public StateBuilder addChildren(NamedValues<? extends IStateNode>  collection) {
+    public StateBuilder addChildren(ValuesWithKeys<? extends IStateNode> collection) {
         return this.addChildren(collection.getCollectionName(), collection.values());
     }
 

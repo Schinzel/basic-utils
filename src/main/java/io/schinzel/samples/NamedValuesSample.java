@@ -1,7 +1,7 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.collections.namedvalues.INamedValue;
-import io.schinzel.basicutils.collections.namedvalues.NamedValues;
+import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
+import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
 
 /**
  * Sample class to show how KeyValues can be used.
@@ -17,7 +17,7 @@ class NamedValuesSample {
 
 
     void doIt() {
-        NamedValues<MyValue> mySet = NamedValues.<MyValue>create("My nice values")
+        ValuesWithKeys<MyValue> mySet = ValuesWithKeys.<MyValue>create("My nice values")
                 .add(new MyValue("A"))
                 .add(new MyValue("B"));
         MyValue category = mySet.has("C")
@@ -29,7 +29,7 @@ class NamedValuesSample {
     }
 
 
-    class MyValue implements INamedValue {
+    class MyValue implements IValueWithKey {
         final String key;
 
 
@@ -38,7 +38,7 @@ class NamedValuesSample {
         }
 
 
-        public String getName() {
+        public String getKey() {
             return this.key;
         }
     }
