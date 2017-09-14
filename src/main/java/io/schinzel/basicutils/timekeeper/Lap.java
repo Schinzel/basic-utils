@@ -1,8 +1,8 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Thrower;
-import io.schinzel.basicutils.collections.namedvalues.INamedValue;
-import io.schinzel.basicutils.collections.namedvalues.NamedValues;
+import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
+import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
 import lombok.Getter;
@@ -15,13 +15,13 @@ import lombok.experimental.Accessors;
  * @author schinzel
  */
 @Accessors(prefix = "m")
-class Lap implements IStateNode, INamedValue {
+class Lap implements IStateNode, IValueWithKey {
     /** The name of this lap */
-    @Getter private final String mName;
+    @Getter private final String mKey;
     /** The parent of this lap */
     final Lap mParentLap;
     /** The children of this lap */
-    private final NamedValues<Lap> mChildLaps = new NamedValues<>("sublaps");
+    private final ValuesWithKeys<Lap> mChildLaps = new ValuesWithKeys<>("sublaps");
     /** Measures the time */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 
@@ -32,7 +32,7 @@ class Lap implements IStateNode, INamedValue {
      */
     Lap(String lapName, Lap parent) {
         Thrower.throwIfVarEmpty("lapName", lapName);
-        mName = lapName;
+        mKey = lapName;
         mParentLap = parent;
     }
 
@@ -71,7 +71,7 @@ class Lap implements IStateNode, INamedValue {
      */
     Lap stop() {
         Thrower.throwIfFalse(mStopWatch.isStarted())
-                .message("Cannot stop lap '" + mName + "' as it has not been started");
+                .message("Cannot stop lap '" + mKey + "' as it has not been started");
         //Stop the stopwatch
         mStopWatch.stop();
         //Return the parent of this lap
@@ -112,9 +112,9 @@ class Lap implements IStateNode, INamedValue {
     @Override
     public State getState() {
         Thrower.throwIfTrue(mStopWatch.isStarted())
-                .message("Cannot get results for lap '" + mName + "' as it has not been stopped.");
+                .message("Cannot get results for lap '" + mKey + "' as it has not been stopped.");
         return State.getBuilder()
-                .addProp().key("Name").val(mName).buildProp()
+                .addProp().key("Name").val(mKey).buildProp()
                 .ifTrue(mParentLap != null)
                 .addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp()
                 .addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp()

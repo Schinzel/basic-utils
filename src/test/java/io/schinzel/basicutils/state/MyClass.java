@@ -1,28 +1,23 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.collections.namedvalues.INamedValue;
+import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The purpose of this class ...
- *
- * @author schinzel
- */
 @Accessors(prefix = "m")
-class MyClass implements IStateNode, INamedValue {
-    @Getter final String mName;
-    final int mCost;
+class MyClass implements IStateNode, IValueWithKey {
+    @Getter final String mKey;
+    private final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();
     MyClass mLeft;
     MyClass mRight;
 
 
     MyClass(String name, int cost) {
-        mName = name;
+        mKey = name;
         mCost = cost;
     }
 
@@ -30,7 +25,7 @@ class MyClass implements IStateNode, INamedValue {
     @Override
     public State getState() {
         StateBuilder builder = State.getBuilder()
-                .addProp().key("Name").val(mName).buildProp()
+                .addProp().key("Name").val(mKey).buildProp()
                 .addProp().key("Cost").val(mCost).buildProp()
                 .addChildren("mykids", mChildren);
         if (mLeft != null) {

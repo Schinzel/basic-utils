@@ -106,7 +106,7 @@ public class Timekeeper {
 
     @Override
     public String toString() {
-        return Str.create("Current lap: ").aq(mCurrentLap.getName()).toString();
+        return Str.create("Current lap: ").aq(mCurrentLap.getKey()).toString();
     }
 
 

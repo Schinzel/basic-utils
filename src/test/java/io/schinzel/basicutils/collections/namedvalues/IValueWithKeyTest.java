@@ -11,12 +11,12 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class INamedValueTest {
+public class IValueWithKeyTest {
     @AllArgsConstructor
-    class MyClass implements INamedValue {
+    class MyClass implements IValueWithKey {
         final int mOrder;
         @Getter
-        private final String name;
+        private final String key;
     }
 
 

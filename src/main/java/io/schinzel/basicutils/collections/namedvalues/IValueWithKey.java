@@ -2,20 +2,20 @@ package io.schinzel.basicutils.collections.namedvalues;
 
 /**
  * The purpose of this interface is to be implemented for storing values in the collection
- * NamedValues.
+ * ValuesWithKeys.
  *
  * @author schinzel
  */
-public interface INamedValue extends Comparable<INamedValue> {
+public interface IValueWithKey extends Comparable<IValueWithKey> {
 
     /**
      * @return The name of the value.
      */
-    String getName();
+    String getKey();
 
 
     @Override
-    default int compareTo(INamedValue o) {
-        return this.getName().compareToIgnoreCase(o.getName());
+    default int compareTo(IValueWithKey o) {
+        return this.getKey().compareToIgnoreCase(o.getKey());
     }
 }

@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.collections.namedvalues.NamedValues;
+import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -19,11 +19,11 @@ public class StateTest {
 
     @Test
     public void addNamedValueCollectionAsChild() {
-        NamedValues<MyClass> coll1 = NamedValues.<MyClass>create("MyCollName1")
+        ValuesWithKeys<MyClass> coll1 = ValuesWithKeys.<MyClass>create("MyCollName1")
                 .add(new MyClass("MyName1", 1))
                 .add(new MyClass("MyName2", 2))
                 .add(new MyClass("MyName3", 3));
-        NamedValues<MyClass> coll2 = NamedValues.<MyClass>create("MyCollName2")
+        ValuesWithKeys<MyClass> coll2 = ValuesWithKeys.<MyClass>create("MyCollName2")
                 .add(new MyClass("MyName1", 1));
         State state = State.getBuilder()
                 .addChildren(coll1)

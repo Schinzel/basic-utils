@@ -18,18 +18,18 @@ public class LapTest {
     @Test
     public void testNodeCreation() {
         Lap node = new Lap("root", null);
-        Assert.assertEquals("root", node.getName());
+        Assert.assertEquals("root", node.getKey());
         node = node.start("A");
-        Assert.assertEquals("A", node.getName());
-        Assert.assertEquals("root", node.mParentLap.getName());
+        Assert.assertEquals("A", node.getKey());
+        Assert.assertEquals("root", node.mParentLap.getKey());
         node = node.start("AA");
-        Assert.assertEquals("AA", node.getName());
-        Assert.assertEquals("A", node.mParentLap.getName());
-        Assert.assertEquals("root", node.mParentLap.mParentLap.getName());
+        Assert.assertEquals("AA", node.getKey());
+        Assert.assertEquals("A", node.mParentLap.getKey());
+        Assert.assertEquals("root", node.mParentLap.mParentLap.getKey());
         node = node.stop();
-        Assert.assertEquals("A", node.getName());
+        Assert.assertEquals("A", node.getKey());
         node = node.stop();
-        Assert.assertEquals("root", node.getName());
+        Assert.assertEquals("root", node.getKey());
     }
 
 
@@ -39,7 +39,7 @@ public class LapTest {
         node = node.start("A");
         node = node.start("AA");
         node = node.getRoot();
-        Assert.assertEquals("root", node.getName());
+        Assert.assertEquals("root", node.getKey());
     }
 
 
