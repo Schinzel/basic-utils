@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Accessors(prefix = "m")
 class MyClass implements IStateNode, IValueWithKey {
-    @Getter final String mName;
+    @Getter final String mKey;
     final int mCost;
     List<IStateNode> mChildren = new ArrayList<>();
     MyClass mLeft;
@@ -22,7 +22,7 @@ class MyClass implements IStateNode, IValueWithKey {
 
 
     MyClass(String name, int cost) {
-        mName = name;
+        mKey = name;
         mCost = cost;
     }
 
@@ -30,7 +30,7 @@ class MyClass implements IStateNode, IValueWithKey {
     @Override
     public State getState() {
         StateBuilder builder = State.getBuilder()
-                .addProp().key("Name").val(mName).buildProp()
+                .addProp().key("Name").val(mKey).buildProp()
                 .addProp().key("Cost").val(mCost).buildProp()
                 .addChildren("mykids", mChildren);
         if (mLeft != null) {

@@ -16,7 +16,7 @@ public class IValueWithKeyTest {
     class MyClass implements IValueWithKey {
         final int mOrder;
         @Getter
-        private final String name;
+        private final String key;
     }
 
 

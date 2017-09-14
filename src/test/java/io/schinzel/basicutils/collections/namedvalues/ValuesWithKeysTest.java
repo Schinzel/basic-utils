@@ -23,7 +23,7 @@ public class ValuesWithKeysTest {
     class MyVal implements IValueWithKey {
 
         @Getter
-        private final String name;
+        private final String key;
     }
 
 

@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 @Accessors(prefix = "m")
 class Lap implements IStateNode, IValueWithKey {
     /** The name of this lap */
-    @Getter private final String mName;
+    @Getter private final String mKey;
     /** The parent of this lap */
     final Lap mParentLap;
     /** The children of this lap */
@@ -32,7 +32,7 @@ class Lap implements IStateNode, IValueWithKey {
      */
     Lap(String lapName, Lap parent) {
         Thrower.throwIfVarEmpty("lapName", lapName);
-        mName = lapName;
+        mKey = lapName;
         mParentLap = parent;
     }
 
@@ -71,7 +71,7 @@ class Lap implements IStateNode, IValueWithKey {
      */
     Lap stop() {
         Thrower.throwIfFalse(mStopWatch.isStarted())
-                .message("Cannot stop lap '" + mName + "' as it has not been started");
+                .message("Cannot stop lap '" + mKey + "' as it has not been started");
         //Stop the stopwatch
         mStopWatch.stop();
         //Return the parent of this lap
@@ -112,9 +112,9 @@ class Lap implements IStateNode, IValueWithKey {
     @Override
     public State getState() {
         Thrower.throwIfTrue(mStopWatch.isStarted())
-                .message("Cannot get results for lap '" + mName + "' as it has not been stopped.");
+                .message("Cannot get results for lap '" + mKey + "' as it has not been stopped.");
         return State.getBuilder()
-                .addProp().key("Name").val(mName).buildProp()
+                .addProp().key("Name").val(mKey).buildProp()
                 .ifTrue(mParentLap != null)
                 .addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp()
                 .addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp()
