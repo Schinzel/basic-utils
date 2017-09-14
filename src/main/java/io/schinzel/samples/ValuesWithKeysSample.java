@@ -4,14 +4,14 @@ import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
 import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
 
 /**
- * Sample class to show how KeyValues can be used.
+ * Sample class to show how ValuesWithKeys can be used.
  * <p>
  * Created by schinzel on 2017-03-27.
  */
-class NamedValuesSample {
+class ValuesWithKeysSample {
 
     public static void main(String[] args) {
-        new NamedValuesSample().doIt();
+        new ValuesWithKeysSample().doIt();
 
     }
 
