@@ -2,7 +2,7 @@ package io.schinzel.basicutils.state;
 
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Streams;
-import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
+import io.schinzel.basicutils.collections.valueswithkeys.ValuesWithKeys;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.experimental.Accessors;

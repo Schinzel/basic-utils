@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
+import io.schinzel.basicutils.collections.valueswithkeys.ValuesWithKeys;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;

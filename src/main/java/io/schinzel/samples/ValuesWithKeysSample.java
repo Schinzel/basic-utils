@@ -1,7 +1,7 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
-import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
+import io.schinzel.basicutils.collections.valueswithkeys.IValueWithKey;
+import io.schinzel.basicutils.collections.valueswithkeys.ValuesWithKeys;
 
 /**
  * Sample class to show how ValuesWithKeys can be used.
