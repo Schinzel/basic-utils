@@ -1,7 +1,5 @@
 package io.schinzel.basicutils;
 
-import lombok.AllArgsConstructor;
-
 /**
  * The purpose of this class is to allow chaining of Thrower.
  * <p>
@@ -11,7 +9,6 @@ import lombok.AllArgsConstructor;
  * <p>
  * Created by schinzel on 2017-05-03.
  */
-@AllArgsConstructor
 public class ThrowerMessage {
     /**
      * A thrower message that never goes of. This can be used so that no objects are created
@@ -19,6 +16,11 @@ public class ThrowerMessage {
      */
     private static ThrowerMessage THROWER_DUD = new ThrowerMessage(false);
     private final boolean mError;
+
+
+    ThrowerMessage(boolean boo) {
+        mError = boo;
+    }
 
 
     public static ThrowerMessage create(boolean isException) {
@@ -35,5 +37,17 @@ public class ThrowerMessage {
         }
     }
 
+
+    /**
+     * Formats the error message using String.format.
+     *
+     * @param format As in String.format
+     * @param args   As in String.format
+     */
+    public void message(String format, Object... args) {
+        if (mError) {
+            throw new RuntimeException(String.format(format, args));
+        }
+    }
 
 }
