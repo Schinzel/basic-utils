@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.namedvalues;
+package io.schinzel.basicutils.collections.valueswithkeys;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

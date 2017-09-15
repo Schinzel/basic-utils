@@ -1,8 +1,8 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Thrower;
-import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
-import io.schinzel.basicutils.collections.namedvalues.ValuesWithKeys;
+import io.schinzel.basicutils.collections.valueswithkeys.IValueWithKey;
+import io.schinzel.basicutils.collections.valueswithkeys.ValuesWithKeys;
 import io.schinzel.basicutils.state.IStateNode;
 import io.schinzel.basicutils.state.State;
 import lombok.Getter;

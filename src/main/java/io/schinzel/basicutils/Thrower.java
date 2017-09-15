@@ -48,7 +48,7 @@ public class Thrower {
      */
     public static int throwIfVarTooSmall(int valueToCheck, String variableName, int min) {
         Thrower.throwIfTrue(valueToCheck < min)
-                .message(String.format("The value %1$d in variable '%2$s' is too small. Min value is %3$d.", valueToCheck, variableName, min));
+                .message("The value %1$d in variable '%2$s' is too small. Min value is %3$d.", valueToCheck, variableName, min);
         return valueToCheck;
     }
 
@@ -64,7 +64,7 @@ public class Thrower {
      */
     public static int throwIfVarTooLarge(int valueToCheck, String variableName, int max) {
         Thrower.throwIfTrue(valueToCheck > max)
-                .message(String.format("The value %1$d in variable '%2$s' is too large. Max value is %3$d.", valueToCheck, variableName, max));
+                .message("The value %1$d in variable '%2$s' is too large. Max value is %3$d.", valueToCheck, variableName, max);
         return valueToCheck;
     }
 

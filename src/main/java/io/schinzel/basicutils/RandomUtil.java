@@ -11,6 +11,7 @@ import java.util.Random;
  *
  * @author schinzel
  */
+@SuppressWarnings("WeakerAccess")
 public class RandomUtil {
 
     private final Random mRandom;
@@ -87,10 +88,10 @@ public class RandomUtil {
      */
     public int getInt(int min, int max) {
         if (min > max) {
-            throw new RuntimeException("Max need to be larger than min");
+            throw new RuntimeException("Max needs to be larger than min");
         }
-        Thrower.throwIfVarOutsideRange(min, "min", -100, Integer.MAX_VALUE);
-        Thrower.throwIfVarOutsideRange(max, "max", 1, Integer.MAX_VALUE);
+        Thrower.throwIfVarTooSmall(min, "min", -100);
+        Thrower.throwIfVarTooSmall(max, "max", 1);
         return mRandom.nextInt(max - min + 1) + min;
     }
 

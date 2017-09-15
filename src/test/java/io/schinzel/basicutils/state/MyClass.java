@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.state;
 
-import io.schinzel.basicutils.collections.namedvalues.IValueWithKey;
+import io.schinzel.basicutils.collections.valueswithkeys.IValueWithKey;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 

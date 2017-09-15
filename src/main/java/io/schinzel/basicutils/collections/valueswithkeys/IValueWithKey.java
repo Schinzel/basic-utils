@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.collections.namedvalues;
+package io.schinzel.basicutils.collections.valueswithkeys;
 
 /**
  * The purpose of this interface is to be implemented for storing values in the collection
