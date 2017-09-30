@@ -169,61 +169,77 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void testGetList() {
-        MyVal man1 = new MyVal("Man1");
-        MyVal man2 = new MyVal("Man2");
-        MyVal bird1 = new MyVal("Bird1");
-        MyVal bird2 = new MyVal("Bird2");
-        MyVal moon1 = new MyVal("Moon1");
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(man1)
-                .add(man2)
-                .add(bird1)
-                .add(bird2)
-                .add(moon1);
-        List<MyVal> actual;
-        //
-        actual = coll.get(Collections.singletonList("Man1"));
-        assertThat(actual).containsExactly(man1);
-        //
-        actual = coll.get(Arrays.asList("Bird2", "Man1"));
-        assertThat(actual).containsExactly(bird2, man1);
+    public void get_EmptyList_EmptyList() {
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        assertThat(values.get(Collections.emptyList())).isEmpty();
     }
 
 
     @Test
-    public void testGetList_throwErrorArg() {
-        MyVal man1 = new MyVal("Man1");
-        MyVal man2 = new MyVal("Man2");
-        MyVal bird1 = new MyVal("Bird1");
-        MyVal bird2 = new MyVal("Bird2");
-        MyVal moon1 = new MyVal("Moon1");
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(man1)
-                .add(man2)
-                .add(bird1)
-                .add(bird2)
-                .add(moon1);
-        List<MyVal> actual;
-        //
-        actual = coll.get(Arrays.asList("Bird2", "Man1"));
-        assertThat(actual).containsExactly(bird2, man1);
-        //
+    public void get_Null_EmptyList() {
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> arg = null;
+        assertThat(values.get(arg)).isEmpty();
+    }
+
+
+    @Test
+    public void get_ListWithNonExistingValues_Exception() {
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> arg = Arrays.asList("I_do_not_exist");
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I")));
+                .isThrownBy(() -> values.get(arg));
     }
 
 
     @Test
-    public void testGet_emptyList() {
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("MyName1"))
-                .add(new MyVal("MyName2"))
-                .add(new MyVal("MyName3"));
-        List<MyVal> result = coll.get((List<String>) null);
-        Assert.assertTrue(result.isEmpty());
-        result = coll.get(new ArrayList<>(0));
-        Assert.assertTrue(result.isEmpty());
+    public void get_List_ElementsInListInArgumentListOrder() {
+        List<String> arg = Arrays.asList("Bird1", "Moon1", "Man1");
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> actual = values
+                .get(arg)
+                .stream()
+                .map(MyVal::getKey)
+                .collect(Collectors.toList());
+        assertThat(actual).containsSequence(arg);
+    }
+
+
+    @Test
+    public void get_OneElemList_ElementsInListInArgumentListOrder() {
+        List<String> arg = Arrays.asList("Bird1");
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> actual = values
+                .get(arg)
+                .stream()
+                .map(MyVal::getKey)
+                .collect(Collectors.toList());
+        assertThat(actual).containsSequence(arg);
     }
 
 
