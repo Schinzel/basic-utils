@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -180,15 +181,14 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      */
     public V get(String key) {
         Thrower.throwIfVarEmpty(key, "key");
-        //If argument key is the alias for an actual key
-        if (mAliasToKeyMap.containsKey(key)) {
-            //Set the actual key
-            key = mAliasToKeyMap.get(key);
-        }
-        //Get the value of the argument key
-        V value = mValues.get(key);
+        //Get the value of the argument key. If there is an alias for argument key
+        V value = mAliasToKeyMap.containsKey(key)
+                //Get the key of the alias and set the value with the retrieved key
+                ? mValues.get(mAliasToKeyMap.get(key))
+                //Set the value with argument key
+                : mValues.get(key);
         //If no value was found, throw error. 
-        Thrower.throwIfTrue(value == null, "No value with key '" + key + "' in collection '" + mCollectionName + "'.");
+        Thrower.throwIfNull(value, "No value with key '" + key + "' in collection '" + mCollectionName + "'.");
         return value;
     }
 
@@ -199,16 +199,9 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      * of the argument list.
      */
     public List<V> get(List<String> keys) {
-        if (Checker.isEmpty(keys)) {
-            return Collections.emptyList();
-        }
-        List<V> values = new ArrayList<>(keys.size());
-        for (String key : keys) {
-            V val = this.get(key);
-            Thrower.throwIfNull(val).message("No value with argument value '" + key + "'");
-            values.add(val);
-        }
-        return values;
+        return Checker.isEmpty(keys)
+                ? Collections.emptyList()
+                : keys.stream().map(key -> get(key)).collect(Collectors.toList());
     }
 
 
@@ -222,13 +215,9 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      */
     public List<V> getUsingWildCards(String stringWithWildCards) {
         String regex = "(?i)" + stringWithWildCards.replace("*", "\\w*");
-        List<V> values = new ArrayList<>();
-        for (Map.Entry<String, V> entry : mValues.entrySet()) {
-            if (entry.getKey().matches(regex)) {
-                values.add(entry.getValue());
-            }
-        }
-        return values;
+        return this.stream()
+                .filter(v -> v.getKey().matches(regex))
+                .collect(Collectors.toList());
     }
 
 
