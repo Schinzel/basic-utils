@@ -17,20 +17,28 @@ import java.util.stream.Stream;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 @Accessors(prefix = "m")
 public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
-    /** The internal storage. Set sort order to be compareToIgnoreCase. */
-    private final TreeMap<String, V> mValues = new TreeMap<>(String::compareToIgnoreCase);
+    /** The internal storage. */
+    private final Map<String, V> mValues;
     /** Holds mapping between aliases and keys. */
     private final Map<String, String> mAliasToKeyMap = new HashMap<>();
-    private final String mErrorMessageSuffix;
     /** The name of this collection. */
     @Getter final String mCollectionName;
+    /* Used to construct error messages. */
+    private final String mErrorMessageSuffix;
     //*************************************************************************
     //* CONSTRUCTION
     //*************************************************************************
 
 
     public ValuesWithKeys(String collectionName) {
+        /* Set internal storage to be an ordered map with sort order to be compareToIgnoreCase. */
+        this(collectionName, new TreeMap<>(String::compareToIgnoreCase));
+    }
+
+
+    public ValuesWithKeys(String collectionName, Map<String, V> map) {
         Thrower.throwIfVarEmpty(collectionName, "collectionName");
+        mValues = map;
         mCollectionName = collectionName;
         mErrorMessageSuffix = " in collection named '" + mCollectionName + "'";
     }
