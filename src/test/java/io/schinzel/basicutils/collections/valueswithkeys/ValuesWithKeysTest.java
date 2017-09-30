@@ -9,10 +9,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ValuesWithKeysTest {
 
@@ -42,7 +43,6 @@ public class ValuesWithKeysTest {
         exception.expect(RuntimeException.class);
         coll.add(new MyVal("MyName2"));
     }
-
 
 
     @Test
@@ -216,11 +216,8 @@ public class ValuesWithKeysTest {
     }
 
 
-    /**
-     * Test that the elements are returned in order.
-     */
     @Test
-    public void testOrder() {
+    public void values_ValuesAddedInNotAlphabeticOrder_AlphabeticallySorted() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("myName1"))
@@ -229,11 +226,42 @@ public class ValuesWithKeysTest {
                 .add(new MyVal("C"))
                 .add(new MyVal("A"))
                 .add(new MyVal("B"));
-        List<String> expected = Arrays.asList("A", "B", "C", "myName1", "MyName2", "MyName3", "myName4");
-        Iterator<String> it = expected.iterator();
-        for (MyVal myVal : coll) {
-            Assert.assertEquals(it.next(), myVal.getKey());
-        }
+        List<String> actualKeys = coll.values().stream()
+                .map(MyVal::getKey)
+                .collect(Collectors.toList());
+        List<String> expectedKeys = Arrays.asList("A", "B", "C", "myName1", "MyName2", "MyName3", "myName4");
+        assertThat(actualKeys).isEqualTo(expectedKeys);
+    }
+
+
+    @Test
+    public void values_LinkedHashMapValuesAddedInNotAlphabeticOrder_InsertionOrder() {
+        ValuesWithKeys<MyVal> coll = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("MyName2"))
+                .add(new MyVal("myName1"))
+                .add(new MyVal("MyName3"))
+                .add(new MyVal("myName4"))
+                .add(new MyVal("C"))
+                .add(new MyVal("A"))
+                .add(new MyVal("B"));
+        List<String> actualKeys = coll.values().stream()
+                .map(MyVal::getKey)
+                .collect(Collectors.toList());
+        List<String> expectedKeys = Arrays.asList("MyName2", "myName1", "MyName3", "myName4", "C", "A", "B");
+        assertThat(actualKeys).isEqualTo(expectedKeys);
+    }
+
+
+    @Test
+    public void iterator_AddValues_SameValuesButInAlphanumOrder() {
+        MyVal c = new MyVal("C");
+        MyVal a = new MyVal("A");
+        MyVal b = new MyVal("B");
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(c)
+                .add(a)
+                .add(b);
+        assertThat(coll.iterator()).containsExactly(a, b, c);
     }
 
 

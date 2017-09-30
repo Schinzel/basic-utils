@@ -8,6 +8,8 @@ import io.schinzel.basicutils.state.State;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
+import java.util.LinkedHashMap;
+
 /**
  * The purpose of this class be a lap in a tree of laps. The laps knows it's
  * parent and children.
@@ -21,7 +23,7 @@ class Lap implements IStateNode, IValueWithKey {
     /** The parent of this lap */
     final Lap mParentLap;
     /** The children of this lap */
-    private final ValuesWithKeys<Lap> mChildLaps = new ValuesWithKeys<>("sublaps");
+    final ValuesWithKeys<Lap> mChildLaps = new ValuesWithKeys<>("sublaps", new LinkedHashMap<>());
     /** Measures the time */
     @Getter private final StopWatch mStopWatch = StopWatch.create();
 
@@ -72,9 +74,7 @@ class Lap implements IStateNode, IValueWithKey {
     Lap stop() {
         Thrower.throwIfFalse(mStopWatch.isStarted())
                 .message("Cannot stop lap '" + mKey + "' as it has not been started");
-        //Stop the stopwatch
         mStopWatch.stop();
-        //Return the parent of this lap
         return mParentLap;
     }
 

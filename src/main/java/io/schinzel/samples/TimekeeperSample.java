@@ -18,17 +18,35 @@ class TimekeeperSample {
         timekeeper.stopAndStartLap("B");
         for (int i = 0; i < 10; i++) {
             //Start lab B1. As lap B is running, B1 will be a sub-lap to B.
-            timekeeper.startLap("B1");
+            timekeeper.startLap("B2");
             Sandman.snoozeMillis(1);
             timekeeper.stopLap();
         }
         for (int i = 0; i < 5; i++) {
             //Start lab B2. As lap B is running, B2 will be a sub-lap to B.
-            timekeeper.startLap("B2");
+            timekeeper.startLap("B1");
+            Sandman.snoozeMillis(20);
+            timekeeper.stopLap();
+        }
+        for (int i = 0; i < 5; i++) {
+            //Start lab B2. As lap B is running, B2 will be a sub-lap to B.
+            timekeeper.startLap("B3");
             Sandman.snoozeMillis(20);
             timekeeper.stopLap();
         }
         timekeeper.stopAndStartLap("C");
+        //Some code runs here that will be measured as lap C
+        Sandman.snoozeMillis(10);
+        timekeeper.stopAndStartLap("D");
+        //Some code runs here that will be measured as lap C
+        Sandman.snoozeMillis(10);
+        timekeeper.stopAndStartLap("E");
+        //Some code runs here that will be measured as lap C
+        Sandman.snoozeMillis(10);
+        timekeeper.stopAndStartLap("F");
+        //Some code runs here that will be measured as lap C
+        Sandman.snoozeMillis(10);
+        timekeeper.stopAndStartLap("CCC");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
         //Stop current lap, i.e. lap C
