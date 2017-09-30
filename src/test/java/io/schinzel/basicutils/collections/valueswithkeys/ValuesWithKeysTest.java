@@ -113,13 +113,13 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void getUsingWildCards_WildcardAtEnd_MatchingValues() {
+    public void getUsingWildCards_WildcardAtEnd_MatchingValuesInAlphabeticalOrder() {
         List<MyVal> values = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("Man1"))
-                .add(new MyVal("Man2"))
-                .add(new MyVal("Bird1"))
-                .add(new MyVal("Bird2"))
                 .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
                 .getWithWildCards("Ma*");
         assertThat(values.stream().map(MyVal::getKey))
                 .containsExactlyInAnyOrder("Man1", "Man2");
@@ -127,13 +127,13 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void getUsingWildCards_WildcardInBeginning_MatchingValues() {
+    public void getUsingWildCards_WildcardInBeginning_MatchingValuesInAlphabeticalOrder() {
         List<MyVal> values = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("Man1"))
-                .add(new MyVal("Man2"))
-                .add(new MyVal("Bird1"))
-                .add(new MyVal("Bird2"))
                 .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
                 .getWithWildCards("*1");
         assertThat(values.stream().map(MyVal::getKey))
                 .containsExactlyInAnyOrder("Man1", "Bird1", "Moon1");
@@ -141,13 +141,13 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void getUsingWildCards_WildcardInMiddle_MatchingValues() {
+    public void getUsingWildCards_WildcardInMiddle_MatchingValuesInAlphabeticalOrder() {
         List<MyVal> values = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("Man1"))
-                .add(new MyVal("Man2"))
-                .add(new MyVal("Bird1"))
-                .add(new MyVal("Bird2"))
                 .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
                 .getWithWildCards("M*1");
         assertThat(values.stream().map(MyVal::getKey))
                 .containsExactlyInAnyOrder("Man1", "Moon1");
@@ -155,26 +155,16 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void testGetWithWildCards_AlphabeticalReturn() {
-        MyVal man1 = new MyVal("Man1");
-        MyVal man2 = new MyVal("Man2");
-        MyVal bird1 = new MyVal("Bird1");
-        MyVal bird2 = new MyVal("Bird2");
-        MyVal moon1 = new MyVal("Moon1");
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(man1)
-                .add(man2)
-                .add(bird1)
-                .add(bird2)
-                .add(moon1);
-        List<MyVal> actual = coll.getWithWildCards("*");
-        assertThat(actual).containsExactly(bird1, bird2, man1, man2, moon1);
-    }
-
-
-    @Test
-    public void get_List_ValuesThatMatchesList(){
-
+    public void getUsingWildCards_WildcardInMiddleLinkedHashMap_MatchingValuesInInsertionOrder() {
+        List<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
+                .getWithWildCards("*1");
+        assertThat(values.stream().map(MyVal::getKey))
+                .containsExactlyInAnyOrder("Moon1", "Man1", "Bird1");
     }
 
 
