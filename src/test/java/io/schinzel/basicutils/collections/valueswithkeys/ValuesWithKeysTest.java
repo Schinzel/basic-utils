@@ -120,7 +120,7 @@ public class ValuesWithKeysTest {
                 .add(new MyVal("Bird1"))
                 .add(new MyVal("Bird2"))
                 .add(new MyVal("Moon1"))
-                .getUsingWildCards("Ma*");
+                .getWithWildCards("Ma*");
         assertThat(values.stream().map(MyVal::getKey))
                 .containsExactlyInAnyOrder("Man1", "Man2");
     }
@@ -134,7 +134,7 @@ public class ValuesWithKeysTest {
                 .add(new MyVal("Bird1"))
                 .add(new MyVal("Bird2"))
                 .add(new MyVal("Moon1"))
-                .getUsingWildCards("*1");
+                .getWithWildCards("*1");
         assertThat(values.stream().map(MyVal::getKey))
                 .containsExactlyInAnyOrder("Man1", "Bird1", "Moon1");
     }
@@ -148,7 +148,7 @@ public class ValuesWithKeysTest {
                 .add(new MyVal("Bird1"))
                 .add(new MyVal("Bird2"))
                 .add(new MyVal("Moon1"))
-                .getUsingWildCards("M*1");
+                .getWithWildCards("M*1");
         assertThat(values.stream().map(MyVal::getKey))
                 .containsExactlyInAnyOrder("Man1", "Moon1");
     }
@@ -167,7 +167,7 @@ public class ValuesWithKeysTest {
                 .add(bird1)
                 .add(bird2)
                 .add(moon1);
-        List<MyVal> actual = coll.getUsingWildCards("*");
+        List<MyVal> actual = coll.getWithWildCards("*");
         assertThat(actual).containsExactly(bird1, bird2, man1, man2, moon1);
     }
 

@@ -211,9 +211,10 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      * Output: B1,B2
      *
      * @param stringWithWildCards String to look up. Case insensitive. Wildcard is an astrix; "*".
-     * @return A list of values in alphabetical order that matches the argument.
+     * @return A list of values that matches argument. In the order of the internal collection
+     * which default is alphabetical.
      */
-    public List<V> getUsingWildCards(String stringWithWildCards) {
+    public List<V> getWithWildCards(String stringWithWildCards) {
         String regex = "(?i)" + stringWithWildCards.replace("*", "\\w*");
         return this.stream()
                 .filter(v -> v.getKey().matches(regex))
