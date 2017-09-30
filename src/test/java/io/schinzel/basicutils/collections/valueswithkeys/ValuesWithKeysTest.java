@@ -4,9 +4,7 @@ import io.schinzel.basicutils.RandomUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,9 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class ValuesWithKeysTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @AllArgsConstructor
     private class MyVal implements IValueWithKey {
@@ -35,13 +30,13 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void testAdd_sameIdTwice() {
+    public void add_SameKeyTwice_Exception() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
                 .add(new MyVal("MyName1"))
                 .add(new MyVal("MyName2"))
                 .add(new MyVal("MyName3"));
-        exception.expect(RuntimeException.class);
-        coll.add(new MyVal("MyName2"));
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.add(new MyVal("MyName2")));
     }
 
 
@@ -89,15 +84,24 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void testGet() {
+    public void get_NoValueWithKey_Exception() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("MyName1"))
-                .add(new MyVal("MyName2"))
-                .add(new MyVal("MyName3"));
-        MyVal myValue = coll.get("MyName2");
-        Assert.assertEquals("MyName2", myValue.getKey());
-        exception.expect(RuntimeException.class);
-        coll.get("no name");
+                .add(new MyVal("A"))
+                .add(new MyVal("B"))
+                .add(new MyVal("C"));
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.get("D"));
+    }
+
+
+    @Test
+    public void get_ValueWithArgumentKeyExists_ValueWithArgumentKey() {
+        MyVal b = new MyVal("B");
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("A"))
+                .add(b)
+                .add(new MyVal("C"));
+        assertThat(coll.get("B")).isEqualTo(b);
     }
 
 
@@ -198,8 +202,8 @@ public class ValuesWithKeysTest {
         actual = coll.get(Arrays.asList("Bird2", "Man1"));
         assertThat(actual).containsExactly(bird2, man1);
         //
-        exception.expect(RuntimeException.class);
-        coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"));
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I")));
     }
 
 
@@ -307,8 +311,8 @@ public class ValuesWithKeysTest {
     @Test
     public void testAlias_addAliasIdExists() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
-        exception.expect(RuntimeException.class);
-        coll.addAlias("B", "A");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("B", "A"));
     }
 
 
@@ -316,16 +320,16 @@ public class ValuesWithKeysTest {
     public void testAlias_addSameAliasTwice() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
         coll.addAlias("B", "alias1");
-        exception.expect(RuntimeException.class);
-        coll.addAlias("A", "alias1");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("A", "alias1"));
     }
 
 
     @Test
     public void testAlias_addValueWhenThereExistsValueWithId() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
-        exception.expect(RuntimeException.class);
-        coll.addAlias("A", "B");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("A", "B"));
     }
 
 
@@ -371,8 +375,9 @@ public class ValuesWithKeysTest {
         coll.addAlias("C", "alias1");
         coll.addAlias("C", "alias2");
         //But adding the alias again should yield an error
-        exception.expect(RuntimeException.class);
-        coll.addAlias("B", "alias1");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("B", "alias1"));
+
     }
 
 
