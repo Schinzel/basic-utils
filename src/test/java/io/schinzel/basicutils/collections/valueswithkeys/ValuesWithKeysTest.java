@@ -1,24 +1,24 @@
 package io.schinzel.basicutils.collections.valueswithkeys;
 
 import io.schinzel.basicutils.RandomUtil;
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@RunWith(JUnitParamsRunner.class)
 public class ValuesWithKeysTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     @AllArgsConstructor
     private class MyVal implements IValueWithKey {
@@ -29,27 +29,21 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void testSetCollectionName() {
-        Assert.assertEquals("MyCollName", ValuesWithKeys.create("MyCollName").mCollectionName);
+    public void getCollectionName_SetNameWithConstructor_CollectionName() {
+        String collectionName = RandomUtil.getRandomString(10);
+        ValuesWithKeys<IValueWithKey> valueWithKeys = ValuesWithKeys.create(collectionName);
+        assertThat(valueWithKeys.getCollectionName()).isEqualTo(collectionName);
     }
 
 
     @Test
-    public void testAdd_sameIdTwice() {
+    public void add_SameKeyTwice_Exception() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("MyName1"))
-                .add(new MyVal("MyName2"))
-                .add(new MyVal("MyName3"));
-        exception.expect(RuntimeException.class);
-        coll.add(new MyVal("MyName2"));
-    }
-
-
-    @Test
-    public void getCollectionName_SetNameWithConstructor_ConstructorSetName() {
-        String expected = RandomUtil.getRandomString(50);
-        String actual = ValuesWithKeys.create(expected).getCollectionName();
-        assertThat(actual).isEqualTo(expected);
+                .add(new MyVal("A"))
+                .add(new MyVal("B"))
+                .add(new MyVal("C"));
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.add(new MyVal("B")));
     }
 
 
@@ -70,149 +64,182 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void testSize() {
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.create("MyCollName");
-        Assert.assertEquals(0, coll.size());
-        coll.add(new MyVal("MyName1"));
-        Assert.assertEquals(1, coll.size());
-        coll.add(new MyVal("MyName2"));
-        Assert.assertEquals(2, coll.size());
-        coll.add(new MyVal("MyName3"));
-        Assert.assertEquals(3, coll.size());
-        coll.remove("MyName3");
-        Assert.assertEquals(2, coll.size());
-        coll.remove("MyName1");
-        Assert.assertEquals(1, coll.size());
-        coll.remove("MyName2");
-        Assert.assertEquals(0, coll.size());
+    @Parameters({"0", "1", "5"})
+    public void size_AddValues_AddedValuesCount(int numValuesToAdd) {
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.create("AnyName");
+        IntStream.range(0, numValuesToAdd)
+                .mapToObj(String::valueOf)
+                .forEach(i -> coll.add(new MyVal(i)));
+        assertThat(coll.size())
+                .isEqualTo(numValuesToAdd);
     }
 
 
     @Test
-    public void testGet() {
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("MyName1"))
-                .add(new MyVal("MyName2"))
-                .add(new MyVal("MyName3"));
-        MyVal myValue = coll.get("MyName2");
-        Assert.assertEquals("MyName2", myValue.getKey());
-        exception.expect(RuntimeException.class);
-        coll.get("no name");
+    @Parameters({"10,9", "5, 5", "10,1"})
+    public void size_AddAndRemoveValues_AddValuesMinusRemoved(int numValuesToAdd, int numValuesToRemove) {
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.create("AnyName");
+        IntStream.range(0, numValuesToAdd)
+                .mapToObj(String::valueOf)
+                .forEach(i -> coll.add(new MyVal(i)));
+        IntStream.range(0, numValuesToRemove)
+                .mapToObj(String::valueOf)
+                .forEach(i -> coll.remove(i));
+        assertThat(coll.size())
+                .isEqualTo(numValuesToAdd - numValuesToRemove);
     }
 
 
     @Test
-    public void testGetWithWildCards() {
-        MyVal man1 = new MyVal("Man1");
-        MyVal man2 = new MyVal("Man2");
-        MyVal bird1 = new MyVal("Bird1");
-        MyVal bird2 = new MyVal("Bird2");
-        MyVal moon1 = new MyVal("Moon1");
+    public void get_NoValueWithKey_Exception() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(man1)
-                .add(man2)
-                .add(bird1)
-                .add(bird2)
-                .add(moon1);
-        List<MyVal> actual;
-        //
-        actual = coll.getUsingWildCards("Ma*");
-        assertThat(actual).containsExactly(man1, man2);
-        //
-        actual = coll.getUsingWildCards("Man*");
-        assertThat(actual).containsExactly(man1, man2);
-        //
-        actual = coll.getUsingWildCards("man*");
-        assertThat(actual).containsExactly(man1, man2);
-        //
-        actual = coll.getUsingWildCards("man2");
-        assertThat(actual).containsExactly(man2);
-        //
-        actual = coll.getUsingWildCards("Man2*");
-        assertThat(actual).containsExactly(man2);
-        //
-        actual = coll.getUsingWildCards("M*n*");
-        assertThat(actual).containsExactly(man1, man2, moon1);
-        //
-        actual = coll.getUsingWildCards("*1");
-        assertThat(actual).containsExactly(bird1, man1, moon1);
+                .add(new MyVal("A"))
+                .add(new MyVal("B"))
+                .add(new MyVal("C"));
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.get("D"));
     }
 
 
     @Test
-    public void testGetWithWildCards_AlphabeticalReturn() {
-        MyVal man1 = new MyVal("Man1");
-        MyVal man2 = new MyVal("Man2");
-        MyVal bird1 = new MyVal("Bird1");
-        MyVal bird2 = new MyVal("Bird2");
-        MyVal moon1 = new MyVal("Moon1");
+    public void get_ValueWithArgumentKeyExists_ValueWithArgumentKey() {
+        MyVal b = new MyVal("B");
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(man1)
-                .add(man2)
-                .add(bird1)
-                .add(bird2)
-                .add(moon1);
-        List<MyVal> actual = coll.getUsingWildCards("*");
-        assertThat(actual).containsExactly(bird1, bird2, man1, man2, moon1);
+                .add(new MyVal("A"))
+                .add(b)
+                .add(new MyVal("C"));
+        assertThat(coll.get("B")).isEqualTo(b);
     }
 
 
     @Test
-    public void testGetList() {
-        MyVal man1 = new MyVal("Man1");
-        MyVal man2 = new MyVal("Man2");
-        MyVal bird1 = new MyVal("Bird1");
-        MyVal bird2 = new MyVal("Bird2");
-        MyVal moon1 = new MyVal("Moon1");
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(man1)
-                .add(man2)
-                .add(bird1)
-                .add(bird2)
-                .add(moon1);
-        List<MyVal> actual;
-        //
-        actual = coll.get(Collections.singletonList("Man1"));
-        assertThat(actual).containsExactly(man1);
-        //
-        actual = coll.get(Arrays.asList("Bird2", "Man1"));
-        assertThat(actual).containsExactly(bird2, man1);
+    public void getUsingWildCards_WildcardAtEnd_MatchingValuesInAlphabeticalOrder() {
+        List<MyVal> values = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
+                .getWithWildCards("Ma*");
+        assertThat(values.stream().map(MyVal::getKey))
+                .containsExactlyInAnyOrder("Man1", "Man2");
     }
 
 
     @Test
-    public void testGetList_throwErrorArg() {
-        MyVal man1 = new MyVal("Man1");
-        MyVal man2 = new MyVal("Man2");
-        MyVal bird1 = new MyVal("Bird1");
-        MyVal bird2 = new MyVal("Bird2");
-        MyVal moon1 = new MyVal("Moon1");
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(man1)
-                .add(man2)
-                .add(bird1)
-                .add(bird2)
-                .add(moon1);
-        List<MyVal> actual;
-        //
-        actual = coll.get(Arrays.asList("Bird2", "Man1"));
-        assertThat(actual).containsExactly(bird2, man1);
-        //
-        exception.expect(RuntimeException.class);
-        coll.get(Arrays.asList("Bird2", "I_DO_NOT_EXIST", "Man1", "NEITHER DO I"));
+    public void getUsingWildCards_WildcardInBeginning_MatchingValuesInAlphabeticalOrder() {
+        List<MyVal> values = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
+                .getWithWildCards("*1");
+        assertThat(values.stream().map(MyVal::getKey))
+                .containsExactlyInAnyOrder("Man1", "Bird1", "Moon1");
     }
 
 
     @Test
-    public void testGet_emptyList() {
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
-                .add(new MyVal("MyName1"))
-                .add(new MyVal("MyName2"))
-                .add(new MyVal("MyName3"));
-        List<MyVal> result = coll.get((List<String>) null);
-        Assert.assertTrue(result.isEmpty());
-        result = coll.get(new ArrayList<>(0));
-        Assert.assertTrue(result.isEmpty());
+    public void getUsingWildCards_WildcardInMiddle_MatchingValuesInAlphabeticalOrder() {
+        List<MyVal> values = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
+                .getWithWildCards("M*1");
+        assertThat(values.stream().map(MyVal::getKey))
+                .containsExactlyInAnyOrder("Man1", "Moon1");
+    }
+
+
+    @Test
+    public void getUsingWildCards_WildcardInMiddleLinkedHashMap_MatchingValuesInInsertionOrder() {
+        List<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"))
+                .getWithWildCards("*1");
+        assertThat(values.stream().map(MyVal::getKey))
+                .containsExactlyInAnyOrder("Moon1", "Man1", "Bird1");
+    }
+
+
+    @Test
+    public void get_EmptyList_EmptyList() {
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        assertThat(values.get(Collections.emptyList())).isEmpty();
+    }
+
+
+    @Test
+    public void get_Null_EmptyList() {
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> arg = null;
+        assertThat(values.get(arg)).isEmpty();
+    }
+
+
+    @Test
+    public void get_ListWithNonExistingValues_Exception() {
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> arg = Arrays.asList("I_do_not_exist");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> values.get(arg));
+    }
+
+
+    @Test
+    public void get_List_ElementsInListInArgumentListOrder() {
+        List<String> arg = Arrays.asList("Bird1", "Moon1", "Man1");
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> actual = values
+                .get(arg)
+                .stream()
+                .map(MyVal::getKey)
+                .collect(Collectors.toList());
+        assertThat(actual).containsSequence(arg);
+    }
+
+
+    @Test
+    public void get_OneElemList_ElementsInListInArgumentListOrder() {
+        List<String> arg = Arrays.asList("Bird1");
+        ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
+                .add(new MyVal("Moon1"))
+                .add(new MyVal("Man2"))
+                .add(new MyVal("Man1"))
+                .add(new MyVal("Bird2"))
+                .add(new MyVal("Bird1"));
+        List<String> actual = values
+                .get(arg)
+                .stream()
+                .map(MyVal::getKey)
+                .collect(Collectors.toList());
+        assertThat(actual).containsSequence(arg);
     }
 
 
@@ -307,8 +334,8 @@ public class ValuesWithKeysTest {
     @Test
     public void testAlias_addAliasIdExists() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
-        exception.expect(RuntimeException.class);
-        coll.addAlias("B", "A");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("B", "A"));
     }
 
 
@@ -316,16 +343,16 @@ public class ValuesWithKeysTest {
     public void testAlias_addSameAliasTwice() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
         coll.addAlias("B", "alias1");
-        exception.expect(RuntimeException.class);
-        coll.addAlias("A", "alias1");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("A", "alias1"));
     }
 
 
     @Test
     public void testAlias_addValueWhenThereExistsValueWithId() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName").add(new MyVal("A")).add(new MyVal("B"));
-        exception.expect(RuntimeException.class);
-        coll.addAlias("A", "B");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("A", "B"));
     }
 
 
@@ -371,8 +398,9 @@ public class ValuesWithKeysTest {
         coll.addAlias("C", "alias1");
         coll.addAlias("C", "alias2");
         //But adding the alias again should yield an error
-        exception.expect(RuntimeException.class);
-        coll.addAlias("B", "alias1");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.addAlias("B", "alias1"));
+
     }
 
 
