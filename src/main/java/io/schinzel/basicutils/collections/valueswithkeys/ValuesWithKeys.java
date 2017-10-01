@@ -196,7 +196,8 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
     /**
      * @param keys The keys to find values for
      * @return A list of values that have the argument keys. The elements are returned in the order
-     * of the argument list.
+     * of the argument list. If the argument list contains duplicates the elements returned will
+     * contain duplicates.
      */
     public List<V> get(List<String> keys) {
         return Checker.isEmpty(keys)
