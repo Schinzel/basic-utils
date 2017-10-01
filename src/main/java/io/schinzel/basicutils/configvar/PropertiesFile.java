@@ -19,8 +19,8 @@ class PropertiesFile {
 
 
     /**
-     * Returns the argument files as a properties object. The file location is relative the run
-     * directory. If no such file, an empty properties is returned.
+     * Returns the argument file as a properties object. The file location is relative the run
+     * directory. If no such file, an empty map is returned.
      *
      * @param fileName The name of the properties file.
      * @return The properties file as a map
