@@ -9,6 +9,10 @@ import java.util.Map;
 /**
  * The purpose of this class is to return config variables.
  * <p>
+ * The class first tries to find the requested configuration variable among the system environment
+ * variable and then the constructor argument file.
+ * file.
+ * <p>
  * Created by schinzel on 2017-06-25.
  */
 public class ConfigVar implements IConfigVar {
@@ -27,10 +31,10 @@ public class ConfigVar implements IConfigVar {
     }
 
 
-    ConfigVar(String propertiesFileName, Map<String, String> envVars, Map<String, String> propertiesFromFile) {
-        this.environmentVariables = envVars;
+    ConfigVar(String propertiesFileName, Map<String, String> propertiesFromFile, Map<String, String> envVars) {
         this.propertiesFileName = propertiesFileName;
         this.propertiesFromFile = propertiesFromFile;
+        this.environmentVariables = envVars;
     }
 
 
