@@ -26,15 +26,15 @@ public class ConfigVar implements IConfigVar {
 
     ConfigVar(String propertiesFileName) {
         this(propertiesFileName,
-                PropertiesFile.getProperties(propertiesFileName),
-                System.getenv());
+                System.getenv(),
+                PropertiesFile.getProperties(propertiesFileName));
     }
 
 
-    ConfigVar(String propertiesFileName, Map<String, String> propertiesFromFile, Map<String, String> envVars) {
+    ConfigVar(String propertiesFileName, Map<String, String> envVars, Map<String, String> propertiesFromFile) {
         this.propertiesFileName = propertiesFileName;
-        this.propertiesFromFile = propertiesFromFile;
         this.environmentVariables = envVars;
+        this.propertiesFromFile = propertiesFromFile;
     }
 
 
