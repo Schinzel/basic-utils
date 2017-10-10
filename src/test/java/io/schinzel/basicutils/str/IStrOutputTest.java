@@ -51,7 +51,7 @@ public class IStrOutputTest {
     public void pln() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        new StrOutput().a("Monkey!").pln();
+        new StrOutput().a("Monkey!").writeToSystemOut();
         Assert.assertEquals("Monkey!\n", outContent.toString());
         System.setOut(null);
     }
@@ -61,7 +61,7 @@ public class IStrOutputTest {
     public void plnWithPrefix_StringWithPrefix_ShouldBePrintedToSystemOut() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        new StrOutput().a("Gibbon!").plnWithPrefix("Monkey: ");
+        new StrOutput().a("Gibbon!").writeToSystemOutWithPrefix("Monkey: ");
         Assert.assertEquals("Monkey: Gibbon!\n", outContent.toString());
         System.setOut(null);
     }

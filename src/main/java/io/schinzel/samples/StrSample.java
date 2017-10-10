@@ -17,12 +17,12 @@ class StrSample {
                 .atab("Boat weighs: ").af(weight, 2).anl(" kg")
                 .atab("Boat costs: ").af(cost).anl(" Euros")
                 .atab("Boat name:  ").aq("Boaty McBoatface").anl()
-                .pln();
+                .writeToSystemOut();
         Str.create()
                 .af(System.currentTimeMillis())
                 //Write to file
                 .writeToFile("MyTextFile.txt")
                 //Print to system out with prefix
-                .plnWithPrefix("Time now in millis: ");
+                .writeToSystemOutWithPrefix("Time now in millis: ");
     }
 }
