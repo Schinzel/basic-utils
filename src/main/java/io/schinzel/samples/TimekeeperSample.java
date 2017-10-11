@@ -52,6 +52,6 @@ class TimekeeperSample {
         //Stop current lap, i.e. lap C
         timekeeper.stopLap();
         //Get results and render
-        timekeeper.getResults().getStr().pln();
+        timekeeper.getResults().getStr().writeToSystemOut();
     }
 }

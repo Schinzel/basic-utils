@@ -15,18 +15,18 @@ class SubStringSample {
         SubString.create(input)
                 .startDelimiter("?")
                 .getStr()
-                .plnWithPrefix("Query string: ");
+                .writeToSystemOutWithPrefix("Query string: ");
         //Get everything before question mark, i.e. "http://www.example.com/index.html"
         SubString.create(input)
                 .endDelimiter("?")
                 .getStr()
-                .plnWithPrefix("URL: ");
+                .writeToSystemOutWithPrefix("URL: ");
         //Get host, i.e. "www.example.com"
         SubString.create(input)
                 .startDelimiter("http://")
                 .endDelimiter("/index")
                 .getStr()
-                .plnWithPrefix("Host: ");
+                .writeToSystemOutWithPrefix("Host: ");
         //First get "www.example.com/index.html", then get everything after the slash, i.e. "index.html"
         SubString.create(input)
                 .startDelimiter("//")
@@ -34,16 +34,16 @@ class SubStringSample {
                 .newSubString()
                 .startDelimiter("/")
                 .getStr()
-                .plnWithPrefix("Page: ");
+                .writeToSystemOutWithPrefix("Page: ");
         //Get everything after the second equals sign
         SubString.create(input)
                 .startDelimiter("=", Occurrence.SECOND)
                 .getStr()
-                .plnWithPrefix("Second value: ");
+                .writeToSystemOutWithPrefix("Second value: ");
         //Get everything after the second equals sign
         SubString.create(input)
                 .startDelimiter("=", Occurrence.LAST)
                 .getStr()
-                .plnWithPrefix("After last occurrence: ");
+                .writeToSystemOutWithPrefix("After last occurrence: ");
     }
 }
