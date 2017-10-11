@@ -3,7 +3,7 @@ package io.schinzel.samples;
 import io.schinzel.basicutils.str.Str;
 
 /**
- * The purpose of this class provide sample usage of the Str class.
+ * The purpose of this class is to provide sample usage of the Str class.
  * <p>
  * Created by Schinzel on 2017-02-27.
  */

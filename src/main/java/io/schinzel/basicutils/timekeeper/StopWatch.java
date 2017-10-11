@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
+import io.schinzel.basicutils.Thrower;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 
@@ -42,9 +43,7 @@ class StopWatch {
      * @return This for chaining.
      */
     StopWatch start() {
-        if (this.isStarted()) {
-            throw new RuntimeException("Cannot start as is already started");
-        }
+        Thrower.throwIfTrue(this.isStarted(), "Cannot start as is already started");
         mLapStartTime = System.nanoTime();
         mState = State.STARTED;
         return this;
@@ -57,9 +56,7 @@ class StopWatch {
      * @return This for chaining.
      */
     StopWatch stop() {
-        if (!this.isStarted()) {
-            throw new RuntimeException("Cannot stop as is not started");
-        }
+        Thrower.throwIfFalse(this.isStarted(), "Cannot stop as is not started");
         long currentLapTime = System.nanoTime() - mLapStartTime;
         mState = State.STOPPED;
         mSumTimeOfAllLaps += currentLapTime;

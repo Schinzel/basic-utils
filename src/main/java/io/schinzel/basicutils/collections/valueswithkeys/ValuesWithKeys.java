@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -17,20 +18,28 @@ import java.util.stream.Stream;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 @Accessors(prefix = "m")
 public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
-    /** The internal storage. Set sort order to be compareToIgnoreCase. */
-    private final TreeMap<String, V> mValues = new TreeMap<>(String::compareToIgnoreCase);
+    /** The internal storage. */
+    private final Map<String, V> mValues;
     /** Holds mapping between aliases and keys. */
     private final Map<String, String> mAliasToKeyMap = new HashMap<>();
-    private final String mErrorMessageSuffix;
     /** The name of this collection. */
     @Getter final String mCollectionName;
+    /* Used to construct error messages. */
+    private final String mErrorMessageSuffix;
     //*************************************************************************
     //* CONSTRUCTION
     //*************************************************************************
 
 
     public ValuesWithKeys(String collectionName) {
+        /* Set internal storage to be an ordered map with sort order to be compareToIgnoreCase. */
+        this(collectionName, new TreeMap<>(String::compareToIgnoreCase));
+    }
+
+
+    public ValuesWithKeys(String collectionName, Map<String, V> map) {
         Thrower.throwIfVarEmpty(collectionName, "collectionName");
+        mValues = map;
         mCollectionName = collectionName;
         mErrorMessageSuffix = " in collection named '" + mCollectionName + "'";
     }
@@ -172,15 +181,14 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      */
     public V get(String key) {
         Thrower.throwIfVarEmpty(key, "key");
-        //If argument key is the alias for an actual key
-        if (mAliasToKeyMap.containsKey(key)) {
-            //Set the actual key
-            key = mAliasToKeyMap.get(key);
-        }
-        //Get the value of the argument key
-        V value = mValues.get(key);
+        //Get the value of the argument key. If there is an alias for argument key
+        V value = mAliasToKeyMap.containsKey(key)
+                //Get the key of the alias and set the value with the retrieved key
+                ? mValues.get(mAliasToKeyMap.get(key))
+                //Set the value with argument key
+                : mValues.get(key);
         //If no value was found, throw error. 
-        Thrower.throwIfTrue(value == null, "No value with key '" + key + "' in collection '" + mCollectionName + "'.");
+        Thrower.throwIfNull(value, "No value with key '" + key + "' in collection '" + mCollectionName + "'.");
         return value;
     }
 
@@ -188,19 +196,13 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
     /**
      * @param keys The keys to find values for
      * @return A list of values that have the argument keys. The elements are returned in the order
-     * of the argument list.
+     * of the argument list. If the argument list contains duplicates the elements returned will
+     * contain duplicates.
      */
     public List<V> get(List<String> keys) {
-        if (Checker.isEmpty(keys)) {
-            return Collections.emptyList();
-        }
-        List<V> values = new ArrayList<>(keys.size());
-        for (String key : keys) {
-            V val = this.get(key);
-            Thrower.throwIfNull(val).message("No value with argument value '" + key + "'");
-            values.add(val);
-        }
-        return values;
+        return Checker.isEmpty(keys)
+                ? Collections.emptyList()
+                : keys.stream().map(key -> get(key)).collect(Collectors.toList());
     }
 
 
@@ -210,17 +212,14 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      * Output: B1,B2
      *
      * @param stringWithWildCards String to look up. Case insensitive. Wildcard is an astrix; "*".
-     * @return A list of values in alphabetical order that matches the argument.
+     * @return A list of values that matches argument. In the order of the internal collection
+     * which default is alphabetical.
      */
-    public List<V> getUsingWildCards(String stringWithWildCards) {
+    public List<V> getWithWildCards(String stringWithWildCards) {
         String regex = "(?i)" + stringWithWildCards.replace("*", "\\w*");
-        List<V> values = new ArrayList<>();
-        for (Map.Entry<String, V> entry : mValues.entrySet()) {
-            if (entry.getKey().matches(regex)) {
-                values.add(entry.getValue());
-            }
-        }
-        return values;
+        return this.stream()
+                .filter(v -> v.getKey().matches(regex))
+                .collect(Collectors.toList());
     }
 
 

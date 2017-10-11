@@ -50,7 +50,8 @@ public class ConfigVarTest {
 
     @Test
     public void Constructor_NoSuchFile_DoesNotTrowException() {
-        assertThatCode(() -> new ConfigVar("no_such_file.txt")).doesNotThrowAnyException();
+        assertThatCode(() -> new ConfigVar("no_such_file.txt"))
+                .doesNotThrowAnyException();
     }
 
 

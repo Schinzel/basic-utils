@@ -1,18 +1,39 @@
 package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Sandman;
+import io.schinzel.basicutils.collections.valueswithkeys.ValuesWithKeys;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.*;
+
+
 /**
- *
  * @author schinzel
  */
 public class LapTest {
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+
+    @Test
+    public void childLaps_AddChildLaps_InsertionOrder() {
+        ValuesWithKeys<Lap> childLaps = new Lap("myLap", null)
+                .start("B").stop()
+                .start("A").stop()
+                .start("D").stop()
+                .start("C").stop()
+                .mChildLaps;
+        List<String> actual = childLaps.stream().map(Lap::getKey).collect(Collectors.toList());
+        List<String> expected = Arrays.asList("B", "A", "D", "C");
+        assertThat(actual).isEqualTo(expected);
+    }
 
 
     @Test
@@ -55,7 +76,6 @@ public class LapTest {
         Sandman.snoozeMillis(10);
         A.stop();
         root.stop();
-
         double delta, result, expected;
         //
         delta = 0d;
@@ -99,6 +119,7 @@ public class LapTest {
         exception.expectMessage("Cannot start");
         root.start("A");
     }
+
 
     @Test
     public void testStop_StoppedNode() {
