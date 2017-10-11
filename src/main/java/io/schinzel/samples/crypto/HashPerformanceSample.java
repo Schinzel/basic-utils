@@ -42,6 +42,6 @@ public class HashPerformanceSample {
         Str.create()
                 .a("Total run time: ").af(totTime).a(" ms").anl()
                 .a("Time per hash: ").af(timePerLap, 2).a(" ms")
-                .pln();
+                .writeToSystemOut();
     }
 }

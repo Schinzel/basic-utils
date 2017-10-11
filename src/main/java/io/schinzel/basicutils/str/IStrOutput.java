@@ -21,7 +21,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      *
      * @return This for chaining.
      */
-    default T pln() {
+    default T writeToSystemOut() {
         System.out.println(this.getString());
         return this.getThis();
     }
@@ -34,7 +34,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @param prefix Prefix to print.
      * @return This for chaining.
      */
-    default T plnWithPrefix(String prefix) {
+    default T writeToSystemOutWithPrefix(String prefix) {
         System.out.println(prefix + this.getString());
         return this.getThis();
     }
@@ -92,7 +92,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * Different file operations
      */
     enum FileOp {
-        NOTHING, APPEND, DELETE_ON_EXIT;
+        NOTHING, APPEND, DELETE_ON_EXIT
     }
 
 
