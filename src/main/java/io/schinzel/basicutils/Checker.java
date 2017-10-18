@@ -1,6 +1,5 @@
 package io.schinzel.basicutils;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -8,6 +7,7 @@ import java.util.Map;
  *
  * @author Schinzel
  */
+@SuppressWarnings("WeakerAccess")
 public class Checker {
 
     /**
@@ -40,8 +40,8 @@ public class Checker {
      * @param <T>   The type of the list
      * @return True if argument is null or empty, else false.
      */
-    public static <T> boolean isEmpty(List<T> value) {
-        return (value == null || value.isEmpty());
+    public static <T> boolean isEmpty(Iterable<T> value) {
+        return (value == null || !value.iterator().hasNext());
     }
 
 
@@ -50,12 +50,14 @@ public class Checker {
      * @param <T>   The type of the list
      * @return True if argument is not null or empty, else false.
      */
-    public static <T> boolean isNotEmpty(List<T> value) {
+    public static <T> boolean isNotEmpty(Iterable<T> value) {
         return !Checker.isEmpty(value);
     }
 
 
     /**
+     * /**
+     *
      * @param value The value to check
      * @param <K>   The type of the key of the map
      * @param <V>   The value of the key of the map
