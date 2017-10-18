@@ -37,7 +37,7 @@ public class Checker {
 
     /**
      * @param value The value to check
-     * @param <T>   The type of the list
+     * @param <T>   The type of the Iterable
      * @return True if argument is null or empty, else false.
      */
     public static <T> boolean isEmpty(Iterable<T> value) {
@@ -47,7 +47,7 @@ public class Checker {
 
     /**
      * @param value The value to check
-     * @param <T>   The type of the list
+     * @param <T>   The type of the Iterable
      * @return True if argument is not null or empty, else false.
      */
     public static <T> boolean isNotEmpty(Iterable<T> value) {
@@ -166,7 +166,7 @@ public class Checker {
      * @return True if argument is empty, else false.
      */
     public static boolean isEmptyVarArgs(String... value) {
-        return (value == null || value.length == 0 || value[0] == null);
+        return (value == null || value.length == 0 || (value.length == 1 && value[0] == null));
     }
 
 
@@ -177,7 +177,6 @@ public class Checker {
      * @return True if argument is not empty, else false.
      */
     public static boolean isNotEmptyVarArgs(String... value) {
-        //return (value != null && value.length > 0 || value[0] != null);
         return !Checker.isEmptyVarArgs(value);
     }
 
