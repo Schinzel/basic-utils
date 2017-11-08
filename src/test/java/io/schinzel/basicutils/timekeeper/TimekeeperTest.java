@@ -85,7 +85,7 @@ public class TimekeeperTest {
         JSONObject firstChild = json.getJSONArray("sublaps").getJSONObject(0);
         //Check that child has 6 attributes. Same as root not plus "root"
         Assert.assertEquals(6, firstChild.length());
-        Assert.assertEquals("A", firstChild.getString("Name"));
+        Assert.assertEquals("'A'", firstChild.getString("Name"));
         Assert.assertEquals(1, firstChild.getInt("Hits"));
         Assert.assertTrue(firstChild.has("Root"));
         Assert.assertTrue(firstChild.has("Parent"));

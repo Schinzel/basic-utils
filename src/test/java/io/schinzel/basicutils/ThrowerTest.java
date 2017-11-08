@@ -145,6 +145,7 @@ public class ThrowerTest extends Thrower {
         Map<String, String> map = ImmutableMap.<String, String>builder()
                 .put("a", "b")
                 .build();
+        map = Thrower.throwIfVarEmpty(map, "argumentName");
         assertThat(map).containsKeys("a").containsValues("b");
     }
 
