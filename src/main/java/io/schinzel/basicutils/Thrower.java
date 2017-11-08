@@ -42,6 +42,7 @@ public class Thrower {
     /**
      * Throws runtime exception if the argument value with the argument name is empty.
      *
+     * @param <T>          The type of the list
      * @param value        The value to check
      * @param variableName The name of the value to check
      * @return The argument value
@@ -55,6 +56,8 @@ public class Thrower {
     /**
      * Throws runtime exception if the argument value with the argument name is empty.
      *
+     * @param <K>          The type of the keys in the map
+     * @param <V>          The type of the values in the map
      * @param value        The value to check
      * @param variableName The name of the value to check
      * @return The argument value
