@@ -1,5 +1,8 @@
 package io.schinzel.basicutils;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * The purpose of this class is to offer less verbose exception throwing in
  * general and variable checking in particular.
@@ -24,14 +27,39 @@ public class Thrower {
 
 
     /**
-     * Throws runtime exception if the argument value with the argument name is
-     * empty.
+     * Throws runtime exception if the argument value with the argument name is empty.
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
      * @return The argument value
      */
     public static String throwIfVarEmpty(String value, String variableName) {
+        ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
+        return value;
+    }
+
+
+    /**
+     * Throws runtime exception if the argument value with the argument name is empty.
+     *
+     * @param value        The value to check
+     * @param variableName The name of the value to check
+     * @return The argument value
+     */
+    public static <T> List<T> throwIfVarEmpty(List<T> value, String variableName) {
+        ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
+        return value;
+    }
+
+
+    /**
+     * Throws runtime exception if the argument value with the argument name is empty.
+     *
+     * @param value        The value to check
+     * @param variableName The name of the value to check
+     * @return The argument value
+     */
+    public static <K, V> Map<K, V> throwIfVarEmpty(Map<K, V> value, String variableName) {
         ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
         return value;
     }
