@@ -16,6 +16,7 @@ import io.schinzel.basicutils.str.Str;
  *
  * @author schinzel
  */
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class Timekeeper {
     /** Singleton instance */
     private static Timekeeper SINGLETON_INSTANCE = new Timekeeper();
@@ -51,7 +52,7 @@ public class Timekeeper {
      * @param lapName The label to the measurement.
      * @return This for chaining
      */
-    public Timekeeper startLap(String lapName) {
+    public Timekeeper start(String lapName) {
         mCurrentLap = mCurrentLap.start(lapName);
         return this;
     }
@@ -62,7 +63,7 @@ public class Timekeeper {
      *
      * @return This for chaining
      */
-    public Timekeeper stopLap() {
+    public Timekeeper stop() {
         mCurrentLap = mCurrentLap.stop();
         return this;
     }
@@ -75,7 +76,7 @@ public class Timekeeper {
      * @param lapName The name of the lap to start
      * @return This for chaining
      */
-    public Timekeeper stopAndStartLap(String lapName) {
+    public Timekeeper stopAndStart(String lapName) {
         mCurrentLap = mCurrentLap.stop().start(lapName);
         return this;
     }

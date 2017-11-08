@@ -114,7 +114,7 @@ class Lap implements IStateNode, IValueWithKey {
         Thrower.throwIfTrue(mStopWatch.isStarted())
                 .message("Cannot get results for lap '" + mKey + "' as it has not been stopped.");
         return State.getBuilder()
-                .addProp().key("Name").val(mKey).buildProp()
+                .addProp().key("Name").val("'" + mKey + "'").buildProp()
                 .ifTrue(mParentLap != null)
                 .addProp().key("Root").val(this.getPercentOfRoot()).decimals(0).unit("%").buildProp()
                 .addProp().key("Parent").val(this.getPercentOfParent()).decimals(0).unit("%").buildProp()
@@ -123,7 +123,7 @@ class Lap implements IStateNode, IValueWithKey {
                 .addProp().key("Avg").val(mStopWatch.getAvgInMs()).decimals(2).unit("ms").buildProp()
                 .addProp().key("Hits").val(mStopWatch.getNumberOfLaps()).buildProp()
                 .ifTrue(!mChildLaps.isEmpty())
-                .addChildren( mChildLaps)
+                .addChildren(mChildLaps)
                 .endIf()
                 .build();
     }

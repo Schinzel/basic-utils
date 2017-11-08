@@ -1,6 +1,13 @@
 package io.schinzel.basicutils;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -83,6 +90,63 @@ public class ThrowerTest extends Thrower {
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> Thrower.throwIfVarEmpty(string, "argumentName"))
                 .withMessage("Argument 'argumentName' cannot be empty");
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_NullList_ThrowException() {
+        List<String> list = null;
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarEmpty(list, "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be empty");
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_EmptyList_ThrowException() {
+        List<String> list = new ArrayList<>();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarEmpty(list, "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be empty");
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_NonEmptyList_ArgumentList() {
+        List<String> list = new ImmutableList.Builder<String>()
+                .add("A")
+                .add("B")
+                .build();
+        list = Thrower.throwIfVarEmpty(list, "argumentName");
+        assertThat(list).contains("A", "B");
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_NullMap_ThrowException() {
+        Map<String, String> map = null;
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarEmpty(map, "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be empty");
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_EmptyMap_ThrowException() {
+        Map<String, String> map = new HashMap<>();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfVarEmpty(map, "argumentName"))
+                .withMessage("Argument 'argumentName' cannot be empty");
+    }
+
+
+    @Test
+    public void throwIfVarEmpty_NonEmptyMap_ArgumentMap() {
+        Map<String, String> map = ImmutableMap.<String, String>builder()
+                .put("a", "b")
+                .build();
+        map = Thrower.throwIfVarEmpty(map, "argumentName");
+        assertThat(map).containsKeys("a").containsValues("b");
     }
 
 

@@ -32,16 +32,16 @@ public class TimekeeperTest {
     public void testToString() {
         Timekeeper tk = Timekeeper
                 .create()
-                .startLap("A").stopLap()
-                .startLap("B").stopLap()
-                .startLap("C").stopLap();
+                .start("A").stop()
+                .start("B").stop()
+                .start("C").stop();
         String str = tk.getResults().toString();
         int result = str.split("\n").length;
         int expected = 5;
         Assert.assertEquals(expected, result);
         tk.reset();
         tk = Timekeeper.create();
-        tk.startLap("A").stopLap().startLap("B").stopLap();
+        tk.start("A").stop().start("B").stop();
         str = tk.getResults().toString();
         result = str.split("\n").length;
         expected = 4;
@@ -53,8 +53,8 @@ public class TimekeeperTest {
     public void getStr_StartAndStopTwoLaps_FourLines() {
         String str = Timekeeper
                 .create()
-                .startLap("A").stopLap()
-                .startLap("B").stopLap()
+                .start("A").stop()
+                .start("B").stop()
                 .getResults().toString();
         int actual = str.split("\n").length;
         int expected = 4;
@@ -68,13 +68,13 @@ public class TimekeeperTest {
     @Test
     public void testToJson() {
         Timekeeper tk = Timekeeper.getSingleton();
-        tk.startLap("A");
+        tk.start("A");
         Sandman.snoozeMillis(10);
-        tk.stopLap().startLap("B");
+        tk.stop().start("B");
         Sandman.snoozeMillis(10);
-        tk.stopLap().startLap("C");
+        tk.stop().start("C");
         Sandman.snoozeMillis(10);
-        tk.stopLap();
+        tk.stop();
         JSONObject json = tk.getResults().getJson();
         //Check that are 5 attributes "name", "tot", "avg" and so forth
         Assert.assertEquals(5, json.length());
@@ -85,7 +85,7 @@ public class TimekeeperTest {
         JSONObject firstChild = json.getJSONArray("sublaps").getJSONObject(0);
         //Check that child has 6 attributes. Same as root not plus "root"
         Assert.assertEquals(6, firstChild.length());
-        Assert.assertEquals("A", firstChild.getString("Name"));
+        Assert.assertEquals("'A'", firstChild.getString("Name"));
         Assert.assertEquals(1, firstChild.getInt("Hits"));
         Assert.assertTrue(firstChild.has("Root"));
         Assert.assertTrue(firstChild.has("Parent"));
@@ -175,7 +175,7 @@ public class TimekeeperTest {
     @Test
     public void toString_LapAAA_CurrentLapShouldBeRoot() {
         String actual = Timekeeper.create()
-                .startLap("AAA")
+                .start("AAA")
                 .toString();
         assertThat(actual).contains("Current lap: 'AAA'");
     }

@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
  * 
  * @author schinzel
  */
+@SuppressWarnings("WeakerAccess")
 public class Sandman {
 
     /**

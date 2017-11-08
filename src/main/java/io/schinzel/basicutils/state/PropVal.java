@@ -13,6 +13,7 @@ import java.util.List;
  * The purpose of this class is to add a value to a property.
  */
 
+@SuppressWarnings("WeakerAccess")
 @Accessors(prefix = "m")
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 public class PropVal {

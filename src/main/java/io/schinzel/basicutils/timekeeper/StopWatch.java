@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Accessors(prefix = "m")
 class StopWatch {
     /** The time when the lap started */
-    private long mLapStartTime = 0l;
+    private long mLapStartTime = 0L;
     /** Number of laps measured. */
     @Getter private int mNumberOfLaps = 0;
     /** The time of all laps. */
@@ -21,7 +21,7 @@ class StopWatch {
     private State mState = State.STOPPED;
 
     private enum State {
-        STARTED, STOPPED;
+        STARTED, STOPPED
     }
 
 

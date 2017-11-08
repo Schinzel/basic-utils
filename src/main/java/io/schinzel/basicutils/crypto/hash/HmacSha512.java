@@ -13,8 +13,9 @@ import java.security.Key;
  * class is to protect PII and still have the data be searchable. To achieve this there is no salt
  * used and thus the same string hashed twice will look the same.
  * <p>
- * Created by schinzel on 2017-05-25.
+ * Created by Schinzel on 2017-05-25.
  */
+@SuppressWarnings("WeakerAccess")
 public class HmacSha512 implements IHash {
     final Encoding mEncoding;
     private final HashFunction mHashFunction;
