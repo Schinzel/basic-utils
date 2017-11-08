@@ -12,45 +12,45 @@ class TimekeeperSample {
     public static void main(String[] args) {
         //Get the timekeeper. There is also a create method if one does not want to use a singleton.
         Timekeeper timekeeper = Timekeeper.getSingleton();
-        timekeeper.startLap("A");
+        timekeeper.start("A");
         //Some code runs here that will be measured as lap A
         Sandman.snoozeMillis(5);
-        timekeeper.stopAndStartLap("B");
+        timekeeper.stopAndStart("B");
         for (int i = 0; i < 10; i++) {
             //Start lab B1. As lap B is running, B1 will be a sub-lap to B.
-            timekeeper.startLap("B2");
+            timekeeper.start("B2");
             Sandman.snoozeMillis(1);
-            timekeeper.stopLap();
+            timekeeper.stop();
         }
         for (int i = 0; i < 5; i++) {
             //Start lab B2. As lap B is running, B2 will be a sub-lap to B.
-            timekeeper.startLap("B1");
+            timekeeper.start("B1");
             Sandman.snoozeMillis(20);
-            timekeeper.stopLap();
+            timekeeper.stop();
         }
         for (int i = 0; i < 5; i++) {
             //Start lab B2. As lap B is running, B2 will be a sub-lap to B.
-            timekeeper.startLap("B3");
+            timekeeper.start("B3");
             Sandman.snoozeMillis(20);
-            timekeeper.stopLap();
+            timekeeper.stop();
         }
-        timekeeper.stopAndStartLap("C");
+        timekeeper.stopAndStart("C");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
-        timekeeper.stopAndStartLap("D");
+        timekeeper.stopAndStart("D");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
-        timekeeper.stopAndStartLap("E");
+        timekeeper.stopAndStart("E");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
-        timekeeper.stopAndStartLap("F");
+        timekeeper.stopAndStart("F");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
-        timekeeper.stopAndStartLap("CCC");
+        timekeeper.stopAndStart("CCC");
         //Some code runs here that will be measured as lap C
         Sandman.snoozeMillis(10);
         //Stop current lap, i.e. lap C
-        timekeeper.stopLap();
+        timekeeper.stop();
         //Get results and render
         timekeeper.getResults().getStr().writeToSystemOut();
     }
