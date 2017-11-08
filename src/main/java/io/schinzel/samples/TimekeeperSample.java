@@ -29,7 +29,7 @@ class TimekeeperSample {
             timekeeper.stop();
         }
         for (int i = 0; i < 5; i++) {
-            //Start lab B2. As lap B is running, B2 will be a sub-lap to B.
+            //Start lap B2. As lap B is running, B2 will be a sub-lap to B.
             timekeeper.start("B3");
             Sandman.snoozeMillis(20);
             timekeeper.stop();
