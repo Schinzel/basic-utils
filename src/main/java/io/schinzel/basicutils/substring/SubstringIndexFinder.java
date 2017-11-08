@@ -39,7 +39,7 @@ class SubstringIndexFinder {
      * @return The index of the argument sub string in the argument string. -1 if the substring was
      * not found.
      */
-    int getPos(String string, String subString, int occurrence, int startPos) {
+    private int getPos(String string, String subString, int occurrence, int startPos) {
         Thrower.throwIfVarTooSmall(occurrence, "occurrence", 1);
         Thrower.throwIfVarTooSmall(startPos, "startPos", 0);
         //Get the index of the sub string in the string

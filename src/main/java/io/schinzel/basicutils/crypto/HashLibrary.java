@@ -15,6 +15,7 @@ import java.util.Map;
  * <p>
  * Created by schinzel on 2017-04-30.
  */
+@SuppressWarnings("WeakerAccess")
 public class HashLibrary {
     /** Singleton instance */
     static HashLibrary SINGLETON_INSTANCE = new HashLibrary();

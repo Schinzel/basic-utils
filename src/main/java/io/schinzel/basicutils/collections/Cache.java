@@ -5,24 +5,20 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * The purpose of this class is to cache data and offer hits statistics to 
- * facilitate unit tests. 
+ * The purpose of this class is to cache data and offer hits statistics to
+ * facilitate unit tests.
  *
- * @author schinzel
  * @param <K> the type of keys maintained by this cache
  * @param <V> the type of mapped values
+ * @author schinzel
  */
+@SuppressWarnings("WeakerAccess")
 public class Cache<K, V> {
-
-    /**
-     * Holds the data cached.
-     */
+    /** Holds the data cached. */
     private final Map<K, V> mCache = new ConcurrentHashMap<>();
-    /**
-     * The number of times this cache has returned a cached value. Useful for
-     * testing.
-     */
+    /** The number of times this cache has returned a cached value. Useful fortesting. */
     private long mHits;
+
 
     /**
      * If no key exists an error is thrown.
@@ -40,7 +36,6 @@ public class Cache<K, V> {
 
 
     /**
-     *
      * @return Get the keys held by this cache.
      */
     public Set<K> getKeys() {
@@ -49,7 +44,6 @@ public class Cache<K, V> {
 
 
     /**
-     *
      * @param key The key to check if exits in collection.
      * @return True if contains argument key. Else false.
      */
@@ -61,7 +55,7 @@ public class Cache<K, V> {
     /**
      * Add the argument key and value to cache.
      *
-     * @param key The key with which the argument value is to be associated
+     * @param key   The key with which the argument value is to be associated
      * @param value The value to be associated with the specified key.
      * @return This for chaining.
      */
@@ -72,8 +66,7 @@ public class Cache<K, V> {
 
 
     /**
-     *
-     * @param key The key to check if exits in collection.
+     * @param key   The key to check if exits in collection.
      * @param value The value to be associated with the specified key.
      * @return The argument value.
      */

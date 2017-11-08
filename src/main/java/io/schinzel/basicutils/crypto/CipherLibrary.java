@@ -26,15 +26,15 @@ import java.util.Map;
  */
 public class CipherLibrary {
     /** Singleton instance */
-    static CipherLibrary SINGLETON_INSTANCE = new CipherLibrary();
+    private static CipherLibrary SINGLETON_INSTANCE = new CipherLibrary();
     @Getter(AccessLevel.PRIVATE)
     private Map<Integer, ICipher> ciphers = new HashMap<>();
 
 
     /**
-     * Package private so that only create method is used.
+     * Private so that only create method is used.
      */
-    CipherLibrary() {
+    private CipherLibrary() {
     }
 
 

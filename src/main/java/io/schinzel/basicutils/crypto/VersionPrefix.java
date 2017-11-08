@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
  * <p>
  * Created by schinzel on 2017-05-04.
  */
+@SuppressWarnings("WeakerAccess")
 public class VersionPrefix {
     @Getter private final String string;
     @Getter private final Integer version;
