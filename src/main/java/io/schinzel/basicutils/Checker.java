@@ -1,6 +1,5 @@
 package io.schinzel.basicutils;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,25 +37,27 @@ public class Checker {
 
     /**
      * @param value The value to check
-     * @param <T>   The type of the list
+     * @param <T>   The type of the Iterable
      * @return True if argument is null or empty, else false.
      */
-    public static <T> boolean isEmpty(List<T> value) {
-        return (value == null || value.isEmpty());
+    public static <T> boolean isEmpty(Iterable<T> value) {
+        return (value == null || !value.iterator().hasNext());
     }
 
 
     /**
      * @param value The value to check
-     * @param <T>   The type of the list
+     * @param <T>   The type of the Iterable
      * @return True if argument is not null or empty, else false.
      */
-    public static <T> boolean isNotEmpty(List<T> value) {
+    public static <T> boolean isNotEmpty(Iterable<T> value) {
         return !Checker.isEmpty(value);
     }
 
 
     /**
+     * /**
+     *
      * @param value The value to check
      * @param <K>   The type of the key of the map
      * @param <V>   The value of the key of the map
@@ -165,7 +166,7 @@ public class Checker {
      * @return True if argument is empty, else false.
      */
     public static boolean isEmptyVarArgs(String... value) {
-        return (value == null || value.length == 0 || value[0] == null);
+        return (value == null || value.length == 0 || (value.length == 1 && value[0] == null));
     }
 
 
@@ -176,7 +177,6 @@ public class Checker {
      * @return True if argument is not empty, else false.
      */
     public static boolean isNotEmptyVarArgs(String... value) {
-        //return (value != null && value.length > 0 || value[0] != null);
         return !Checker.isEmptyVarArgs(value);
     }
 
