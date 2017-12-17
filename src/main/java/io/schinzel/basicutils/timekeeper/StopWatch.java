@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.timekeeper;
 
-import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.thrower.Thrower;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 

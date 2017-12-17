@@ -1,4 +1,6 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.thrower;
+
+import io.schinzel.basicutils.Checker;
 
 import java.util.List;
 import java.util.Map;

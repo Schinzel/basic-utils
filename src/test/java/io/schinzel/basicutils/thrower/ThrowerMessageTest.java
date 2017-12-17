@@ -1,5 +1,6 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.thrower;
 
+import io.schinzel.basicutils.thrower.ThrowerMessage;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThatCode;

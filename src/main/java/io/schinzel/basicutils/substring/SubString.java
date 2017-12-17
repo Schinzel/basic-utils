@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.substring;
 
-import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.thrower.Thrower;
 import io.schinzel.basicutils.str.Str;
 import lombok.AccessLevel;
 import lombok.Getter;

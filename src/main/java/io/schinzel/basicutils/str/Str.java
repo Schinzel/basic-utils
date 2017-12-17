@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.str;
 
-import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.thrower.Thrower;
 
 import java.util.Locale;
 
