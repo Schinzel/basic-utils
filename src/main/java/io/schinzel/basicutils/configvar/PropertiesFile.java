@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.configvar;
 
 import com.google.common.io.Closeables;
-import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.thrower.Thrower;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;

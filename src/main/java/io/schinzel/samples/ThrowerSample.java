@@ -1,6 +1,6 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.thrower.Thrower;
 
 class ThrowerSample {
 

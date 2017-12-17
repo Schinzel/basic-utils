@@ -1,7 +1,9 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.thrower;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import io.schinzel.basicutils.RandomUtil;
+import io.schinzel.basicutils.thrower.Thrower;
 import org.junit.Test;
 
 import java.util.ArrayList;

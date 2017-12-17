@@ -3,7 +3,7 @@ package io.schinzel.basicutils.str;
 import com.google.common.base.Charsets;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
-import io.schinzel.basicutils.Thrower;
+import io.schinzel.basicutils.thrower.Thrower;
 
 /**
  * The purpose of this interface is cast the string held by this object to different data types.

@@ -1,4 +1,4 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.thrower;
 
 /**
  * The purpose of this class is to allow chaining of Thrower.
