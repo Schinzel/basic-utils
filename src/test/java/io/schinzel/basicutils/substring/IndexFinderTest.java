@@ -11,7 +11,7 @@ public class IndexFinderTest {
 
     @Test
     public void getSubstringPosition_Occurrence1_3() {
-        int actualPos = SubstringIndexFinder.builder()
+        int actualPos = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.FIRST)
@@ -24,7 +24,7 @@ public class IndexFinderTest {
 
     @Test
     public void getSubstringPosition_Occurrence2_7() {
-        int actualPos = SubstringIndexFinder.builder()
+        int actualPos = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.SECOND)
@@ -37,7 +37,7 @@ public class IndexFinderTest {
 
     @Test
     public void getSubstringPosition_Occurrence3_7() {
-        int actualPos = SubstringIndexFinder.builder()
+        int actualPos = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.THIRD)
@@ -50,7 +50,7 @@ public class IndexFinderTest {
 
     @Test
     public void getSubstringPosition_OccurrenceDoesNotExist_Minus1() {
-        int actualPos = SubstringIndexFinder.builder()
+        int actualPos = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.FOURTH)
@@ -63,7 +63,7 @@ public class IndexFinderTest {
 
     @Test
     public void getSubstringPosition_Occurrence2StartPos_7() {
-        int actualPos = SubstringIndexFinder.builder()
+        int actualPos = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.SECOND)
@@ -77,7 +77,7 @@ public class IndexFinderTest {
     @Test
     public void getSubstringPosition_StartPosMinus1_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                SubstringIndexFinder.builder()
+                SubStringIndexFinder.builder()
                         .string("___GG__GG__GG___")
                         .subString("GG")
                         .occurrence(Occurrence.FIRST)
@@ -89,7 +89,7 @@ public class IndexFinderTest {
 
     @Test
     public void getSubstringPosition_LastOccurrence_11() {
-        int actualPos = SubstringIndexFinder.builder()
+        int actualPos = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.LAST)
@@ -102,7 +102,7 @@ public class IndexFinderTest {
 
     @Test
     public void isSubstringFound_ExistingSubString_True() {
-        boolean actual = SubstringIndexFinder.builder()
+        boolean actual = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.FIRST)
@@ -115,7 +115,7 @@ public class IndexFinderTest {
 
     @Test
     public void isSubstringFound_NonExistingOccurrence_False() {
-        boolean actual = SubstringIndexFinder.builder()
+        boolean actual = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GG")
                 .occurrence(Occurrence.TENTH)
@@ -128,7 +128,7 @@ public class IndexFinderTest {
 
     @Test
     public void isSubstringFound_NonExistingSubString_False() {
-        boolean actual = SubstringIndexFinder.builder()
+        boolean actual = SubStringIndexFinder.builder()
                 .string("___GG__GG__GG___")
                 .subString("GGGGGGG")
                 .occurrence(Occurrence.FIRST)

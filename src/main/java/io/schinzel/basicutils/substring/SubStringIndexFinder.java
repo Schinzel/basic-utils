@@ -11,7 +11,7 @@ import lombok.experimental.Accessors;
  * Created by schinzel on 2017-03-25.
  */
 @Accessors(prefix = "m")
-class SubstringIndexFinder {
+class SubStringIndexFinder {
     /** True if the substring was found, else false. */
     @Getter private final boolean mSubstringFound;
     /** The index of the substring */
@@ -19,7 +19,7 @@ class SubstringIndexFinder {
 
 
     @Builder
-    SubstringIndexFinder(String string, String subString, Occurrence occurrence, int startPos) {
+    SubStringIndexFinder(String string, String subString, Occurrence occurrence, int startPos) {
         Thrower.throwIfVarTooSmall(startPos, "startPos", 0);
         //If this is a request for the last occurrence for the argument sub string
         mSubstringPosition = (occurrence == Occurrence.LAST)
