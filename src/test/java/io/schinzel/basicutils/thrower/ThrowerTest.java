@@ -2,7 +2,6 @@ package io.schinzel.basicutils.thrower;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import io.schinzel.basicutils.RandomUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -10,7 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
 /**
@@ -53,15 +53,7 @@ public class ThrowerTest extends Thrower {
                 .withMessage("Argument 'argumentName' cannot be null");
     }
 
-
-    @Test
-    public void throwIfVarNull_AnObject_ReturnsSameObject() {
-        RandomUtil randomUtilIn = RandomUtil.create(123);
-        Object randomUtilOut = Thrower.throwIfVarNull(randomUtilIn, "");
-        assertThat(randomUtilOut).isEqualTo(randomUtilIn);
-    }
-
-
+    
     @Test
     public void throwIfVarEmpty_NonEmptyString_NoException() {
         assertThatCode(() -> Thrower.throwIfVarEmpty("a", "argumentName"))
