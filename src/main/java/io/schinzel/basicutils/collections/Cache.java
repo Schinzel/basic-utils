@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.collections;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Cache<K, V> {
     /** Holds the data cached. */
     private final Map<K, V> mCache = new ConcurrentHashMap<>();
-    /** The number of times this cache has returned a cached value. Useful fortesting. */
+    /** The number of times this cache has returned a cached value. Useful for testing. */
     private long mHits;
 
 
@@ -36,10 +37,18 @@ public class Cache<K, V> {
 
 
     /**
-     * @return Get the keys held by this cache.
+     * @return The keys held by this cache
      */
     public Set<K> getKeys() {
         return mCache.keySet();
+    }
+
+
+    /**
+     * @return The values held by this cache
+     */
+    public Collection<V> getValues() {
+        return mCache.values();
     }
 
 

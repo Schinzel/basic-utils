@@ -1,24 +1,25 @@
 package io.schinzel.basicutils.collections;
 
-import java.nio.charset.Charset;
-import java.util.HashSet;
-import java.util.Set;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.nio.charset.Charset;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
+
+
 /**
- *
  * @author schinzel
  */
 public class CacheTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
 
     @Test
     public void testOverwrite() {
@@ -77,7 +78,6 @@ public class CacheTest {
         byteArrCache.put("key1", val1);
         byteArrCache.put("key2", val2);
         byteArrCache.put("key3", val3);
-
         assertArrayEquals(val1, byteArrCache.get("key1"));
         assertArrayEquals(val2, byteArrCache.get("key2"));
         assertArrayEquals(val3, byteArrCache.get("key3"));
@@ -99,7 +99,6 @@ public class CacheTest {
         IntIntCache.put(1, 1);
         IntIntCache.put(2, 2);
         IntIntCache.put(3, 3);
-
         assertEquals(1, IntIntCache.get(1).intValue());
         assertEquals(2, IntIntCache.get(2).intValue());
         assertEquals(3, IntIntCache.get(3).intValue());
@@ -131,6 +130,24 @@ public class CacheTest {
         assertEquals(set, cache.getKeys());
         exception.expect(RuntimeException.class);
         cache.get("I_do_not_exist");
+    }
+
+
+    @Test
+    public void values_EmptyCache_EmptyCollection() {
+        Cache<String, Integer> cache = new Cache<>();
+        assertThat(cache.getValues().size()).isZero();
+    }
+
+
+    @Test
+    public void values_NonEmptyCache_ValuesAdded() {
+        Cache<String, Integer> cache = new Cache<String, Integer>()
+                .put("monkey", 1)
+                .put("bear", 2)
+                .put("bird", 3);
+        assertThat(cache.getValues())
+                .containsExactlyInAnyOrder(1, 2, 3);
     }
 
 
