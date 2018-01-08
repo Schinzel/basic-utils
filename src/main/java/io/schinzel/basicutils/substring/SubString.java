@@ -1,10 +1,8 @@
 package io.schinzel.basicutils.substring;
 
 import io.schinzel.basicutils.thrower.Thrower;
-import io.schinzel.basicutils.str.Str;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
@@ -20,74 +18,12 @@ public class SubString {
     @Getter(AccessLevel.PACKAGE) private final String mString;
 
 
-    public static Builder create(String string) {
-        return new Builder(string);
+    public static SubStringBuilder create(String string) {
+        return new SubStringBuilder(string);
     }
 
 
-    @Accessors(prefix = "m", fluent = true, chain = true)
-    public static class Builder {
-        private final String mString;
-        @Setter private String mStartDelimiter = NO_VAL_SET;
-        private Occurrence mStartDelimiterOccurrence = Occurrence.FIRST;
-        @Setter private String mEndDelimiter = NO_VAL_SET;
-        private Occurrence mEndDelimiterOccurrence = Occurrence.FIRST;
-
-
-        Builder(String string) {
-            mString = string;
-        }
-
-
-        public Builder startDelimiter(String delimiter, Occurrence occurrence) {
-            mStartDelimiter = delimiter;
-            mStartDelimiterOccurrence = occurrence;
-            return this;
-        }
-
-
-        public Builder endDelimiter(String delimiter, Occurrence occurrence) {
-            mEndDelimiter = delimiter;
-            mEndDelimiterOccurrence = occurrence;
-            return this;
-        }
-
-
-        /**
-         * @return The requested substring as string.
-         */
-        public String getString() {
-            return new SubString(this).getString();
-        }
-
-
-        /**
-         * @return The sub-string as a Str.
-         */
-        public Str getStr() {
-            return Str.create(this.getString());
-        }
-
-
-        /**
-         * @return The requested substring as string.
-         */
-        public String toString() {
-            return this.getString();
-        }
-
-
-        /**
-         * @return The request substring as new SubString.
-         */
-        public Builder newSubString() {
-            return SubString.create(this.getString());
-        }
-
-    }
-
-
-    private SubString(Builder builder) {
+    SubString(SubStringBuilder builder) {
         String string = builder.mString;
         Thrower.throwIfVarNull(string, "string");
         int startPos = getStartPos(string, builder.mStartDelimiter, builder.mStartDelimiterOccurrence);
