@@ -3,7 +3,6 @@ package io.schinzel.basicutils.thrower;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import io.schinzel.basicutils.RandomUtil;
-import io.schinzel.basicutils.thrower.Thrower;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -64,14 +63,6 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
-    public void throwIfVarEmpty_StringIn_SameStringReturned() {
-        String stringIn = "gibbon";
-        String stringOut = Thrower.throwIfVarEmpty(stringIn, "");
-        assertThat(stringOut).isEqualTo(stringIn);
-    }
-
-
-    @Test
     public void throwIfVarEmpty_NonEmptyString_NoException() {
         assertThatCode(() -> Thrower.throwIfVarEmpty("a", "argumentName"))
                 .doesNotThrowAnyException();
@@ -114,13 +105,13 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
-    public void throwIfVarEmpty_NonEmptyList_ArgumentList() {
+    public void throwIfVarEmpty_NonEmptyList_NoException() {
         List<String> list = new ImmutableList.Builder<String>()
                 .add("A")
                 .add("B")
                 .build();
-        list = Thrower.throwIfVarEmpty(list, "argumentName");
-        assertThat(list).contains("A", "B");
+        assertThatCode(() ->
+                Thrower.throwIfVarEmpty(list, "argumentName")).doesNotThrowAnyException();
     }
 
 
@@ -143,20 +134,13 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
-    public void throwIfVarEmpty_NonEmptyMap_ArgumentMap() {
+    public void throwIfVarEmpty_NonEmptyMap_NoException() {
         Map<String, String> map = ImmutableMap.<String, String>builder()
                 .put("a", "b")
                 .build();
-        map = Thrower.throwIfVarEmpty(map, "argumentName");
-        assertThat(map).containsKeys("a").containsValues("b");
-    }
-
-
-    @Test
-    public void throwIfVarOutsideRange_IntIn_SameIntOut() {
-        int intIn = RandomUtil.getRandomNumber(1000, 30000);
-        int intOut = Thrower.throwIfVarOutsideRange(intIn, "var name", Integer.MIN_VALUE, Integer.MAX_VALUE);
-        assertThat(intOut).isEqualTo(intIn);
+        assertThatCode(() ->
+                Thrower.throwIfVarEmpty(map, "argumentName")
+        ).doesNotThrowAnyException();
     }
 
 
@@ -252,26 +236,10 @@ public class ThrowerTest extends Thrower {
 
 
     @Test
-    public void throwIfVarTooSmall_IntIn_SameIntOut() {
-        int intIn = RandomUtil.getRandomNumber(1000, 30000);
-        int intOut = Thrower.throwIfVarTooSmall(intIn, "", Integer.MIN_VALUE);
-        assertThat(intOut).isEqualTo(intIn);
-    }
-
-
-    @Test
     public void throwIfVarTooLarge_Val11Max10_ThrowsException() {
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> Thrower.throwIfVarTooLarge(11, "myVariable", 10))
                 .withMessageStartingWith("The value 11 in variable 'myVariable' is too large. Max value is 10.");
-    }
-
-
-    @Test
-    public void throwIfVarTooLarge_IntIn_SameIntOut() {
-        int intIn = RandomUtil.getRandomNumber(1000, 30000);
-        int intOut = Thrower.throwIfVarTooLarge(intIn, "", Integer.MAX_VALUE);
-        assertThat(intOut).isEqualTo(intIn);
     }
 
 
