@@ -103,7 +103,7 @@ public class SubString {
             //Let the start pos be start of string.
             return 0;
         }
-        SubstringIndexFinder startIndex = SubstringIndexFinder.builder()
+        SubStringIndexFinder startIndex = SubStringIndexFinder.builder()
                 .string(string)
                 .subString(startDelimiter)
                 .occurrence(startOccurrence)
@@ -120,7 +120,7 @@ public class SubString {
             //Let the end pos be end of string
             return string.length();
         }
-        SubstringIndexFinder endIndex = SubstringIndexFinder.builder()
+        SubStringIndexFinder endIndex = SubStringIndexFinder.builder()
                 .string(string)
                 .startPos(startPos)
                 .subString(endDelimiter)
