@@ -21,7 +21,7 @@ public class Thrower {
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
-     * @return The argument value
+     * @return This for chaining
      */
     public static Thrower throwIfVarNull(Object value, String variableName) {
         ThrowerMessage.create(value == null).message("Argument '" + variableName + "' cannot be null");
@@ -34,7 +34,7 @@ public class Thrower {
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
-     * @return The argument value
+     * @return This for chaining
      */
     public static Thrower throwIfVarEmpty(String value, String variableName) {
         ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
@@ -48,7 +48,7 @@ public class Thrower {
      * @param <T>          The type of the list
      * @param value        The value to check
      * @param variableName The name of the value to check
-     * @return The argument value
+     * @return This for chaining
      */
     public static <T> Thrower throwIfVarEmpty(List<T> value, String variableName) {
         ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
@@ -63,7 +63,7 @@ public class Thrower {
      * @param <V>          The type of the values in the map
      * @param value        The value to check
      * @param variableName The name of the value to check
-     * @return The argument value
+     * @return This for chaining
      */
     public static <K, V> Thrower throwIfVarEmpty(Map<K, V> value, String variableName) {
         ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
@@ -78,7 +78,7 @@ public class Thrower {
      * @param variableName The name of the variable that holds the value to
      *                     check. Used to create more useful exception message.
      * @param min          The min value the argument value should not be less than.
-     * @return The argument value
+     * @return This for chaining
      */
     public static Thrower throwIfVarTooSmall(int valueToCheck, String variableName, int min) {
         Thrower.throwIfTrue(valueToCheck < min)
@@ -94,7 +94,7 @@ public class Thrower {
      * @param variableName The name of the variable that holds the value to
      *                     check. Used to create more useful exception message.
      * @param max          The max value the argument value should not be larger than.
-     * @return The argument value
+     * @return This for chaining
      */
     public static Thrower throwIfVarTooLarge(int valueToCheck, String variableName, int max) {
         Thrower.throwIfTrue(valueToCheck > max)
@@ -112,7 +112,7 @@ public class Thrower {
      *                     check. Used to create more useful exception message.
      * @param min          The minimum allowed value that the argument value can have
      * @param max          The maximum allowed value that the argument value can have
-     * @return The argument value
+     * @return This for chaining
      */
     public static Thrower throwIfVarOutsideRange(int valueToCheck, String variableName, int min, int max) {
         Thrower.throwIfTrue((max < min), "Error using method. Max cannot be smaller than min.");
@@ -128,6 +128,7 @@ public class Thrower {
      *
      * @param expression The expression to check
      * @param message    The exception message
+     * @return This for chaining
      */
     public static Thrower throwIfFalse(boolean expression, String message) {
         Thrower.throwIfFalse(expression).message(message);
@@ -151,6 +152,7 @@ public class Thrower {
      *
      * @param expression The boolean expression to evaluate.
      * @param message    The exception message
+     * @return This for chaining
      */
     public static Thrower throwIfTrue(boolean expression, String message) {
         throwIfFalse(!expression, message);
@@ -185,6 +187,7 @@ public class Thrower {
      *
      * @param object  The object to check for null
      * @param message The exception message
+     * @return This for chaining
      */
     public static Thrower throwIfNull(Object object, String message) {
         Thrower.throwIfNull(object).message(message);
