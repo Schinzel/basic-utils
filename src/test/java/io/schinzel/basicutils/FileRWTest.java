@@ -32,16 +32,16 @@ public class FileRWTest {
         File file = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileRW.readAsString(file)
-        );
+        ).withMessageStartingWith("Argument 'file' cannot be null");
     }
 
 
     @Test
     public void readAsString_NonExistingFile_Exception() {
-        File file = new File("I_do_not_exist");
+        File file = new File("I_do_not_exist.txt");
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileRW.readAsString(file)
-        );
+        ).withMessageStartingWith("File 'I_do_not_exist.txt' does not exist");
     }
 
 
@@ -50,7 +50,7 @@ public class FileRWTest {
         String fileName = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileRW.readAsString(fileName)
-        );
+        ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
 
@@ -59,16 +59,7 @@ public class FileRWTest {
         String fileName = "";
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileRW.readAsString(fileName)
-        );
-    }
-
-
-    @Test
-    public void readAsString_NonExistingFileFromFileName_Exception() {
-        String fileName = "I_do_not_exist";
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileRW.readAsString(fileName)
-        );
+        ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
 
@@ -79,4 +70,16 @@ public class FileRWTest {
         String readString = FileRW.readAsString(fileName);
         assertThat(readString).isEqualTo(stringToWrite);
     }
+
+
+    @Test
+    public void readAsByteArray_NullFileName_Exception() {
+
+    }
+
+
+    @Test
+    public void readAsByteArray_EmptyFileName_Exception() {
+    }
+
 }

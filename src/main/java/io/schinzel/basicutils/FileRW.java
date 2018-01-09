@@ -21,7 +21,8 @@ public class FileRW {
      * @return The file content as a string
      */
     public static String readAsString(String fileName) {
-        File file = FileRW.getFile(fileName);
+        Thrower.throwIfVarEmpty(fileName, "fileName");
+        File file = new File(fileName);
         return FileRW.readAsString(file);
     }
 
@@ -31,6 +32,8 @@ public class FileRW {
      * @return The file content as a string
      */
     public static String readAsString(File file) {
+        Thrower.throwIfVarNull(file, "file");
+        FileRW.throwIfDoesNotExist(file);
         try {
             return Files.asCharSource(file, Charsets.UTF_8).read();
         } catch (IOException e) {
@@ -44,7 +47,8 @@ public class FileRW {
      * @return The file content as a byte array
      */
     public static byte[] readAsByteArray(String fileName) {
-        File file = FileRW.getFile(fileName);
+        File file = new File(fileName);
+        FileRW.throwIfDoesNotExist(file);
         try {
             return Files.toByteArray(file);
         } catch (IOException e) {
@@ -97,13 +101,9 @@ public class FileRW {
     }
 
 
-    /**
-     * @param fileName The name of a file
-     * @return A new instance with the argument file name
-     */
-    static File getFile(String fileName) {
-        File file = new File(fileName);
-        return file;
+    static void throwIfDoesNotExist(File file) {
+        Thrower.throwIfFalse(file.exists())
+                .message("File '" + file.getName() + "' does not exist");
     }
 
 
@@ -128,7 +128,7 @@ public class FileRW {
             stringToWrite = EmptyObjects.EMPTY_STRING;
         }
         try {
-            File file = FileRW.getFile(fileName);
+            File file = new File(fileName);
             //If should delete file on exit
             if (fileOp == FileOp.DELETE_ON_EXIT) {
                 file.deleteOnExit();
