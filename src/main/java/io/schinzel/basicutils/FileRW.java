@@ -72,11 +72,28 @@ public class FileRW {
 
 
     /**
+     * Writes to a file which is deleted when the JVM terminates.
+     *
      * @param fileName The name of a file
      * @param content  The file content
      */
     public static void writeToTempFile(String fileName, String content) {
         writeToFile(fileName, content, FileOp.DELETE_ON_EXIT);
+    }
+
+
+    /**
+     * Writes to a file which is deleted when the JVM terminates.
+     *
+     * @param content The file content
+     * @return The generated name of the file
+     */
+    public static String writeToTempFile(String content) {
+        String fileName = FileRW.class.getSimpleName()
+                + "_" + RandomUtil.getRandomString(5)
+                + ".txt";
+        writeToTempFile(fileName, content);
+        return fileName;
     }
 
 
