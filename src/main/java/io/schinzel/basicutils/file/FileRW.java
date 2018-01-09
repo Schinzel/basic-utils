@@ -1,8 +1,10 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.file;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
+import io.schinzel.basicutils.EmptyObjects;
+import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.thrower.Thrower;
 
 import java.io.File;
@@ -87,7 +89,7 @@ public class FileRW {
 
 
     /**
-     * Writes to a file which is deleted when the JVM terminates.
+     * Writes to a file with a randomly generated name which is deleted when the JVM terminates.
      *
      * @param content The file content
      * @return The generated name of the file

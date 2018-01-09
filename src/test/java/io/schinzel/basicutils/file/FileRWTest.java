@@ -1,5 +1,7 @@
-package io.schinzel.basicutils;
+package io.schinzel.basicutils.file;
 
+import io.schinzel.basicutils.FunnyChars;
+import io.schinzel.basicutils.RandomUtil;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.junit.After;

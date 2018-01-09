@@ -1,6 +1,6 @@
 package io.schinzel.basicutils.str;
 
-import io.schinzel.basicutils.FileRW;
+import io.schinzel.basicutils.file.FileRW;
 import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.thrower.Thrower;
 
