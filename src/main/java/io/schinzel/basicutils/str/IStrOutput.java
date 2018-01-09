@@ -2,6 +2,7 @@ package io.schinzel.basicutils.str;
 
 import io.schinzel.basicutils.FileRW;
 import io.schinzel.basicutils.RandomUtil;
+import io.schinzel.basicutils.thrower.Thrower;
 
 /**
  * The purpose of this interface is to send the String held to different outputs such as system-out
@@ -43,6 +44,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T writeToFile(String fileName) {
+        Thrower.throwIfVarEmpty(fileName, "fileName");
         FileRW.write(fileName, this.getString());
         return this.getThis();
     }
@@ -54,7 +56,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return The name of the temp file created.
      */
     default String writeToTempFile() {
-        String fileName = RandomUtil.getRandomString(10) + ".txt";
+        String fileName = RandomUtil.getRandomString(20) + ".txt";
         this.writeToTempFile(fileName);
         return fileName;
     }
@@ -67,6 +69,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T writeToTempFile(String fileName) {
+        Thrower.throwIfVarEmpty(fileName, "fileName");
         FileRW.writeToTempFile(fileName, this.getString());
         return this.getThis();
     }
@@ -79,6 +82,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining
      */
     default T appendToFile(String fileName) {
+        Thrower.throwIfVarEmpty(fileName, "fileName");
         FileRW.append(fileName, this.getString());
         return this.getThis();
     }

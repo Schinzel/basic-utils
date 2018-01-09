@@ -2,8 +2,11 @@ package io.schinzel.basicutils.str;
 
 import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.RandomUtil;
-import org.junit.*;
-import org.junit.rules.ExpectedException;
+import lombok.Getter;
+import lombok.SneakyThrows;
+import lombok.experimental.Accessors;
+import org.junit.After;
+import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,25 +14,23 @@ import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+
+@Accessors(prefix = "m")
 public class IStrOutputTest {
-    private String mFileName;
+    @Getter
+    private final String mFileName = "TestFile_"
+            + this.getClass().getSimpleName()
+            + "_" + RandomUtil.getRandomString(5) + ".txt";
 
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     private class StrOutput extends AbstractIStr<StrOutput> implements IStrOutput<StrOutput> {
         @Override
         public StrOutput getThis() {
             return this;
         }
-    }
-
-
-    @Before
-    public void before() {
-        mFileName = "TestFile_" + this.getClass().getSimpleName()
-                + RandomUtil.getRandomString(5) + ".txt";
     }
 
 
@@ -42,96 +43,84 @@ public class IStrOutputTest {
     }
 
 
-    private String getFileName() {
-        return mFileName;
+    @SneakyThrows
+    private String readFile(String fileName) {
+        return new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
     }
 
 
     @Test
-    public void pln() {
+    public void writeToSystemOut_PolishChars_CharsOnSystemOutShouldBePolishChars() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
-        new StrOutput().a("Monkey!").writeToSystemOut();
-        Assert.assertEquals("Monkey!\n", outContent.toString());
+        String stringWritten = FunnyChars.POLISH_LETTERS.getString();
+        new StrOutput().a(stringWritten).writeToSystemOut();
+        assertThat(outContent.toString()).isEqualTo(stringWritten + "\n");
         System.setOut(null);
     }
 
 
     @Test
-    public void plnWithPrefix_StringWithPrefix_ShouldBePrintedToSystemOut() {
+    public void writeToSystemOutWithPrefix_StringWithPrefix_ShouldBePrintedToSystemOut() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
         new StrOutput().a("Gibbon!").writeToSystemOutWithPrefix("Monkey: ");
-        Assert.assertEquals("Monkey: Gibbon!\n", outContent.toString());
+        assertThat(outContent.toString()).isEqualTo("Monkey: Gibbon!\n");
         System.setOut(null);
     }
 
 
-    /**
-     * Writes to a file and check that get the same string back.
-     */
     @Test
-    public void writeToFile() throws Exception {
+    public void writeToFile_CyrillicChars_CharsInFileShouldBeCyrillicChars() throws Exception {
         String fileName = getFileName();
-        String strWritten = "chimp";
+        String strWritten = FunnyChars.CYRILLIC_LETTERS.getString();
         new StrOutput().a(strWritten).writeToFile(fileName);
-        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
-        Assert.assertEquals(strWritten, strRead);
+        String strRead = this.readFile(fileName);
+        assertThat(strRead).isEqualTo(strWritten);
     }
 
 
-    /**
-     * Writes to a file twice and that file is overwritten.
-     */
     @Test
-    public void writeToFile_overwrite() throws Exception {
+    public void writeToFile_WriteToFileTwice_ContentShouldBeContentOfSecondWriteOnly() throws Exception {
         String fileName = getFileName();
-        String strWritten = "chimp";
-        String strWritten2 = "gorilla";
-        new StrOutput().a(strWritten).writeToFile(fileName);
-        new StrOutput().a(strWritten2).writeToFile(fileName);
-        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
-        Assert.assertEquals(strWritten2, strRead);
+        String stringToWrite1 = "chimp";
+        String stringToWrite2 = "gorilla";
+        new StrOutput().a(stringToWrite1).writeToFile(fileName);
+        new StrOutput().a(stringToWrite2).writeToFile(fileName);
+        String strRead = this.readFile(fileName);
+        assertThat(strRead).isEqualTo(stringToWrite2);
     }
 
 
-    /**
-     * Writes unusual chars and check that these come back the same.
-     */
     @Test
-    public void writeToFile_funnyChars() throws Exception {
+    public void writeToFile_WriteFunnyChars_FileShouldContainCorrectWrittenChars() throws Exception {
         for (FunnyChars funnyChars : FunnyChars.values()) {
             String fileName = getFileName();
             String strWritten = funnyChars.getString();
             new StrOutput().a(strWritten).writeToFile(fileName);
-            String strRead = new String(Files.readAllBytes(Paths.get(fileName)));
-            Assert.assertEquals(strWritten, strRead);
+            String strRead = this.readFile(fileName);
+            assertThat(strRead).isEqualTo(strWritten);
         }
     }
 
 
-    /**
-     * Test append to file.
-     */
     @Test
-    public void appendToFile() throws Exception {
+    public void appendToFile_AppendToExistingFile_FileShouldContainOriginalAndAppendedString() throws Exception {
         String fileName = getFileName();
         String strWritten = "chimp";
         String strWritten2 = "gorilla";
         new StrOutput().a(strWritten).writeToFile(fileName);
         new StrOutput().a(strWritten2).appendToFile(fileName);
-        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
-        Assert.assertEquals(strWritten + strWritten2, strRead);
+        String strRead = this.readFile(fileName);
+        assertThat(strRead).isEqualTo(strWritten + strWritten2);
     }
 
 
-    /**
-     * Create a test that throws an IOException
-     */
     @Test
     public void writeToFile_throwException() {
-        exception.expect(RuntimeException.class);
-        new StrOutput().a("chimp").writeToFile("");
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                new StrOutput().a("chimp").writeToFile("")
+        );
     }
 
 
@@ -139,8 +128,8 @@ public class IStrOutputTest {
     public void writeToTempFile_NoFileNameArg_ReadFileWithReturnedNameShouldContainSameString() throws Exception {
         String strWritten = RandomUtil.getRandomString(10);
         String fileName = new StrOutput().a(strWritten).writeToTempFile();
-        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
-        Assert.assertEquals(strWritten, strRead);
+        String strRead = this.readFile(fileName);
+        assertThat(strRead).isEqualTo(strWritten);
     }
 
 
@@ -149,8 +138,8 @@ public class IStrOutputTest {
         String strWritten = RandomUtil.getRandomString(10);
         String fileName = RandomUtil.getRandomString(10) + ".txt";
         new StrOutput().a(strWritten).writeToTempFile(fileName);
-        String strRead = new String(Files.readAllBytes(Paths.get(fileName)), IStr.ENCODING);
-        Assert.assertEquals(strWritten, strRead);
+        String strRead = this.readFile(fileName);
+        assertThat(strRead).isEqualTo(strWritten);
     }
 
 

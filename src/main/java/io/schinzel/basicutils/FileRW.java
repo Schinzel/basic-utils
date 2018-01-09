@@ -86,7 +86,6 @@ public class FileRW {
      */
     static File getFile(String fileName) {
         File file = new File(fileName);
-        Thrower.throwIfFalse(!file.exists(), "No such file '" + fileName + "'");
         return file;
     }
 
@@ -107,6 +106,10 @@ public class FileRW {
      * @param fileOp        The operations to carry out on file
      */
     static void writeToFile(String fileName, String stringToWrite, FileOp fileOp) {
+        Thrower.throwIfVarEmpty(fileName, "fileName");
+        if (stringToWrite == null) {
+            stringToWrite = EmptyObjects.EMPTY_STRING;
+        }
         try {
             File file = FileRW.getFile(fileName);
             //If should delete file on exit
