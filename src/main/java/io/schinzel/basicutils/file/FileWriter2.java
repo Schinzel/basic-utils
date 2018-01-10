@@ -1,42 +1,47 @@
 package io.schinzel.basicutils.file;
 
-
 import com.google.common.base.Charsets;
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
 import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.thrower.Thrower;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 
 import java.io.File;
 import java.io.IOException;
 
 /**
- * The purpose of this class is to write files.
+ * Purpose of this class is ...
  * <p>
- * Created by Schinzel on 2018-01-09
+ * Created by Schinzel on 2018-01-10
  */
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
-public class FileWriter {
-    File mFile;
+public class FileWriter2 {
 
-
-    public static FileWriter create(String fileName) {
-        Thrower.throwIfVarEmpty(fileName, "fileName");
-        return new FileWriter(new File(fileName));
+    /**
+     * @param fileName The name of a file
+     * @param content  The file content
+     */
+    public static void append(String fileName, String content) {
+        writeToFile(fileName, content, FileRW.FileOp.APPEND);
     }
 
 
-    public FileWriter write(String stringToWrite) {
-        writeToFile(mFile, stringToWrite, FileOp.WRITE);
-        return this;
+    /**
+     * @param fileName The name of a file
+     * @param content  The file content
+     */
+    public static void write(String fileName, String content) {
+        writeToFile(fileName, content, FileRW.FileOp.WRITE);
     }
 
 
-    public FileWriter append(String stringToWrite) {
-        writeToFile(mFile, stringToWrite, FileOp.APPEND);
-        return this;
+    /**
+     * Writes to a file which is deleted when the JVM terminates.
+     *
+     * @param fileName The name of a file
+     * @param content  The file content
+     */
+    public static void writeToTempFile(String fileName, String content) {
+        writeToFile(fileName, content, FileRW.FileOp.DELETE_ON_EXIT);
     }
 
 
@@ -51,21 +56,23 @@ public class FileWriter {
     /**
      * Write the argument string to a file with argument name and perform the argument operation.
      *
-     * @param file          The file to write to.
+     * @param fileName      The name of the file to write to.
      * @param stringToWrite The string to write to file
      * @param fileOp        The operations to carry out on file
      */
-    static void writeToFile(File file, String stringToWrite, FileOp fileOp) {
+    static void writeToFile(String fileName, String stringToWrite, FileRW.FileOp fileOp) {
+        Thrower.throwIfVarEmpty(fileName, "fileName");
         if (stringToWrite == null) {
             stringToWrite = EmptyObjects.EMPTY_STRING;
         }
         try {
+            File file = new File(fileName);
             //If should delete file on exit
-            if (fileOp == FileOp.DELETE_ON_EXIT) {
+            if (fileOp == FileRW.FileOp.DELETE_ON_EXIT) {
                 file.deleteOnExit();
             }
             //If should append to file
-            if (fileOp == FileOp.APPEND) {
+            if (fileOp == FileRW.FileOp.APPEND) {
                 Files.asCharSink(file, Charsets.UTF_8, FileWriteMode.APPEND).write(stringToWrite);
             } //else write to file and overwrite possible previous content
             else {
