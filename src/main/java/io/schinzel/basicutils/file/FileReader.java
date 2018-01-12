@@ -11,6 +11,10 @@ import java.io.IOException;
 /**
  * Purpose of this class is ...
  * <p>
+ * Add:
+ * 1) how works with dirs (add test and samples for dirs)
+ * 2) Release notes
+ *
  * Created by Schinzel on 2018-01-10
  */
 public class FileReader {
