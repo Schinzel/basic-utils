@@ -3,6 +3,7 @@ package io.schinzel.basicutils.file;
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
 import io.schinzel.basicutils.thrower.Thrower;
+import lombok.SneakyThrows;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,14 +28,11 @@ public class FileReader {
      * @param file A file
      * @return The file content as a string
      */
+    @SneakyThrows
     public static String readAsString(File file) {
         Thrower.throwIfVarNull(file, "file");
         FileReader.throwIfDoesNotExist(file);
-        try {
-            return Files.asCharSource(file, Charsets.UTF_8).read();
-        } catch (IOException e) {
-            throw new RuntimeException("Error reading file '" + file.getName() + "'. " + e.getMessage());
-        }
+        return Files.asCharSource(file, Charsets.UTF_8).read();
     }
 
 
@@ -43,11 +41,24 @@ public class FileReader {
      * @return The file content as a byte array
      */
     public static byte[] readAsByteArray(String fileName) {
+        return FileReader.readAsByteArray(fileName, false);
+    }
+
+
+    /**
+     * @param fileName           The name of a file
+     * @param throwIOException If true and io exception is throw
+     * @return The file content as a byte array
+     */
+    static byte[] readAsByteArray(String fileName, boolean throwIOException) {
         File file = FileReader.getFile(fileName);
         try {
-            return Files.toByteArray(file);
+            if (throwIOException) {
+                throw new IOException("Emulated io exception");
+            }
+            return Files.asByteSource(file).read();
         } catch (IOException e) {
-            throw new RuntimeException("Error reading file '" + fileName + "'. " + e.getMessage());
+            throw new RuntimeException(e);
         }
     }
 

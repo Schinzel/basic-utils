@@ -6,9 +6,9 @@ import com.google.common.io.Files;
 import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.thrower.Thrower;
+import lombok.SneakyThrows;
 
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Purpose of this class is to write to files
@@ -53,8 +53,8 @@ public class FileWriter {
     /**
      * Writes to a file which is deleted when the JVM terminates.
      *
-     * @param fileName The name of a file
-     * @param stringToWrite  The file stringToWrite
+     * @param fileName      The name of a file
+     * @param stringToWrite The file stringToWrite
      */
     public static void writeToTempFile(String fileName, String stringToWrite) {
         writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
@@ -76,26 +76,23 @@ public class FileWriter {
      * @param stringToWrite The string to write to file
      * @param fileOp        The operations to carry out on file
      */
+    @SneakyThrows
     static void writeToFile(String fileName, String stringToWrite, FileOp fileOp) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         if (stringToWrite == null) {
             stringToWrite = EmptyObjects.EMPTY_STRING;
         }
-        try {
-            File file = new File(fileName);
-            //If should delete file on exit
-            if (fileOp == FileOp.DELETE_ON_EXIT) {
-                file.deleteOnExit();
-            }
-            //If should append to file
-            if (fileOp == FileOp.APPEND) {
-                Files.asCharSink(file, Charsets.UTF_8, FileWriteMode.APPEND).write(stringToWrite);
-            } //else write to file and overwrite possible previous content
-            else {
-                Files.asCharSink(file, Charsets.UTF_8).write(stringToWrite);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+        File file = new File(fileName);
+        //If should delete file on exit
+        if (fileOp == FileOp.DELETE_ON_EXIT) {
+            file.deleteOnExit();
+        }
+        //If should append to file
+        if (fileOp == FileOp.APPEND) {
+            Files.asCharSink(file, Charsets.UTF_8, FileWriteMode.APPEND).write(stringToWrite);
+        } //else write to file and overwrite possible previous content
+        else {
+            Files.asCharSink(file, Charsets.UTF_8).write(stringToWrite);
         }
     }
 

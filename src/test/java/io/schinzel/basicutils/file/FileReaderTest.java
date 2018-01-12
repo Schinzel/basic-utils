@@ -113,6 +113,16 @@ public class FileReaderTest {
 
 
     @Test
+    public void readAsByteArray_EmulatedIOException_Exception() {
+        String fileName = this.getFileName();
+        FileWriter.write(fileName, "any content");
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                FileReader.readAsByteArray(fileName, true)
+        );
+    }
+
+
+    @Test
     public void readAsByteArray_FileWithPersianChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.PERSIAN_LETTERS.getString();
         String fileName = FileWriter.writeToTempFile(stringToWrite);
