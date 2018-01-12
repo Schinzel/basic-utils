@@ -49,6 +49,15 @@ public class FileReaderTest {
 
 
     @Test
+    public void readAsString_Dir_Exception() {
+        File file = new File("/");
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                FileReader.readAsString(file)
+        ).withMessageStartingWith("Argument file '/' is not a file.");
+    }
+
+
+    @Test
     public void readAsString_NullFileName_Exception() {
         String fileName = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->

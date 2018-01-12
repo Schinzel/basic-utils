@@ -31,6 +31,7 @@ public class FileReader {
     @SneakyThrows
     public static String readAsString(File file) {
         Thrower.throwIfVarNull(file, "file");
+        Thrower.throwIfFalse(file.isFile(), "Argument file '" + file.toString() + "' is not a file.");
         FileReader.throwIfDoesNotExist(file);
         return Files.asCharSource(file, Charsets.UTF_8).read();
     }
@@ -46,7 +47,7 @@ public class FileReader {
 
 
     /**
-     * @param fileName           The name of a file
+     * @param fileName         The name of a file
      * @param throwIOException If true and io exception is throw
      * @return The file content as a byte array
      */
