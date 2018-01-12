@@ -39,13 +39,13 @@ public class FileWriter {
      * Writes to a file which is deleted when the JVM terminates. The file receives a random name
      * which is returned.
      *
-     * @param content The file content
+     * @param stringToWrite The file stringToWrite
      * @return The name of the file written to
      */
-    public static String writeToTempFile(String content) {
+    public static String writeToTempFile(String stringToWrite) {
         String fileName = FileWriter.class.getSimpleName()
                 + "_" + RandomUtil.getRandomString(20) + ".txt";
-        writeToFile(fileName, content, FileOp.DELETE_ON_EXIT);
+        writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
         return fileName;
     }
 
@@ -54,10 +54,10 @@ public class FileWriter {
      * Writes to a file which is deleted when the JVM terminates.
      *
      * @param fileName The name of a file
-     * @param content  The file content
+     * @param stringToWrite  The file stringToWrite
      */
-    public static void writeToTempFile(String fileName, String content) {
-        writeToFile(fileName, content, FileOp.DELETE_ON_EXIT);
+    public static void writeToTempFile(String fileName, String stringToWrite) {
+        writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
     }
 
 
