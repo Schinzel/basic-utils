@@ -8,46 +8,48 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * The purpose of this class is to read files.
+ * Purpose of this class is ...
  * <p>
- * Created by Schinzel on 2018-01-09
+ * Created by Schinzel on 2018-01-10
  */
-public class FileReader {
-    private final File mFile;
+public class FileReader2 {
+    /**
+     * @param fileName The name of a file
+     * @return The file content as a string
+     */
+    public static String readAsString(String fileName) {
+        Thrower.throwIfVarEmpty(fileName, "fileName");
+        File file = new File(fileName);
+        return FileRW.readAsString(file);
+    }
 
 
-    private FileReader(File file) {
+    /**
+     * @param file A file
+     * @return The file content as a string
+     */
+    public static String readAsString(File file) {
         Thrower.throwIfVarNull(file, "file");
-        Thrower.throwIfFalse(file.exists(), "No such file '" + file.getName() + "'");
-        mFile = file;
-    }
-
-
-    public static FileReader create(String fileName) {
-        return FileReader.create(new File(fileName));
-    }
-
-
-    public static FileReader create(File file) {
-        return new FileReader(file);
-    }
-
-
-    public String readAsString() {
+        FileRW.throwIfDoesNotExist(file);
         try {
-            return Files.asCharSource(mFile, Charsets.UTF_8).read();
+            return Files.asCharSource(file, Charsets.UTF_8).read();
         } catch (IOException e) {
-            throw new RuntimeException("Problems when reading file '" + mFile.getName() + "'. " + e.getMessage());
+            throw new RuntimeException("Problems when reading file '" + file.getName() + "'. " + e.getMessage());
         }
     }
 
 
-    public byte[] readAsByteArray() {
+    /**
+     * @param fileName The name of a file
+     * @return The file content as a byte array
+     */
+    public static byte[] readAsByteArray(String fileName) {
+        File file = new File(fileName);
+        FileRW.throwIfDoesNotExist(file);
         try {
-            return Files.toByteArray(mFile);
+            return Files.toByteArray(file);
         } catch (IOException e) {
-            throw new RuntimeException("Problems when reading file '" + mFile + "'. " + e.getMessage());
+            throw new RuntimeException("Problems when reading file '" + fileName + "'. " + e.getMessage());
         }
     }
-
 }
