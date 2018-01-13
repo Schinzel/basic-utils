@@ -11,7 +11,9 @@ import lombok.SneakyThrows;
 import java.io.File;
 
 /**
- * Purpose of this class is to write to files
+ * Purpose of this class is to write to files.
+ * <p>
+ * All write operations are relative to the set working directory.
  * <p>
  * Created by Schinzel on 2018-01-10
  */
