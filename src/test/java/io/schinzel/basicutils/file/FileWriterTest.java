@@ -18,6 +18,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  *
  * @author Schinzel
  */
+@SuppressWarnings("ConstantConditions")
 @Accessors(prefix = "m")
 public class FileWriterTest {
     @Getter

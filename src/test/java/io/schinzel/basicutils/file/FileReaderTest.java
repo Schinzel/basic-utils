@@ -13,6 +13,7 @@ import java.io.File;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+@SuppressWarnings("ConstantConditions")
 @Accessors(prefix = "m")
 public class FileReaderTest {
     @Getter

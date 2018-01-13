@@ -45,9 +45,7 @@ public class FileReader {
      */
     @SneakyThrows
     public static String read(File file) {
-        Thrower.throwIfVarNull(file, "file");
-        Thrower.throwIfFalse(file.isFile(), "Argument file '" + file.toString() + "' is not a file.");
-        FileReader.throwIfDoesNotExist(file);
+        validateFile(file);
         return Files.asCharSource(file, Charsets.UTF_8).read();
     }
 
@@ -63,7 +61,7 @@ public class FileReader {
 
     /**
      * @param fileName         The name of a file
-     * @param throwIOException If true and io exception is throw
+     * @param throwIOException If true an io exception is thrown. For testing
      * @return The file content as a byte array
      */
     static byte[] readAsByteArray(String fileName, boolean throwIOException) {
@@ -86,19 +84,21 @@ public class FileReader {
     static File getFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         File file = new File(fileName);
-        FileReader.throwIfDoesNotExist(file);
+        validateFile(file);
         return file;
     }
 
 
     /**
-     * Throw exception if the argument file does not exist
+     * Validates argument file so is not null, does exist and is a file.
      *
-     * @param file A file
+     * @param file File to validate
      */
-    static void throwIfDoesNotExist(File file) {
-        Thrower.throwIfFalse(file.exists())
-                .message("Error reading file. File '" + file.getName() + "' does not exist");
+    static void validateFile(File file) {
+        Thrower.throwIfVarNull(file, "file");
+        Thrower.throwIfFalse(file.exists(), "Error reading file. File '" + file.getName() + "' does not exist");
+        Thrower.throwIfFalse(file.isFile(), "Argument file '" + file.toString() + "' is not a file.");
     }
+
 
 }
