@@ -14,11 +14,6 @@ import java.io.IOException;
  * <p>
  * All read operations are relative to the set working directory.
  * <p>
- * Add:
- * -) Document what dir is written to and read from
- * -) Resource filer
- * <p>
- * <p>
  * Created by Schinzel on 2018-01-10
  */
 public class FileReader {
@@ -84,7 +79,7 @@ public class FileReader {
      * @param fileName The name of a file
      * @return A file
      */
-    static File getFile(String fileName) {
+    private static File getFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         File file = new File(fileName);
         validateFile(file);
@@ -97,7 +92,7 @@ public class FileReader {
      *
      * @param file File to validate
      */
-    static void validateFile(File file) {
+    private static void validateFile(File file) {
         Thrower.throwIfVarNull(file, "file");
         Thrower.throwIfFalse(file.exists(), "Error reading file. File '" + file.getName() + "' does not exist");
         Thrower.throwIfFalse(file.isFile(), "Argument file '" + file.toString() + "' is not a file.");
