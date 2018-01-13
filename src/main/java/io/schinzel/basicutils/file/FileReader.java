@@ -13,7 +13,9 @@ import java.io.IOException;
  * Purpose of this class is to read files
  * <p>
  * Add:
+ * -) Document what dir is written to and read from
  * -) Resource filer
+ *
  * <p>
  * Created by Schinzel on 2018-01-10
  */
