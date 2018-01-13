@@ -1,4 +1,4 @@
-package io.schinzel.samples;
+package io.schinzel.samples.file;
 
 import io.schinzel.basicutils.file.FileReader;
 import io.schinzel.basicutils.file.FileWriter;
@@ -17,8 +17,8 @@ public class FileReaderWriterSample {
     }
 
 
-    static void writeAndRead() {
-        String fileName = "myfile.txt";
+    private static void writeAndRead() {
+        String fileName = "my_file.txt";
         FileWriter.writeToTempFile(fileName, "The first file content\n");
         FileWriter.append(fileName, "The second file content\n");
         String fileContent = FileReader.read(fileName);
@@ -26,18 +26,20 @@ public class FileReaderWriterSample {
     }
 
 
-    static void writeAndReadStr() {
-        String fileName = "myfile.txt";
+    private static void writeAndReadStr() {
+        String fileName = "my_file.txt";
         FileWriter.writeToTempFile(fileName, "The first file content\n");
         FileWriter.append(fileName, "The second file content\n");
         FileReader.readAsStr(fileName).writeToSystemOut();
     }
 
 
-    static void writeAndReadFileInAnotherDir() {
-        String fileName = "../../myfile.txt";
+    private static void writeAndReadFileInAnotherDir() {
+        String fileName = "../../my_file.txt";
         FileWriter.writeToTempFile(fileName, "gibbon");
         FileReader.readAsStr(fileName).writeToSystemOut();
     }
 
+
 }
+
