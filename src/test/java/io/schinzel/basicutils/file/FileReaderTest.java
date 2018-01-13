@@ -85,10 +85,19 @@ public class FileReaderTest {
 
 
     @Test
-    public void read_ExistingFileWithArabicChars_ReadStringShouldHaveTheCorrectChars() {
+    public void read_FileWithArabicChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.ARABIC_LETTERS.getString();
         String fileName = FileWriter.writeToTempFile(stringToWrite);
         String readString = FileReader.read(fileName);
+        assertThat(readString).isEqualTo(stringToWrite);
+    }
+
+
+    @Test
+    public void readAsStr_FileWithPolishChars_ReadStringShouldHaveTheCorrectChars() {
+        String stringToWrite = FunnyChars.POLISH_LETTERS.getString();
+        String fileName = FileWriter.writeToTempFile(stringToWrite);
+        String readString = FileReader.readAsStr(fileName).getString();
         assertThat(readString).isEqualTo(stringToWrite);
     }
 
