@@ -31,64 +31,64 @@ public class FileReaderTest {
 
 
     @Test
-    public void readAsString_NullFile_Exception() {
+    public void read_NullFile_Exception() {
         File file = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(file)
+                FileReader.read(file)
         ).withMessageStartingWith("Argument 'file' cannot be null");
     }
 
 
     @Test
-    public void readAsString_NonExistingFile_Exception() {
+    public void read_NonExistingFile_Exception() {
         File file = new File("I_do_not_exist.txt");
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(file)
+                FileReader.read(file)
         ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
     }
 
 
     @Test
-    public void readAsString_Dir_Exception() {
+    public void read_Dir_Exception() {
         File file = new File("/");
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(file)
+                FileReader.read(file)
         ).withMessageStartingWith("Argument file '/' is not a file.");
     }
 
 
     @Test
-    public void readAsString_NullFileName_Exception() {
+    public void read_NullFileName_Exception() {
         String fileName = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
 
     @Test
-    public void readAsString_EmptyFileName_Exception() {
+    public void read_EmptyFileName_Exception() {
         String fileName = "";
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
 
     @Test
-    public void readAsString_FileDoesNotExists_Exception() {
+    public void read_FileDoesNotExists_Exception() {
         String fileName = "I_do_not_exist.txt";
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
     }
 
 
     @Test
-    public void readAsString_ExistingFileWithArabicChars_ReadStringShouldHaveTheCorrectChars() {
+    public void read_ExistingFileWithArabicChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.ARABIC_LETTERS.getString();
         String fileName = FileWriter.writeToTempFile(stringToWrite);
-        String readString = FileReader.readAsString(fileName);
+        String readString = FileReader.read(fileName);
         assertThat(readString).isEqualTo(stringToWrite);
     }
 
@@ -97,7 +97,7 @@ public class FileReaderTest {
     public void readAsByteArray_NullFileName_Exception() {
         String fileName = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
 
     }
@@ -107,7 +107,7 @@ public class FileReaderTest {
     public void readAsByteArray_EmptyFileName_Exception() {
         String fileName = "";
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
@@ -116,7 +116,7 @@ public class FileReaderTest {
     public void readAsByteArray_FileDoesNotExist_Exception() {
         String fileName = "I_do_not_exist.txt";
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsString(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
     }
 

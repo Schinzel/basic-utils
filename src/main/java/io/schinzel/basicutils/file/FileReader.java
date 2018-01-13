@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Purpose of this class is ...
+ * Purpose of this class is to read files
  * <p>
  * Add:
  * 1) how works with dirs (add test and samples for dirs)
@@ -22,9 +22,9 @@ public class FileReader {
      * @param fileName The name of a file
      * @return The file content as a string
      */
-    public static String readAsString(String fileName) {
+    public static String read(String fileName) {
         File file = FileReader.getFile(fileName);
-        return FileReader.readAsString(file);
+        return FileReader.read(file);
     }
 
 
@@ -33,7 +33,7 @@ public class FileReader {
      * @return The file content as a string
      */
     @SneakyThrows
-    public static String readAsString(File file) {
+    public static String read(File file) {
         Thrower.throwIfVarNull(file, "file");
         Thrower.throwIfFalse(file.isFile(), "Argument file '" + file.toString() + "' is not a file.");
         FileReader.throwIfDoesNotExist(file);

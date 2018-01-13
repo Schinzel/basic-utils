@@ -58,7 +58,7 @@ public class FileWriterTest {
         String fileName = this.getFileName();
         String stringToWrite = null;
         FileWriter.writeToFile(fileName, stringToWrite, FileWriter.FileOp.WRITE);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEmpty();
     }
 
@@ -68,7 +68,7 @@ public class FileWriterTest {
         String fileName = this.getFileName();
         String stringToWrite = RandomUtil.getRandomString(100);
         FileWriter.append(fileName, stringToWrite);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -79,7 +79,7 @@ public class FileWriterTest {
         FileWriter.write(fileName, EmptyObjects.EMPTY_STRING);
         String stringToWrite = RandomUtil.getRandomString(100);
         FileWriter.append(fileName, stringToWrite);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -90,7 +90,7 @@ public class FileWriterTest {
         String stringToWrite = RandomUtil.getRandomString(100);
         FileWriter.write(fileName, stringToWrite);
         FileWriter.append(fileName, stringToWrite);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite + stringToWrite);
     }
 
@@ -101,7 +101,7 @@ public class FileWriterTest {
         FileWriter.write(fileName, RandomUtil.getRandomString(10));
         String stringToWrite = RandomUtil.getRandomString(100);
         FileWriter.write(fileName, stringToWrite);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -111,7 +111,7 @@ public class FileWriterTest {
         String fileName = this.getFileName();
         String stringToWrite = RandomUtil.getRandomString(100);
         FileWriter.write(fileName, stringToWrite);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -121,7 +121,7 @@ public class FileWriterTest {
         String fileName = this.getFileName();
         String stringToWrite = RandomUtil.getRandomString(100);
         FileWriter.writeToTempFile(fileName, stringToWrite);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -130,7 +130,7 @@ public class FileWriterTest {
     public void writeToTempFile_RandomFileName_FileWithRandomNameCreated() {
         String stringToWrite = RandomUtil.getRandomString(100);
         String fileName = FileWriter.writeToTempFile(stringToWrite);
-        String stringRead = FileReader.readAsString(fileName);
+        String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
