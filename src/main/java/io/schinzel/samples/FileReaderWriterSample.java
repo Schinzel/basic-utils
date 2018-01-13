@@ -11,11 +11,33 @@ import io.schinzel.basicutils.file.FileWriter;
 public class FileReaderWriterSample {
 
     public static void main(String[] args) {
+        writeAndRead();
+        writeAndReadStr();
+        writeAndReadFileInAnotherDir();
+    }
+
+
+    static void writeAndRead() {
         String fileName = "myfile.txt";
         FileWriter.writeToTempFile(fileName, "The first file content\n");
         FileWriter.append(fileName, "The second file content\n");
         String fileContent = FileReader.read(fileName);
         System.out.println(fileContent);
+    }
+
+
+    static void writeAndReadStr() {
+        String fileName = "myfile.txt";
+        FileWriter.writeToTempFile(fileName, "The first file content\n");
+        FileWriter.append(fileName, "The second file content\n");
         FileReader.readAsStr(fileName).writeToSystemOut();
     }
+
+
+    static void writeAndReadFileInAnotherDir() {
+        String fileName = "../../myfile.txt";
+        FileWriter.writeToTempFile(fileName, "gibbon");
+        FileReader.readAsStr(fileName).writeToSystemOut();
+    }
+
 }

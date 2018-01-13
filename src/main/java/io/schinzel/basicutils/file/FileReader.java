@@ -13,8 +13,7 @@ import java.io.IOException;
  * Purpose of this class is to read files
  * <p>
  * Add:
- * 1) how works with dirs (add test and samples for dirs)
- * - Tests readAsStr
+ * -) Resource filer
  * <p>
  * Created by Schinzel on 2018-01-10
  */
