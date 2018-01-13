@@ -18,20 +18,20 @@ import java.io.File;
 public class FileWriter {
 
     /**
-     * @param fileName The name of a file
-     * @param content  The file content
+     * @param fileName      The name of a file
+     * @param stringToWrite The file content
      */
-    public static void append(String fileName, String content) {
-        writeToFile(fileName, content, FileOp.APPEND);
+    public static void append(String fileName, String stringToWrite) {
+        writeToFile(fileName, stringToWrite, FileOp.APPEND);
     }
 
 
     /**
-     * @param fileName The name of a file
-     * @param content  The file content
+     * @param fileName      The name of a file
+     * @param stringToWrite The file content
      */
-    public static void write(String fileName, String content) {
-        writeToFile(fileName, content, FileOp.WRITE);
+    public static void write(String fileName, String stringToWrite) {
+        writeToFile(fileName, stringToWrite, FileOp.WRITE);
     }
 
 

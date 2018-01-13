@@ -2,6 +2,7 @@ package io.schinzel.basicutils.file;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.Files;
+import io.schinzel.basicutils.str.Str;
 import io.schinzel.basicutils.thrower.Thrower;
 import lombok.SneakyThrows;
 
@@ -13,8 +14,8 @@ import java.io.IOException;
  * <p>
  * Add:
  * 1) how works with dirs (add test and samples for dirs)
- * 2) Release notes
- *
+ * - Tests readAsStr
+ * <p>
  * Created by Schinzel on 2018-01-10
  */
 public class FileReader {
@@ -25,6 +26,16 @@ public class FileReader {
     public static String read(String fileName) {
         File file = FileReader.getFile(fileName);
         return FileReader.read(file);
+    }
+
+
+    /**
+     * @param fileName The name of a file
+     * @return The file content
+     */
+    public static Str readAsStr(String fileName) {
+        String fileContent = FileReader.read(fileName);
+        return Str.create(fileContent);
     }
 
 
