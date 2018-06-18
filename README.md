@@ -15,7 +15,7 @@ SubString.create(input)
         .startDelimiter("http://")
         .endDelimiter("/index")
         .getStr()
-        .plnWithPrefix("Host: ");
+        .writeToSystemOutWithPrefix("Host: ");
 
 Thrower.throwIfTrue(myVar<100).message("This is an exception message");
 
