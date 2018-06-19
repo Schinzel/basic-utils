@@ -22,12 +22,14 @@ public class ResourceReader {
     }
 
 
+    @SuppressWarnings("WeakerAccess")
     public static Str readAsStr(String fileName) {
         String string = ResourceReader.read(fileName);
         return Str.create(string);
     }
 
 
+    @SuppressWarnings("WeakerAccess")
     public static byte[] readAsByteArray(String fileName) {
         return ResourceReader.readAsByteArrayInternal(fileName, false);
     }
