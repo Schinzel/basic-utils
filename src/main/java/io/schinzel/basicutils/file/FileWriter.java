@@ -22,13 +22,13 @@ public class FileWriter {
 
     @Builder(builderClassName = "WriterBuilder", builderMethodName = "writer", buildMethodName = "write")
     static void write(String fileName, String stringToWrite) {
-        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE);
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE, DeleteOnExit.FALSE);
     }
 
 
     @Builder(builderClassName = "AppenderBuilder", builderMethodName = "appender", buildMethodName = "append")
     static void append(String fileName, String stringToWrite) {
-        FileWriter.writeToFile(fileName, stringToWrite, FileOp.APPEND);
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.APPEND, DeleteOnExit.FALSE);
     }
 
 
@@ -37,7 +37,7 @@ public class FileWriter {
         fileName = Checker.isNotEmpty(fileName)
                 ? fileName
                 : FileWriter.class.getSimpleName() + "_" + RandomUtil.getRandomString(20) + ".txt";
-        FileWriter.writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE, DeleteOnExit.TRUE);
         return fileName;
     }
 
@@ -46,7 +46,11 @@ public class FileWriter {
      * File operations
      */
     enum FileOp {
-        WRITE, APPEND, DELETE_ON_EXIT
+        WRITE, APPEND
+    }
+
+    enum DeleteOnExit {
+        TRUE, FALSE
     }
 
 
@@ -58,14 +62,14 @@ public class FileWriter {
      * @param fileOp        The operations to carry out on file
      */
     @SneakyThrows
-    static void writeToFile(String fileName, String stringToWrite, FileOp fileOp) {
+    static void writeToFile(String fileName, String stringToWrite, FileOp fileOp, DeleteOnExit deleteOnExit) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         if (stringToWrite == null) {
             stringToWrite = EmptyObjects.EMPTY_STRING;
         }
         File file = new File(fileName);
         //If should delete file on exit
-        if (fileOp == FileOp.DELETE_ON_EXIT) {
+        if (deleteOnExit == DeleteOnExit.TRUE) {
             file.deleteOnExit();
         }
         //If should append to file

@@ -40,7 +40,7 @@ public class FileWriterTest {
     public void writeToFile_NullFileName_Exception() {
         String fileName = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileWriter.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter.FileOp.WRITE)
+                FileWriter.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter.FileOp.WRITE, FileWriter.DeleteOnExit.FALSE)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
@@ -49,7 +49,7 @@ public class FileWriterTest {
     public void writeToFile_EmptyFileName_Exception() {
         String fileName = EmptyObjects.EMPTY_STRING;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileWriter.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter.FileOp.WRITE)
+                FileWriter.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter.FileOp.WRITE, FileWriter.DeleteOnExit.FALSE)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
@@ -58,7 +58,7 @@ public class FileWriterTest {
     public void writeToFile_NullString_WritesEmptyString() {
         String fileName = this.getFileName();
         String stringToWrite = null;
-        FileWriter.writeToFile(fileName, stringToWrite, FileWriter.FileOp.WRITE);
+        FileWriter.writeToFile(fileName, stringToWrite, FileWriter.FileOp.WRITE, FileWriter.DeleteOnExit.FALSE);
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEmpty();
     }
