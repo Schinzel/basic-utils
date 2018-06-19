@@ -11,7 +11,7 @@ import lombok.SneakyThrows;
 import java.io.File;
 
 /**
- * Purpose of this class is to write to files. Files are encoded in UTF-8-
+ * Purpose of this class is to write to files. Files are encoded in UTF-8.
  * <p>
  * All write operations are relative to the set working directory.
  * <p>
