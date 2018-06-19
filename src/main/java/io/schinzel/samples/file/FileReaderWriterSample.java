@@ -19,8 +19,14 @@ public class FileReaderWriterSample {
 
     private static void writeAndRead() {
         String fileName = "my_file.txt";
-        FileWriter.writeToTempFile(fileName, "The first file content\n");
-        FileWriter.append(fileName, "The second file content\n");
+        FileWriter.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite("The first file content\n")
+                .write();
+        FileWriter.appender()
+                .fileName(fileName)
+                .stringToWrite("The second file content\n")
+                .append();
         String fileContent = FileReader.read(fileName);
         System.out.println(fileContent);
     }
@@ -28,17 +34,27 @@ public class FileReaderWriterSample {
 
     private static void writeAndReadStr() {
         String fileName = "my_file.txt";
-        FileWriter.writeToTempFile(fileName, "The first file content\n");
-        FileWriter.append(fileName, "The second file content\n");
+        FileWriter.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite("The first file content\n")
+                .write();
+        FileWriter.appender()
+                .fileName(fileName)
+                .stringToWrite("The second file content\n")
+                .append();
         FileReader.readAsStr(fileName).writeToSystemOut();
     }
 
 
     private static void writeAndReadFileInAnotherDir() {
         String fileName = "../../my_file.txt";
-        FileWriter.writeToTempFile(fileName, "gibbon");
+        FileWriter.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite("gibbon")
+                .write();
         FileReader.readAsStr(fileName).writeToSystemOut();
     }
+
 
 
 }

@@ -3,69 +3,42 @@ package io.schinzel.basicutils.file;
 import com.google.common.base.Charsets;
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
+import io.schinzel.basicutils.Checker;
 import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.thrower.Thrower;
+import lombok.Builder;
 import lombok.SneakyThrows;
 
 import java.io.File;
 
 /**
- * Purpose of this class is to write to files. Files are encoded in UTF-8.
- * <p>
- * All write operations are relative to the set working directory.
- * <p>
- * Created by Schinzel on 2018-01-10
+ * The purpose of this class
+ *
+ * @author Schinzel
  */
 public class FileWriter {
 
-    /**
-     * Appends to an existing file. Does no file with the argument name exist, one is created.
-     *
-     * @param fileName      The name of the file
-     * @param stringToWrite The string to write to file
-     */
-    public static void append(String fileName, String stringToWrite) {
-        writeToFile(fileName, stringToWrite, FileOp.APPEND);
+
+    @Builder(builderClassName = "WriterBuilder", builderMethodName = "writer", buildMethodName = "write")
+    static void write(String fileName, String stringToWrite) {
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE, DeleteOnExit.FALSE);
     }
 
 
-    /**
-     * Writes the argument content to a file with the argument name. If a file with the argument
-     * name exists, it is overwritten.
-     *
-     * @param fileName      The name of the file
-     * @param stringToWrite The string to write to file
-     */
-    public static void write(String fileName, String stringToWrite) {
-        writeToFile(fileName, stringToWrite, FileOp.WRITE);
+    @Builder(builderClassName = "AppenderBuilder", builderMethodName = "appender", buildMethodName = "append")
+    static void append(String fileName, String stringToWrite) {
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.APPEND, DeleteOnExit.FALSE);
     }
 
 
-    /**
-     * Writes to a file which is deleted when the JVM terminates. The file receives a random name
-     * which is returned.
-     *
-     * @param stringToWrite The string to write to file
-     * @return The name of the file written to
-     */
-    @SuppressWarnings("WeakerAccess")
-    public static String writeToTempFile(String stringToWrite) {
-        String fileName = FileWriter.class.getSimpleName()
-                + "_" + RandomUtil.getRandomString(20) + ".txt";
-        writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
+    @Builder(builderClassName = "TempFileWriterBuilder", builderMethodName = "tempFileWriter", buildMethodName = "write")
+    static String writeToTempFile(String fileName, String stringToWrite) {
+        fileName = Checker.isNotEmpty(fileName)
+                ? fileName
+                : FileWriter.class.getSimpleName() + "_" + RandomUtil.getRandomString(20) + ".txt";
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE, DeleteOnExit.TRUE);
         return fileName;
-    }
-
-
-    /**
-     * Writes to a file which is deleted when the JVM terminates.
-     *
-     * @param fileName      The name of a file
-     * @param stringToWrite The string to write to file
-     */
-    public static void writeToTempFile(String fileName, String stringToWrite) {
-        writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
     }
 
 
@@ -73,7 +46,11 @@ public class FileWriter {
      * File operations
      */
     enum FileOp {
-        WRITE, APPEND, DELETE_ON_EXIT
+        WRITE, APPEND
+    }
+
+    enum DeleteOnExit {
+        TRUE, FALSE
     }
 
 
@@ -85,14 +62,14 @@ public class FileWriter {
      * @param fileOp        The operations to carry out on file
      */
     @SneakyThrows
-    static void writeToFile(String fileName, String stringToWrite, FileOp fileOp) {
+    static void writeToFile(String fileName, String stringToWrite, FileOp fileOp, DeleteOnExit deleteOnExit) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         if (stringToWrite == null) {
             stringToWrite = EmptyObjects.EMPTY_STRING;
         }
         File file = new File(fileName);
         //If should delete file on exit
-        if (fileOp == FileOp.DELETE_ON_EXIT) {
+        if (deleteOnExit == DeleteOnExit.TRUE) {
             file.deleteOnExit();
         }
         //If should append to file
@@ -103,5 +80,4 @@ public class FileWriter {
             Files.asCharSink(file, Charsets.UTF_8).write(stringToWrite);
         }
     }
-
 }

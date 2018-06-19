@@ -88,7 +88,9 @@ public class FileReaderTest {
     @Test
     public void read_FileWithArabicChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.ARABIC_LETTERS.getString();
-        String fileName = FileWriter.writeToTempFile(stringToWrite);
+        String fileName = FileWriter.tempFileWriter()
+                .stringToWrite(stringToWrite)
+                .write();
         String readString = FileReader.read(fileName);
         assertThat(readString).isEqualTo(stringToWrite);
     }
@@ -97,7 +99,9 @@ public class FileReaderTest {
     @Test
     public void readAsStr_FileWithPolishChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.POLISH_LETTERS.getString();
-        String fileName = FileWriter.writeToTempFile(stringToWrite);
+        String fileName = FileWriter.tempFileWriter()
+                .stringToWrite(stringToWrite)
+                .write();
         String readString = FileReader.readAsStr(fileName).getString();
         assertThat(readString).isEqualTo(stringToWrite);
     }
@@ -133,8 +137,9 @@ public class FileReaderTest {
 
     @Test
     public void readAsByteArray_EmulatedIOException_Exception() {
-        String fileName = this.getFileName();
-        FileWriter.write(fileName, "any content");
+        String fileName = FileWriter.tempFileWriter()
+                .stringToWrite("any content")
+                .write();
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileReader.readAsByteArray(fileName, true)
         );
@@ -144,7 +149,9 @@ public class FileReaderTest {
     @Test
     public void readAsByteArray_FileWithPersianChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.PERSIAN_LETTERS.getString();
-        String fileName = FileWriter.writeToTempFile(stringToWrite);
+        String fileName = FileWriter.tempFileWriter()
+                .stringToWrite(stringToWrite)
+                .write();
         byte[] bytesRead = FileReader.readAsByteArray(fileName);
         String stringRead = UTF8.getString(bytesRead);
         assertThat(stringRead).isEqualTo(stringToWrite);
