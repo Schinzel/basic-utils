@@ -93,10 +93,10 @@ public class FileReader {
      *
      * @param file File to validate
      */
-    private static void validateFile(File file) {
+    static void validateFile(File file) {
         Thrower.throwIfVarNull(file, "file");
-        Thrower.throwIfFalse(file.exists(), "Error reading file. File '" + file.getName() + "' does not exist");
-        Thrower.throwIfFalse(file.isFile(), "Argument file '" + file.toString() + "' is not a file.");
+        Thrower.throwIfFalse(file.exists()).message("Error reading file. File '%s' does not exist.", file.getName());
+        Thrower.throwIfFalse(file.isFile()).message("Error reading file. Argument file '%s' is not a file.", file.toString());
     }
 
 

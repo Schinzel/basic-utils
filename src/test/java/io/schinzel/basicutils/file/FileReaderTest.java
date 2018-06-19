@@ -54,7 +54,7 @@ public class FileReaderTest {
         File file = new File("/");
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileReader.read(file)
-        ).withMessageStartingWith("Argument file '/' is not a file.");
+        ).withMessageStartingWith("Error reading file. Argument file '/' is not a file.");
     }
 
 
@@ -148,5 +148,37 @@ public class FileReaderTest {
         byte[] bytesRead = FileReader.readAsByteArray(fileName);
         String stringRead = UTF8.getString(bytesRead);
         assertThat(stringRead).isEqualTo(stringToWrite);
+    }
+
+
+    @Test
+    public void validate_FileIsNull_Exception() {
+        File file = null;
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                FileReader.validateFile(file)
+        );
+    }
+
+
+    @Test
+    public void validate_FileDoesNotExist_Exception() {
+        String fileName = "I_do_not_exist.txt";
+        File file = new File(fileName);
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                FileReader.validateFile(file)
+        ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
+    }
+
+
+    @Test
+    public void validate_FileIsNotAFile_Exception() {
+        String fileName = RandomUtil.getRandomString(5);
+        File dir = new File(fileName);
+        dir.deleteOnExit();
+        dir.mkdirs();
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                FileReader.validateFile(dir)
+        ).withMessageStartingWith("Error reading file. Argument file '" + fileName + "' is not a file.");
+
     }
 }
