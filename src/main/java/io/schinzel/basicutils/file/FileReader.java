@@ -17,7 +17,10 @@ import java.io.IOException;
  * Created by Schinzel on 2018-01-10
  */
 public class FileReader {
+
     /**
+     * Reads a file. UTF-8 encoding is assumed.
+     *
      * @param fileName The name of the file
      * @return The file content as a string
      */
@@ -28,6 +31,8 @@ public class FileReader {
 
 
     /**
+     * Reads a file. UTF-8 encoding is assumed.
+     *
      * @param fileName The name of the file
      * @return The file content
      */
@@ -38,6 +43,8 @@ public class FileReader {
 
 
     /**
+     * Reads a file. UTF-8 encoding is assumed.
+     *
      * @param file A file
      * @return The file content as a string
      */
