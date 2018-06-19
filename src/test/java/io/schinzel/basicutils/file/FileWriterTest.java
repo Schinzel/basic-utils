@@ -40,7 +40,7 @@ public class FileWriterTest {
     public void writeToFile_NullFileName_Exception() {
         String fileName = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileWriter.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter.FileOp.WRITE)
+                FileWriter4.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter4.FileOp.WRITE)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
@@ -49,7 +49,7 @@ public class FileWriterTest {
     public void writeToFile_EmptyFileName_Exception() {
         String fileName = EmptyObjects.EMPTY_STRING;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileWriter.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter.FileOp.WRITE)
+                FileWriter4.writeToFile(fileName, EmptyObjects.EMPTY_STRING, FileWriter4.FileOp.WRITE)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
@@ -58,7 +58,7 @@ public class FileWriterTest {
     public void writeToFile_NullString_WritesEmptyString() {
         String fileName = this.getFileName();
         String stringToWrite = null;
-        FileWriter.writeToFile(fileName, stringToWrite, FileWriter.FileOp.WRITE);
+        FileWriter4.writeToFile(fileName, stringToWrite, FileWriter4.FileOp.WRITE);
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEmpty();
     }
@@ -68,7 +68,10 @@ public class FileWriterTest {
     public void append_NonExistingFile_WriteWorks() {
         String fileName = this.getFileName();
         String stringToWrite = RandomUtil.getRandomString(100);
-        FileWriter.append(fileName, stringToWrite);
+        FileWriter4.appender()
+                .fileName(fileName)
+                .stringToWrite(stringToWrite)
+                .append();
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
@@ -77,9 +80,15 @@ public class FileWriterTest {
     @Test
     public void append_ExistingEmptyFile_WriteWorks() {
         String fileName = this.getFileName();
-        FileWriter.write(fileName, EmptyObjects.EMPTY_STRING);
+        FileWriter4.writer()
+                .fileName(fileName)
+                .stringToWrite(EmptyObjects.EMPTY_STRING)
+                .write();
         String stringToWrite = RandomUtil.getRandomString(100);
-        FileWriter.append(fileName, stringToWrite);
+        FileWriter4.appender()
+                .fileName(fileName)
+                .stringToWrite(stringToWrite)
+                .append();
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
@@ -89,8 +98,14 @@ public class FileWriterTest {
     public void append_ExistingNonEmptyFile_WriteWorks() {
         String fileName = this.getFileName();
         String stringToWrite = RandomUtil.getRandomString(100);
-        FileWriter.write(fileName, stringToWrite);
-        FileWriter.append(fileName, stringToWrite);
+        FileWriter4.writer()
+                .fileName(fileName)
+                .stringToWrite(stringToWrite)
+                .write();
+        FileWriter4.appender()
+                .fileName(fileName)
+                .stringToWrite(stringToWrite)
+                .append();
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite + stringToWrite);
     }
@@ -99,9 +114,15 @@ public class FileWriterTest {
     @Test
     public void write_ExistingFile_FileOverwritten() {
         String fileName = this.getFileName();
-        FileWriter.write(fileName, RandomUtil.getRandomString(10));
+        FileWriter4.writer()
+                .fileName(fileName)
+                .stringToWrite(RandomUtil.getRandomString(10))
+                .write();
         String stringToWrite = RandomUtil.getRandomString(100);
-        FileWriter.write(fileName, stringToWrite);
+        FileWriter4.writer()
+                .fileName(fileName)
+                .stringToWrite(stringToWrite)
+                .write();
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
@@ -111,17 +132,23 @@ public class FileWriterTest {
     public void write_NoSuchFile_FileCreatedAndWrittenTo() {
         String fileName = this.getFileName();
         String stringToWrite = RandomUtil.getRandomString(100);
-        FileWriter.write(fileName, stringToWrite);
+        FileWriter4.writer()
+                .fileName(fileName)
+                .stringToWrite(stringToWrite)
+                .write();
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
 
     @Test
-    public void writeToTempFile_FileNameAsArgument_FileWithRandomNameCreated() {
+    public void writeToTempFile_FileNameAsArgument_FileWithCreated() {
         String fileName = this.getFileName();
         String stringToWrite = RandomUtil.getRandomString(100);
-        FileWriter.writeToTempFile(fileName, stringToWrite);
+        FileWriter4.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite(stringToWrite)
+                .write();
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
@@ -130,7 +157,9 @@ public class FileWriterTest {
     @Test
     public void writeToTempFile_RandomFileName_FileWithRandomNameCreated() {
         String stringToWrite = RandomUtil.getRandomString(100);
-        String fileName = FileWriter.writeToTempFile(stringToWrite);
+        String fileName = FileWriter4.tempFileWriter()
+                .stringToWrite(stringToWrite)
+                .write();
         String stringRead = FileReader.read(fileName);
         assertThat(stringRead).isEqualTo(stringToWrite);
     }

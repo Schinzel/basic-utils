@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.str;
 
 import io.schinzel.basicutils.RandomUtil;
-import io.schinzel.basicutils.file.FileWriter;
+import io.schinzel.basicutils.file.FileWriter4;
 import io.schinzel.basicutils.thrower.Thrower;
 
 /**
@@ -45,7 +45,10 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      */
     default T writeToFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        FileWriter.write(fileName, this.getString());
+        FileWriter4.writer()
+                .fileName(fileName)
+                .stringToWrite(this.getString())
+                .write();
         return this.getThis();
     }
 
@@ -58,8 +61,10 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
     default String writeToTempFile() {
         String fileName = this.getClass().getSimpleName() + "_" +
                 RandomUtil.getRandomString(20) + ".txt";
-        FileWriter.writeToTempFile(fileName, this.getString());
-        return fileName;
+        return FileWriter4.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite(this.getString())
+                .write();
     }
 
 
@@ -71,7 +76,10 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      */
     default T writeToTempFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        FileWriter.writeToTempFile(fileName, this.getString());
+        FileWriter4.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite(this.getString())
+                .write();
         return this.getThis();
     }
 
@@ -84,7 +92,10 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      */
     default T appendToFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        FileWriter.append(fileName, this.getString());
+        FileWriter4.appender()
+                .fileName(fileName)
+                .stringToWrite(this.getString())
+                .append();
         return this.getThis();
     }
 
