@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class FileReader {
     /**
-     * @param fileName The name of a file
+     * @param fileName The name of the file
      * @return The file content as a string
      */
     public static String read(String fileName) {
@@ -28,7 +28,7 @@ public class FileReader {
 
 
     /**
-     * @param fileName The name of a file
+     * @param fileName The name of the file
      * @return The file content
      */
     public static Str readAsStr(String fileName) {
@@ -49,16 +49,17 @@ public class FileReader {
 
 
     /**
-     * @param fileName The name of a file
+     * @param fileName The name of the file
      * @return The file content as a byte array
      */
+    @SuppressWarnings("WeakerAccess")
     public static byte[] readAsByteArray(String fileName) {
         return FileReader.readAsByteArray(fileName, false);
     }
 
 
     /**
-     * @param fileName         The name of a file
+     * @param fileName         The name of the file
      * @param throwIOException If true an io exception is thrown. For testing
      * @return The file content as a byte array
      */
@@ -76,7 +77,7 @@ public class FileReader {
 
 
     /**
-     * @param fileName The name of a file
+     * @param fileName The name of the file
      * @return A file
      */
     private static File getFile(String fileName) {
