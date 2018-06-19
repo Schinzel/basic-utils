@@ -9,25 +9,46 @@ import java.io.IOException;
 import java.net.URL;
 
 /**
- * Purpose of this class is to read resource files
+ * Purpose of this class is to read resource files.
+ * <p>
+ * All read operations are relative to the set resource directory. In tests all read operations
+ * are relative to the test resource directory.
  * <p>
  * Created by Schinzel on 2018-01-13
  */
 public class ResourceReader {
 
 
-    public static String read(String fileName) {
-        byte[] bytes = ResourceReader.readAsByteArrayInternal(fileName, false);
-        return UTF8.getString(bytes);
-    }
-
-
+    /**
+     * Reads a file. UTF-8 encoding is assumed.
+     *
+     * @param fileName The name of the resource file to read
+     * @return The file with argument name as a Str
+     */
+    @SuppressWarnings("WeakerAccess")
     public static Str readAsStr(String fileName) {
         String string = ResourceReader.read(fileName);
         return Str.create(string);
     }
 
 
+    /**
+     * Reads a file. UTF-8 encoding is assumed.
+     *
+     * @param fileName The name of the resource file to read
+     * @return The file with argument name as a string
+     */
+    public static String read(String fileName) {
+        byte[] bytes = ResourceReader.readAsByteArrayInternal(fileName, false);
+        return UTF8.getString(bytes);
+    }
+
+
+    /**
+     * @param fileName The name of the resource file to read
+     * @return The file with argument name as a byte array
+     */
+    @SuppressWarnings("WeakerAccess")
     public static byte[] readAsByteArray(String fileName) {
         return ResourceReader.readAsByteArrayInternal(fileName, false);
     }

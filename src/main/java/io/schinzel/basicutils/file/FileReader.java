@@ -17,8 +17,11 @@ import java.io.IOException;
  * Created by Schinzel on 2018-01-10
  */
 public class FileReader {
+
     /**
-     * @param fileName The name of a file
+     * Reads a file. UTF-8 encoding is assumed.
+     *
+     * @param fileName The name of the file
      * @return The file content as a string
      */
     public static String read(String fileName) {
@@ -28,7 +31,9 @@ public class FileReader {
 
 
     /**
-     * @param fileName The name of a file
+     * Reads a file. UTF-8 encoding is assumed.
+     *
+     * @param fileName The name of the file
      * @return The file content
      */
     public static Str readAsStr(String fileName) {
@@ -38,6 +43,8 @@ public class FileReader {
 
 
     /**
+     * Reads a file. UTF-8 encoding is assumed.
+     *
      * @param file A file
      * @return The file content as a string
      */
@@ -49,16 +56,17 @@ public class FileReader {
 
 
     /**
-     * @param fileName The name of a file
+     * @param fileName The name of the file
      * @return The file content as a byte array
      */
+    @SuppressWarnings("WeakerAccess")
     public static byte[] readAsByteArray(String fileName) {
         return FileReader.readAsByteArray(fileName, false);
     }
 
 
     /**
-     * @param fileName         The name of a file
+     * @param fileName         The name of the file
      * @param throwIOException If true an io exception is thrown. For testing
      * @return The file content as a byte array
      */
@@ -76,7 +84,7 @@ public class FileReader {
 
 
     /**
-     * @param fileName The name of a file
+     * @param fileName The name of the file
      * @return A file
      */
     private static File getFile(String fileName) {
@@ -92,10 +100,10 @@ public class FileReader {
      *
      * @param file File to validate
      */
-    private static void validateFile(File file) {
+    static void validateFile(File file) {
         Thrower.throwIfVarNull(file, "file");
-        Thrower.throwIfFalse(file.exists(), "Error reading file. File '" + file.getName() + "' does not exist");
-        Thrower.throwIfFalse(file.isFile(), "Argument file '" + file.toString() + "' is not a file.");
+        Thrower.throwIfFalse(file.exists()).message("Error reading file. File '%s' does not exist.", file.getName());
+        Thrower.throwIfFalse(file.isFile()).message("Error reading file. Argument file '%s' is not a file.", file.toString());
     }
 
 
