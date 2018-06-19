@@ -1,7 +1,7 @@
 package io.schinzel.samples.file;
 
 import io.schinzel.basicutils.file.FileReader;
-import io.schinzel.basicutils.file.FileWriter;
+import io.schinzel.basicutils.file.FileWriter4;
 
 /**
  * Purpose of this class is to show how FileReader and FileWriter can be used.
@@ -19,8 +19,14 @@ public class FileReaderWriterSample {
 
     private static void writeAndRead() {
         String fileName = "my_file.txt";
-        FileWriter.writeToTempFile(fileName, "The first file content\n");
-        FileWriter.append(fileName, "The second file content\n");
+        FileWriter4.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite("The first file content\n")
+                .write();
+        FileWriter4.appender()
+                .fileName(fileName)
+                .stringToWrite("The second file content\n")
+                .append();
         String fileContent = FileReader.read(fileName);
         System.out.println(fileContent);
     }
@@ -28,17 +34,27 @@ public class FileReaderWriterSample {
 
     private static void writeAndReadStr() {
         String fileName = "my_file.txt";
-        FileWriter.writeToTempFile(fileName, "The first file content\n");
-        FileWriter.append(fileName, "The second file content\n");
+        FileWriter4.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite("The first file content\n")
+                .write();
+        FileWriter4.appender()
+                .fileName(fileName)
+                .stringToWrite("The second file content\n")
+                .append();
         FileReader.readAsStr(fileName).writeToSystemOut();
     }
 
 
     private static void writeAndReadFileInAnotherDir() {
         String fileName = "../../my_file.txt";
-        FileWriter.writeToTempFile(fileName, "gibbon");
+        FileWriter4.tempFileWriter()
+                .fileName(fileName)
+                .stringToWrite("gibbon")
+                .write();
         FileReader.readAsStr(fileName).writeToSystemOut();
     }
+
 
 
 }
