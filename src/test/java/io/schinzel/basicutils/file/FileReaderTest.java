@@ -88,7 +88,7 @@ public class FileReaderTest {
     @Test
     public void read_FileWithArabicChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.ARABIC_LETTERS.getString();
-        String fileName = FileWriter4.tempFileWriter()
+        String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
         String readString = FileReader.read(fileName);
@@ -99,7 +99,7 @@ public class FileReaderTest {
     @Test
     public void readAsStr_FileWithPolishChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.POLISH_LETTERS.getString();
-        String fileName = FileWriter4.tempFileWriter()
+        String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
         String readString = FileReader.readAsStr(fileName).getString();
@@ -137,7 +137,7 @@ public class FileReaderTest {
 
     @Test
     public void readAsByteArray_EmulatedIOException_Exception() {
-        String fileName = FileWriter4.tempFileWriter()
+        String fileName = FileWriter.tempFileWriter()
                 .stringToWrite("any content")
                 .write();
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
@@ -149,7 +149,7 @@ public class FileReaderTest {
     @Test
     public void readAsByteArray_FileWithPersianChars_ReadStringShouldHaveTheCorrectChars() {
         String stringToWrite = FunnyChars.PERSIAN_LETTERS.getString();
-        String fileName = FileWriter4.tempFileWriter()
+        String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
         byte[] bytesRead = FileReader.readAsByteArray(fileName);

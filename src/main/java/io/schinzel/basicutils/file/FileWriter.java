@@ -17,18 +17,18 @@ import java.io.File;
  *
  * @author Schinzel
  */
-public class FileWriter4 {
+public class FileWriter {
 
 
     @Builder(builderClassName = "WriterBuilder", builderMethodName = "writer", buildMethodName = "write")
     static void write(String fileName, String stringToWrite) {
-        FileWriter4.writeToFile(fileName, stringToWrite, FileOp.WRITE);
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE);
     }
 
 
     @Builder(builderClassName = "AppenderBuilder", builderMethodName = "appender", buildMethodName = "append")
     static void append(String fileName, String stringToWrite) {
-        FileWriter4.writeToFile(fileName, stringToWrite, FileOp.APPEND);
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.APPEND);
     }
 
 
@@ -36,8 +36,8 @@ public class FileWriter4 {
     static String writeToTempFile(String fileName, String stringToWrite) {
         fileName = Checker.isNotEmpty(fileName)
                 ? fileName
-                : FileWriter4.class.getSimpleName() + "_" + RandomUtil.getRandomString(20) + ".txt";
-        FileWriter4.writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
+                : FileWriter.class.getSimpleName() + "_" + RandomUtil.getRandomString(20) + ".txt";
+        FileWriter.writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
         return fileName;
     }
 

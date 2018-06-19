@@ -9,18 +9,18 @@ import io.schinzel.basicutils.file.*;
  */
 public class MyTester {
     public static void main(String[] args) {
-        FileWriter4.appender()
+        FileWriter.appender()
                 .fileName("myFileName.txt")
                 .stringToWrite("myString")
                 .append();
-        FileWriter4.writer()
+        FileWriter.writer()
                 .fileName("myFileName.txt")
                 .stringToWrite("myString")
                 .write();
-        FileWriter4.tempFileWriter()
+        FileWriter.tempFileWriter()
                 .stringToWrite("myString")
                 .write();
-        FileWriter4.tempFileWriter()
+        FileWriter.tempFileWriter()
                 .fileName("tempFile.txt")
                 .stringToWrite("myString")
                 .write();

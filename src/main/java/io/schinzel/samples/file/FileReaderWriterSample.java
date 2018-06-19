@@ -1,7 +1,7 @@
 package io.schinzel.samples.file;
 
 import io.schinzel.basicutils.file.FileReader;
-import io.schinzel.basicutils.file.FileWriter4;
+import io.schinzel.basicutils.file.FileWriter;
 
 /**
  * Purpose of this class is to show how FileReader and FileWriter can be used.
@@ -19,11 +19,11 @@ public class FileReaderWriterSample {
 
     private static void writeAndRead() {
         String fileName = "my_file.txt";
-        FileWriter4.tempFileWriter()
+        FileWriter.tempFileWriter()
                 .fileName(fileName)
                 .stringToWrite("The first file content\n")
                 .write();
-        FileWriter4.appender()
+        FileWriter.appender()
                 .fileName(fileName)
                 .stringToWrite("The second file content\n")
                 .append();
@@ -34,11 +34,11 @@ public class FileReaderWriterSample {
 
     private static void writeAndReadStr() {
         String fileName = "my_file.txt";
-        FileWriter4.tempFileWriter()
+        FileWriter.tempFileWriter()
                 .fileName(fileName)
                 .stringToWrite("The first file content\n")
                 .write();
-        FileWriter4.appender()
+        FileWriter.appender()
                 .fileName(fileName)
                 .stringToWrite("The second file content\n")
                 .append();
@@ -48,7 +48,7 @@ public class FileReaderWriterSample {
 
     private static void writeAndReadFileInAnotherDir() {
         String fileName = "../../my_file.txt";
-        FileWriter4.tempFileWriter()
+        FileWriter.tempFileWriter()
                 .fileName(fileName)
                 .stringToWrite("gibbon")
                 .write();

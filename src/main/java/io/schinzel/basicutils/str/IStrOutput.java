@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.str;
 
 import io.schinzel.basicutils.RandomUtil;
-import io.schinzel.basicutils.file.FileWriter4;
+import io.schinzel.basicutils.file.FileWriter;
 import io.schinzel.basicutils.thrower.Thrower;
 
 /**
@@ -45,7 +45,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      */
     default T writeToFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        FileWriter4.writer()
+        FileWriter.writer()
                 .fileName(fileName)
                 .stringToWrite(this.getString())
                 .write();
@@ -61,7 +61,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
     default String writeToTempFile() {
         String fileName = this.getClass().getSimpleName() + "_" +
                 RandomUtil.getRandomString(20) + ".txt";
-        return FileWriter4.tempFileWriter()
+        return FileWriter.tempFileWriter()
                 .fileName(fileName)
                 .stringToWrite(this.getString())
                 .write();
@@ -76,7 +76,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      */
     default T writeToTempFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        FileWriter4.tempFileWriter()
+        FileWriter.tempFileWriter()
                 .fileName(fileName)
                 .stringToWrite(this.getString())
                 .write();
@@ -92,7 +92,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      */
     default T appendToFile(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        FileWriter4.appender()
+        FileWriter.appender()
                 .fileName(fileName)
                 .stringToWrite(this.getString())
                 .append();
