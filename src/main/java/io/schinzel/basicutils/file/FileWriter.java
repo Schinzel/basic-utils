@@ -11,7 +11,7 @@ import lombok.SneakyThrows;
 import java.io.File;
 
 /**
- * Purpose of this class is to write to files.
+ * Purpose of this class is to write to files. Files are encoded in UTF-8-
  * <p>
  * All write operations are relative to the set working directory.
  * <p>
@@ -20,8 +20,10 @@ import java.io.File;
 public class FileWriter {
 
     /**
-     * @param fileName      The name of a file
-     * @param stringToWrite The file content
+     * Appends to an existing file. Does no file with the argument name exist, one is created.
+     *
+     * @param fileName      The name of the file
+     * @param stringToWrite The string to write to file
      */
     public static void append(String fileName, String stringToWrite) {
         writeToFile(fileName, stringToWrite, FileOp.APPEND);
@@ -29,8 +31,11 @@ public class FileWriter {
 
 
     /**
-     * @param fileName      The name of a file
-     * @param stringToWrite The file content
+     * Writes the argument content to a file with the argument name. If a file with the argument
+     * name exists, it is overwritten.
+     *
+     * @param fileName      The name of the file
+     * @param stringToWrite The string to write to file
      */
     public static void write(String fileName, String stringToWrite) {
         writeToFile(fileName, stringToWrite, FileOp.WRITE);
@@ -41,9 +46,10 @@ public class FileWriter {
      * Writes to a file which is deleted when the JVM terminates. The file receives a random name
      * which is returned.
      *
-     * @param stringToWrite The file stringToWrite
+     * @param stringToWrite The string to write to file
      * @return The name of the file written to
      */
+    @SuppressWarnings("WeakerAccess")
     public static String writeToTempFile(String stringToWrite) {
         String fileName = FileWriter.class.getSimpleName()
                 + "_" + RandomUtil.getRandomString(20) + ".txt";
@@ -56,7 +62,7 @@ public class FileWriter {
      * Writes to a file which is deleted when the JVM terminates.
      *
      * @param fileName      The name of a file
-     * @param stringToWrite The file stringToWrite
+     * @param stringToWrite The string to write to file
      */
     public static void writeToTempFile(String fileName, String stringToWrite) {
         writeToFile(fileName, stringToWrite, FileOp.DELETE_ON_EXIT);
@@ -64,7 +70,7 @@ public class FileWriter {
 
 
     /**
-     * Different file operations
+     * File operations
      */
     enum FileOp {
         WRITE, APPEND, DELETE_ON_EXIT
@@ -74,7 +80,7 @@ public class FileWriter {
     /**
      * Write the argument string to a file with argument name and perform the argument operation.
      *
-     * @param fileName      The name of the file to write to.
+     * @param fileName      The name of the file to write to
      * @param stringToWrite The string to write to file
      * @param fileOp        The operations to carry out on file
      */
