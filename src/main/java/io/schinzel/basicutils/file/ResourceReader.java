@@ -14,7 +14,7 @@ import java.net.URL;
  * <p>
  * Created by Schinzel on 2018-06-20
  */
-public class ResourceReader2 {
+public class ResourceReader {
 
 
     /**
@@ -23,7 +23,7 @@ public class ResourceReader2 {
      */
     public static Bytes read(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        return ResourceReader2.read(fileName, false);
+        return ResourceReader.read(fileName, false);
     }
 
 

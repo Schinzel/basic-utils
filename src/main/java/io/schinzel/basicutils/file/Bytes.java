@@ -1,8 +1,8 @@
 package io.schinzel.basicutils.file;
 
+import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.UTF8;
 import io.schinzel.basicutils.str.Str;
-import lombok.AllArgsConstructor;
 
 import java.util.Arrays;
 
@@ -11,9 +11,15 @@ import java.util.Arrays;
  * <p>
  * Created by Schinzel on 2018-06-19
  */
-@AllArgsConstructor
 public class Bytes {
     private final byte[] mBytes;
+
+
+    Bytes(byte[] bytes) {
+        mBytes = (bytes != null)
+                ? bytes
+                : EmptyObjects.EMPTY_BYTE_ARRAY;
+    }
 
 
     /**

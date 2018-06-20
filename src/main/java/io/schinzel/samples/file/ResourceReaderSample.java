@@ -1,6 +1,6 @@
 package io.schinzel.samples.file;
 
-import io.schinzel.basicutils.file.ResourceReader2;
+import io.schinzel.basicutils.file.ResourceReader;
 
 /**
  * Purpose of this class is to provide sample usage of ResourceReader
@@ -10,7 +10,7 @@ import io.schinzel.basicutils.file.ResourceReader2;
 public class ResourceReaderSample {
 
     public static void main(String[] args) {
-        String read = ResourceReader2
+        String read = ResourceReader
                 .read("io/schinzel/samples/sample_resource.txt")
                 .asString();
         System.out.println(read);

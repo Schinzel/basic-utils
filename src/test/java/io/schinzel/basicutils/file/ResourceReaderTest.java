@@ -10,11 +10,11 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  * Created by Schinzel on 2018-01-13
  */
 public class ResourceReaderTest {
-   
+
 
     @Test
     public void read_ExistingFile_FileContent() {
-        String stringRead = ResourceReader2
+        String stringRead = ResourceReader
                 .read("resource_test_file.txt")
                 .asString();
         assertThat(stringRead).isEqualTo("File content");
@@ -23,7 +23,7 @@ public class ResourceReaderTest {
 
     @Test
     public void read_ExistingFileInSubDir_FileContent() {
-        String stringRead = ResourceReader2
+        String stringRead = ResourceReader
                 .read("dir/another_resource_test_file.txt")
                 .asString();
         assertThat(stringRead).isEqualTo("File content 2");
@@ -33,7 +33,7 @@ public class ResourceReaderTest {
     @Test
     public void read_ThrowException_Exception() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                ResourceReader2.read("resource_test_file.txt", true)
+                ResourceReader.read("resource_test_file.txt", true)
         ).withMessageStartingWith("Error when reading resource file");
     }
 }
