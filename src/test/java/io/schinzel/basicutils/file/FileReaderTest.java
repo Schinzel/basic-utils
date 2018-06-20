@@ -146,7 +146,9 @@ public class FileReaderTest {
         String fileName = RandomUtil.getRandomString(5);
         File dir = new File(fileName);
         dir.deleteOnExit();
-        dir.mkdirs();
+        if (dir.mkdirs()){
+            throw new RuntimeException("Failed to create directory");
+        }
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileReader.validateFile(dir)
         ).withMessageStartingWith("Error reading file. Argument file '" + fileName + "' is not a file.");
