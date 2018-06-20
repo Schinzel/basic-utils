@@ -14,7 +14,7 @@ import java.io.IOException;
  * <p>
  * Created by Schinzel on 2018-06-19
  */
-public class FileReader2 {
+public class FileReader {
 
     /**
      * Reads a file.
@@ -25,7 +25,7 @@ public class FileReader2 {
     public static Bytes read(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         File file = new File(fileName);
-        return FileReader2.read(file);
+        return FileReader.read(file);
     }
 
 
@@ -36,7 +36,7 @@ public class FileReader2 {
      * @return The contents of the file
      */
     public static Bytes read(File file) {
-        return FileReader2.read(file, false);
+        return FileReader.read(file, false);
     }
 
 

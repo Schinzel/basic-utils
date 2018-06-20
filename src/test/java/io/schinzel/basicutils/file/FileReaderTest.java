@@ -34,7 +34,7 @@ public class FileReaderTest {
     public void read_NullFile_Exception() {
         File file = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.read(file)
+                FileReader.read(file)
         ).withMessageStartingWith("Argument 'file' cannot be null");
     }
 
@@ -43,7 +43,7 @@ public class FileReaderTest {
     public void read_NonExistingFile_Exception() {
         File file = new File("I_do_not_exist.txt");
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.read(file)
+                FileReader.read(file)
         ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
     }
 
@@ -52,7 +52,7 @@ public class FileReaderTest {
     public void read_Dir_Exception() {
         File file = new File("/");
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.read(file)
+                FileReader.read(file)
         ).withMessageStartingWith("Error reading file. Argument file '/' is not a file.");
     }
 
@@ -61,7 +61,7 @@ public class FileReaderTest {
     public void read_NullFileName_Exception() {
         String fileName = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.read(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
@@ -70,7 +70,7 @@ public class FileReaderTest {
     public void read_EmptyFileName_Exception() {
         String fileName = "";
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.read(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Argument 'fileName' cannot be empty");
     }
 
@@ -79,7 +79,7 @@ public class FileReaderTest {
     public void read_FileDoesNotExists_Exception() {
         String fileName = "I_do_not_exist.txt";
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.read(fileName)
+                FileReader.read(fileName)
         ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
     }
 
@@ -90,7 +90,7 @@ public class FileReaderTest {
         String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
-        String readString = FileReader2
+        String readString = FileReader
                 .read(fileName)
                 .asString();
         assertThat(readString).isEqualTo(stringToWrite);
@@ -103,7 +103,7 @@ public class FileReaderTest {
         String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
-        String readString = FileReader2
+        String readString = FileReader
                 .read(fileName)
                 .asString();
         assertThat(readString).isEqualTo(stringToWrite);
@@ -117,7 +117,7 @@ public class FileReaderTest {
                 .write();
         File file = new File(fileName);
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.read(file, true)
+                FileReader.read(file, true)
         );
     }
 
@@ -126,7 +126,7 @@ public class FileReaderTest {
     public void validate_FileIsNull_Exception() {
         File file = null;
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.validateFile(file)
+                FileReader.validateFile(file)
         );
     }
 
@@ -136,7 +136,7 @@ public class FileReaderTest {
         String fileName = "I_do_not_exist.txt";
         File file = new File(fileName);
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.validateFile(file)
+                FileReader.validateFile(file)
         ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
     }
 
@@ -148,7 +148,7 @@ public class FileReaderTest {
         dir.deleteOnExit();
         dir.mkdirs();
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader2.validateFile(dir)
+                FileReader.validateFile(dir)
         ).withMessageStartingWith("Error reading file. Argument file '" + fileName + "' is not a file.");
 
     }

@@ -1,6 +1,6 @@
 package io.schinzel.samples.file;
 
-import io.schinzel.basicutils.file.FileReader2;
+import io.schinzel.basicutils.file.FileReader;
 import io.schinzel.basicutils.file.FileWriter;
 
 /**
@@ -26,7 +26,7 @@ public class FileReaderWriterSample {
                 .fileName(fileName)
                 .stringToWrite("The second file content\n")
                 .append();
-        String fileContent = FileReader2
+        String fileContent = FileReader
                 .read(fileName)
                 .asString();
         System.out.println(fileContent);
@@ -39,7 +39,7 @@ public class FileReaderWriterSample {
                 .fileName(fileName)
                 .stringToWrite("gibbon")
                 .write();
-        FileReader2
+        FileReader
                 .read(fileName)
                 .asStr()
                 .writeToSystemOut();
