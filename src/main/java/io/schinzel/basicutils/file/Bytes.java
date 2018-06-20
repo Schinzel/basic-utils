@@ -41,6 +41,7 @@ public class Bytes {
     /**
      * @return The byte array held by this instance
      */
+    @SuppressWarnings("WeakerAccess")
     public byte[] getByteArray() {
         return mBytes;
     }
@@ -49,6 +50,7 @@ public class Bytes {
     /**
      * @return A copy of the byte array held by this instance
      */
+    @SuppressWarnings("WeakerAccess")
     public byte[] copyByteArray() {
         return Arrays.copyOf(mBytes, mBytes.length);
     }
