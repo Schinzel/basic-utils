@@ -59,7 +59,9 @@ public class FileWriterTest {
         String fileName = this.getFileName();
         String stringToWrite = null;
         FileWriter.writeToFile(fileName, stringToWrite, FileWriter.FileOp.WRITE, FileWriter.DeleteOnExit.FALSE);
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEmpty();
     }
 
@@ -72,7 +74,9 @@ public class FileWriterTest {
                 .fileName(fileName)
                 .stringToWrite(stringToWrite)
                 .append();
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -89,7 +93,9 @@ public class FileWriterTest {
                 .fileName(fileName)
                 .stringToWrite(stringToWrite)
                 .append();
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -106,7 +112,9 @@ public class FileWriterTest {
                 .fileName(fileName)
                 .stringToWrite(stringToWrite)
                 .append();
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEqualTo(stringToWrite + stringToWrite);
     }
 
@@ -123,7 +131,9 @@ public class FileWriterTest {
                 .fileName(fileName)
                 .stringToWrite(stringToWrite)
                 .write();
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -136,7 +146,9 @@ public class FileWriterTest {
                 .fileName(fileName)
                 .stringToWrite(stringToWrite)
                 .write();
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -149,7 +161,9 @@ public class FileWriterTest {
                 .fileName(fileName)
                 .stringToWrite(stringToWrite)
                 .write();
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
@@ -160,7 +174,9 @@ public class FileWriterTest {
         String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
-        String stringRead = FileReader.read(fileName);
+        String stringRead = FileReader2
+                .read(fileName)
+                .asString();
         assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
