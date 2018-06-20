@@ -13,16 +13,47 @@ import java.io.IOException;
  * Created by Schinzel on 2018-06-19
  */
 public class FileReader2 {
-    public static Bytes read(File file) {
-        return FileReader2.readAsBytes(file, false);
-    }
 
-
+    /**
+     * Reads a file.
+     *
+     * @param fileName The name of the file
+     * @return The contents of the file
+     */
     public static Bytes read(String fileName) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         File file = new File(fileName);
+        return FileReader2.read(file);
+    }
+
+
+    /**
+     * Reads a file.
+     *
+     * @param file The file to read
+     * @return The contents of the file
+     */
+    public static Bytes read(File file) {
+        return FileReader2.read(file, false);
+    }
+
+
+    /**
+     * @param file             The file to read
+     * @param throwIOException If true an io exception is thrown. For testing
+     * @return The file content
+     */
+    static Bytes read(File file, boolean throwIOException) {
         validateFile(file);
-        return FileReader2.readAsBytes(file, false);
+        try {
+            if (throwIOException) {
+                throw new IOException("Emulated io exception");
+            }
+            byte[] byteArray = Files.asByteSource(file).read();
+            return new Bytes(byteArray);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -35,24 +66,6 @@ public class FileReader2 {
         Thrower.throwIfVarNull(file, "file");
         Thrower.throwIfFalse(file.exists()).message("Error reading file. File '%s' does not exist.", file.getName());
         Thrower.throwIfFalse(file.isFile()).message("Error reading file. Argument file '%s' is not a file.", file.toString());
-    }
-
-
-    /**
-     * @param file             The file to read
-     * @param throwIOException If true an io exception is thrown. For testing
-     * @return The file content as a byte array
-     */
-    static Bytes readAsBytes(File file, boolean throwIOException) {
-        try {
-            if (throwIOException) {
-                throw new IOException("Emulated io exception");
-            }
-            byte[] byteArray = Files.asByteSource(file).read();
-            return new Bytes(byteArray);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
