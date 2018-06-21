@@ -13,11 +13,15 @@ import lombok.SneakyThrows;
 import java.io.File;
 
 /**
- * The purpose of this class
+ * The purpose of this class is to save data to files. The methods are intuitive and concise.
  *
  * @author Schinzel
  */
 public class FileWriter {
+
+    //Package private constructor as this class should not be instantiated
+    FileWriter() {
+    }
 
 
     @Builder(builderClassName = "WriterBuilder", builderMethodName = "writer", buildMethodName = "write")

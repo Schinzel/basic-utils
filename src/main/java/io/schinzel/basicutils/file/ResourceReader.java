@@ -16,6 +16,9 @@ import java.net.URL;
  */
 public class ResourceReader {
 
+    //Package private constructor as this class should not be instantiated
+    ResourceReader() {
+    }
 
     /**
      * @param fileName The name of the resource file to read

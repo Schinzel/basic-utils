@@ -8,13 +8,17 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Purpose of this class is to read files
+ * Purpose of this class is to read files. The methods are intuitive and concise.
  * <p>
  * All read operations are relative to the set working directory.
  * <p>
  * Created by Schinzel on 2018-06-19
  */
 public class FileReader {
+
+    //Package private constructor as this class should not be instantiated
+    FileReader() {
+    }
 
     /**
      * Reads a file.

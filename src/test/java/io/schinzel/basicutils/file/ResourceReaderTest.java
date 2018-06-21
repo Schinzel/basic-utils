@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * Created by Schinzel on 2018-01-13
  */
-public class ResourceReaderTest {
+public class ResourceReaderTest extends ResourceReader {
 
 
     @Test

@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @SuppressWarnings("ConstantConditions")
 @Accessors(prefix = "m")
-public class FileReaderTest {
+public class FileReaderTest extends FileReader {
     @Getter
     private final String mFileName = "TestFile_"
             + this.getClass().getSimpleName()
@@ -146,7 +146,7 @@ public class FileReaderTest {
         String fileName = RandomUtil.getRandomString(5);
         File dir = new File(fileName);
         dir.deleteOnExit();
-        if (!dir.mkdirs()){
+        if (!dir.mkdirs()) {
             throw new RuntimeException("Failed to create directory");
         }
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
