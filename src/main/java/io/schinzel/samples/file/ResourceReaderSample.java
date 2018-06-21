@@ -10,9 +10,9 @@ import io.schinzel.basicutils.file.ResourceReader;
 public class ResourceReaderSample {
 
     public static void main(String[] args) {
-        String read = ResourceReader
+        String fileContent = ResourceReader
                 .read("io/schinzel/samples/sample_resource.txt")
                 .asString();
-        System.out.println(read);
+        System.out.println(fileContent);
     }
 }
