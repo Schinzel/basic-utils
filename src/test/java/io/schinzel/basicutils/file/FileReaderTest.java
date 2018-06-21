@@ -2,7 +2,6 @@ package io.schinzel.basicutils.file;
 
 import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.RandomUtil;
-import io.schinzel.basicutils.UTF8;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.junit.After;
@@ -91,7 +90,9 @@ public class FileReaderTest {
         String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
-        String readString = FileReader.read(fileName);
+        String readString = FileReader
+                .read(fileName)
+                .asString();
         assertThat(readString).isEqualTo(stringToWrite);
     }
 
@@ -102,59 +103,22 @@ public class FileReaderTest {
         String fileName = FileWriter.tempFileWriter()
                 .stringToWrite(stringToWrite)
                 .write();
-        String readString = FileReader.readAsStr(fileName).getString();
+        String readString = FileReader
+                .read(fileName)
+                .asString();
         assertThat(readString).isEqualTo(stringToWrite);
     }
 
 
     @Test
-    public void readAsByteArray_NullFileName_Exception() {
-        String fileName = null;
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.read(fileName)
-        ).withMessageStartingWith("Argument 'fileName' cannot be empty");
-
-    }
-
-
-    @Test
-    public void readAsByteArray_EmptyFileName_Exception() {
-        String fileName = "";
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.read(fileName)
-        ).withMessageStartingWith("Argument 'fileName' cannot be empty");
-    }
-
-
-    @Test
-    public void readAsByteArray_FileDoesNotExist_Exception() {
-        String fileName = "I_do_not_exist.txt";
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.read(fileName)
-        ).withMessageStartingWith("Error reading file. File 'I_do_not_exist.txt' does not exist");
-    }
-
-
-    @Test
-    public void readAsByteArray_EmulatedIOException_Exception() {
+    public void read_EmulatedIOException_Exception() {
         String fileName = FileWriter.tempFileWriter()
                 .stringToWrite("any content")
                 .write();
+        File file = new File(fileName);
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                FileReader.readAsByteArray(fileName, true)
+                FileReader.read(file, true)
         );
-    }
-
-
-    @Test
-    public void readAsByteArray_FileWithPersianChars_ReadStringShouldHaveTheCorrectChars() {
-        String stringToWrite = FunnyChars.PERSIAN_LETTERS.getString();
-        String fileName = FileWriter.tempFileWriter()
-                .stringToWrite(stringToWrite)
-                .write();
-        byte[] bytesRead = FileReader.readAsByteArray(fileName);
-        String stringRead = UTF8.getString(bytesRead);
-        assertThat(stringRead).isEqualTo(stringToWrite);
     }
 
 
@@ -182,7 +146,9 @@ public class FileReaderTest {
         String fileName = RandomUtil.getRandomString(5);
         File dir = new File(fileName);
         dir.deleteOnExit();
-        dir.mkdirs();
+        if (!dir.mkdirs()){
+            throw new RuntimeException("Failed to create directory");
+        }
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 FileReader.validateFile(dir)
         ).withMessageStartingWith("Error reading file. Argument file '" + fileName + "' is not a file.");
