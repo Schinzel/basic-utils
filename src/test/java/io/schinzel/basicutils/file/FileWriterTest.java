@@ -14,13 +14,12 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
 /**
- * The purpose of this class
  *
  * @author Schinzel
  */
 @SuppressWarnings("ConstantConditions")
 @Accessors(prefix = "m")
-public class FileWriterTest {
+public class FileWriterTest extends FileWriter {
     @Getter
     private final String mFileName = "TestFile_"
             + this.getClass().getSimpleName()

@@ -19,6 +19,10 @@ import java.io.File;
  */
 public class FileWriter {
 
+    //Package private constructor as this class should not be instantiated
+    FileWriter() {
+    }
+
 
     @Builder(builderClassName = "WriterBuilder", builderMethodName = "writer", buildMethodName = "write")
     static void write(String fileName, String stringToWrite) {

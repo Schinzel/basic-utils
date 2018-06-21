@@ -16,6 +16,10 @@ import java.io.IOException;
  */
 public class FileReader {
 
+    //Package private constructor as this class should not be instantiated
+    FileReader() {
+    }
+
     /**
      * Reads a file.
      *
