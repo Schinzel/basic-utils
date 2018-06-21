@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Purpose of this class is to read files
+ * Purpose of this class is to read files. The methods are intuitive and concise.
  * <p>
  * All read operations are relative to the set working directory.
  * <p>
