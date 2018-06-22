@@ -25,23 +25,23 @@ public class FileWriter {
 
 
     @Builder(builderClassName = "WriterBuilder", builderMethodName = "writer", buildMethodName = "write")
-    static void write(String fileName, String stringToWrite) {
-        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE, DeleteOnExit.FALSE);
+    static void write(String fileName, String content) {
+        FileWriter.writeToFile(fileName, content, FileOp.WRITE, DeleteOnExit.FALSE);
     }
 
 
     @Builder(builderClassName = "AppenderBuilder", builderMethodName = "appender", buildMethodName = "append")
-    static void append(String fileName, String stringToWrite) {
-        FileWriter.writeToFile(fileName, stringToWrite, FileOp.APPEND, DeleteOnExit.FALSE);
+    static void append(String fileName, String content) {
+        FileWriter.writeToFile(fileName, content, FileOp.APPEND, DeleteOnExit.FALSE);
     }
 
 
     @Builder(builderClassName = "TempFileWriterBuilder", builderMethodName = "tempFileWriter", buildMethodName = "write")
-    static String writeToTempFile(String fileName, String stringToWrite) {
+    static String writeToTempFile(String fileName, String content) {
         fileName = Checker.isNotEmpty(fileName)
                 ? fileName
                 : FileWriter.class.getSimpleName() + "_" + RandomUtil.getRandomString(20) + ".txt";
-        FileWriter.writeToFile(fileName, stringToWrite, FileOp.WRITE, DeleteOnExit.TRUE);
+        FileWriter.writeToFile(fileName, content, FileOp.WRITE, DeleteOnExit.TRUE);
         return fileName;
     }
 
@@ -61,15 +61,15 @@ public class FileWriter {
     /**
      * Write the argument string to a file with argument name and perform the argument operation.
      *
-     * @param fileName      The name of the file to write to
-     * @param stringToWrite The string to write to file
-     * @param fileOp        The operations to carry out on file
+     * @param fileName The name of the file to write to
+     * @param content  The string to write to file
+     * @param fileOp   The operations to carry out on file
      */
     @SneakyThrows
-    static void writeToFile(String fileName, String stringToWrite, FileOp fileOp, DeleteOnExit deleteOnExit) {
+    static void writeToFile(String fileName, String content, FileOp fileOp, DeleteOnExit deleteOnExit) {
         Thrower.throwIfVarEmpty(fileName, "fileName");
-        if (stringToWrite == null) {
-            stringToWrite = EmptyObjects.EMPTY_STRING;
+        if (content == null) {
+            content = EmptyObjects.EMPTY_STRING;
         }
         File file = new File(fileName);
         //If should delete file on exit
@@ -78,10 +78,10 @@ public class FileWriter {
         }
         //If should append to file
         if (fileOp == FileOp.APPEND) {
-            Files.asCharSink(file, Charsets.UTF_8, FileWriteMode.APPEND).write(stringToWrite);
+            Files.asCharSink(file, Charsets.UTF_8, FileWriteMode.APPEND).write(content);
         } //else write to file and overwrite possible previous content
         else {
-            Files.asCharSink(file, Charsets.UTF_8).write(stringToWrite);
+            Files.asCharSink(file, Charsets.UTF_8).write(content);
         }
     }
 }

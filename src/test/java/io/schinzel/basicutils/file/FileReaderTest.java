@@ -86,34 +86,34 @@ public class FileReaderTest extends FileReader {
 
     @Test
     public void read_FileWithArabicChars_ReadStringShouldHaveTheCorrectChars() {
-        String stringToWrite = FunnyChars.ARABIC_LETTERS.getString();
+        String content = FunnyChars.ARABIC_LETTERS.getString();
         String fileName = FileWriter.tempFileWriter()
-                .stringToWrite(stringToWrite)
+                .content(content)
                 .write();
         String readString = FileReader
                 .read(fileName)
                 .asString();
-        assertThat(readString).isEqualTo(stringToWrite);
+        assertThat(readString).isEqualTo(content);
     }
 
 
     @Test
     public void readAsStr_FileWithPolishChars_ReadStringShouldHaveTheCorrectChars() {
-        String stringToWrite = FunnyChars.POLISH_LETTERS.getString();
+        String content = FunnyChars.POLISH_LETTERS.getString();
         String fileName = FileWriter.tempFileWriter()
-                .stringToWrite(stringToWrite)
+                .content(content)
                 .write();
         String readString = FileReader
                 .read(fileName)
                 .asString();
-        assertThat(readString).isEqualTo(stringToWrite);
+        assertThat(readString).isEqualTo(content);
     }
 
 
     @Test
     public void read_EmulatedIOException_Exception() {
         String fileName = FileWriter.tempFileWriter()
-                .stringToWrite("any content")
+                .content("any content")
                 .write();
         File file = new File(fileName);
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
