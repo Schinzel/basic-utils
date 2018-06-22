@@ -20,11 +20,11 @@ public class FileReaderWriterSample {
         String fileName = "my_file.txt";
         FileWriter.tempFileWriter()
                 .fileName(fileName)
-                .stringToWrite("The first file content\n")
+                .content("The first file content\n")
                 .write();
         FileWriter.appender()
                 .fileName(fileName)
-                .stringToWrite("The second file content\n")
+                .content("The second file content\n")
                 .append();
         String fileContent = FileReader
                 .read(fileName)
@@ -37,7 +37,7 @@ public class FileReaderWriterSample {
         String fileName = "../../my_file.txt";
         FileWriter.tempFileWriter()
                 .fileName(fileName)
-                .stringToWrite("gibbon")
+                .content("gibbon")
                 .write();
         FileReader
                 .read(fileName)

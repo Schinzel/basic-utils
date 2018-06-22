@@ -47,7 +47,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         FileWriter.writer()
                 .fileName(fileName)
-                .stringToWrite(this.getString())
+                .content(this.getString())
                 .write();
         return this.getThis();
     }
@@ -63,7 +63,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
                 RandomUtil.getRandomString(20) + ".txt";
         return FileWriter.tempFileWriter()
                 .fileName(fileName)
-                .stringToWrite(this.getString())
+                .content(this.getString())
                 .write();
     }
 
@@ -78,7 +78,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         FileWriter.tempFileWriter()
                 .fileName(fileName)
-                .stringToWrite(this.getString())
+                .content(this.getString())
                 .write();
         return this.getThis();
     }
@@ -94,7 +94,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         FileWriter.appender()
                 .fileName(fileName)
-                .stringToWrite(this.getString())
+                .content(this.getString())
                 .append();
         return this.getThis();
     }
