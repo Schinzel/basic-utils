@@ -10,6 +10,13 @@ import static org.junit.Assert.assertArrayEquals;
 
 public class BytesTest {
 
+
+    @Test
+    public void empty_isEmpty() {
+        assertThat(Bytes.EMPTY.getByteArray()).isEmpty();
+    }
+
+
     @Test
     public void asString_ConstructorArgNull_EmptyString() {
         String actual = new Bytes(null).asString();
