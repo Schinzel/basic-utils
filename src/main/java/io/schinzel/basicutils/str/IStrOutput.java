@@ -19,7 +19,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T writeToSystemOut() {
-        System.out.println(this.getString());
+        System.out.println(this.asString());
         return this.getThis();
     }
 
@@ -32,7 +32,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T writeToSystemOutWithPrefix(String prefix) {
-        System.out.println(prefix + this.getString());
+        System.out.println(prefix + this.asString());
         return this.getThis();
     }
 
@@ -47,7 +47,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         FileWriter.writer()
                 .fileName(fileName)
-                .content(this.getString())
+                .content(this.asString())
                 .write();
         return this.getThis();
     }
@@ -63,7 +63,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
                 RandomUtil.getRandomString(20) + ".txt";
         return FileWriter.tempFileWriter()
                 .fileName(fileName)
-                .content(this.getString())
+                .content(this.asString())
                 .write();
     }
 
@@ -78,7 +78,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         FileWriter.tempFileWriter()
                 .fileName(fileName)
-                .content(this.getString())
+                .content(this.asString())
                 .write();
         return this.getThis();
     }
@@ -94,7 +94,7 @@ interface IStrOutput<T extends IStr<T>> extends IStr<T> {
         Thrower.throwIfVarEmpty(fileName, "fileName");
         FileWriter.appender()
                 .fileName(fileName)
-                .content(this.getString())
+                .content(this.asString())
                 .append();
         return this.getThis();
     }

@@ -24,7 +24,7 @@ public class IStrStringTest {
         StringBuilder sb = new StringBuilder();
         sb.append("gibbon");
         StrString str = new StrString().a("chimp ").a(sb).a(" gorilla");
-        Assert.assertEquals("chimp gibbon gorilla", str.getString());
+        Assert.assertEquals("chimp gibbon gorilla", str.asString());
     }
 
 
@@ -37,21 +37,21 @@ public class IStrStringTest {
         sb.append("gibbon");
         StrString str1 = new StrString().a(sb);
         StrString str2 = new StrString().a("chimp ").a(str1).a(" gorilla");
-        Assert.assertEquals("chimp gibbon gorilla", str2.getString());
+        Assert.assertEquals("chimp gibbon gorilla", str2.asString());
     }
 
 
     @Test
     public void appendChar() {
         StrString str1 = new StrString().a("cat").a(' ').a("dog");
-        Assert.assertEquals("cat dog", str1.getString());
+        Assert.assertEquals("cat dog", str1.asString());
     }
 
 
     @Test
     public void a_FloatPrimitive_ShouldBeCorrectlyFormatted() {
         float f = 123.45678f;
-        String actual = new StrString().a(f).getString();
+        String actual = new StrString().a(f).asString();
         assertThat(actual).isEqualTo("123.45678");
     }
 
@@ -59,7 +59,7 @@ public class IStrStringTest {
     @Test
     public void a_FloatObject_ShouldBeCorrectlyFormatted() {
         Float f = new Float(123.45678f);
-        String actual = new StrString().a(f).getString();
+        String actual = new StrString().a(f).asString();
         assertThat(actual).isEqualTo("123.45678");
     }
 
@@ -67,7 +67,7 @@ public class IStrStringTest {
     @Test
     public void a_FloatNull_NullString() {
         Float f = null;
-        String actual = new StrString().a(f).getString();
+        String actual = new StrString().a(f).asString();
         assertThat(actual).isEqualTo("null");
     }
 
@@ -75,7 +75,7 @@ public class IStrStringTest {
     @Test
     public void a_FloatPrimitiveNonExact_ShouldBeCorrectlyFormatted() {
         float f = 1 / 3f;
-        String actual = new StrString().a(f).getString();
+        String actual = new StrString().a(f).asString();
         assertThat(actual).isEqualTo("0.33333334");
     }
 
@@ -83,7 +83,7 @@ public class IStrStringTest {
     @Test
     public void a_DoublePrimitive_ShouldBeCorrectlyFormatted() {
         double d = 123.45678d;
-        String actual = new StrString().a(d).getString();
+        String actual = new StrString().a(d).asString();
         assertThat(actual).isEqualTo("123.45678");
     }
 
@@ -91,7 +91,7 @@ public class IStrStringTest {
     @Test
     public void a_DoubleObject_ShouldBeCorrectlyFormatted() {
         Double d = new Double(123.45678d);
-        String actual = new StrString().a(d).getString();
+        String actual = new StrString().a(d).asString();
         assertThat(actual).isEqualTo("123.45678");
     }
 
@@ -99,7 +99,7 @@ public class IStrStringTest {
     @Test
     public void a_DoubleNull_ShouldBeCorrectlyFormatted() {
         Double d = null;
-        String actual = new StrString().a(d).getString();
+        String actual = new StrString().a(d).asString();
         assertThat(actual).isEqualTo("null");
     }
 
@@ -107,7 +107,7 @@ public class IStrStringTest {
     @Test
     public void a_DoublePrimitiveNonExact_ShouldBeCorrectlyFormatted() {
         double d = 1 / 3d;
-        String actual = new StrString().a(d).getString();
+        String actual = new StrString().a(d).asString();
         assertThat(actual).isEqualTo("0.3333333333333333");
     }
 
@@ -115,7 +115,7 @@ public class IStrStringTest {
     @Test
     public void a_LongPrimitive_ShouldBeCorrectlyFormatted() {
         long l = 123_456_789_123_456_789L;
-        String actual = new StrString().a(l).getString();
+        String actual = new StrString().a(l).asString();
         assertThat(actual).isEqualTo("123456789123456789");
     }
 
@@ -123,7 +123,7 @@ public class IStrStringTest {
     @Test
     public void a_LongNull_NullString() {
         Long l = null;
-        String actual = new StrString().a(l).getString();
+        String actual = new StrString().a(l).asString();
         assertThat(actual).isEqualTo("null");
     }
 
@@ -131,7 +131,7 @@ public class IStrStringTest {
     @Test
     public void a_LongObject_ShouldBeCorrectlyFormatted() {
         Long l = new Long(123_456_789_123_456_789L);
-        String actual = new StrString().a(l).getString();
+        String actual = new StrString().a(l).asString();
         assertThat(actual).isEqualTo("123456789123456789");
     }
 
@@ -139,7 +139,7 @@ public class IStrStringTest {
     @Test
     public void a_Int_ShouldBeCorrectlyFormatted() {
         int i = 123_456_789;
-        String actual = new StrString().a(i).getString();
+        String actual = new StrString().a(i).asString();
         assertThat(actual).isEqualTo("123456789");
     }
 
@@ -147,7 +147,7 @@ public class IStrStringTest {
     @Test
     public void a_IntegerNull_NullString() {
         Integer i = null;
-        String actual = new StrString().a(i).getString();
+        String actual = new StrString().a(i).asString();
         assertThat(actual).isEqualTo("null");
     }
 
@@ -155,7 +155,7 @@ public class IStrStringTest {
     @Test
     public void a_Integer_ShouldBeCorrectlyFormatted() {
         Integer i = Integer.valueOf(123_456_789);
-        String actual = new StrString().a(i).getString();
+        String actual = new StrString().a(i).asString();
         assertThat(actual).isEqualTo("123456789");
     }
 
@@ -163,7 +163,7 @@ public class IStrStringTest {
     @Test
     public void a_BooleanObjectTrue_true() {
         Boolean b = Boolean.TRUE;
-        String actual = new StrString().a(b).getString();
+        String actual = new StrString().a(b).asString();
         assertThat(actual).isEqualTo("true");
     }
 
@@ -171,7 +171,7 @@ public class IStrStringTest {
     @Test
     public void a_BooleanObjectFalse_false() {
         Boolean b = Boolean.FALSE;
-        String actual = new StrString().a(b).getString();
+        String actual = new StrString().a(b).asString();
         assertThat(actual).isEqualTo("false");
     }
 
@@ -179,7 +179,7 @@ public class IStrStringTest {
     @Test
     public void a_BooleanObjectNull_nullString() {
         Boolean b = null;
-        String actual = new StrString().a(b).getString();
+        String actual = new StrString().a(b).asString();
         assertThat(actual).isEqualTo("null");
     }
 
@@ -187,7 +187,7 @@ public class IStrStringTest {
     @Test
     public void a_BooleanPrimitiveTrue_true() {
         boolean b = true;
-        String actual = new StrString().a(b).getString();
+        String actual = new StrString().a(b).asString();
         assertThat(actual).isEqualTo("true");
     }
 
@@ -195,7 +195,7 @@ public class IStrStringTest {
     @Test
     public void a_BooleanPrimitiveFalse_false() {
         boolean b = false;
-        String actual = new StrString().a(b).getString();
+        String actual = new StrString().a(b).asString();
         assertThat(actual).isEqualTo("false");
     }
 }

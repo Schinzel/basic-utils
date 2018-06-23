@@ -110,7 +110,7 @@ public class Aes256GcmTest {
         for (int i = 0; i < 1000; i++) {
             str.a(random.getString(100));
         }
-        String expected = str.getString();
+        String expected = str.asString();
         Aes256Gcm aes = new Aes256Gcm("0123456789abcdef0123456789abcdef");
         String encrypted = aes.encrypt(expected);
         String decrypted = aes.decrypt(encrypted);

@@ -17,44 +17,44 @@ public class IStrQuoteTest {
 
     @Test
     public void aqTest() {
-        String result = new StrQuote().aq("A").getString();
+        String result = new StrQuote().aq("A").asString();
         Assert.assertEquals("'A'", result);
-        result = new StrQuote().aq(null).getString();
+        result = new StrQuote().aq(null).asString();
         Assert.assertEquals("''", result);
     }
 
 
     @Test
     public void aqTestCharQuote() {
-        String result = new StrQuote().aq("A", '!').getString();
+        String result = new StrQuote().aq("A", '!').asString();
         Assert.assertEquals("!A!", result);
-        result = new StrQuote().aq(null, '!').getString();
+        result = new StrQuote().aq(null, '!').asString();
         Assert.assertEquals("!!", result);
     }
 
 
     @Test
     public void aqTestStringQuote() {
-        String result = new StrQuote().aq("AAA", "cat").getString();
+        String result = new StrQuote().aq("AAA", "cat").asString();
         Assert.assertEquals("catAAAcat", result);
-        result = new StrQuote().aq(null, "cat").getString();
+        result = new StrQuote().aq(null, "cat").asString();
         Assert.assertEquals("catcat", result);
     }
 
 
     @Test
     public void aqTestCharStartEndQuote() {
-        String result = new StrQuote().aq("A", '[', ']').getString();
+        String result = new StrQuote().aq("A", '[', ']').asString();
         Assert.assertEquals("[A]", result);
-        result = new StrQuote().aq(null, '[', ']').getString();
+        result = new StrQuote().aq(null, '[', ']').asString();
         Assert.assertEquals("[]", result);
     }
 
     @Test
     public void aqTestStringStartEndQuote() {
-        String result = new StrQuote().aq("A", "start", "end").getString();
+        String result = new StrQuote().aq("A", "start", "end").asString();
         Assert.assertEquals("startAend", result);
-        result = new StrQuote().aq(null, "start", "end").getString();
+        result = new StrQuote().aq(null, "start", "end").asString();
         Assert.assertEquals("startend", result);
     }
 
