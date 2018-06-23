@@ -14,7 +14,7 @@ interface IStrUtil<T extends IStr<T>> extends IStr<T> {
      * @return True if the string held is empty.
      */
     default boolean isEmpty(){
-        return Checker.isEmpty(this.getString());
+        return Checker.isEmpty(this.asString());
     }
 
 }

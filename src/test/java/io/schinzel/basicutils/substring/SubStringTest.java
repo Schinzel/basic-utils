@@ -281,7 +281,7 @@ public class SubStringTest {
         String actual = SubString
                 .create("uuu")
                 .getStr()
-                .getString();
+                .asString();
         assertThat(actual).isEqualTo("uuu");
     }
     //------------------------------------------------------------------------

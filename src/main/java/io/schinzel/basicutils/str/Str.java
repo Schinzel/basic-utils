@@ -59,7 +59,7 @@ public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<St
 
 
     @Override
-    public String getString() {
+    public String asString() {
         return mSb.toString();
     }
 
@@ -75,7 +75,7 @@ public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<St
 
 
     /**
-     * Unpauses any potential pause in string adding set by ifTrue(true).
+     * Ends an ifTrue
      *
      * @return This for chaining
      */
@@ -86,14 +86,13 @@ public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<St
 
 
     /**
-     * As it is not allowed to override Object methods in interfaces, a getString was necessary. But
-     * this method
-     * does the same as getString.
+     * As it is not allowed to override Object methods in interfaces, the method asString was necessary. But
+     * this method does the same as asString.
      *
-     * @return The same as getString.
+     * @return The same as asString.
      */
     @Override
     public String toString() {
-        return this.getString();
+        return this.asString();
     }
 }

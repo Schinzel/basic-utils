@@ -54,6 +54,6 @@ interface IStr<T extends IStr<T>> {
      *
      * @return The string held.
      */
-    String getString();
+    String asString();
 
 }

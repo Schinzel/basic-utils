@@ -15,18 +15,18 @@ interface IStrCast<T extends IStr<T>> extends IStr<T> {
     /**
      * @return Cast the string held by this object to utf8 bytes.
      */
-    default byte[] castToUtf8Bytes() {
-        return this.getString().getBytes(Charsets.UTF_8);
+    default byte[] asUtf8Bytes() {
+        return this.asString().getBytes(Charsets.UTF_8);
     }
 
 
     /**
      * @return Cast the string held by this object to integer.
      */
-    default Integer castToInt() {
-        Integer returnValue = Ints.tryParse(this.getString());
+    default Integer asInt() {
+        Integer returnValue = Ints.tryParse(this.asString());
         Thrower.throwIfNull(returnValue)
-                .message("Cannot cast '" + this.getString() + "' to integer");
+                .message("Cannot cast '" + this.asString() + "' to integer");
         return returnValue;
     }
 
@@ -34,10 +34,10 @@ interface IStrCast<T extends IStr<T>> extends IStr<T> {
     /**
      * @return Cast the string held by this object to long.
      */
-    default Long castToLong() {
-        Long returnValue = Longs.tryParse(this.getString());
+    default Long asLong() {
+        Long returnValue = Longs.tryParse(this.asString());
         Thrower.throwIfNull(returnValue)
-                .message("Cannot cast '" + this.getString() + "' to long");
+                .message("Cannot cast '" + this.asString() + "' to long");
         return returnValue;
     }
 

@@ -27,7 +27,7 @@ interface IStrString<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining.
      */
     default T a(T s) {
-        return this.a(s.getString());
+        return this.a(s.asString());
     }
 
 

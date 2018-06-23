@@ -20,7 +20,7 @@ abstract class AbstractIStr<T extends IStr<T>> implements IStr<T> {
 
 
     @Override
-    public String getString() {
+    public String asString() {
         return sb.toString();
     }
 }

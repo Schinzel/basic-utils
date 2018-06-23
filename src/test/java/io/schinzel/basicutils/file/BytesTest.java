@@ -33,14 +33,14 @@ public class BytesTest {
 
     @Test
     public void asStr_ConstructorArgNull_EmptyString() {
-        String actual = new Bytes(null).asStr().getString();
+        String actual = new Bytes(null).asStr().asString();
         assertThat(actual).isEmpty();
     }
 
 
     @Test
     public void asStr_ConstructorEmptyArray_EmptyString() {
-        String actual = new Bytes(EmptyObjects.EMPTY_BYTE_ARRAY).asStr().getString();
+        String actual = new Bytes(EmptyObjects.EMPTY_BYTE_ARRAY).asStr().asString();
         assertThat(actual).isEmpty();
     }
 

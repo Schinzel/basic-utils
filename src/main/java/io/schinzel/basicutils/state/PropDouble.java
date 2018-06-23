@@ -19,7 +19,7 @@ public class PropDouble {
      * @return Prop unit.
      */
     public PropUnit decimals(int decimals) {
-        String valAsString = Str.create().af(mDouble, decimals).getString();
+        String valAsString = Str.create().af(mDouble, decimals).asString();
         return new PropUnit(mStateBuilder, mKey, valAsString, mDouble);
     }
 
