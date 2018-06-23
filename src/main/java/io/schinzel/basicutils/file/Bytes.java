@@ -12,13 +12,15 @@ import java.util.Arrays;
  * Created by Schinzel on 2018-06-19
  */
 public class Bytes {
+    /** An empty bytes instance */
+    public static final Bytes EMPTY = new Bytes(EmptyObjects.EMPTY_BYTE_ARRAY);
     private final byte[] mBytes;
 
 
     Bytes(byte[] bytes) {
-        mBytes = (bytes != null)
-                ? bytes
-                : EmptyObjects.EMPTY_BYTE_ARRAY;
+        mBytes = (bytes == null)
+                ? EmptyObjects.EMPTY_BYTE_ARRAY
+                : bytes;
     }
 
 
