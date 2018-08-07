@@ -11,7 +11,7 @@ import java.util.Map;
  *
  * @author schinzel
  */
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class Thrower {
 
     /**
