@@ -8,6 +8,7 @@ import java.util.Map;
  *
  * @author Schinzel
  */
+@SuppressWarnings("WeakerAccess")
 public class ThrowerInstance {
 
     ThrowerInstance() {
@@ -19,6 +20,7 @@ public class ThrowerInstance {
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return This for chaining
      */
     public ThrowerInstance throwIfVarNull(Object value, String variableName) {
         Thrower.throwIfVarNull(value, variableName);
@@ -31,6 +33,7 @@ public class ThrowerInstance {
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return This for chaining
      */
     public ThrowerInstance throwIfVarEmpty(String value, String variableName) {
         Thrower.throwIfVarEmpty(value, variableName);
@@ -44,6 +47,7 @@ public class ThrowerInstance {
      * @param <T>          The type of the list
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return This for chaining
      */
     public <T> ThrowerInstance throwIfVarEmpty(List<T> value, String variableName) {
         Thrower.throwIfVarEmpty(value, variableName);
@@ -58,6 +62,7 @@ public class ThrowerInstance {
      * @param <V>          The type of the values in the map
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return This for chaining
      */
     public <K, V> ThrowerInstance throwIfVarEmpty(Map<K, V> value, String variableName) {
         Thrower.throwIfVarEmpty(value, variableName);
@@ -72,6 +77,7 @@ public class ThrowerInstance {
      * @param variableName The name of the variable that holds the value to
      *                     check. Used to create more useful exception message.
      * @param min          The min value the argument value should not be less than.
+     * @return This for chaining
      */
     public ThrowerInstance throwIfVarTooSmall(int valueToCheck, String variableName, int min) {
         Thrower.throwIfVarTooSmall(valueToCheck, variableName, min);
@@ -86,6 +92,7 @@ public class ThrowerInstance {
      * @param variableName The name of the variable that holds the value to
      *                     check. Used to create more useful exception message.
      * @param max          The max value the argument value should not be larger than.
+     * @return This for chaining
      */
     public ThrowerInstance throwIfVarTooLarge(int valueToCheck, String variableName, int max) {
         Thrower.throwIfVarTooLarge(valueToCheck, variableName, max);
@@ -102,6 +109,7 @@ public class ThrowerInstance {
      *                     check. Used to create more useful exception message.
      * @param min          The minimum allowed value that the argument value can have
      * @param max          The maximum allowed value that the argument value can have
+     * @return This for chaining
      */
     public ThrowerInstance throwIfVarOutsideRange(int valueToCheck, String variableName, int min, int max) {
         Thrower.throwIfVarOutsideRange(valueToCheck, variableName, min, max);
@@ -114,6 +122,7 @@ public class ThrowerInstance {
      *
      * @param expression The expression to check
      * @param message    The exception message
+     * @return This for chaining
      */
     public ThrowerInstance throwIfFalse(boolean expression, String message) {
         Thrower.throwIfFalse(expression, message);
@@ -126,13 +135,11 @@ public class ThrowerInstance {
      *
      * @param expression The boolean expression to evaluate.
      * @param message    The exception message
+     * @return This for chaining
      */
     public ThrowerInstance throwIfTrue(boolean expression, String message) {
         Thrower.throwIfTrue(expression, message);
         return this;
     }
 
-
 }
-
-

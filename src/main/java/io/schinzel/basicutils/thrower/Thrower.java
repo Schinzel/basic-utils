@@ -28,6 +28,7 @@ public class Thrower {
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return The argument value checked
      */
     public static Object throwIfVarNull(Object value, String variableName) {
         ThrowerMessage.create(value == null).message("Argument '" + variableName + "' cannot be null");
@@ -40,6 +41,7 @@ public class Thrower {
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return The argument value checked
      */
     public static String throwIfVarEmpty(String value, String variableName) {
         ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
@@ -53,6 +55,7 @@ public class Thrower {
      * @param <T>          The type of the list
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return The argument value checked
      */
     public static <T> List<T> throwIfVarEmpty(List<T> value, String variableName) {
         ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
@@ -67,6 +70,7 @@ public class Thrower {
      * @param <V>          The type of the values in the map
      * @param value        The value to check
      * @param variableName The name of the value to check
+     * @return The argument value checked
      */
     public static <K, V> Map<K, V> throwIfVarEmpty(Map<K, V> value, String variableName) {
         ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
@@ -81,6 +85,7 @@ public class Thrower {
      * @param variableName The name of the variable that holds the value to
      *                     check. Used to create more useful exception message.
      * @param min          The min value the argument value should not be less than.
+     * @return The argument value checked
      */
     public static int throwIfVarTooSmall(int valueToCheck, String variableName, int min) {
         Thrower.throwIfTrue(valueToCheck < min)
@@ -96,6 +101,7 @@ public class Thrower {
      * @param variableName The name of the variable that holds the value to
      *                     check. Used to create more useful exception message.
      * @param max          The max value the argument value should not be larger than.
+     * @return The argument value checked
      */
     public static int throwIfVarTooLarge(int valueToCheck, String variableName, int max) {
         Thrower.throwIfTrue(valueToCheck > max)
@@ -113,6 +119,7 @@ public class Thrower {
      *                     check. Used to create more useful exception message.
      * @param min          The minimum allowed value that the argument value can have
      * @param max          The maximum allowed value that the argument value can have
+     * @return The argument value checked
      */
     public static int throwIfVarOutsideRange(int valueToCheck, String variableName, int min, int max) {
         Thrower.throwIfTrue((max < min), "Error using method. Max cannot be smaller than min.");
