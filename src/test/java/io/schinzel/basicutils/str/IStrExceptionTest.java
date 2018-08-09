@@ -3,7 +3,6 @@ package io.schinzel.basicutils.str;
 import io.schinzel.basicutils.RandomUtil;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -39,7 +38,6 @@ public class IStrExceptionTest {
         } catch (RuntimeException e) {
             StackTraceElement[] stackTrace = e.getStackTrace();
             for (StackTraceElement ste : stackTrace) {
-                String s = ste.getClassName();
                 assertThat(ste.getClassName()).isNotEqualTo(IStrException.class.getCanonicalName());
             }
         }

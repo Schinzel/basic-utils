@@ -23,7 +23,7 @@ interface IStrException<T extends IStr<T>> extends IStr<T> {
 
     /**
      *
-     * @param stackTrace
+     * @param stackTrace A stack trace
      * @return The argument stacktrace with the first element removed
      */
     static StackTraceElement[] removeFirstElement(StackTraceElement[] stackTrace){
