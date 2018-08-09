@@ -15,7 +15,7 @@ interface IStrException<T extends IStr<T>> extends IStr<T> {
     default T throwRuntime() {
         RuntimeException runtimeException = new RuntimeException(this.asString());
         StackTraceElement[] stackTrace = runtimeException.getStackTrace();
-        StackTraceElement[] newStackTrace = removeStrFromStacktrace(stackTrace);
+        StackTraceElement[] newStackTrace = removeFirstElement(stackTrace);
         runtimeException.setStackTrace(newStackTrace);
         throw runtimeException;
     }
@@ -26,7 +26,7 @@ interface IStrException<T extends IStr<T>> extends IStr<T> {
      * @param stackTrace
      * @return The argument stacktrace with the first element removed
      */
-    static StackTraceElement[] removeStrFromStacktrace(StackTraceElement[] stackTrace){
+    static StackTraceElement[] removeFirstElement(StackTraceElement[] stackTrace){
         int newSize = stackTrace.length - 1;
         StackTraceElement[] newStackTrace = new StackTraceElement[newSize];
         System.arraycopy(stackTrace, 1, newStackTrace, 0, newSize);
