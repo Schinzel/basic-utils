@@ -12,7 +12,7 @@ import java.util.Locale;
 
 @SuppressWarnings("WeakerAccess")
 public class Str implements IStrCast<Str>, IStrFormatNumbers<Str>, IStrOutput<Str>, IStrQuote<Str>,
-        IStrString<Str>, IStrUtil<Str>, IStrWhitespace<Str> {
+        IStrString<Str>, IStrException<Str>, IStrUtil<Str>, IStrWhitespace<Str> {
     /** Holds the stings added. */
     private StringBuilder mSb = new StringBuilder();
     /** If true, the adding of strings is paused. */
