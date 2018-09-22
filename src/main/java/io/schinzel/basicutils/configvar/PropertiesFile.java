@@ -16,8 +16,7 @@ import java.util.stream.Collectors;
  * Created by schinzel on 2017-06-25.
  */
 class PropertiesFile {
-
-
+    
     /**
      * Returns the argument file as a properties object. The file location is relative the run
      * directory. If no such file, an empty map is returned.
