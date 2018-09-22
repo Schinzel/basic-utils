@@ -26,7 +26,7 @@ class PropertiesFile {
      * @return The properties file as a map
      */
     static Map<String, String> getProperties(String fileName) {
-        Thrower.throwIfVarEmpty(fileName, "filenNme");
+        Thrower.throwIfVarEmpty(fileName, "fileName");
         if (!new File(fileName).exists()) {
             return Collections.emptyMap();
         }
