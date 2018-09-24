@@ -29,6 +29,7 @@ public class CipherLibrary {
     private static CipherLibrary SINGLETON_INSTANCE = new CipherLibrary();
     @Getter(AccessLevel.PRIVATE)
     private Map<Integer, ICipher> ciphers = new HashMap<>();
+
     
     /**
      * Private so that only create method is used.
