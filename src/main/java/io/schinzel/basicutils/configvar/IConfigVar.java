@@ -18,7 +18,7 @@ public interface IConfigVar {
      * @return Returns the value of the property with the argument key.
      */
     default String getValue(IName objectWithName) {
-        return this.getValue(objectWithName.name());
+        return this.getValue(objectWithName.getMyName());
     }
 
 }
