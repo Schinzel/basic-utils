@@ -12,4 +12,13 @@ public interface IConfigVar {
      */
     String getValue(String keyName);
 
+
+    /**
+     * @param objectWithName A object with a name
+     * @return Returns the value of the property with the argument key.
+     */
+    default String getValue(IName objectWithName) {
+        return this.getValue(objectWithName.name());
+    }
+
 }

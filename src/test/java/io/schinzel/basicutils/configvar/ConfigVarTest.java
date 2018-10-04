@@ -71,4 +71,12 @@ public class ConfigVarTest {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 configVar.getValue("bird"));
     }
+
+
+    @Test
+    public void getValue_EnumAsArgument_TheValueOfTheEnumName() {
+        String fileName = Str.create().anl("BEAR=4feet\nEAGLE=2feet").writeToTempFile();
+        String valFromFile = ConfigVar.create(fileName).getValue(ConfigVarNames.BEAR);
+        assertThat(valFromFile).isEqualTo("4feet");
+    }
 }
