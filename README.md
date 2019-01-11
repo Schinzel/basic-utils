@@ -20,8 +20,8 @@ SubString.create(input)
 Thrower.throwIfTrue(myVar<100).message("This is an exception message");
 
 
-//Sleep for 100 millis
-Sandman.snooze(100);
+//Sleep for 100 milliseconds
+Sandman.snoozeMillis(100);
 
 //Check for null and empty string, map, list and so on
 if (Checker.isEmpty(str)) {
