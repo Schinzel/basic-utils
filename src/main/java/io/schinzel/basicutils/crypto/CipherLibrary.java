@@ -5,7 +5,6 @@ import io.schinzel.basicutils.crypto.cipher.ICipher;
 import io.schinzel.basicutils.thrower.Thrower;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.val;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,7 +14,7 @@ import java.util.Map;
  * strings.
  * <p>
  * Strings encrypted with the instances of this class are prefixed with a version.
- * E.g. v12_dflkjsdfdj
+ * E.g. v12_mYString
  * <p>
  * This is useful for:
  * - Using different ciphers for different data sets.
@@ -75,7 +74,7 @@ public class CipherLibrary {
      * Finds cipher with argument version. The cipher must have been added with the addCipher
      * method. Argument string is encrypted with this cipher. The encrypted string is prefixed
      * with the version it was encrypted with.
-     * Example return if argument version is 123: v123_thisisanencryptedstring
+     * Example return if argument version is 123: v123_thisIsAnEncryptedString
      *
      * @param version   The cipher version
      * @param clearText The string to encrypt
@@ -93,7 +92,7 @@ public class CipherLibrary {
      * Finds cipher with argument version. The cipher must have been added with the addCipher
      * method. Argument string is encrypted with this cipher. The encrypted string is prefixed
      * with the version it was encrypted with.
-     * Example return if argument version is 123: v123_thisisanencryptedstring
+     * Example return if argument version is 123: v123_thisIsAnEncryptedString
      *
      * @param version   The cipher version
      * @param clearText The text to encrypt
@@ -105,7 +104,7 @@ public class CipherLibrary {
         String encryptedString = this.getCiphers()
                 .get(version)
                 .encrypt(clearText);
-        return VersionPrefix.addVersionPrefix(version, encryptedString);
+        return VersionString.addVersionPrefix(version, encryptedString);
     }
 
 
@@ -113,16 +112,15 @@ public class CipherLibrary {
      * Decrypts the argument string.
      * <p>
      * The version of the cipher used to encrypt this string
-     * Example argument: v123_thisisanencryptedstring
+     * Example argument: v123_thisIsAnEncryptedString
      *
      * @param encryptedStringWithVersion Encrypted string with version prefix.
      * @return The argument string decrypted.
      */
     public String decrypt(String encryptedStringWithVersion) {
-        val versionPrefix = this.getVersionPrefix(encryptedStringWithVersion);
-        return this.getCiphers()
-                .get(versionPrefix.getVersion())
-                .decrypt(versionPrefix.getString());
+        String encryptedString = VersionString.extractString(encryptedStringWithVersion);
+        return this.getCipher(encryptedStringWithVersion)
+                .decrypt(encryptedString);
     }
 
 
@@ -130,23 +128,31 @@ public class CipherLibrary {
      * Decrypts the argument text.
      * <p>
      * The version of the cipher used to encrypt this string
-     * Example argument: v123_thisisanencryptedstring
+     * Example argument: v123_thisIsAnEncryptedString
      *
      * @param encryptedStringWithVersion Encrypted string with version prefix.
      * @return The argument string decrypted.
      */
     public byte[] decryptAsByteArray(String encryptedStringWithVersion) {
-        val versionPrefix = this.getVersionPrefix(encryptedStringWithVersion);
-        return this.getCiphers()
-                .get(versionPrefix.getVersion())
-                .decryptToByteArray(versionPrefix.getString());
+        String encryptedString = VersionString.extractString(encryptedStringWithVersion);
+        return this.getCipher(encryptedStringWithVersion)
+                .decryptToByteArray(encryptedString);
     }
 
-    private VersionPrefix getVersionPrefix(String encryptedStringWithVersion) {
-        val versionPrefix = new VersionPrefix(encryptedStringWithVersion);
-        Integer version = versionPrefix.getVersion();
+
+    /**
+     * @param encryptedStringWithVersion E.g.v123_thisIsAnEncryptedString
+     * @return The cipher as indicated by the version in the version-string
+     */
+    private ICipher getCipher(String encryptedStringWithVersion) {
+        //Get the version held by the version string
+        Integer version = VersionString.extractVersion(encryptedStringWithVersion);
+        //Throw error if there exists no cipher with this version
         Thrower.throwIfFalse(this.getCiphers().containsKey(version))
                 .message("Cannot decrypt as there is no cipher with version " + version);
-        return versionPrefix;
+        return this.getCiphers()
+                .get(version);
     }
+
+
 }

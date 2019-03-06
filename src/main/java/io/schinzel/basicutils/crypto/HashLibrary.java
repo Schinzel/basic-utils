@@ -5,7 +5,6 @@ import io.schinzel.basicutils.thrower.Thrower;
 import io.schinzel.basicutils.crypto.hash.IHash;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.val;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -70,7 +69,7 @@ public class HashLibrary {
         Thrower.throwIfFalse(this.getHashes().containsKey(version))
                 .message("Cannot hashes as there is no hashes with version " + version);
         IHash hash = this.getHashes().get(version);
-        return VersionPrefix.addVersionPrefix(version, hash.hash(clearText));
+        return VersionString.addVersionPrefix(version, hash.hash(clearText));
     }
 
 
@@ -82,13 +81,13 @@ public class HashLibrary {
      * the argument hashed string was created.
      */
     public boolean matches(String clearText, String hashedStringWithVersion) {
-        val versionPrefix = new VersionPrefix(hashedStringWithVersion);
-        Integer version = versionPrefix.getVersion();
+        Integer version = VersionString.extractVersion(hashedStringWithVersion);
         Thrower.throwIfFalse(this.getHashes().containsKey(version))
                 .message("Cannot hashes as there is no hashes with version " + version);
+        String hashedString = VersionString.extractString(hashedStringWithVersion);
         return this.getHashes()
                 .get(version)
-                .matches(clearText, versionPrefix.getString());
+                .matches(clearText, hashedString);
     }
 
 }
