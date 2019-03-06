@@ -108,7 +108,7 @@ public class CipherLibraryTest {
         CipherLibrary cipherLibrary = CipherLibrary.create()
                 .addCipher(1, new NoCipher());
         String encryptedStringWithVersionPrefix = cipherLibrary.encrypt(1, clearText);
-        byte[] decryptedBytes = cipherLibrary.decryptAsByteArray(encryptedStringWithVersionPrefix);
+        byte[] decryptedBytes = cipherLibrary.decryptToByteArray(encryptedStringWithVersionPrefix);
         String decryptedString = UTF8.getString(decryptedBytes);
         assertThat(decryptedString).isEqualTo(clearText);
     }
