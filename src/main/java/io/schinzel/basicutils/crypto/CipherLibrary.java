@@ -133,7 +133,7 @@ public class CipherLibrary {
      * @param encryptedStringWithVersion Encrypted string with version prefix.
      * @return The argument string decrypted.
      */
-    public byte[] decryptAsByteArray(String encryptedStringWithVersion) {
+    public byte[] decryptToByteArray(String encryptedStringWithVersion) {
         String encryptedString = VersionString.extractString(encryptedStringWithVersion);
         return this.getCipher(encryptedStringWithVersion)
                 .decryptToByteArray(encryptedString);
