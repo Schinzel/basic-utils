@@ -5,27 +5,27 @@ import io.schinzel.basicutils.RandomUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class VersionPrefixTest {
+public class VersionStringTest {
 
     @Test
-    public void getVersion_VersionSetWithAddVersionPrefix_OutputShouldBeSameAsInput() {
+    public void extractVersion_VersionSetWithAddVersionPrefix_OutputShouldBeSameAsInput() {
         for (FunnyChars funnyChars : FunnyChars.values()) {
             String string = funnyChars.getString();
             int version = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-            String s = VersionPrefix.addVersionPrefix(version, string);
-            Assert.assertEquals(version, (long) new VersionPrefix(s).getVersion());
+            String s = VersionString.addVersionPrefix(version, string);
+            Assert.assertEquals(version, (long) VersionString.extractVersion(s));
 
         }
     }
 
 
     @Test
-    public void getString_StringSetWithAddVersionPrefix_OutputShoudlBeSameAsInput() {
+    public void extractString_StringSetWithAddVersionPrefix_OutputShoudlBeSameAsInput() {
         for (FunnyChars funnyChars : FunnyChars.values()) {
             String input = funnyChars.getString();
             int version = RandomUtil.getRandomNumber(1, Integer.MAX_VALUE);
-            String s = VersionPrefix.addVersionPrefix(version, input);
-            Assert.assertEquals(input, new VersionPrefix(s).getString());
+            String s = VersionString.addVersionPrefix(version, input);
+            Assert.assertEquals(input, VersionString.extractString(s));
         }
     }
 

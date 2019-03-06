@@ -105,15 +105,13 @@ public class Aes256Gcm implements ICipher {
 
 
     /**
-     * @param clearText A clear text string to encrypt.
+     * @param clearTextAsBytes Clear text to encrypt.
      * @return The argument text encrypted.
      */
     @Override
-    public String encrypt(String clearText) {
+    public String encrypt(byte[] clearTextAsBytes) {
         //Create holder for init vector
         byte[] abInitVector = this.getSaltShaker().getSalt();
-        //Convert the clear text string to as utf8 bytes
-        byte[] clearTextAsBytes = UTF8.getBytes(clearText);
         //Encrypt
         byte[] encryptedTextAsBytes = Aes256Gcm.crypt(clearTextAsBytes, Cipher.ENCRYPT_MODE, this.getKey(), abInitVector);
         //Encode the bytes to string
@@ -123,12 +121,8 @@ public class Aes256Gcm implements ICipher {
     }
 
 
-    /**
-     * @param encryptedText An encrypted text to decrypt
-     * @return The argument text decrypted
-     */
     @Override
-    public String decrypt(String encryptedText) {
+    public byte[] decryptToByteArray(String encryptedText) {
         //Extract the init vector.
         String sInitVector = SubString.create(encryptedText).endDelimiter("_").getString();
         //Get the init vector as byte array
@@ -138,9 +132,7 @@ public class Aes256Gcm implements ICipher {
         //Decode the encrypted string
         byte[] abEncryptedTextDecoded = this.getEncoding().decode(encryptedText);
         //Decrypt
-        byte[] decryptedText = Aes256Gcm.crypt(abEncryptedTextDecoded, Cipher.DECRYPT_MODE, this.getKey(), abInitVector);
-        //Convert the encrypted byte array to a string and return
-        return UTF8.getString(decryptedText);
+        return Aes256Gcm.crypt(abEncryptedTextDecoded, Cipher.DECRYPT_MODE, this.getKey(), abInitVector);
     }
 
 

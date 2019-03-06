@@ -1,12 +1,16 @@
 package io.schinzel.basicutils.crypto;
 
 import io.schinzel.basicutils.FunnyChars;
+import io.schinzel.basicutils.RandomUtil;
+import io.schinzel.basicutils.UTF8;
 import io.schinzel.basicutils.crypto.cipher.ICipher;
+import io.schinzel.basicutils.crypto.cipher.NoCipher;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.junit.Assert.assertEquals;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -23,11 +27,8 @@ public class CipherLibraryTest {
 
     @Test
     public void encryptDecrypt_FunnyChars_OutputSameAsInput() {
-        ICipher mockCipher = mock(ICipher.class);
-        when(mockCipher.encrypt(anyString())).then(i -> "prefix_" + i.getArgument(0));
-        when(mockCipher.decrypt(anyString())).then(i -> i.getArgument(0).toString().substring(7));
         CipherLibrary cipherLibrary = CipherLibrary.create()
-                .addCipher(1, mockCipher);
+                .addCipher(1, new NoCipher());
         for (FunnyChars funnyChars : FunnyChars.values()) {
             String encryptedString = cipherLibrary.encrypt(1, funnyChars.getString());
             String actual = cipherLibrary.decrypt(encryptedString);
@@ -39,9 +40,9 @@ public class CipherLibraryTest {
     @Test
     public void encrypt_TwoDifferentCiphersAdded_CorrectCipherIsUsedToEncrypt() {
         ICipher mockCipher1 = mock(ICipher.class);
-        when(mockCipher1.encrypt(anyString())).then(i -> "one_" + i.getArgument(0));
+        when(mockCipher1.encrypt(any(byte[].class))).then(i -> "one_" + UTF8.getString(i.getArgument(0)));
         ICipher mockCipher2 = mock(ICipher.class);
-        when(mockCipher2.encrypt(anyString())).then(i -> "two_" + i.getArgument(0));
+        when(mockCipher2.encrypt(any(byte[].class))).then(i -> "two_" + UTF8.getString(i.getArgument(0)));
         CipherLibrary cipherLibrary = CipherLibrary.create()
                 .addCipher(1, mockCipher1)
                 .addCipher(2, mockCipher2);
@@ -70,29 +71,25 @@ public class CipherLibraryTest {
 
     @Test
     public void addCipher_CipherVersionAlreadyExists_ThrowsException() {
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            CipherLibrary.create()
-                    .addCipher(1, mock(ICipher.class))
-                    .addCipher(1, mock(ICipher.class));
-        });
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> CipherLibrary.create()
+                .addCipher(1, mock(ICipher.class))
+                .addCipher(1, mock(ICipher.class)));
     }
 
 
     @Test
     public void encrypt_NoCypherWithArgumentVersion_ThrowsException() {
         CipherLibrary cipherLibrary = CipherLibrary.create().addCipher(1, mock(ICipher.class));
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            cipherLibrary.encrypt(123, "my_string");
-        });
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                cipherLibrary.encrypt(123, "my_string"));
     }
 
 
     @Test
     public void decrypt_NoPrefix_ThrowsException() {
         CipherLibrary cipherLibrary = CipherLibrary.create().addCipher(1, mock(ICipher.class));
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            cipherLibrary.decrypt("my_string");
-        });
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                cipherLibrary.decrypt("my_string"));
     }
 
 
@@ -100,10 +97,20 @@ public class CipherLibraryTest {
     public void decrypt_NoSuchCipherVersion_ThrowsException() {
         CipherLibrary cipherLibrary = CipherLibrary.create()
                 .addCipher(1, mock(ICipher.class));
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            cipherLibrary.decrypt("v123_my_string");
-        });
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                cipherLibrary.decrypt("v123_my_string"));
     }
 
+
+    @Test
+    public void decryptAsByteArray_RandomString_SameAsArgumentString() {
+        String clearText = RandomUtil.getRandomString(10);
+        CipherLibrary cipherLibrary = CipherLibrary.create()
+                .addCipher(1, new NoCipher());
+        String encryptedStringWithVersionPrefix = cipherLibrary.encrypt(1, clearText);
+        byte[] decryptedBytes = cipherLibrary.decryptAsByteArray(encryptedStringWithVersionPrefix);
+        String decryptedString = UTF8.getString(decryptedBytes);
+        assertThat(decryptedString).isEqualTo(clearText);
+    }
 
 }
