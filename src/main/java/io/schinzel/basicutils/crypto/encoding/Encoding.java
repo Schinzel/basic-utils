@@ -36,5 +36,18 @@ public enum Encoding implements IEncoding {
             return BaseEncoding.base16().lowerCase().decode(str);
         }
 
-    }
-}
+    },
+    BASE62 {
+        @Override
+        public String encode(byte[] b) {
+            return Base62.encode(b);
+        }
+
+
+        @SneakyThrows
+        @Override
+        public byte[] decode(String str) {
+            return Base62.decode(str);
+        }
+
+    }}
