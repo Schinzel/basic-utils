@@ -27,7 +27,7 @@ public class Aes256Sample {
 
     private static void sampleEncryptAndDecrypt() {
         System.out.println("*** Example 2 ***");
-        ICipher aes = new Aes256Gcm("0123456789abcdef0123456789abcdef", Encoding.HEX);
+        ICipher aes = new Aes256Gcm("0123456789abcdef0123456789abcdef", Encoding.BASE62);
         String encrypted = aes.encrypt("This is a string");
         String decrypted = aes.decrypt(encrypted);
         System.out.println("Encrypted: " + encrypted);
@@ -43,5 +43,6 @@ public class Aes256Sample {
         System.out.println(aes.encrypt("This is a string"));
         System.out.println(aes.encrypt("This is a string"));
     }
+
 
 }

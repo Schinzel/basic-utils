@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.crypto.encoding;
 
 import io.schinzel.basicutils.FunnyChars;
+import io.schinzel.basicutils.RandomUtil;
 import io.schinzel.basicutils.UTF8;
 import org.junit.Test;
 
@@ -42,10 +43,21 @@ public class EncodingTest {
 
 
     @Test
-    public void encode_Base16OddnumberOfChars_ThrowsException() {
+    public void encode_Base16OddNumberOfChars_ThrowsException() {
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> {
             Encoding.HEX.decode("a");
         }).withMessageContaining("Invalid input length ");
+    }
+
+
+    @Test
+    public void base62EncodeDecode_RandomString_DecodedStringSameAsInput() {
+        String input = RandomUtil.getRandomString(100);
+        byte[] inputAsBytes = UTF8.getBytes(input);
+        String encodedString = Encoding.BASE62.encode(inputAsBytes);
+        byte[] decodedBytes = Encoding.BASE62.decode(encodedString);
+        String decodedString = UTF8.getString(decodedBytes);
+        assertEquals(input, decodedString);
     }
 
 }
