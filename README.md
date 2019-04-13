@@ -1,8 +1,10 @@
 # basic-utils
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fff657b5b823421997eeb2db64358f0e)](https://www.codacy.com/app/Kollektiva/basic-utils?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Schinzel/basic-utils&amp;utm_campaign=Badge_Grade)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/fff657b5b823421997eeb2db64358f0e)](https://www.codacy.com/app/Kollektiva/basic-utils?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Schinzel/basic-utils&amp;utm_campaign=Badge_Coverage)
 [![Build Status](https://travis-ci.org/Schinzel/basic-utils.svg?branch=master)](https://travis-ci.org/Schinzel/basic-utils)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=basic-utils&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=basic-utils)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=basic-utils&metric=coverage)](https://sonarcloud.io/dashboard?id=basic-utils)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=basic-utils&metric=security_rating)](https://sonarcloud.io/dashboard?id=basic-utils)[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=basic-utils&metric=sqale_index)](https://sonarcloud.io/dashboard?id=basic-utils)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=basic-utils&metric=ncloc)](https://sonarcloud.io/dashboard?id=basic-utils)
 
 Some basic utilities. 
 Most commonly less verbose versions of common code snippets.
