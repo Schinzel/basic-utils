@@ -4,6 +4,7 @@
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=coverage)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=security_rating)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=ncloc)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 
 Some basic utilities. 
