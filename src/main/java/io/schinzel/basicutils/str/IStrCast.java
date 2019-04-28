@@ -1,9 +1,10 @@
 package io.schinzel.basicutils.str;
 
-import com.google.common.base.Charsets;
 import com.google.common.primitives.Ints;
 import com.google.common.primitives.Longs;
 import io.schinzel.basicutils.thrower.Thrower;
+
+import java.nio.charset.StandardCharsets;
 
 /**
  * The purpose of this interface is cast the string held by this object to different data types.
@@ -16,7 +17,7 @@ interface IStrCast<T extends IStr<T>> extends IStr<T> {
      * @return Cast the string held by this object to utf8 bytes.
      */
     default byte[] asUtf8Bytes() {
-        return this.asString().getBytes(Charsets.UTF_8);
+        return this.asString().getBytes(StandardCharsets.UTF_8);
     }
 
 

@@ -14,11 +14,13 @@ import java.util.Map;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class Thrower {
 
+    Thrower() {
+    }
+
     /**
-     *
      * @return An ThrowerInstance for chaining of Thrower methods.
      */
-    public static ThrowerInstance createInstance(){
+    public static ThrowerInstance createInstance() {
         return new ThrowerInstance();
     }
 
@@ -31,7 +33,7 @@ public class Thrower {
      * @return The argument value checked
      */
     public static Object throwIfVarNull(Object value, String variableName) {
-        ThrowerMessage.create(value == null).message("Argument '" + variableName + "' cannot be null");
+        ThrowerMessage.create(value == null).message(getErrorMessage(variableName, "null"));
         return value;
     }
 
@@ -44,7 +46,7 @@ public class Thrower {
      * @return The argument value checked
      */
     public static String throwIfVarEmpty(String value, String variableName) {
-        ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
+        ThrowerMessage.create(Checker.isEmpty(value)).message(getErrorMessage(variableName, "empty"));
         return value;
     }
 
@@ -58,7 +60,7 @@ public class Thrower {
      * @return The argument value checked
      */
     public static <T> List<T> throwIfVarEmpty(List<T> value, String variableName) {
-        ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
+        ThrowerMessage.create(Checker.isEmpty(value)).message(getErrorMessage(variableName, "empty"));
         return value;
     }
 
@@ -73,7 +75,7 @@ public class Thrower {
      * @return The argument value checked
      */
     public static <K, V> Map<K, V> throwIfVarEmpty(Map<K, V> value, String variableName) {
-        ThrowerMessage.create(Checker.isEmpty(value)).message("Argument '" + variableName + "' cannot be empty");
+        ThrowerMessage.create(Checker.isEmpty(value)).message(getErrorMessage(variableName, "empty"));
         return value;
     }
 
@@ -193,6 +195,16 @@ public class Thrower {
      */
     public static void throwIfNull(Object object, String message) {
         Thrower.throwIfNull(object).message(message);
+    }
+
+
+    /**
+     * @param variableName Name of variable to include in returned message
+     * @param state The state of the argument variable. E.g. "null" or "empty"
+     * @return Error message prefix
+     */
+    static String getErrorMessage(String variableName, String state) {
+        return "Argument '" + variableName + "' cannot be " + state;
     }
 
 

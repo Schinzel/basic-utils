@@ -107,7 +107,7 @@ public class State {
         //Add all child-lists and their children recursively
         mChildLists.forEach((key, siblings) -> {
             JSONArray ja = new JSONArray();
-            siblings.forEach((childState) -> ja.put(childState.getJson()));
+            siblings.forEach(childState -> ja.put(childState.getJson()));
             json.put(key, ja);
         });
         return json;

@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.file;
 
-import com.google.common.base.Charsets;
 import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
 import io.schinzel.basicutils.Checker;
@@ -11,6 +10,7 @@ import lombok.Builder;
 import lombok.SneakyThrows;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 /**
  * The purpose of this class is to save data to files. The methods are intuitive and concise.
@@ -78,10 +78,10 @@ public class FileWriter {
         }
         //If should append to file
         if (fileOp == FileOp.APPEND) {
-            Files.asCharSink(file, Charsets.UTF_8, FileWriteMode.APPEND).write(content);
+            Files.asCharSink(file, StandardCharsets.UTF_8, FileWriteMode.APPEND).write(content);
         } //else write to file and overwrite possible previous content
         else {
-            Files.asCharSink(file, Charsets.UTF_8).write(content);
+            Files.asCharSink(file, StandardCharsets.UTF_8).write(content);
         }
     }
 }

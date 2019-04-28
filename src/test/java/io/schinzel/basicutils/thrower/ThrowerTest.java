@@ -1,28 +1,14 @@
 package io.schinzel.basicutils.thrower;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.*;
 
 
 /**
  * @author schinzel
  */
-@SuppressWarnings("ConstantConditions")
 public class ThrowerTest extends Thrower {
-
-
-    //------------------------------------------------------------------------
-    // Test of extensive error message
-    //------------------------------------------------------------------------
 
 
     @Test
@@ -82,6 +68,13 @@ public class ThrowerTest extends Thrower {
     public void throwIfNull_TwoArgumentsAndShouldNotThrow_NoExceptionThrown() {
         assertThatCode(() -> Thrower.throwIfNull(new Object(), "My message"))
                 .doesNotThrowAnyException();
+    }
+
+    @Test
+    public void getErrorMessage_AnyNameEmptyState_CorrectMessage() {
+        String errorMessage = Thrower.getErrorMessage("MyVar", "empty");
+        assertThat(errorMessage).isEqualTo("Argument 'MyVar' cannot be empty");
+
     }
 }
 

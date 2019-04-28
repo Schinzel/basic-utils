@@ -19,7 +19,7 @@ import io.schinzel.basicutils.str.Str;
 @SuppressWarnings({"WeakerAccess", "UnusedReturnValue"})
 public class Timekeeper {
     /** Singleton instance */
-    private static Timekeeper SINGLETON_INSTANCE = new Timekeeper();
+    private static Timekeeper mSingletonInstance = new Timekeeper();
     /** The laps are in a tree hierarchy. This is the current executing node in the tree. */
     private Lap mCurrentLap = new Lap("root", null).start();
 
@@ -38,10 +38,10 @@ public class Timekeeper {
      * @return The singleton instance.
      */
     public static Timekeeper getSingleton() {
-        if (SINGLETON_INSTANCE == null) {
-            SINGLETON_INSTANCE = new Timekeeper();
+        if (mSingletonInstance == null) {
+            mSingletonInstance = new Timekeeper();
         }
-        return SINGLETON_INSTANCE;
+        return mSingletonInstance;
     }
 
 
@@ -88,7 +88,7 @@ public class Timekeeper {
      * @return This for chaining
      */
     public final Timekeeper reset() {
-        SINGLETON_INSTANCE = null;
+        mSingletonInstance = null;
         return this;
     }
 
