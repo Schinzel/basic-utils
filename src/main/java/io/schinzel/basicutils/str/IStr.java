@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.str;
 
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 /**
@@ -16,7 +17,7 @@ interface IStr<T extends IStr<T>> {
     /**
      * The encoding used. Used for example when writing to file.
      */
-    Charset ENCODING = Charset.forName("UTF-8");
+    Charset ENCODING = StandardCharsets.UTF_8;
 
     /**
      * Appends the argument string to the string held.

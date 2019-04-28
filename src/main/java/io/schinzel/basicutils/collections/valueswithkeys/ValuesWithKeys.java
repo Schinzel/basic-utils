@@ -89,10 +89,11 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      * @return This for chaining.
      */
     public ValuesWithKeys<V> addAlias(String key, String alias) {
-        Thrower.throwIfTrue(!this.has(key), "Alias '" + alias + "' cannot be added for value with key '" + key + "' as there exist no value with this key " + mErrorMessageSuffix);
+        String prefix = "Alias '" + alias + "' cannot be added ";
+        Thrower.throwIfTrue(!this.has(key), prefix + "for value with key '" + key + "' as there exist no value with this key " + mErrorMessageSuffix);
         //if the argument value exists in the alias set
-        Thrower.throwIfTrue(mAliasToKeyMap.containsKey(alias), "Alias '" + alias + "' cannot be added as another value already has this alias" + mErrorMessageSuffix);
-        Thrower.throwIfTrue(this.has(alias), "Alias '" + alias + "' cannot be added as there already another value with this as key" + mErrorMessageSuffix);
+        Thrower.throwIfTrue(mAliasToKeyMap.containsKey(alias), prefix + "as another value already has this alias" + mErrorMessageSuffix);
+        Thrower.throwIfTrue(this.has(alias), prefix + "as there already another value with this as key" + mErrorMessageSuffix);
         mAliasToKeyMap.put(alias, key);
         return this;
     }
@@ -121,7 +122,8 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
     public ValuesWithKeys<V> remove(String key) {
         Thrower.throwIfTrue(!this.has(key), "Cannot remove value as there exists no value with key'" + key + "'" + mErrorMessageSuffix);
         //Remove all entries in alias map with argument key.
-        while (mAliasToKeyMap.values().remove(key));
+        //noinspection StatementWithEmptyBody
+        while (mAliasToKeyMap.values().remove(key)) ;
         mValues.remove(key);
         return this;
     }

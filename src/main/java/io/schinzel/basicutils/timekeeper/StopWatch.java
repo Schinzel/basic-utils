@@ -78,9 +78,9 @@ class StopWatch {
      * @return The average lap time in ms.
      */
     double getAvgInMs() {
-        double avg = mSumTimeOfAllLaps / mNumberOfLaps * 1d;
+        double avg = (double) mSumTimeOfAllLaps / mNumberOfLaps;
         //Convert nanos to millis
-        return avg / 1_000_000;
+        return avg / 1_000_000D;
     }
 
 
@@ -89,7 +89,7 @@ class StopWatch {
      */
     double getTotTimeInMs() {
         //Convert from nanos to millis
-        return mSumTimeOfAllLaps / 1_000_000;
+        return (double) mSumTimeOfAllLaps / 1_000_000D;
     }
 
 

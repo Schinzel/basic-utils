@@ -1,6 +1,5 @@
 package io.schinzel.basicutils.configvar;
 
-import com.google.common.io.Closeables;
 import io.schinzel.basicutils.thrower.Thrower;
 
 import java.io.*;
@@ -16,7 +15,10 @@ import java.util.stream.Collectors;
  * Created by schinzel on 2017-06-25.
  */
 class PropertiesFile {
-    
+
+    PropertiesFile() {
+    }
+
     /**
      * Returns the argument file as a properties object. The file location is relative the run
      * directory. If no such file, an empty map is returned.
@@ -42,16 +44,14 @@ class PropertiesFile {
      * @return Properties object created from the argument filename.
      */
     static Properties readPropertiesFile(String fileName) {
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8));
+        try (
+                BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), StandardCharsets.UTF_8))
+        ) {
             Properties propsFromFile = new Properties();
             propsFromFile.load(reader);
             return propsFromFile;
         } catch (IOException e) {
             throw new RuntimeException("Problems reading properties file '" + fileName + "'. " + e.getMessage());
-        } finally {
-            Closeables.closeQuietly(reader);
         }
     }
 

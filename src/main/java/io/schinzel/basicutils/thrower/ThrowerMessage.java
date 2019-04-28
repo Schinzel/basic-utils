@@ -14,7 +14,7 @@ public class ThrowerMessage {
      * A thrower message that never goes of. This can be used so that no objects are created
      * if there is no exception to throw. This to be easier on the garbage collector.
      */
-    private static ThrowerMessage THROWER_DUD = new ThrowerMessage(false);
+    private static final ThrowerMessage THROWER_DUD = new ThrowerMessage(false);
     private final boolean mError;
 
 
