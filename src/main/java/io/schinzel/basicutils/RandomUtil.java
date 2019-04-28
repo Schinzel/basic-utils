@@ -161,20 +161,20 @@ public class RandomUtil {
         if (sum <= arraySize) {
             throw new RuntimeException("Array size needs to be larger than sum");
         }
-        int vals[] = new int[arraySize];
+        int[] values = new int[arraySize];
         sum -= arraySize;
         for (int i = 0; i < arraySize - 1; ++i) {
-            vals[i] = mRandom.nextInt(sum);
+            values[i] = mRandom.nextInt(sum);
         }
-        vals[arraySize - 1] = sum;
-        Arrays.sort(vals);
+        values[arraySize - 1] = sum;
+        Arrays.sort(values);
         for (int i = arraySize - 1; i > 0; --i) {
-            vals[i] -= vals[i - 1];
+            values[i] -= values[i - 1];
         }
         for (int i = 0; i < arraySize; ++i) {
-            ++vals[i];
+            ++values[i];
         }
-        return vals;
+        return values;
     }
     //*************************************************************************
     //* Static Random methods
