@@ -89,11 +89,12 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      * @return This for chaining.
      */
     public ValuesWithKeys<V> addAlias(String key, String alias) {
-        String prefix = "Alias '" + alias + "' cannot be added ";
-        Thrower.throwIfTrue(!this.has(key), prefix + "for value with key '" + key + "' as there exist no value with this key " + mErrorMessageSuffix);
+        String errorMessagePrefix = "Alias '" + alias + "' cannot be added ";
+        //If there exists no value with argument key
+        Thrower.throwIfTrue(!this.has(key), errorMessagePrefix + "for value with key '" + key + "' as there exist no value with this key " + mErrorMessageSuffix);
         //if the argument value exists in the alias set
-        Thrower.throwIfTrue(mAliasToKeyMap.containsKey(alias), prefix + "as another value already has this alias" + mErrorMessageSuffix);
-        Thrower.throwIfTrue(this.has(alias), prefix + "as there already another value with this as key" + mErrorMessageSuffix);
+        Thrower.throwIfTrue(mAliasToKeyMap.containsKey(alias), errorMessagePrefix + "as another value already has this alias" + mErrorMessageSuffix);
+        Thrower.throwIfTrue(this.has(alias), errorMessagePrefix + "as there already another value with this as key" + mErrorMessageSuffix);
         mAliasToKeyMap.put(alias, key);
         return this;
     }

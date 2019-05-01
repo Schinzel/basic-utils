@@ -22,7 +22,8 @@ public class ConfigVar implements IConfigVar {
     @Getter(AccessLevel.PRIVATE) private final String propertiesFileName;
     /** A representation of the properties file. */
     @Getter(AccessLevel.PRIVATE) private final Map<String, String> propertiesFromFile;
-
+    /** String to use in properties file or in environment variable if empty string should be returned as value. */
+    static final String EMPTY_VALUE_PLACEHOLDER = "#EMPTY#";
 
     ConfigVar(String propertiesFileName) {
         this(propertiesFileName,
@@ -66,13 +67,13 @@ public class ConfigVar implements IConfigVar {
                 ? this.getEnvironmentVariables().get(keyName)
                 //Else, set the property file value
                 : this.getPropertiesFromFile().get(keyName);
-        //If still no property was found
+        //If no property was found
         if (Checker.isEmpty(value)) {
             throw new RuntimeException("Configuration variable for key '" + keyName + "' missing. "
                     + "No property with this key in either the environment variables nor in the properties file '" + this.getPropertiesFileName() + "'.");
         }
-        //If the variable is the empty-value placeholder, then return empty string else return value.
-        return ("#EMPTY#".equals(value)) ? "" : value;
+        //If the value is the empty-value placeholder, then return empty string else return value.
+        return (value.equals("#EMPTY#")) ? "" : value;
     }
 
 

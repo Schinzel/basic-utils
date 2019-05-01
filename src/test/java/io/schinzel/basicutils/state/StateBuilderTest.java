@@ -1,5 +1,8 @@
 package io.schinzel.basicutils.state;
 
+import com.google.common.collect.ImmutableList;
+import io.schinzel.basicutils.EmptyObjects;
+import io.schinzel.basicutils.RandomUtil;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -112,6 +115,40 @@ public class StateBuilderTest {
         List<IStateNode> children = null;
         sb.addChildren("key1", children);
         assertEquals(0, sb.getProperties().size());
+    }
+
+
+    @Test
+    public void addChildren_OneChildList_OneChildListInCollection() {
+        ImmutableList<IStateNode> children = new ImmutableList.Builder<IStateNode>()
+                .add(new MyStateNode())
+                .add(new MyStateNode())
+                .build();
+        int childSize = new StateBuilder()
+                .addChildren("KeyForChildren", children)
+                .getChildLists()
+                .size();
+        assertThat(childSize).isEqualTo(1);
+    }
+
+
+    @Test
+    public void addChildren_EmptyChildList_() {
+        int childSize = new StateBuilder()
+                .addChildren("KeyForChildren", EmptyObjects.emptyList())
+                .getChildLists()
+                .size();
+        assertThat(childSize).isEqualTo(0);
+    }
+
+    
+    private class MyStateNode implements IStateNode {
+        @Override
+        public State getState() {
+            return State.getBuilder()
+                    .addProp().key("k2").val(RandomUtil.getRandomString(3)).buildProp()
+                    .build();
+        }
     }
 
 

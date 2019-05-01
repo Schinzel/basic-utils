@@ -82,7 +82,7 @@ public class ValuesWithKeysTest {
                 .forEach(i -> coll.add(new MyVal(i)));
         IntStream.range(0, numValuesToRemove)
                 .mapToObj(String::valueOf)
-                .forEach(i -> coll.remove(i));
+                .forEach(coll::remove);
         assertThat(coll.size())
                 .isEqualTo(numValuesToAdd - numValuesToRemove);
     }
@@ -182,8 +182,7 @@ public class ValuesWithKeysTest {
                 .add(new MyVal("A"))
                 .add(new MyVal("B"))
                 .add(new MyVal("C"));
-        List<String> arg = null;
-        assertThat(values.get(arg)).isEmpty();
+        assertThat(values.get((List<String>) null)).isEmpty();
     }
 
 
@@ -195,7 +194,7 @@ public class ValuesWithKeysTest {
                 .add(new MyVal("Man1"))
                 .add(new MyVal("Bird2"))
                 .add(new MyVal("Bird1"));
-        List<String> arg = Arrays.asList("I_do_not_exist");
+        List<String> arg = Collections.singletonList("I_do_not_exist");
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> values.get(arg));
     }
@@ -221,7 +220,7 @@ public class ValuesWithKeysTest {
 
     @Test
     public void get_OneElemList_ElementsInListInArgumentListOrder() {
-        List<String> arg = Arrays.asList("Bird1");
+        List<String> arg = Collections.singletonList("Bird1");
         ValuesWithKeys<MyVal> values = new ValuesWithKeys<MyVal>("MyCollName", new LinkedHashMap<>())
                 .add(new MyVal("Moon1"))
                 .add(new MyVal("Man2"))
@@ -274,7 +273,7 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void iterator_AddValues_SameValuesButInAlphanumOrder() {
+    public void iterator_AddValues_SameValuesButInAlphaNumericOrder() {
         MyVal c = new MyVal("C");
         MyVal a = new MyVal("A");
         MyVal b = new MyVal("B");
@@ -328,7 +327,7 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void addAlias_ArgumentAlreadyExistsAsKey_Exception() {
+    public void addAlias_ArgumentAliasAlreadyExistsAsKey_Exception() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
                 .add(new MyVal("A"))
                 .add(new MyVal("B"));
@@ -338,13 +337,24 @@ public class ValuesWithKeysTest {
 
 
     @Test
-    public void addAlias_AliasAlreadyAssignedToOtherValue_Exception() {
+    public void addAlias_ArgumentAliasAlreadyAssignedToOtherValue_Exception() {
         ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
                 .add(new MyVal("A"))
                 .add(new MyVal("B"));
         coll.addAlias("B", "alias1");
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> coll.addAlias("A", "alias1"));
+    }
+
+
+    @Test
+    public void addAlias_ArgumentKeyDoesNotExist_Exception() {
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("A"))
+                .add(new MyVal("B"));
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                coll.addAlias("no_such_key", "alias1")
+        );
     }
 
 
@@ -370,7 +380,7 @@ public class ValuesWithKeysTest {
 
     @Test
     public void isEmpty_NewInstance_True() {
-        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName");
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.create("MyCollName");
         assertThat(coll.isEmpty())
                 .isTrue();
     }

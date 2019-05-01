@@ -298,6 +298,18 @@ public class CheckerTest extends Checker {
 
 
     @Test
+    public void isEmptyVarArg_TwoStrings_False(){
+        assertThat(Checker.isEmptyVarArgs("string 1", "string 2")).isFalse();
+    }
+
+
+    @Test
+    public void isNotEmptyVarArg_TwoStrings_True(){
+        assertThat(Checker.isNotEmptyVarArgs("string 1", "string 2")).isTrue();
+    }
+
+
+    @Test
     public void isNotEmptyVarArg_NonEmptyString_True() {
         assertThat(Checker.isNotEmptyVarArgs("monkey")).isTrue();
     }

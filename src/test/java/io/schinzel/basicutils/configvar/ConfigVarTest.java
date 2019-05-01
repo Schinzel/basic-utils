@@ -49,6 +49,26 @@ public class ConfigVarTest {
 
 
     @Test
+    public void getValue_KeyInEnvironmentFromFileHasEmptyValuePlaceHolder_EmptyString() {
+        Map<String, String> envVar = Collections.singletonMap("ape", "gibbon");
+        Map<String, String> propFromFile = Collections.singletonMap("bear", ConfigVar.EMPTY_VALUE_PLACEHOLDER);
+        String apeValue = new ConfigVar("anyfile.txt", envVar, propFromFile)
+                .getValue("bear");
+        assertThat(apeValue).isEqualTo("");
+    }
+
+
+    @Test
+    public void getValue_KeyInPropertiesFileHasEmptyValuePlaceHolder_EmptyString() {
+        Map<String, String> envVar = Collections.singletonMap("ape", ConfigVar.EMPTY_VALUE_PLACEHOLDER);
+        Map<String, String> propFromFile = Collections.singletonMap("bear", "black bear");
+        String apeValue = new ConfigVar("anyfile.txt", envVar, propFromFile)
+                .getValue("ape");
+        assertThat(apeValue).isEqualTo("");
+    }
+
+
+    @Test
     public void Constructor_NoSuchFile_DoesNotTrowException() {
         assertThatCode(() -> new ConfigVar("no_such_file.txt"))
                 .doesNotThrowAnyException();
