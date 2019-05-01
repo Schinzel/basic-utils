@@ -69,9 +69,7 @@ public class RandomUtil {
         //Get nanos
         long nanos = System.nanoTime();
         long divider = 1_000_000;
-        if (nanos > divider * 1000) {
-            nanos -= (nanos / divider) * divider;
-        }
+        nanos -= (nanos / divider) * divider;
         seed += nanos;
         //Get the millis of current second
         long milliOfSecond = Instant.now().getLong(ChronoField.MILLI_OF_SECOND);
