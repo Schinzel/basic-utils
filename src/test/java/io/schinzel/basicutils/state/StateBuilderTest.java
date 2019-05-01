@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.state;
 
 import com.google.common.collect.ImmutableList;
+import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.RandomUtil;
 import org.junit.Rule;
 import org.junit.Test;
@@ -130,6 +131,17 @@ public class StateBuilderTest {
         assertThat(childSize).isEqualTo(1);
     }
 
+
+    @Test
+    public void addChildren_EmptyChildList_() {
+        int childSize = new StateBuilder()
+                .addChildren("KeyForChildren", EmptyObjects.emptyList())
+                .getChildLists()
+                .size();
+        assertThat(childSize).isEqualTo(0);
+    }
+
+    
     private class MyStateNode implements IStateNode {
         @Override
         public State getState() {
