@@ -68,7 +68,7 @@ public class RandomUtil {
         long seed = 1;
         //Get nanos
         long nanos = System.nanoTime();
-        long divider = 1000000;
+        long divider = 1_000_000;
         if (nanos > divider * 1000) {
             nanos -= (nanos / divider) * divider;
         }

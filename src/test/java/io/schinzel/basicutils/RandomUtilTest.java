@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * @author schinzel
@@ -21,7 +22,7 @@ public class RandomUtilTest {
 
 
     @Test
-    public void testGetSeed() {
+    public void generateSeed_Generate1000Seeds_SeedShouldNeverBeRepeated() {
         int noOfSeeds = 1000;
         Set<Long> set = new HashSet<>(noOfSeeds);
         for (int i = 0; i < noOfSeeds; i++) {
@@ -93,32 +94,40 @@ public class RandomUtilTest {
 
     private static int sumArray(int[] arr) {
         int sum = 0;
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
+        for (int element : arr) {
+            sum += element;
         }
         return sum;
     }
 
 
     @Test
-    public void test_getIntArray_errors() {
-        //fånga fallet att vi har mindre sum än count
-        int arraySum, arraySize;
-        arraySum = 10;
-        arraySize = 10;
-        exception.expect(RuntimeException.class);
-        RandomUtil.create().getIntArray(arraySize, arraySum);
+    public void getIntArray_SizeIsSameSizeAsSum_Exception() {
+        int arraySum = 10;
+        int arraySize = 10;
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                RandomUtil.create().getIntArray(arraySize, arraySum)
+        );
     }
 
 
     @Test
-    public void test_getIntArray_errors_2() {
-        //fånga fallet att vi har mindre sum än count
-        int arraySum, arraySize;
-        arraySum = 10;
-        arraySize = 0;
-        exception.expect(RuntimeException.class);
-        RandomUtil.create().getIntArray(arraySize, arraySum);
+    public void getIntArray_Size0_Exception() {
+        int arraySum = 10;
+        int arraySize = 0;
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                RandomUtil.create().getIntArray(arraySize, arraySum)
+        );
+    }
+
+
+    @Test
+    public void getIntArray_SumLessThanSize_Exception() {
+        int arraySum = 2;
+        int arraySize = 10;
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                RandomUtil.create().getIntArray(arraySize, arraySum)
+        );
     }
 
 
@@ -170,7 +179,7 @@ public class RandomUtilTest {
     public void testGetRandomNumberException() {
         RandomUtil.getRandomNumber(100, 1);
         // Exception should be thrown before this line
-        Assert.assertTrue(false);
+        Assert.fail();
     }
 
 
