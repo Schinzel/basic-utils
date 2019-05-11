@@ -40,6 +40,7 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
 
     public ValuesWithKeys(String collectionName, Map<String, V> map) {
         Thrower.throwIfVarEmpty(collectionName, "collectionName");
+        Thrower.throwIfVarNull(map, "map");
         mValues = map;
         mCollectionName = collectionName;
         mErrorMessageSuffix = " in collection named '" + mCollectionName + "'";
