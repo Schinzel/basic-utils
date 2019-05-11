@@ -39,7 +39,7 @@ public class Thrower {
 
 
     /**
-     * Throws runtime exception if the argument value with the argument name is empty.
+     * Throws runtime exception if the argument value with the argument name is null or an empty string.
      *
      * @param value        The value to check
      * @param variableName The name of the value to check
@@ -52,7 +52,7 @@ public class Thrower {
 
 
     /**
-     * Throws runtime exception if the argument value with the argument name is empty.
+     * Throws runtime exception if the argument list with the argument name is null ot an empty list.
      *
      * @param <T>          The type of the list
      * @param value        The value to check
@@ -66,7 +66,7 @@ public class Thrower {
 
 
     /**
-     * Throws runtime exception if the argument value with the argument name is empty.
+     * Throws runtime exception if the argument value with the argument name is null or an empty map.
      *
      * @param <K>          The type of the keys in the map
      * @param <V>          The type of the values in the map

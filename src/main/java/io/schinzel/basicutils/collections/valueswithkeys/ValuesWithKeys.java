@@ -40,6 +40,7 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
 
     public ValuesWithKeys(String collectionName, Map<String, V> map) {
         Thrower.throwIfVarEmpty(collectionName, "collectionName");
+        Thrower.throwIfVarNull(map, "map");
         mValues = map;
         mCollectionName = collectionName;
         mErrorMessageSuffix = " in collection named '" + mCollectionName + "'";
@@ -121,6 +122,7 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
      * @return This for chaining.
      */
     public ValuesWithKeys<V> remove(String key) {
+        Thrower.throwIfVarEmpty(key, "key");
         Thrower.throwIfTrue(!this.has(key), "Cannot remove value as there exists no value with key'" + key + "'" + mErrorMessageSuffix);
         //Remove all entries in alias map with argument key.
         //noinspection StatementWithEmptyBody
