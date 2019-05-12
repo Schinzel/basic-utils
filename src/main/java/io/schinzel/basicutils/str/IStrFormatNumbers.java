@@ -28,7 +28,8 @@ interface IStrFormatNumbers<T extends IStr<T>> extends IStr<T> {
      * @return This for chaining
      */
     default T af(double d, int numOfDecimals) {
-        String s = String.format(this.getLocale(), "%,." + numOfDecimals + "f", d);
+        String numberFormat = "%,." + numOfDecimals + "f";
+        String s = String.format(this.getLocale(), numberFormat, d);
         return this.a(s);
     }
 

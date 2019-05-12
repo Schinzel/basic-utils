@@ -377,6 +377,33 @@ public class ValuesWithKeysTest {
                 .isThrownBy(() -> coll.remove("C"));
     }
 
+    @Test
+    public void remove_NullArgument_Exception() {
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("A"))
+                .add(new MyVal("B"));
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.remove(null));
+    }
+
+
+    @Test
+    public void remove_EmptyStringArgument_Exception() {
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("A"))
+                .add(new MyVal("B"));
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.remove(""));
+    }
+
+
+    @Test
+    public void remove_EmptyKeyValueCollection_Exception() {
+        ValuesWithKeys<MyVal> coll = ValuesWithKeys.<MyVal>create("MyCollName");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> coll.remove("AnyKey"));
+    }
+    
 
     @Test
     public void isEmpty_NewInstance_True() {

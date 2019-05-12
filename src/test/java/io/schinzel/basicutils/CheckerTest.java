@@ -316,6 +316,18 @@ public class CheckerTest extends Checker {
 
 
     @Test
+    public void isNotEmptyVarArg_NullString_False() {
+        assertThat(Checker.isNotEmptyVarArgs((String)null)).isFalse();
+    }
+
+
+    @Test
+    public void isNotEmptyVarArg_NullStringArray_False() {
+        assertThat(Checker.isNotEmptyVarArgs((String[])null)).isFalse();
+    }
+
+
+    @Test
     public void isNotEmptyVarArg_OneElemStringArray_True() {
         String[] arr = {"monkey"};
         assertThat(Checker.isNotEmptyVarArgs(arr)).isTrue();
