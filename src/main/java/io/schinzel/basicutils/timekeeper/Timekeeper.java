@@ -38,10 +38,9 @@ public class Timekeeper {
      * @return The singleton instance.
      */
     public static Timekeeper getSingleton() {
-        if (mSingletonInstance == null) {
-            mSingletonInstance = new Timekeeper();
-        }
-        return mSingletonInstance;
+        return mSingletonInstance == null
+                ? new Timekeeper()
+                : mSingletonInstance;
     }
 
 

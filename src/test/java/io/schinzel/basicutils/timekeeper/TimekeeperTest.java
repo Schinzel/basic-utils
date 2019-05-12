@@ -50,7 +50,7 @@ public class TimekeeperTest {
 
 
     @Test
-    public void getStr_StartAndStopTwoLaps_FourLines() {
+    public void getResults_StartAndStopTwoLaps_FourLines() {
         String str = Timekeeper
                 .create()
                 .start("A").stop()
@@ -61,6 +61,16 @@ public class TimekeeperTest {
         Assert.assertEquals(expected, actual);
     }
 
+
+    @Test
+    public void getResults_RootLapIsNotStopped_FourLines() {
+        String str = Timekeeper
+                .create()
+                .getResults().toString();
+        int actual = str.split("\n").length;
+        int expected = 4;
+        Assert.assertEquals(expected, actual);
+    }
 
     /**
      * Test that JSON return has all attributes.
