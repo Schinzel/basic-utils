@@ -50,7 +50,7 @@ public class TimekeeperTest {
 
 
     @Test
-    public void getStr_StartAndStopTwoLaps_FourLines() {
+    public void getResults_StartAndStopTwoLaps_FourLines() {
         String str = Timekeeper
                 .create()
                 .start("A").stop()
@@ -58,6 +58,29 @@ public class TimekeeperTest {
                 .getResults().toString();
         int actual = str.split("\n").length;
         int expected = 4;
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getResults_RootLapIsNotStopped_FourLines() {
+        String str = Timekeeper
+                .create()
+                .getResults().toString();
+        int actual = str.split("\n").length;
+        int expected = 1;
+        Assert.assertEquals(expected, actual);
+    }
+
+
+    @Test
+    public void getResults_RootLapIsStopped_FourLines() {
+        String str = Timekeeper
+                .create()
+                .stop()
+                .getResults().toString();
+        int actual = str.split("\n").length;
+        int expected = 1;
         Assert.assertEquals(expected, actual);
     }
 

@@ -194,9 +194,7 @@ public class StateBuilder {
         List<State> childList = Streams.stream(children)
                 .map(IStateNode::getState)
                 .collect(Collectors.toList());
-        if (!childList.isEmpty()) {
-            mChildLists.put(key, childList);
-        }
+        mChildLists.put(key, childList);
         return this;
     }
 
