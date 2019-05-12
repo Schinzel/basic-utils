@@ -133,7 +133,7 @@ public class StateBuilderTest {
 
 
     @Test
-    public void addChildren_EmptyChildList_() {
+    public void addChildren_EmptyChildList_CollectionUnchanged() {
         int childSize = new StateBuilder()
                 .addChildren("KeyForChildren", EmptyObjects.emptyList())
                 .getChildLists()
@@ -141,7 +141,17 @@ public class StateBuilderTest {
         assertThat(childSize).isEqualTo(0);
     }
 
-    
+
+    @Test
+    public void addChildren_NullChildList_CollectionUnchanged() {
+        int childSize = new StateBuilder()
+                .addChildren("KeyForChildren", null)
+                .getChildLists()
+                .size();
+        assertThat(childSize).isEqualTo(0);
+    }
+
+
     private class MyStateNode implements IStateNode {
         @Override
         public State getState() {
