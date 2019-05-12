@@ -12,6 +12,9 @@ import java.util.stream.Stream;
 
 /**
  * The purpose of this class is offer a collection that stores values that hold their own keys.
+ * The collection contains no duplicate keys.
+ * The default order of the collection is alphabetically on the keys.
+ * The collection has a name for clearer exception messages.
  *
  * @param <V> The type of element to store in the collection.
  * @author schinzel
