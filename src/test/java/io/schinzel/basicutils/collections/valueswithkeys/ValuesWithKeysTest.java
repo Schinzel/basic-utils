@@ -396,6 +396,18 @@ public class ValuesWithKeysTest {
                 .isThrownBy(() -> coll.remove(""));
     }
 
+    @Test
+    public void remove_ValueWithAlias_AliasGoneFromAliasCollection() {
+        boolean aliasCollectionContainsKeyB = ValuesWithKeys.<MyVal>create("MyCollName")
+                .add(new MyVal("A"))
+                .add(new MyVal("B"))
+                .addAlias("B", "alias_for_b")
+                .remove("B")
+                .mAliasToKeyMap
+                .containsKey("B");
+        assertThat(aliasCollectionContainsKeyB).isFalse();
+    }
+
 
     @Test
     public void remove_EmptyKeyValueCollection_Exception() {
@@ -403,7 +415,7 @@ public class ValuesWithKeysTest {
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> coll.remove("AnyKey"));
     }
-    
+
 
     @Test
     public void isEmpty_NewInstance_True() {

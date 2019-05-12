@@ -25,7 +25,7 @@ public class ValuesWithKeys<V extends IValueWithKey> implements Iterable<V> {
     /** The internal storage. */
     private final Map<String, V> mValues;
     /** Holds mapping between aliases and keys. */
-    private final Map<String, String> mAliasToKeyMap = new HashMap<>();
+    final Map<String, String> mAliasToKeyMap = new HashMap<>();
     /** The name of this collection. */
     @Getter final String mCollectionName;
     /* Used to construct error messages. */
