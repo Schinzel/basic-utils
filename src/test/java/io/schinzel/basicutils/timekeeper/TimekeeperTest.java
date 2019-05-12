@@ -73,6 +73,17 @@ public class TimekeeperTest {
     }
 
 
+    @Test
+    public void getResults_RootLapIsStopped_FourLines() {
+        String str = Timekeeper
+                .create()
+                .stop()
+                .getResults().toString();
+        int actual = str.split("\n").length;
+        int expected = 1;
+        Assert.assertEquals(expected, actual);
+    }
+
 
     /**
      * Test that JSON return has all attributes.

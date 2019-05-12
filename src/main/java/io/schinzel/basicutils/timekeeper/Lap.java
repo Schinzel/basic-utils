@@ -75,7 +75,7 @@ class Lap implements IStateNode, IValueWithKey {
         Thrower.throwIfFalse(mStopWatch.isStarted())
                 .message("Cannot stop lap '" + mKey + "' as it has not been started");
         mStopWatch.stop();
-        return mParentLap;
+        return (mParentLap == null) ? this : mParentLap;
     }
 
 
