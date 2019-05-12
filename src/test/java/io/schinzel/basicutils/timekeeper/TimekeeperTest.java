@@ -68,9 +68,11 @@ public class TimekeeperTest {
                 .create()
                 .getResults().toString();
         int actual = str.split("\n").length;
-        int expected = 4;
+        int expected = 1;
         Assert.assertEquals(expected, actual);
     }
+
+
 
     /**
      * Test that JSON return has all attributes.
