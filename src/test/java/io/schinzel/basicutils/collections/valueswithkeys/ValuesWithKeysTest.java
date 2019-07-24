@@ -281,7 +281,10 @@ public class ValuesWithKeysTest {
                 .add(c)
                 .add(a)
                 .add(b);
-        assertThat(coll.iterator()).containsExactly(a, b, c);
+        List<String> addedValues = coll.values().stream()
+                .map(MyVal::getKey)
+                .collect(Collectors.toList());
+        assertThat(addedValues).containsExactly("A", "B", "C");
     }
 
 
