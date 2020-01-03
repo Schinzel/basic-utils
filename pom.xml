@@ -6,7 +6,7 @@
     <artifactId>basic-utils</artifactId>
     <packaging>jar</packaging>
     <groupId>io.schinzel</groupId>
-    <version>1.38-SNAPSHOT</version>
+    <version>1.39</version>
 
     <name>Basic Utils</name>
     <description>Some basic utilities. Most commonly less verbose versions of common code
@@ -136,11 +136,18 @@
 
 
     <dependencies>
+        <!-- RUNTIME DEPENDENCIES -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20180130</version>
+            <version>20190722</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>28.1-jre</version>
+        </dependency>
+        <!-- DEV DEPENDENCIES -->
         <dependency>
             <!-- Annotations that generates getters, setters and more that
             are not visible in source code.
@@ -149,17 +156,6 @@
             <artifactId>lombok</artifactId>
             <version>1.18.0</version>
             <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>28.0-jre</version>
-        </dependency>
-        <dependency>
-            <!-- BCrypt cryptographic hash -->
-            <groupId>org.mindrot</groupId>
-            <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
         </dependency>
         <!-- TEST DEPENDENCIES -->
         <dependency>
