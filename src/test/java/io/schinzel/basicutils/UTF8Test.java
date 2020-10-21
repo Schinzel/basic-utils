@@ -1,14 +1,11 @@
 package io.schinzel.basicutils;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.Assert.*;
 
 public class UTF8Test {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Test
@@ -31,14 +28,15 @@ public class UTF8Test {
 
     @Test
     public void constructor_Use_ThrowsException() {
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("should not be instantiated");
-        new UTF8();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(UTF8::new)
+                .withMessageStartingWith("UTF8 should not be instantiated");
     }
 
 
     @Test
     public void getBytes_Null_Null() {
+        //noinspection ConstantConditions
         assertNull(UTF8.getBytes(null));
     }
 
@@ -51,6 +49,7 @@ public class UTF8Test {
 
     @Test
     public void getString_Null_Null() {
+        //noinspection ConstantConditions
         assertNull(UTF8.getString(null));
 
     }

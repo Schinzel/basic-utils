@@ -5,9 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,9 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author schinzel
  */
 public class TimekeeperTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Before()

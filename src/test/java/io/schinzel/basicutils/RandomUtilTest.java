@@ -1,9 +1,10 @@
 package io.schinzel.basicutils;
 
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +16,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * @author schinzel
  */
+@RunWith(JUnitParamsRunner.class)
 public class RandomUtilTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Test
@@ -27,7 +26,7 @@ public class RandomUtilTest {
         Set<Long> set = new HashSet<>(noOfSeeds);
         for (int i = 0; i < noOfSeeds; i++) {
             long seed = RandomUtil.generateSeed();
-            Assert.assertFalse(set.contains(seed));
+            assertThat(set.contains(seed)).isFalse();
             set.add(seed);
         }
     }
@@ -102,29 +101,8 @@ public class RandomUtilTest {
 
 
     @Test
-    public void getIntArray_SizeIsSameSizeAsSum_Exception() {
-        int arraySum = 10;
-        int arraySize = 10;
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                RandomUtil.create().getIntArray(arraySize, arraySum)
-        );
-    }
-
-
-    @Test
-    public void getIntArray_Size0_Exception() {
-        int arraySum = 10;
-        int arraySize = 0;
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                RandomUtil.create().getIntArray(arraySize, arraySum)
-        );
-    }
-
-
-    @Test
-    public void getIntArray_SumLessThanSize_Exception() {
-        int arraySum = 2;
-        int arraySize = 10;
+    @Parameters({"10, 10", "10, 0", "2, 10"})
+    public void getIntArray_SizeIsSameSizeAsSum_Exception(int arraySum, int arraySize) {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 RandomUtil.create().getIntArray(arraySize, arraySum)
         );
@@ -233,37 +211,32 @@ public class RandomUtilTest {
 
 
     @Test
-    public void testGetPaddedInt() {
-        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
-        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
-        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
-        Assert.assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
-    }
-
-
-    /**
-     * Test when padding is smaller than length of returned value.
-     */
-    @Test
-    public void testGetPaddedInt_paddingShorterThanNumber() {
-        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 1));
-        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 2));
-        Assert.assertEquals("160", RandomUtil.create(1234).getPaddedInt(100, 200, 3));
-        Assert.assertEquals("0160", RandomUtil.create(1234).getPaddedInt(100, 200, 4));
+    @Parameters({
+            "1, 160",
+            "2, 160",
+            "3, 160",
+            "4, 0160"
+    })
+    public void testGetPaddedInt(int padding, String expected) {
+        String actual = RandomUtil.create(1234).getPaddedInt(100, 200, padding);
+        assertThat(actual).isEqualTo(expected);
     }
 
 
     @Test
-    public void testGetPaddedInt_incorrectPaddingArgToSmall() {
-        exception.expect(RuntimeException.class);
-        RandomUtil.create(1234).getPaddedInt(100, 200, 0);
+    @Parameters({"0", "1000"})
+    public void testGetPaddedInt_incorrectPaddingArgToSmall(int padding) {
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                RandomUtil.create(1234).getPaddedInt(100, 200, padding)
+        );
     }
 
 
     @Test
     public void testGetPaddedInt_incorrectPaddingArgToLarge() {
-        exception.expect(RuntimeException.class);
-        RandomUtil.create(1234).getPaddedInt(100, 200, 1000);
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                RandomUtil.create(1234).getPaddedInt(100, 200, 1000)
+        );
     }
 
 

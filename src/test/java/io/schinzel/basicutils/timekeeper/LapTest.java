@@ -3,23 +3,20 @@ package io.schinzel.basicutils.timekeeper;
 import io.schinzel.basicutils.Sandman;
 import io.schinzel.basicutils.collections.valueswithkeys.ValuesWithKeys;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
 /**
  * @author schinzel
  */
 public class LapTest {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Test
@@ -115,9 +112,9 @@ public class LapTest {
         Lap root = new Lap("root", null);
         root.start();
         root.start("A");
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Cannot start");
-        root.start("A");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> root.start("A"))
+                .withMessageStartingWith("Cannot start");
     }
 
 
@@ -127,8 +124,8 @@ public class LapTest {
         root.start();
         Lap A = root.start("A");
         A.stop();
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Cannot stop");
-        A.stop();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(A::stop)
+                .withMessageStartingWith("Cannot stop");
     }
 }
