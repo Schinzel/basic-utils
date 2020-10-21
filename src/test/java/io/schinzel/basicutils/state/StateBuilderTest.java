@@ -3,20 +3,16 @@ package io.schinzel.basicutils.state;
 import com.google.common.collect.ImmutableList;
 import io.schinzel.basicutils.EmptyObjects;
 import io.schinzel.basicutils.RandomUtil;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.Arrays;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
-import static org.assertj.core.api.Assertions.*;
 
 
 public class StateBuilderTest {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Test
@@ -138,7 +134,7 @@ public class StateBuilderTest {
                 .addChildren("KeyForChildren", EmptyObjects.emptyList())
                 .getChildLists()
                 .size();
-        assertThat(childSize).isEqualTo(0);
+        assertThat(childSize).isZero();
     }
 
 
@@ -148,7 +144,7 @@ public class StateBuilderTest {
                 .addChildren("KeyForChildren", null)
                 .getChildLists()
                 .size();
-        assertThat(childSize).isEqualTo(0);
+        assertThat(childSize).isZero();
     }
 
 

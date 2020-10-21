@@ -1,14 +1,13 @@
 package io.schinzel.basicutils.collections;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatExceptionOfType;
 import static org.junit.Assert.*;
 
 
@@ -16,9 +15,6 @@ import static org.junit.Assert.*;
  * @author schinzel
  */
 public class CacheTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Test
@@ -72,9 +68,9 @@ public class CacheTest {
     @Test
     public void testDifferentTypes() {
         Cache<String, byte[]> byteArrCache = new Cache<>();
-        byte[] val1 = "chimp".getBytes(Charset.forName("UTF-8"));
-        byte[] val2 = "bird".getBytes(Charset.forName("UTF-8"));
-        byte[] val3 = "bear".getBytes(Charset.forName("UTF-8"));
+        byte[] val1 = "chimp".getBytes(StandardCharsets.UTF_8);
+        byte[] val2 = "bird".getBytes(StandardCharsets.UTF_8);
+        byte[] val3 = "bear".getBytes(StandardCharsets.UTF_8);
         byteArrCache.put("key1", val1);
         byteArrCache.put("key2", val2);
         byteArrCache.put("key3", val3);
@@ -84,7 +80,7 @@ public class CacheTest {
         //
         Cache<String, Integer> intCache = new Cache<>();
         intCache.put("key1", 1);
-        Integer integer = Integer.valueOf(2);
+        Integer integer = 2;
         intCache.put("key2", integer);
         intCache.put("key3", 3);
         assertEquals(1, intCache.get("key1").intValue());
@@ -128,15 +124,16 @@ public class CacheTest {
         set.add("monkey");
         set.add("bird");
         assertEquals(set, cache.getKeys());
-        exception.expect(RuntimeException.class);
-        cache.get("I_do_not_exist");
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                cache.get("I_do_not_exist")
+        );
     }
 
 
     @Test
     public void values_EmptyCache_EmptyCollection() {
         Cache<String, Integer> cache = new Cache<>();
-        assertThat(cache.getValues().size()).isZero();
+        assertThat(cache.getValues()).isEmpty();
     }
 
 

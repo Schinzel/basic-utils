@@ -1,8 +1,6 @@
 package io.schinzel.basicutils.substring;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,8 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Schinzel
  */
 public class SubStringTest {
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
     //------------------------------------------------------------------------
     // Test start and end delimiter
     //------------------------------------------------------------------------
@@ -58,7 +54,7 @@ public class SubStringTest {
                 .startDelimiter("START")
                 .endDelimiter("END")
                 .getString();
-        assertThat(actual).isEqualTo("");
+        assertThat(actual).isEmpty();
     }
 
 
@@ -103,7 +99,7 @@ public class SubStringTest {
                 .create("uuuoooiii")
                 .startDelimiter("START")
                 .getString();
-        assertThat(actual).isEqualTo("");
+        assertThat(actual).isEmpty();
     }
 
 
@@ -113,7 +109,7 @@ public class SubStringTest {
                 .create("rrrSTARTiiiSTARTaaaENDuuuENDooo")
                 .startDelimiter("START", Occurrence.TENTH)
                 .getString();
-        assertThat(actual).isEqualTo("");
+        assertThat(actual).isEmpty();
     }
 
 
@@ -123,7 +119,7 @@ public class SubStringTest {
                 .create("uuuoooSTART")
                 .startDelimiter("START")
                 .getString();
-        assertThat(actual).isEqualTo("");
+        assertThat(actual).isEmpty();
     }
 
 
@@ -236,7 +232,7 @@ public class SubStringTest {
                 .create("ENDuuukkkk")
                 .endDelimiter("END")
                 .getString();
-        assertThat(actual).isEqualTo("");
+        assertThat(actual).isEmpty();
     }
     //------------------------------------------------------------------------
     // MISC

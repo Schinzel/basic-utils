@@ -2,19 +2,15 @@ package io.schinzel.basicutils.timekeeper;
 
 import io.schinzel.basicutils.Sandman;
 import org.junit.Assert;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * @author schinzel
  */
 public class StopWatchTest {
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
 
     @Test
@@ -46,9 +42,9 @@ public class StopWatchTest {
     public void testDoubleStart() {
         StopWatch sw = StopWatch.create();
         sw.start();
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Cannot start");
-        sw.start();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(sw::start)
+                .withMessageStartingWith("Cannot start");
     }
 
 
@@ -57,18 +53,17 @@ public class StopWatchTest {
         StopWatch sw = StopWatch.create();
         sw.start();
         sw.stop();
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Cannot stop");
-        sw.stop();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(sw::stop)
+                .withMessageStartingWith("Cannot stop");
     }
 
 
     @Test
     public void testStopNotStarted() {
         StopWatch sw = StopWatch.create();
-        exception.expect(RuntimeException.class);
-        exception.expectMessage("Cannot stop");
-        sw.stop();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(sw::stop);
     }
 
 
