@@ -2,6 +2,7 @@ package io.schinzel.basicutils.thrower;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * The purpose of this class it to allow chaining Thrower methods for more readable code.
@@ -14,6 +15,16 @@ public class ThrowerInstance {
     ThrowerInstance() {
     }
 
+    /**
+     * @param string       The string to validate
+     * @param variableName The name of the argument to validate
+     * @param regex        The regex to match
+     * @return This for chaining
+     */
+    public ThrowerInstance throwIfNotMatchesRegex(String string, String variableName, Pattern regex) {
+        Thrower.throwIfNotMatchesRegex(string, variableName, regex);
+        return this;
+    }
 
     /**
      * Throws runtime exception if the argument value with the argument name is null.
