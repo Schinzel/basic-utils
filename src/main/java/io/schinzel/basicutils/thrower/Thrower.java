@@ -34,7 +34,7 @@ public class Thrower {
      */
     public static String throwIfNotMatchesRegex(String string, String variableName, Pattern regex) {
         ThrowerMessage.create(!regex.matcher(string).matches())
-                .message("Argument '" + variableName + "' does not match regex '" + regex.pattern() + "'");
+                .message("Argument '" + variableName + "' with value '" + string + "' does not match regex '" + regex.pattern() + "'");
         return string;
     }
 

@@ -54,7 +54,7 @@ public class ConfigVarTest {
         Map<String, String> propFromFile = Collections.singletonMap("bear", ConfigVar.EMPTY_VALUE_PLACEHOLDER);
         String apeValue = new ConfigVar("anyfile.txt", envVar, propFromFile)
                 .getValue("bear");
-        assertThat(apeValue).isEqualTo("");
+        assertThat(apeValue).isEmpty();
     }
 
 
@@ -64,7 +64,7 @@ public class ConfigVarTest {
         Map<String, String> propFromFile = Collections.singletonMap("bear", "black bear");
         String apeValue = new ConfigVar("anyfile.txt", envVar, propFromFile)
                 .getValue("ape");
-        assertThat(apeValue).isEqualTo("");
+        assertThat(apeValue).isEmpty();
     }
 
 
@@ -79,8 +79,8 @@ public class ConfigVarTest {
     public void getValue_FileWithPropertyExistsContainsProperty_ShouldReturnPropValue() {
         String fileName = Str.create().anl("ape=gibbon").writeToTempFile();
         ConfigVar configVar = new ConfigVar(fileName);
-        String actaul = configVar.getValue("ape");
-        assertThat(actaul).isEqualTo("gibbon");
+        String actual = configVar.getValue("ape");
+        assertThat(actual).isEqualTo("gibbon");
     }
 
 

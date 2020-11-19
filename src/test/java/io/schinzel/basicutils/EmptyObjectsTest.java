@@ -14,7 +14,7 @@ public class EmptyObjectsTest extends EmptyObjects {
     @Test
     public void emptyString_EmptyString() {
         assertThat(EmptyObjects.EMPTY_STRING)
-                .isEqualTo("");
+                .isEmpty();
     }
 
 

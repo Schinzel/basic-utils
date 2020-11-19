@@ -57,8 +57,9 @@ public class PropertiesFileTest extends PropertiesFile {
     @Test
     public void getProperties_FileDoesNotExist_ShouldGetEmptyProperties() {
         Map<String, String> properties = PropertiesFile.getProperties("i_do_not_exists.properties");
-        assertThat(properties).isNotNull();
-        assertThat(properties.size()).isEqualTo(0);
+        assertThat(properties)
+                .isNotNull()
+                .isEmpty();
     }
 
 
@@ -66,8 +67,9 @@ public class PropertiesFileTest extends PropertiesFile {
     public void getProperties_EmptyFile_ShouldGetEmptyProperties() {
         String fileName = Str.create().writeToTempFile();
         Map<String, String> properties = PropertiesFile.getProperties(fileName);
-        assertThat(properties).isNotNull();
-        assertThat(properties.size()).isEqualTo(0);
+        assertThat(properties)
+                .isNotNull()
+                .isEmpty();
     }
 
 

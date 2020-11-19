@@ -29,7 +29,7 @@ public class ThrowerTest extends Thrower {
         val regEx = Pattern.compile("[a-zA-Z0-9_-]{1,100}");
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> Thrower.throwIfNotMatchesRegex("åäö", "myVar", regEx))
-                .withMessageStartingWith("Argument 'myVar' does not match regex '[a-zA-Z0-9_-]{1,100}'");
+                .withMessageStartingWith("Argument 'myVar' with value 'åäö' does not match regex '[a-zA-Z0-9_-]{1,100}'");
     }
 
 
