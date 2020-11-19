@@ -3,12 +3,13 @@ package io.schinzel.basicutils.str;
 import io.schinzel.basicutils.RandomUtil;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 
 public class IStrExceptionTest {
 
-    private class StrException extends AbstractIStr<StrException> implements IStrException<StrException> {
+    private static class StrException extends AbstractIStr<StrException> implements IStrException<StrException> {
         @Override
         public StrException getThis() {
             return this;
@@ -17,16 +18,18 @@ public class IStrExceptionTest {
 
     @Test
     public void throwRuntime_GenericException_ExceptionIsThrown() {
+        final StrException strException = new StrException().a("My error message");
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> new StrException().a("My error message").throwRuntime());
+                .isThrownBy(strException::throwRuntime);
     }
 
 
     @Test
     public void throwRuntime_RandomErrorMessage_ErrorMessagePresent() {
         String errorMessage = RandomUtil.getRandomString(10);
+        final StrException strException = new StrException().a(errorMessage);
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> new StrException().a(errorMessage).throwRuntime())
+                .isThrownBy(strException::throwRuntime)
                 .withMessage(errorMessage);
     }
 
@@ -51,7 +54,7 @@ public class IStrExceptionTest {
         } catch (RuntimeException e) {
             StackTraceElement[] stackTrace = e.getStackTrace();
             StackTraceElement[] newStackTrace = IStrException.removeFirstElement(stackTrace);
-            assertThat(newStackTrace.length).isEqualTo(stackTrace.length - 1);
+            assertThat(newStackTrace).hasSize(stackTrace.length - 1);
         }
     }
 

@@ -4,6 +4,7 @@ import io.schinzel.basicutils.Checker;
 
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * The purpose of this class is to offer less verbose exception throwing in
@@ -24,6 +25,18 @@ public class Thrower {
         return new ThrowerInstance();
     }
 
+
+    /**
+     * @param string       The string to validate
+     * @param variableName The name of the argument to validate
+     * @param regex        The regex to match
+     * @return The argument string
+     */
+    public static String throwIfNotMatchesRegex(String string, String variableName, Pattern regex) {
+        ThrowerMessage.create(!regex.matcher(string).matches())
+                .message("Argument '" + variableName + "' with value '" + string + "' does not match regex '" + regex.pattern() + "'");
+        return string;
+    }
 
     /**
      * Throws runtime exception if the argument value with the argument name is null.
@@ -200,7 +213,7 @@ public class Thrower {
 
     /**
      * @param variableName Name of variable to include in returned message
-     * @param state The state of the argument variable. E.g. "null" or "empty"
+     * @param state        The state of the argument variable. E.g. "null" or "empty"
      * @return Error message prefix
      */
     static String getErrorMessage(String variableName, String state) {

@@ -1,6 +1,9 @@
 package io.schinzel.basicutils.thrower;
 
+import lombok.val;
 import org.junit.Test;
+
+import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -9,6 +12,25 @@ import static org.assertj.core.api.Assertions.*;
  * @author schinzel
  */
 public class ThrowerTest extends Thrower {
+
+    @Test
+    public void throwIfNotMatchesRegex_MatchesRegEx_ReturnsArgumentString() {
+        val regEx = Pattern.compile("[a-zA-Z0-9_-]{1,100}");
+        final String argumentString = "any_string";
+        assertThatCode(() -> {
+            final String returnString = Thrower.throwIfNotMatchesRegex(argumentString, "myVar", regEx);
+            assertThat(returnString).isEqualTo(argumentString);
+        }).doesNotThrowAnyException();
+    }
+
+
+    @Test
+    public void throwIfNotMatchesRegex_DoesNotMatchRegEx_Exception() {
+        val regEx = Pattern.compile("[a-zA-Z0-9_-]{1,100}");
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> Thrower.throwIfNotMatchesRegex("åäö", "myVar", regEx))
+                .withMessageStartingWith("Argument 'myVar' with value 'åäö' does not match regex '[a-zA-Z0-9_-]{1,100}'");
+    }
 
 
     @Test
