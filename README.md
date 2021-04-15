@@ -39,7 +39,7 @@ if (Checker.isEmpty(str)) {
 <repositories>
 	<repository>
 		<id>maven-repo.schinzel.io</id>
-		<url>http://maven-repo.schinzel.io/release</url>
+		<url>https://s3-eu-west-1.amazonaws.com/maven-repo.schinzel.io/release</url>
 	</repository>
 </repositories>    
 
