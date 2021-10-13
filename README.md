@@ -9,8 +9,8 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=ncloc)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 
-Some basic utilities mainly for Java. 
-Most commonly less verbose versions of common code snippets.
+Basic utilities mainly for Java. 
+Most commonly the utilities are less verbose versions of common code snippets.
 
 Some examples
 ```java
