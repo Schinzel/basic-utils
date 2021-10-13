@@ -5,4 +5,4 @@ notifications:
   email: false
 script:
   - mvn test jacoco:report
-  # - mvn sonar:sonar -Dsonar.projectKey=Schinzel_basic-utils -Dsonar.organization=schinzel-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+  - mvn sonar:sonar -Dsonar.projectKey=Schinzel_basic-utils -Dsonar.organization=schinzel-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
