@@ -9,46 +9,46 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=ncloc)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 
-Basic utilities mainly for Java. 
+Basic utilities for Java (and Kotlin to some degree).
 Most commonly the utilities are less verbose versions of common code snippets.
 
 Some examples
 ```java
 //Get host, i.e. "www.example.com"
 String input = "http://www.example.com/index.html?key1=val1&key2=val2";
-SubString.create(input)
+        SubString.create(input)
         .startDelimiter("http://")
         .endDelimiter("/index")
         .getStr()
         .writeToSystemOutWithPrefix("Host: ");
 
-Thrower.throwIfTrue(myVar<100).message("This is an exception message");
+        Thrower.throwIfTrue(myVar<100).message("This is an exception message");
 
 
 //Sleep for 100 milliseconds
-Sandman.snoozeMillis(100);
+        Sandman.snoozeMillis(100);
 
 //Check for null and empty string, map, list and so on
-if (Checker.isEmpty(str)) {
-}
+        if (Checker.isEmpty(str)) {
+        }
 
 ```
 
 
 ```xml
 <repositories>
-	<repository>
-		<id>maven-repo.schinzel.io</id>
-		<url>https://s3-eu-west-1.amazonaws.com/maven-repo.schinzel.io/release</url>
-	</repository>
-</repositories>    
+    <repository>
+        <id>maven-repo.schinzel.io</id>
+        <url>https://s3-eu-west-1.amazonaws.com/maven-repo.schinzel.io/release</url>
+    </repository>
+</repositories>
 
 <dependencies>
-	<dependency>
-		<groupId>io.schinzel</groupId>
-		<artifactId>basic-utils</artifactId>
-		<version>1.XX</version>
-	</dependency>
+<dependency>
+    <groupId>io.schinzel</groupId>
+    <artifactId>basic-utils</artifactId>
+    <version>1.XX</version>
+</dependency>
 </dependencies>    
 ```
 
