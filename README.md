@@ -9,8 +9,8 @@
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=sqale_index)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Schinzel_basic-utils&metric=ncloc)](https://sonarcloud.io/dashboard?id=Schinzel_basic-utils)
 
-Some basic utilities. 
-Most commonly less verbose versions of common code snippets.
+Basic utilities for Java (and Kotlin to some degree).
+Most commonly the utilities are less verbose versions of common code snippets.
 
 Some examples
 ```java
@@ -37,18 +37,18 @@ if (Checker.isEmpty(str)) {
 
 ```xml
 <repositories>
-	<repository>
-		<id>maven-repo.schinzel.io</id>
-		<url>http://maven-repo.schinzel.io/release</url>
-	</repository>
-</repositories>    
+    <repository>
+        <id>maven-repo.schinzel.io</id>
+        <url>https://s3-eu-west-1.amazonaws.com/maven-repo.schinzel.io/release</url>
+    </repository>
+</repositories>
 
 <dependencies>
-	<dependency>
-		<groupId>io.schinzel</groupId>
-		<artifactId>basic-utils</artifactId>
-		<version>1.XX</version>
-	</dependency>
+<dependency>
+    <groupId>io.schinzel</groupId>
+    <artifactId>basic-utils</artifactId>
+    <version>1.XX</version>
+</dependency>
 </dependencies>    
 ```
 
