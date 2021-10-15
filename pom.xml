@@ -17,8 +17,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <deploy-repo>maven-repo.schinzel.io</deploy-repo>
+        <!-- For Sonar Cloud integration -->
+        <sonar.organization>schinzel-github</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
-
 
     <distributionManagement>
         <snapshotRepository>
@@ -80,7 +82,7 @@
                 To run locally: mvn test jacoco:report -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.7.9</version>
+                <version>0.8.7</version>
                 <configuration>
                     <excludes>
                         <exclude>io/schinzel/samples/**/*</exclude>
@@ -119,6 +121,7 @@
                 <!-- Attach java doc -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.1</version>
                 <configuration>
                     <quiet>true</quiet>
                 </configuration>
