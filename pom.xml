@@ -17,7 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <deploy-repo>maven-repo.schinzel.io</deploy-repo>
-        <!-- For Sonar Cloud intergration -->
+        <!-- For Sonar Cloud integration -->
         <sonar.organization>schinzel-github</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
