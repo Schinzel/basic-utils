@@ -39,6 +39,19 @@ public class ConfigVar2 {
     }
 
 
+    public String getValue3(String keyName) {
+        for (IConfigVarReader reader : configVarReaders) {
+            String value;
+            if ((value = reader.getValue(keyName)) != null) {
+                return value.equals(EMPTY_VALUE_PLACEHOLDER)
+                        ? ""
+                        : value;
+            }
+        }
+        throw new RuntimeException("Configuration variable for key '" + keyName + "' missing. ");
+    }
+
+
     public String getValue2(String keyName) {
         // If got here the requested key name was not found
         final Optional<IConfigVarReader> reader = configVarReaders.stream()
