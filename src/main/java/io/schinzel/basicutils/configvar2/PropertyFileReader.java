@@ -22,11 +22,6 @@ public class PropertyFileReader implements IConfigVarReader {
     }
 
     @Override
-    public boolean containsKey(String keyName) {
-        return properties.containsKey(keyName);
-    }
-
-    @Override
     public String getValue(String keyName) {
         return properties.get(keyName);
     }

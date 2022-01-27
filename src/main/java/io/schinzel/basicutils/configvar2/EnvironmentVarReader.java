@@ -16,11 +16,6 @@ public class EnvironmentVarReader implements IConfigVarReader {
     }
 
     @Override
-    public boolean containsKey(String keyName) {
-        return getEnvironmentVariables().containsKey(keyName);
-    }
-
-    @Override
     public String getValue(String keyName) {
         return getEnvironmentVariables().get(keyName);
     }

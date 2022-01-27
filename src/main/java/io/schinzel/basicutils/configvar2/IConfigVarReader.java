@@ -9,12 +9,6 @@ public interface IConfigVarReader {
 
     /**
      * @param keyName The name of the key of key-value pair
-     * @return True if there is key-value pair with the argument key
-     */
-    boolean containsKey(String keyName);
-
-    /**
-     * @param keyName The name of the key of key-value pair
      * @return The value of the key-value pair with the argument key
      */
     String getValue(String keyName);
