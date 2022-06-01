@@ -6,7 +6,7 @@
     <artifactId>basic-utils</artifactId>
     <packaging>jar</packaging>
     <groupId>io.schinzel</groupId>
-    <version>1.4.2</version>
+    <version>1.4.3</version>
 
     <name>Basic Utils</name>
     <description>Some basic utilities. Most commonly less verbose versions of common code
@@ -142,12 +142,12 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20210307</version>
+            <version>20220320</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>31.0.1-jre</version>
+            <version>31.1-jre</version>
         </dependency>
         <!-- DEV DEPENDENCIES -->
         <dependency>
@@ -156,7 +156,7 @@
             https://projectlombok.org/index.html -->
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>1.18.24</version>
             <scope>provided</scope>
         </dependency>
         <!-- TEST DEPENDENCIES -->
@@ -169,14 +169,14 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>4.0.0</version>
+            <version>4.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <!-- Fluid assertions http://joel-costigliola.github.io/assertj -->
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>3.21.0</version>
+            <version>3.22.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
