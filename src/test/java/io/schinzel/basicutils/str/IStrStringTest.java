@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class IStrStringTest {
 
-    private class StrString extends AbstractIStr<StrString> implements IStrString<StrString> {
+    private static class StrString extends AbstractIStr<StrString> implements IStrString<StrString> {
         @Override
         public StrString getThis() {
             return this;
@@ -58,7 +58,7 @@ public class IStrStringTest {
 
     @Test
     public void a_FloatObject_ShouldBeCorrectlyFormatted() {
-        Float f = new Float(123.45678f);
+        Float f = 123.45678f;
         String actual = new StrString().a(f).asString();
         assertThat(actual).isEqualTo("123.45678");
     }
@@ -90,7 +90,7 @@ public class IStrStringTest {
 
     @Test
     public void a_DoubleObject_ShouldBeCorrectlyFormatted() {
-        Double d = new Double(123.45678d);
+        Double d = 123.45678d;
         String actual = new StrString().a(d).asString();
         assertThat(actual).isEqualTo("123.45678");
     }
@@ -130,7 +130,7 @@ public class IStrStringTest {
 
     @Test
     public void a_LongObject_ShouldBeCorrectlyFormatted() {
-        Long l = new Long(123_456_789_123_456_789L);
+        Long l = 123_456_789_123_456_789L;
         String actual = new StrString().a(l).asString();
         assertThat(actual).isEqualTo("123456789123456789");
     }
@@ -154,7 +154,7 @@ public class IStrStringTest {
 
     @Test
     public void a_Integer_ShouldBeCorrectlyFormatted() {
-        Integer i = Integer.valueOf(123_456_789);
+        Integer i = 123_456_789;
         String actual = new StrString().a(i).asString();
         assertThat(actual).isEqualTo("123456789");
     }
