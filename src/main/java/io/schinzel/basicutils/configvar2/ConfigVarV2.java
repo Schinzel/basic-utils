@@ -2,6 +2,7 @@ package io.schinzel.basicutils.configvar2;
 
 import io.schinzel.basicutils.collections.Cache;
 import io.schinzel.basicutils.configvar.IConfigVar;
+import io.schinzel.basicutils.configvar.IName;
 import lombok.Builder;
 import lombok.Singular;
 import lombok.val;
@@ -28,6 +29,15 @@ public class ConfigVarV2 implements IConfigVar {
     /** String to use in properties file or in environment variable if empty
      * string should be returned as value. */
     private static final String EMPTY_VALUE_PLACEHOLDER = "#EMPTY#";
+
+
+    /**
+     * @param objectWithName An object with a name
+     * @return Returns the value of the property with the argument key.
+     */
+    public String getValue(IName objectWithName) {
+        return this.getValue(objectWithName.getMyName());
+    }
 
 
     /**
