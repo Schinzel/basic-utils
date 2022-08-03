@@ -15,7 +15,7 @@ public class PropertyFileReader implements IConfigVarReader {
     /** A representation of the properties file. */
     private final Map<String, String> properties;
 
-    PropertyFileReader(String fileName) {
+    public PropertyFileReader(String fileName) {
         properties = new File(fileName).exists()
                 ? getProperties(fileName)
                 : Collections.emptyMap();

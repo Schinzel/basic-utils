@@ -14,7 +14,7 @@ public interface IConfigVar {
 
 
     /**
-     * @param objectWithName A object with a name
+     * @param objectWithName An object with a name
      * @return Returns the value of the property with the argument key.
      */
     default String getValue(IName objectWithName) {

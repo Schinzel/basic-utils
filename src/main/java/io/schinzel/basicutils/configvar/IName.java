@@ -11,7 +11,7 @@ package io.schinzel.basicutils.configvar;
  * configVar.getValue(MyEnum.BEAR)
  * <p>
  * Did not choose method "name()" - which would require no implementation of code
- * in enums as enums have a name-method - as this triggers accidental override exceptiod in Kotlin.
+ * in enums as enums have a name-method - as this triggers accidental override exception in Kotlin.
  */
 public interface IName {
 
