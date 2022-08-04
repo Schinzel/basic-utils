@@ -1,7 +1,7 @@
 package io.schinzel.samples;
 
 import io.schinzel.basicutils.configvar2.ConfigVarV2;
-import io.schinzel.basicutils.configvar2.PropertyFileReader;
+import io.schinzel.basicutils.configvar2.readers.PropertyFileReader;
 
 public class ConfigVarV2Sample {
     public static void main(String[] args) {

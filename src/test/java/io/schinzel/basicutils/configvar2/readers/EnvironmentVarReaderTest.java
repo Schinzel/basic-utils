@@ -1,6 +1,7 @@
-package io.schinzel.basicutils.configvar2;
+package io.schinzel.basicutils.configvar2.readers;
 
 import com.google.common.collect.ImmutableMap;
+import io.schinzel.basicutils.configvar2.readers.EnvironmentVarReader;
 import org.junit.Test;
 import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;

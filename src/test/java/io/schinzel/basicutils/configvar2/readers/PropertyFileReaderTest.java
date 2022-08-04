@@ -1,6 +1,7 @@
-package io.schinzel.basicutils.configvar2;
+package io.schinzel.basicutils.configvar2.readers;
 
 import io.schinzel.basicutils.FunnyChars;
+import io.schinzel.basicutils.configvar2.readers.PropertyFileReader;
 import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;

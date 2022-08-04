@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.configvar2;
+package io.schinzel.basicutils.configvar2.readers;
 
 import lombok.Builder;
 import org.jsoup.Connection;
@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.Map;
-import static java.lang.System.out;
 
 @Builder
 public class HttpReader implements IConfigVarReader {

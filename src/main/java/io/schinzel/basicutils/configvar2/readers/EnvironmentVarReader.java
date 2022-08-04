@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.configvar2;
+package io.schinzel.basicutils.configvar2.readers;
 
 import java.util.Map;
 

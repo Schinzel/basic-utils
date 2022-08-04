@@ -3,10 +3,10 @@ package io.schinzel.basicutils.configvar2;
 import io.schinzel.basicutils.collections.Cache;
 import io.schinzel.basicutils.configvar.IConfigVar;
 import io.schinzel.basicutils.configvar.IName;
+import io.schinzel.basicutils.configvar2.readers.IConfigVarReader;
 import lombok.Builder;
 import lombok.Singular;
 import lombok.val;
-import java.util.HashMap;
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.configvar2;
+package io.schinzel.basicutils.configvar2.readers;
 
 /**
  * The purpose of this interface is to read configuration variables.
