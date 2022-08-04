@@ -192,6 +192,13 @@
             <version>1.1.1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <!-- A web server for testing HttpReader-->
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>4.6.4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

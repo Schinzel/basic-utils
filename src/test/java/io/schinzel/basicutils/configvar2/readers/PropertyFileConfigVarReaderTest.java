@@ -1,13 +1,12 @@
 package io.schinzel.basicutils.configvar2.readers;
 
 import io.schinzel.basicutils.FunnyChars;
-import io.schinzel.basicutils.configvar2.readers.PropertyFileReader;
 import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class PropertyFileReaderTest {
+public class PropertyFileConfigVarReaderTest {
 
     //------------------------------------------------------------------------
     // constructor
@@ -16,19 +15,19 @@ public class PropertyFileReaderTest {
     @Test
     public void constructor_fileDoesNotExist_exception() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                new PropertyFileReader("no_such_file"));
+                new PropertyFileConfigVarReader("no_such_file"));
     }
 
     @Test
     public void constructor_emptyFileName_exception() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                new PropertyFileReader(""));
+                new PropertyFileConfigVarReader(""));
     }
 
     @Test
     public void constructor_nullFileName_exception() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                new PropertyFileReader(null));
+                new PropertyFileConfigVarReader(null));
     }
 
 
@@ -42,7 +41,7 @@ public class PropertyFileReaderTest {
                 .anl("ape=gorilla")
                 .anl("bird=falcon")
                 .writeToTempFile();
-        String value = new PropertyFileReader(fileName).getValue("ape");
+        String value = new PropertyFileConfigVarReader(fileName).getValue("ape");
         assertThat(value).isEqualTo("gorilla");
     }
 
@@ -53,7 +52,7 @@ public class PropertyFileReaderTest {
                 .anl("bird=falcon")
                 .anl("ape=chimp")
                 .writeToTempFile();
-        String value = new PropertyFileReader(fileName).getValue("ape");
+        String value = new PropertyFileConfigVarReader(fileName).getValue("ape");
         assertThat(value).isEqualTo("chimp");
     }
 
@@ -62,7 +61,7 @@ public class PropertyFileReaderTest {
         String fileName = Str.create()
                 .a("źż=").anl(FunnyChars.POLISH_LETTERS.getString())
                 .writeToTempFile();
-        String value = new PropertyFileReader(fileName)
+        String value = new PropertyFileConfigVarReader(fileName)
                 .getValue("źż");
         assertThat(value).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
     }
@@ -73,7 +72,7 @@ public class PropertyFileReaderTest {
                 .anl("ape=")
                 .anl("bird=falcon")
                 .writeToTempFile();
-        String value = new PropertyFileReader(fileName).getValue("ape");
+        String value = new PropertyFileConfigVarReader(fileName).getValue("ape");
         assertThat(value).isEmpty();
     }
 
@@ -82,7 +81,7 @@ public class PropertyFileReaderTest {
         String fileName = Str.create()
                 .anl("a=b")
                 .writeToTempFile();
-        String value = new PropertyFileReader(fileName).getValue("a");
+        String value = new PropertyFileConfigVarReader(fileName).getValue("a");
         assertThat(value).isEqualTo("b");
     }
 
@@ -91,7 +90,7 @@ public class PropertyFileReaderTest {
         String fileName = Str.create()
                 .anl("a=b")
                 .writeToTempFile();
-        String value = new PropertyFileReader(fileName).getValue("no_such_key");
+        String value = new PropertyFileConfigVarReader(fileName).getValue("no_such_key");
         assertThat(value).isNull();
     }
 
@@ -101,7 +100,7 @@ public class PropertyFileReaderTest {
         String fileName = Str.create()
                 .anl(longString + "=" + longString)
                 .writeToTempFile();
-        String value = new PropertyFileReader(fileName).getValue(longString);
+        String value = new PropertyFileConfigVarReader(fileName).getValue(longString);
         assertThat(value).isEqualTo(longString);
     }
 
@@ -121,7 +120,7 @@ public class PropertyFileReaderTest {
                 .anl("#Comment")
                 .anl()
                 .writeToTempFile();
-        Integer numberOfProperties = PropertyFileReader.getProperties(fileName)
+        Integer numberOfProperties = PropertyFileConfigVarReader.getProperties(fileName)
                 .size();
         assertThat(numberOfProperties).isEqualTo(2);
     }
@@ -130,7 +129,7 @@ public class PropertyFileReaderTest {
     public void getProperties_emptyFile_emptyMap(){
         String fileName = Str.create()
                 .writeToTempFile();
-        Integer numberOfProperties = PropertyFileReader.getProperties(fileName)
+        Integer numberOfProperties = PropertyFileConfigVarReader.getProperties(fileName)
                 .size();
         assertThat(numberOfProperties).isZero();
     }
@@ -144,7 +143,7 @@ public class PropertyFileReaderTest {
                 .anl("#Comment")
                 .anl()
                 .writeToTempFile();
-        Integer numberOfProperties = PropertyFileReader.getProperties(fileName)
+        Integer numberOfProperties = PropertyFileConfigVarReader.getProperties(fileName)
                 .size();
         assertThat(numberOfProperties).isZero();
     }

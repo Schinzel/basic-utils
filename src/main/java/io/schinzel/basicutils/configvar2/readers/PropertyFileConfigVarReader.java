@@ -17,18 +17,18 @@ import java.util.stream.Collectors;
  * Supports empty lines in files.
  * Comment lines start with #.
  */
-public class PropertyFileReader implements IConfigVarReader {
+public class PropertyFileConfigVarReader implements IConfigVarReader {
     /** A representation of the properties file. */
     final Map<String, String> properties;
 
-    public PropertyFileReader(String fileName) {
+    public PropertyFileConfigVarReader(String fileName) {
         try {
             Thrower.throwIfVarEmpty(fileName, "fileName");
             Thrower.throwIfTrue(!new File(fileName).exists(), "No file named '" + fileName + "' exists");
             //Read argument properties file from file system
             properties = getProperties(fileName);
         } catch (Exception e) {
-            String errorMessage = "Error creating " + PropertyFileReader.class.getSimpleName() + ". " + e.getMessage();
+            String errorMessage = "Error creating " + PropertyFileConfigVarReader.class.getSimpleName() + ". " + e.getMessage();
             throw new RuntimeException(errorMessage);
         }
     }

@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Map;
 
 @Builder
-public class HttpReader implements IConfigVarReader {
+public class HttpConfigVarReader implements IConfigVarReader {
     String url;
     String username;
     String password;

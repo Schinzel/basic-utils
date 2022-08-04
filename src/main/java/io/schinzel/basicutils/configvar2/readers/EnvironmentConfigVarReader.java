@@ -5,11 +5,11 @@ import java.util.Map;
 /**
  * The purpose of this class is to read environment variables.
  */
-public class EnvironmentVarReader implements IConfigVarReader {
+public class EnvironmentConfigVarReader implements IConfigVarReader {
     /** A representation of the system variables. */
     private final Map<String, String> environmentVariables;
 
-    public EnvironmentVarReader() {
+    public EnvironmentConfigVarReader() {
         this(System.getenv());
     }
 
@@ -19,7 +19,7 @@ public class EnvironmentVarReader implements IConfigVarReader {
      *
      * @param environmentVariables
      */
-    EnvironmentVarReader(Map<String, String> environmentVariables) {
+    EnvironmentConfigVarReader(Map<String, String> environmentVariables) {
         this.environmentVariables = environmentVariables;
     }
 
