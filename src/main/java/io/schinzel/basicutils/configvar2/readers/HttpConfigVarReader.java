@@ -8,6 +8,10 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.Map;
 
+
+/**
+ * Eller token eller otp??
+ */
 @Builder
 public class HttpConfigVarReader implements IConfigVarReader {
     String url;
@@ -26,7 +30,7 @@ public class HttpConfigVarReader implements IConfigVarReader {
                 .connect(url)
                 .method(Connection.Method.GET)
                 .header("Authorization", "Basic " + base64login)
-                .data(data)
+                //.data(data)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .followRedirects(false);
