@@ -1,7 +1,5 @@
 package io.schinzel.basicutils.configvar2;
 
-import lombok.AccessLevel;
-import lombok.Getter;
 import java.util.Map;
 
 /**
@@ -9,14 +7,25 @@ import java.util.Map;
  */
 public class EnvironmentVarReader implements IConfigVarReader {
     /** A representation of the system variables. */
-    @Getter(AccessLevel.PRIVATE) private final Map<String, String> environmentVariables;
+    private final Map<String, String> environmentVariables;
 
-    EnvironmentVarReader() {
-        environmentVariables = System.getenv();
+    public EnvironmentVarReader() {
+        this(System.getenv());
     }
+
+
+    /**
+     * Exists for testing
+     *
+     * @param environmentVariables
+     */
+    EnvironmentVarReader(Map<String, String> environmentVariables) {
+        this.environmentVariables = environmentVariables;
+    }
+
 
     @Override
     public String getValue(String keyName) {
-        return getEnvironmentVariables().get(keyName);
+        return environmentVariables.get(keyName);
     }
 }
