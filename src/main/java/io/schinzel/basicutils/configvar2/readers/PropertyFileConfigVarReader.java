@@ -10,8 +10,9 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
- * The purpose of this file is to read the key-value properties from a file
- *
+ * The purpose of this class is to read config variables from a properties
+ * file.
+ * <p>
  * Handles key and values up to the size of at least 500 chars
  * Key and values can be UTF-8 chars.
  * Supports empty lines in files.

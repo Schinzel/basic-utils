@@ -3,7 +3,8 @@ package io.schinzel.basicutils.configvar2.readers;
 import java.util.Map;
 
 /**
- * The purpose of this class is to read environment variables.
+ * The purpose of this class is to read config variables from environment
+ * variables.
  */
 public class EnvironmentConfigVarReader implements IConfigVarReader {
     /** A representation of the system variables. */

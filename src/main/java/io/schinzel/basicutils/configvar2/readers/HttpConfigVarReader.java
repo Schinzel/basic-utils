@@ -27,15 +27,20 @@ public class HttpConfigVarReader implements IConfigVarReader {
     @Override
     public String getValue(String keyName) {
         try {
+            // Throw exception if argument keyName is null or empty
             Thrower.createInstance().throwIfVarEmpty(keyName, "keyName");
             // If cache is enabled and cache contains the argument key name
             if (enableCache && mCache.has(keyName)) {
                 // Return the value for argument key name
                 return mCache.get(keyName);
             }
+            // Construct the url for the request
             String url = baseUrl + "?" + variableName + "=" + keyName;
+            // Create data for basic authentication
             String base64login = getBase64Login(username, password);
+            // Create a connection
             Connection connection = getConnection(url, base64login);
+            // Executre request
             String keyValue = getConnectionBody(connection);
             // If the cache is enabled
             if (enableCache) {
