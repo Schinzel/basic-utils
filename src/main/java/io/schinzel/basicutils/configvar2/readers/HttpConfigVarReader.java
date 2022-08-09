@@ -9,14 +9,12 @@ import java.util.Collections;
 import java.util.Map;
 
 
-/**
- * Eller token eller otp??
- */
 @Builder
 public class HttpConfigVarReader implements IConfigVarReader {
-    String url;
+    String baseUrl;
     String username;
     String password;
+    String variableName;
 
 
     @Override
@@ -26,11 +24,12 @@ public class HttpConfigVarReader implements IConfigVarReader {
                 .encodeToString(login.getBytes());
         Map<String, String> data = Collections
                 .singletonMap("Authorization", "Basic " + base64login);
+        String url = baseUrl + "?" + variableName + "=" + keyName;
         final Connection connection = Jsoup
                 .connect(url)
                 .method(Connection.Method.GET)
                 .header("Authorization", "Basic " + base64login)
-                //.data(data)
+                .data(data)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .followRedirects(false);
@@ -44,3 +43,5 @@ public class HttpConfigVarReader implements IConfigVarReader {
         return null;
     }
 }
+
+
