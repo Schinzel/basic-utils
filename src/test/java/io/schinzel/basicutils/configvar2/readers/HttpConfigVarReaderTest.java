@@ -6,7 +6,6 @@ import io.schinzel.basicutils.FunnyChars;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.internal.matchers.Null;
 import java.util.Collections;
 import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -16,7 +15,7 @@ public class HttpConfigVarReaderTest {
     private Javalin mApp;
     private static String APP_USERNAME;
     private static String APP_PASSWORD;
-
+    private Map<String, String> configVars;
 
     // Access manager is used by Javalin webserver to authenticate
     public static final AccessManager accessManager = (handler, ctx, permittedRoles) -> {
@@ -32,10 +31,8 @@ public class HttpConfigVarReaderTest {
 
     /**
      * Starts a web server
-     *
-     * @param configVars The config vars
      */
-    private void startWebServer(Map<String, String> configVars) {
+    private void startWebServer() {
         mApp = Javalin.create(config -> config.accessManager(accessManager))
                 .get("/getConfigVar", ctx -> {
                     String keyName = ctx.queryParam("key_name");
@@ -64,59 +61,47 @@ public class HttpConfigVarReaderTest {
     //------------------------------------------------------------------------
 
     @Test
-    public void builder_baseUrlMissing(){
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() ->
-                HttpConfigVarReader.builder()
-                        .username("my_username")
-                        .password("my_password")
-                        .variableName("key_name")
-                        .build()
-        );
+    public void builder_baseUrlMissing() {
+        HttpConfigVarReader.HttpConfigVarReaderBuilder httpConfigVarReaderBuilder = HttpConfigVarReader.builder()
+                .username("my_username")
+                .password("my_password")
+                .variableName("key_name");
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(httpConfigVarReaderBuilder::build);
     }
 
     @Test
-    public void builder_usernameMissing(){
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() ->
-                HttpConfigVarReader.builder()
-                        .baseUrl("http://127.0.0.1:7070/getConfigVar")
-                        .password("my_password")
-                        .variableName("key_name")
-                        .build()
-        );
-    }
-
-
-    @Test
-    public void builder_passwordMissing(){
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() ->
-                HttpConfigVarReader.builder()
-                        .baseUrl("http://127.0.0.1:7070/getConfigVar")
-                        .username("my_username")
-                        .variableName("key_name")
-                        .build()
+    public void builder_usernameMissing() {
+        HttpConfigVarReader.HttpConfigVarReaderBuilder httpConfigVarReaderBuilder = HttpConfigVarReader.builder()
+                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .password("my_password")
+                .variableName("key_name");
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(httpConfigVarReaderBuilder::build
         );
     }
 
 
     @Test
-    public void builder_keyNameMissing(){
-        assertThatExceptionOfType(NullPointerException.class).isThrownBy(() ->
-                HttpConfigVarReader.builder()
-                        .baseUrl("http://127.0.0.1:7070/getConfigVar")
-                        .username("my_username")
-                        .password("my_password")
-                        .build()
+    public void builder_passwordMissing() {
+        HttpConfigVarReader.HttpConfigVarReaderBuilder httpConfigVarReaderBuilder = HttpConfigVarReader.builder()
+                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .username("my_username")
+                .variableName("key_name");
+        assertThatExceptionOfType(NullPointerException.class)
+                .isThrownBy(httpConfigVarReaderBuilder::build
         );
     }
+
 
     //------------------------------------------------------------------------
     // getValue
     //------------------------------------------------------------------------
+
     @Test
     public void getValue_normalCase() {
-        Map<String, String> configVars = Collections
-                .singletonMap("key_name_1", "key_value_1");
-        startWebServer(configVars);
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        startWebServer();
         String value = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
@@ -129,10 +114,47 @@ public class HttpConfigVarReaderTest {
 
 
     @Test
+    public void getValue_cachedDisabledValueChanges_returnedUpdatedKeyValue() {
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        startWebServer();
+        HttpConfigVarReader reader = HttpConfigVarReader.builder()
+                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .username("my_username")
+                .password("my_password")
+                .variableName("key_name")
+                .enableCache(false)
+                .build();
+        String value1 = reader.getValue("key_name_1");
+        configVars = Collections.singletonMap("key_name_1", "key_value_2");
+        String value2 = reader.getValue("key_name_1");
+        assertThat(value1).isEqualTo("key_value_1");
+        assertThat(value2).isEqualTo("key_value_2");
+    }
+
+    @Test
+    public void getValue_cachedEnabledValueChanges_cachedKeyValue() {
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        startWebServer();
+        HttpConfigVarReader reader = HttpConfigVarReader.builder()
+                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .username("my_username")
+                .password("my_password")
+                .variableName("key_name")
+                .enableCache(true)
+                .build();
+        String value1 = reader.getValue("key_name_1");
+        configVars = Collections.singletonMap("key_name_1", "key_value_2");
+        String value2 = reader.getValue("key_name_1");
+        assertThat(value1).isEqualTo("key_value_1");
+        assertThat(value2).isEqualTo("key_value_1");
+    }
+
+
+
+    @Test
     public void getValue_argumentNull() {
-        Map<String, String> configVars = Collections
-                .singletonMap("key_name_1", "key_value_1");
-        startWebServer(configVars);
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        startWebServer();
         HttpConfigVarReader reader = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
@@ -146,9 +168,8 @@ public class HttpConfigVarReaderTest {
 
     @Test
     public void getValue_argumentEmptyString() {
-        Map<String, String> configVars = Collections
-                .singletonMap("key_name_1", "key_value_1");
-        startWebServer(configVars);
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        startWebServer();
         HttpConfigVarReader reader = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
@@ -163,9 +184,8 @@ public class HttpConfigVarReaderTest {
 
     @Test
     public void getValue_polishCharsInKeyAndValue() {
-        Map<String, String> configVars = Collections
-                .singletonMap("źż", FunnyChars.POLISH_LETTERS.getString());
-        startWebServer(configVars);
+        configVars = Collections.singletonMap("źż", FunnyChars.POLISH_LETTERS.getString());
+        startWebServer();
         String value = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
@@ -178,9 +198,8 @@ public class HttpConfigVarReaderTest {
 
     @Test
     public void getValue_oneCharKeyAndValue() {
-        Map<String, String> configVars = Collections
-                .singletonMap("a", "b");
-        startWebServer(configVars);
+        configVars = Collections.singletonMap("a", "b");
+        startWebServer();
         String value = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
@@ -194,9 +213,8 @@ public class HttpConfigVarReaderTest {
     @Test
     public void getValue_longKeyAndValue() {
         String longString = FunnyChars.LONG_STRING.getString();
-        Map<String, String> configVars = Collections
-                .singletonMap(longString, longString);
-        startWebServer(configVars);
+        configVars = Collections.singletonMap(longString, longString);
+        startWebServer();
         String value = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
@@ -213,9 +231,9 @@ public class HttpConfigVarReaderTest {
         String password = "АВГДЄЅЗИѲ_;:/()*";
         APP_USERNAME = username;
         APP_PASSWORD = password;
-        Map<String, String> configVars = Collections
+        configVars = Collections
                 .singletonMap("my_key", "my_value");
-        startWebServer(configVars);
+        startWebServer();
         String value = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username(username)
@@ -233,9 +251,9 @@ public class HttpConfigVarReaderTest {
         String password = FunnyChars.LONG_STRING.getString();
         APP_USERNAME = username;
         APP_PASSWORD = password;
-        Map<String, String> configVars = Collections
+        configVars = Collections
                 .singletonMap("my_key", "my_value");
-        startWebServer(configVars);
+        startWebServer();
         String value = HttpConfigVarReader.builder()
                 .baseUrl("http://127.0.0.1:7070/getConfigVar")
                 .username(username)
