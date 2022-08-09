@@ -2,6 +2,7 @@ package io.schinzel.basicutils.configvar2;
 
 import io.schinzel.basicutils.configvar.IConfigVar;
 import io.schinzel.basicutils.configvar2.readers.IConfigVarReader;
+import io.schinzel.basicutils.str.Str;
 import lombok.Builder;
 import lombok.Singular;
 import java.util.List;
@@ -51,5 +52,14 @@ public class ConfigVarV2 implements IConfigVar {
         }
         // If got here there was no key-value pair with argument key
         throw new RuntimeException("Configuration variable for key '" + keyName + "' missing. ");
+    }
+
+
+    /**
+     * Same as getValue(String). The only difference is that the return is a
+     * Str instead of a String.
+     */
+    public Str getValueAsStr(String keyName){
+        return Str.create(this.getValue(keyName));
     }
 }
