@@ -35,7 +35,7 @@ public class HttpConfigVarReader_getValue_Test {
     private void startWebServer() {
         mApp = Javalin.create(config -> config.accessManager(accessManager))
                 .post("/getConfigVar", ctx -> {
-                    String keyName = ctx.formParam("key_name");
+                    String keyName = ctx.formParam("keyName");
                     String keyValue = configVars.get(keyName);
                     if (keyValue != null) {
                         ctx.result(keyValue);
@@ -69,7 +69,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .build()
                 .getValue("key_name_1");
         assertThat(value).isEqualTo("key_value_1");
@@ -82,7 +81,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .enableCache(false)
                 .build();
         String value1 = reader.getValue("key_name_1");
@@ -99,7 +97,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .enableCache(true)
                 .build();
         String value1 = reader.getValue("key_name_1");
@@ -116,7 +113,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .build()
                 .getValue("źż");
         assertThat(value).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
@@ -129,7 +125,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .build()
                 .getValue("a");
         assertThat(value).isEqualTo("b");
@@ -143,7 +138,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .build()
                 .getValue(longString);
         assertThat(value).isEqualTo(longString);
@@ -160,7 +154,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username(username)
                 .password(password)
-                .variableName("key_name")
                 .build()
                 .getValue("my_key");
         assertThat(value).isEqualTo("my_value");
@@ -177,7 +170,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username(username)
                 .password(password)
-                .variableName("key_name")
                 .build()
                 .getValue("my_key");
         assertThat(value).isEqualTo("my_value");
@@ -196,7 +188,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("wrong_password")
-                .variableName("no_such_key")
                 .build();
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> reader.getValue("key_name_1"));
@@ -209,10 +200,9 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("no_such_key")
                 .build();
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> reader.getValue("key_name_1"));
+                .isThrownBy(() -> reader.getValue("incorrect_key"));
     }
 
     @Test
@@ -222,7 +212,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://192.0.2.0:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .build();
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(() -> reader.getValue("key_name_1"));
@@ -235,7 +224,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .build();
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 reader.getValue(null)
@@ -249,7 +237,6 @@ public class HttpConfigVarReader_getValue_Test {
                 .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
-                .variableName("key_name")
                 .build();
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
                 reader.getValue("")

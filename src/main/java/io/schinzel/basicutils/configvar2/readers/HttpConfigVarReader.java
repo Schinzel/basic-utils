@@ -13,14 +13,17 @@ import java.util.Map;
 
 /**
  * The purpose of this class is to read config variables using a http
- * request
+ * request.
+ * <p>
+ * This reader requires an endpoint that handles post requests. This endpoint
+ * accepts the name of a configuration variable as argument and returns the
+ * value of the configuration variable. The name of the variable is "keyName".
  */
 @Builder
 public class HttpConfigVarReader implements IConfigVarReader {
     @NonNull String url;
     @NonNull String username;
     @NonNull String password;
-    @Builder.Default String variableName = "keyName";
     @Builder.Default private boolean enableCache = false;
     // Set to final so that is not included in lombok builder
     final Cache<String, String> mCache = new Cache<>();
@@ -38,7 +41,7 @@ public class HttpConfigVarReader implements IConfigVarReader {
             }
             // Create data for basic authentication
             String base64login = getBase64Login(username, password);
-            Map<String, String> data = Collections.singletonMap(variableName, keyName);
+            Map<String, String> data = Collections.singletonMap("keyName", keyName);
             // Create a connection
             Connection connection = getConnection(url, base64login, data);
             // Execute request
@@ -90,5 +93,3 @@ public class HttpConfigVarReader implements IConfigVarReader {
         }
     }
 }
-
-
