@@ -40,7 +40,7 @@ public class HttpConfigVarReader implements IConfigVarReader {
             String base64login = getBase64Login(username, password);
             // Create a connection
             Connection connection = getConnection(url, base64login);
-            // Executre request
+            // Execute request
             String keyValue = getConnectionBody(connection);
             // If the cache is enabled
             if (enableCache) {
