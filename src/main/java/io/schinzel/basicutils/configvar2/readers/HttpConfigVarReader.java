@@ -8,6 +8,8 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Collections;
+import java.util.Map;
 
 /**
  * The purpose of this class is to read config variables using a http
@@ -15,7 +17,7 @@ import java.util.Base64;
  */
 @Builder
 public class HttpConfigVarReader implements IConfigVarReader {
-    @NonNull String baseUrl;
+    @NonNull String url;
     @NonNull String username;
     @NonNull String password;
     @Builder.Default String variableName = "keyName";
@@ -34,12 +36,11 @@ public class HttpConfigVarReader implements IConfigVarReader {
                 // Return the value for argument key name
                 return mCache.get(keyName);
             }
-            // Construct the url for the request
-            String url = baseUrl + "?" + variableName + "=" + keyName;
             // Create data for basic authentication
             String base64login = getBase64Login(username, password);
+            Map<String, String> data = Collections.singletonMap(variableName, keyName);
             // Create a connection
-            Connection connection = getConnection(url, base64login);
+            Connection connection = getConnection(url, base64login, data);
             // Execute request
             String keyValue = getConnectionBody(connection);
             // If the cache is enabled
@@ -50,17 +51,19 @@ public class HttpConfigVarReader implements IConfigVarReader {
             return keyValue;
         } catch (Exception e) {
             throw new RuntimeException("Error when getting value for key '"
-                    + keyName + "' with url '" + baseUrl + "'." + e.getMessage());
+                    + keyName + "' with url '" + url + "'." + e.getMessage());
         }
     }
 
 
-    private static Connection getConnection(String url, String base64login) {
+    private static Connection getConnection(String url,
+                                            String base64login,
+                                            Map<String, String> data) {
         return Jsoup
                 .connect(url)
-                .method(Connection.Method.GET)
+                .method(Connection.Method.POST)
                 .header("Authorization", "Basic " + base64login)
-                //.data(data)
+                .data(data)
                 .timeout(500)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)

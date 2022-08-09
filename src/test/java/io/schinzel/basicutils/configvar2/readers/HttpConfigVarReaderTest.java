@@ -18,7 +18,7 @@ public class HttpConfigVarReaderTest {
     @Test
     public void builder_usernameMissing() {
         HttpConfigVarReader.HttpConfigVarReaderBuilder httpConfigVarReaderBuilder = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .password("my_password")
                 .variableName("key_name");
         assertThatExceptionOfType(NullPointerException.class)
@@ -29,7 +29,7 @@ public class HttpConfigVarReaderTest {
     @Test
     public void builder_passwordMissing() {
         HttpConfigVarReader.HttpConfigVarReaderBuilder httpConfigVarReaderBuilder = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .variableName("key_name");
         assertThatExceptionOfType(NullPointerException.class)

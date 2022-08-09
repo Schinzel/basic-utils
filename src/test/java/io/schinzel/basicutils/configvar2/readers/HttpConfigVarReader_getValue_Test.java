@@ -34,8 +34,8 @@ public class HttpConfigVarReader_getValue_Test {
      */
     private void startWebServer() {
         mApp = Javalin.create(config -> config.accessManager(accessManager))
-                .get("/getConfigVar", ctx -> {
-                    String keyName = ctx.queryParam("key_name");
+                .post("/getConfigVar", ctx -> {
+                    String keyName = ctx.formParam("key_name");
                     String keyValue = configVars.get(keyName);
                     if (keyValue != null) {
                         ctx.result(keyValue);
@@ -66,7 +66,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_normalCase() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         String value = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -79,7 +79,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_cachedDisabledValueChanges_returnedUpdatedKeyValue() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -96,7 +96,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_cachedEnabledValueChanges_cachedKeyValue() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -113,7 +113,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_polishCharsInKeyAndValue() {
         configVars = Collections.singletonMap("źż", FunnyChars.POLISH_LETTERS.getString());
         String value = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -126,7 +126,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_oneCharKeyAndValue() {
         configVars = Collections.singletonMap("a", "b");
         String value = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -140,7 +140,7 @@ public class HttpConfigVarReader_getValue_Test {
         String longString = FunnyChars.LONG_STRING.getString();
         configVars = Collections.singletonMap(longString, longString);
         String value = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -157,7 +157,7 @@ public class HttpConfigVarReader_getValue_Test {
         APP_PASSWORD = password;
         configVars = Collections.singletonMap("my_key", "my_value");
         String value = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username(username)
                 .password(password)
                 .variableName("key_name")
@@ -174,7 +174,7 @@ public class HttpConfigVarReader_getValue_Test {
         APP_PASSWORD = password;
         configVars = Collections.singletonMap("my_key", "my_value");
         String value = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username(username)
                 .password(password)
                 .variableName("key_name")
@@ -193,7 +193,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_incorrectCredentials() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         final HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("wrong_password")
                 .variableName("no_such_key")
@@ -206,7 +206,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_noEntryForKey_exception() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         final HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("no_such_key")
@@ -219,7 +219,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_incorrectUrl_exception() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         final HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://192.0.2.0:7070/getConfigVar")
+                .url("http://192.0.2.0:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -232,7 +232,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_argumentNull() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
@@ -246,7 +246,7 @@ public class HttpConfigVarReader_getValue_Test {
     public void getValue_argumentEmptyString() {
         configVars = Collections.singletonMap("key_name_1", "key_value_1");
         HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .url("http://127.0.0.1:7070/getConfigVar")
                 .username("my_username")
                 .password("my_password")
                 .variableName("key_name")
