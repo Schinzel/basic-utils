@@ -8,8 +8,6 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import java.io.IOException;
 import java.util.Base64;
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * The purpose of this class is to read config variables using a http
