@@ -28,40 +28,59 @@ public class HttpConfigVarReader implements IConfigVarReader {
 
     @Override
     public String getValue(String keyName) {
-        Thrower.createInstance()
-                .throwIfVarEmpty(keyName, "keyName");
-        // If cache is enabled and cache contains the argument key name
-        if (enableCache && mCache.has(keyName)) {
-            // Return the value for argument key name
-            return mCache.get(keyName);
-        }
-        String login = username + ":" + password;
-        String base64login = Base64.getEncoder()
-                .encodeToString(login.getBytes());
-        Map<String, String> data = Collections
-                .singletonMap("Authorization", "Basic " + base64login);
-        String url = baseUrl + "?" + variableName + "=" + keyName;
-        Connection connection = Jsoup
-                .connect(url)
-                .method(Connection.Method.GET)
-                .header("Authorization", "Basic " + base64login)
-                .data(data)
-                .ignoreContentType(true)
-                .ignoreHttpErrors(true)
-                .followRedirects(false);
         try {
-            Connection.Response response = connection.execute();
-            String keyValue = response.body();
+            Thrower.createInstance().throwIfVarEmpty(keyName, "keyName");
+            // If cache is enabled and cache contains the argument key name
+            if (enableCache && mCache.has(keyName)) {
+                // Return the value for argument key name
+                return mCache.get(keyName);
+            }
+            String url = baseUrl + "?" + variableName + "=" + keyName;
+            String base64login = getBase64Login(username, password);
+            Connection connection = getConnection(url, base64login);
+            String keyValue = getConnectionBody(connection);
             // If the cache is enabled
             if (enableCache) {
                 // Add return key value to cache
                 mCache.put(keyName, keyValue);
             }
             return keyValue;
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException("Error when getting value for key '"
+                    + keyName + "'. " + e.getMessage());
         }
-        return null;
+    }
+
+
+    private static Connection getConnection(String url, String base64login) {
+        return Jsoup
+                .connect(url)
+                .method(Connection.Method.GET)
+                .header("Authorization", "Basic " + base64login)
+                //.data(data)
+                .ignoreContentType(true)
+                .ignoreHttpErrors(true)
+                .followRedirects(false);
+    }
+
+
+    private static String getBase64Login(String username, String password) {
+        String login = username + ":" + password;
+        return Base64.getEncoder().encodeToString(login.getBytes());
+    }
+
+
+    private static String getConnectionBody(Connection connection) {
+        try {
+            Connection.Response response = connection.execute();
+            if (response.statusCode() != 200) {
+                throw new RuntimeException("Got status code " + response.statusCode()
+                        + " with body " + response.body());
+            }
+            return response.body();
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }
 

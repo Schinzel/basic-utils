@@ -37,7 +37,12 @@ public class HttpConfigVarReaderTest {
                 .get("/getConfigVar", ctx -> {
                     String keyName = ctx.queryParam("key_name");
                     String keyValue = configVars.get(keyName);
-                    ctx.result(keyValue);
+                    if (keyValue != null) {
+                        ctx.result(keyValue);
+                    }else {
+                        ctx.status(400)
+                                .result("No key-value pair with key '" + keyName + "' exists.");
+                    }
                 })
                 .start(7070);
     }
