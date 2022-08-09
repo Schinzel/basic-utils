@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class HttpConfigVarReaderTest {
 
-
     @Test
     public void builder_baseUrlMissing() {
         HttpConfigVarReader.HttpConfigVarReaderBuilder httpConfigVarReaderBuilder = HttpConfigVarReader.builder()
@@ -27,7 +26,6 @@ public class HttpConfigVarReaderTest {
                 );
     }
 
-
     @Test
     public void builder_passwordMissing() {
         HttpConfigVarReader.HttpConfigVarReaderBuilder httpConfigVarReaderBuilder = HttpConfigVarReader.builder()
@@ -38,6 +36,4 @@ public class HttpConfigVarReaderTest {
                 .isThrownBy(httpConfigVarReaderBuilder::build
                 );
     }
-
 }
-

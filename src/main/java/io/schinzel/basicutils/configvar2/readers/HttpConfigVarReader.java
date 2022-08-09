@@ -45,7 +45,7 @@ public class HttpConfigVarReader implements IConfigVarReader {
             return keyValue;
         } catch (Exception e) {
             throw new RuntimeException("Error when getting value for key '"
-                    + keyName + "'. " + e.getMessage());
+                    + keyName + "' with url '" + baseUrl + "'." + e.getMessage());
         }
     }
 
@@ -56,6 +56,7 @@ public class HttpConfigVarReader implements IConfigVarReader {
                 .method(Connection.Method.GET)
                 .header("Authorization", "Basic " + base64login)
                 //.data(data)
+                .timeout(500)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .followRedirects(false);
@@ -73,7 +74,7 @@ public class HttpConfigVarReader implements IConfigVarReader {
             Connection.Response response = connection.execute();
             if (response.statusCode() != 200) {
                 throw new RuntimeException("Got status code " + response.statusCode()
-                        + " with body " + response.body());
+                        + " with body '" + response.body() + "'");
             }
             return response.body();
         } catch (IOException e) {

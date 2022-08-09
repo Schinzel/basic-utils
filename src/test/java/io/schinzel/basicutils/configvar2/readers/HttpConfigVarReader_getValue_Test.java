@@ -110,34 +110,6 @@ public class HttpConfigVarReader_getValue_Test {
     }
 
     @Test
-    public void getValue_argumentNull() {
-        configVars = Collections.singletonMap("key_name_1", "key_value_1");
-        HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
-                .username("my_username")
-                .password("my_password")
-                .variableName("key_name")
-                .build();
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                reader.getValue(null)
-        );
-    }
-
-    @Test
-    public void getValue_argumentEmptyString() {
-        configVars = Collections.singletonMap("key_name_1", "key_value_1");
-        HttpConfigVarReader reader = HttpConfigVarReader.builder()
-                .baseUrl("http://127.0.0.1:7070/getConfigVar")
-                .username("my_username")
-                .password("my_password")
-                .variableName("key_name")
-                .build();
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                reader.getValue("")
-        );
-    }
-
-    @Test
     public void getValue_polishCharsInKeyAndValue() {
         configVars = Collections.singletonMap("źż", FunnyChars.POLISH_LETTERS.getString());
         String value = HttpConfigVarReader.builder()
@@ -209,5 +181,67 @@ public class HttpConfigVarReader_getValue_Test {
                 .build()
                 .getValue("my_key");
         assertThat(value).isEqualTo("my_value");
+    }
+
+
+    //------------------------------------------------------------------------
+    // Exceptions
+    //------------------------------------------------------------------------
+
+
+    @Test
+    public void getValue_noEntryForKey_exception() {
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        final HttpConfigVarReader reader = HttpConfigVarReader.builder()
+                .baseUrl("http://192.0.2.0:7070/getConfigVar")
+                .username("my_username")
+                .password("my_password")
+                .variableName("no_such_key")
+                .build();
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
+            reader.getValue("key_name_1");
+        });
+    }
+
+    @Test
+    public void getValue_incorrectUrl_exception() {
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        final HttpConfigVarReader reader = HttpConfigVarReader.builder()
+                .baseUrl("http://192.0.2.0:7070/getConfigVar")
+                .username("my_username")
+                .password("my_password")
+                .variableName("key_name")
+                .build();
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
+                    reader.getValue("key_name_1");
+                });
+    }
+
+    @Test
+    public void getValue_argumentNull() {
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        HttpConfigVarReader reader = HttpConfigVarReader.builder()
+                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .username("my_username")
+                .password("my_password")
+                .variableName("key_name")
+                .build();
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                reader.getValue(null)
+        );
+    }
+
+    @Test
+    public void getValue_argumentEmptyString() {
+        configVars = Collections.singletonMap("key_name_1", "key_value_1");
+        HttpConfigVarReader reader = HttpConfigVarReader.builder()
+                .baseUrl("http://127.0.0.1:7070/getConfigVar")
+                .username("my_username")
+                .password("my_password")
+                .variableName("key_name")
+                .build();
+        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
+                reader.getValue("")
+        );
     }
 }
