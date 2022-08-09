@@ -198,9 +198,8 @@ public class HttpConfigVarReader_getValue_Test {
                 .password("wrong_password")
                 .variableName("no_such_key")
                 .build();
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            reader.getValue("key_name_1");
-        });
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> reader.getValue("key_name_1"));
     }
 
     @Test
@@ -212,9 +211,8 @@ public class HttpConfigVarReader_getValue_Test {
                 .password("my_password")
                 .variableName("no_such_key")
                 .build();
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            reader.getValue("key_name_1");
-        });
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> reader.getValue("key_name_1"));
     }
 
     @Test
@@ -226,9 +224,8 @@ public class HttpConfigVarReader_getValue_Test {
                 .password("my_password")
                 .variableName("key_name")
                 .build();
-        assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> {
-            reader.getValue("key_name_1");
-        });
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> reader.getValue("key_name_1"));
     }
 
     @Test
