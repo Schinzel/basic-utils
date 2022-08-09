@@ -39,7 +39,7 @@ public class HttpConfigVarReader implements IConfigVarReader {
             String keyValue = getConnectionBody(connection);
             // If the cache is enabled
             if (enableCache) {
-                // Add return key value to cache
+                // Add value to cache
                 mCache.put(keyName, keyValue);
             }
             return keyValue;
