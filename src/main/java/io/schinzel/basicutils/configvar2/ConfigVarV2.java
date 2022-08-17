@@ -1,7 +1,6 @@
 package io.schinzel.basicutils.configvar2;
 
 import io.schinzel.basicutils.configvar.IConfigVar;
-import io.schinzel.basicutils.configvar.IName;
 import io.schinzel.basicutils.configvar2.readers.IConfigVarReader;
 import io.schinzel.basicutils.str.Str;
 import lombok.Builder;
