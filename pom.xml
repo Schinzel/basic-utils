@@ -6,7 +6,7 @@
     <artifactId>basic-utils</artifactId>
     <packaging>jar</packaging>
     <groupId>io.schinzel</groupId>
-    <version>1.4.3</version>
+    <version>1.5.0</version>
 
     <name>Basic Utils</name>
     <description>Some basic utilities. Most commonly less verbose versions of common code
@@ -149,6 +149,12 @@
             <artifactId>guava</artifactId>
             <version>31.1-jre</version>
         </dependency>
+        <dependency>
+            <!-- Dependency for external JSON requests -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.14.3</version>
+        </dependency>
         <!-- DEV DEPENDENCIES -->
         <dependency>
             <!-- Annotations that generates getters, setters and more that
@@ -185,6 +191,27 @@
             <artifactId>JUnitParams</artifactId>
             <version>1.1.1</version>
             <scope>test</scope>
+        </dependency>
+
+
+        <dependency>
+            <!-- Javalin requires this dependency -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.8.0-beta4</version>
+        </dependency>
+        <dependency>
+            <!-- Javalin requires this dependency -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.8.0-beta4</version>
+        </dependency>
+
+        <dependency>
+            <!-- A web server for testing HttpReader-->
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>4.6.4</version>
         </dependency>
     </dependencies>
 
