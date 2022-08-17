@@ -18,7 +18,7 @@ public class EnvironmentConfigVarReader implements IConfigVarReader {
     /**
      * Exists for testing
      *
-     * @param environmentVariables
+     * @param environmentVariables A collection of environment variables
      */
     EnvironmentConfigVarReader(Map<String, String> environmentVariables) {
         this.environmentVariables = environmentVariables;

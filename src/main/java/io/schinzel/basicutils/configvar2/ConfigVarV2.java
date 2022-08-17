@@ -57,15 +57,6 @@ public class ConfigVarV2 implements IConfigVar {
 
 
     /**
-     * @param objectWithName An object with a name
-     * @return Returns the value of the property with the argument key.
-     */
-    public String getValue(IName objectWithName) {
-        return this.getValue(objectWithName.getMyName());
-    }
-
-
-    /**
      * Same as getValue(String). The only difference is that the return is a
      * Str instead of a String.
      */
