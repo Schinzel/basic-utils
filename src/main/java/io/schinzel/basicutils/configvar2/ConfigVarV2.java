@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.configvar2;
 
 import io.schinzel.basicutils.configvar.IConfigVar;
+import io.schinzel.basicutils.configvar.IName;
 import io.schinzel.basicutils.configvar2.readers.IConfigVarReader;
 import io.schinzel.basicutils.str.Str;
 import lombok.Builder;
@@ -50,8 +51,17 @@ public class ConfigVarV2 implements IConfigVar {
                         : value; // Set return to be the actual value
             }
         }
-        // If got here there was no key-value pair with argument key
+        // If got here there was no key-value pair with argument key in any of the readers
         throw new RuntimeException("Configuration variable for key '" + keyName + "' missing. ");
+    }
+
+
+    /**
+     * @param objectWithName An object with a name
+     * @return Returns the value of the property with the argument key.
+     */
+    public String getValue(IName objectWithName) {
+        return this.getValue(objectWithName.getMyName());
     }
 
 
