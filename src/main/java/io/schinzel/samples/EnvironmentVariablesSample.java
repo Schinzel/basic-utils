@@ -5,9 +5,9 @@ import io.schinzel.basicutils.env_var.readers.SystemEnvVarReader;
 import io.schinzel.basicutils.env_var.readers.PropertyFileVarReader;
 
 /**
- * The purpose of this class is to provide sample usage of ConfigVar2
+ * The purpose of this class is to provide sample usage of EnvironmentVariables
  */
-public class ConfigVarV2Sample {
+public class EnvironmentVariablesSample {
 
     public static void main(String[] args) {
         final EnvironmentVariables environmentVariables = EnvironmentVariables.builder()
@@ -16,8 +16,8 @@ public class ConfigVarV2Sample {
                 // Add a reader that reads from environment variables
                 .varReader(new SystemEnvVarReader())
                 .build();
-        // The config var will go through its readers and the first reader to
-        // contain the argument key, will return its value
+        // The environment variables instance will go through its readers and the
+        // first reader to contain the argument key, will return its value
         environmentVariables.getValueAsStr("ape").writeToSystemOut();
         environmentVariables.getValueAsStr("JAVA_HOME").writeToSystemOut();
     }
