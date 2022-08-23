@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.configvar2.readers;
+package io.schinzel.basicutils.env_var.readers;
 
 import io.schinzel.basicutils.collections.Cache;
 import io.schinzel.basicutils.thrower.Thrower;
@@ -12,15 +12,15 @@ import java.util.Collections;
 import java.util.Map;
 
 /**
- * The purpose of this class is to read config variables using a http
+ * The purpose of this class is to read environment variables using a http
  * request.
  * <p>
  * This reader requires an endpoint that handles post requests. This endpoint
- * accepts the name of a configuration variable as argument and returns the
- * value of the configuration variable. The name of the variable is "keyName".
+ * accepts the key of an environment variable as argument and returns the
+ * value of the environment variable. The name of the variable is "key".
  */
 @Builder
-public class HttpConfigVarReader implements IConfigVarReader {
+public class HttpEnvVarReader implements IEnvVarReader {
     @NonNull String url;
     @NonNull String username;
     @NonNull String password;
@@ -30,18 +30,18 @@ public class HttpConfigVarReader implements IConfigVarReader {
 
 
     @Override
-    public String getValue(String keyName) {
+    public String getValue(String key) {
         try {
             // Throw exception if argument keyName is null or empty
-            Thrower.createInstance().throwIfVarEmpty(keyName, "keyName");
+            Thrower.createInstance().throwIfVarEmpty(key, "key");
             // If cache is enabled and cache contains the argument key name
-            if (enableCache && mCache.has(keyName)) {
+            if (enableCache && mCache.has(key)) {
                 // Return the value for argument key name
-                return mCache.get(keyName);
+                return mCache.get(key);
             }
             // Create data for basic authentication
             String base64login = getBase64Login(username, password);
-            Map<String, String> data = Collections.singletonMap("keyName", keyName);
+            Map<String, String> data = Collections.singletonMap("key", key);
             // Create a connection
             Connection connection = getConnection(url, base64login, data);
             // Execute request
@@ -49,12 +49,12 @@ public class HttpConfigVarReader implements IConfigVarReader {
             // If the cache is enabled
             if (enableCache) {
                 // Add value to cache
-                mCache.put(keyName, keyValue);
+                mCache.put(key, keyValue);
             }
             return keyValue;
         } catch (Exception e) {
             throw new RuntimeException("Error when getting value for key '"
-                    + keyName + "' with url '" + url + "'." + e.getMessage());
+                    + key + "' with url '" + url + "'." + e.getMessage());
         }
     }
 

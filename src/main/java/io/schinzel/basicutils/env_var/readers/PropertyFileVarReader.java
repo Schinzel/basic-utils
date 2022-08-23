@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.configvar2.readers;
+package io.schinzel.basicutils.env_var.readers;
 
 import io.schinzel.basicutils.thrower.Thrower;
 import java.io.*;
@@ -10,7 +10,7 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 /**
- * The purpose of this class is to read config variables from a properties
+ * The purpose of this class is to read environment variables from a properties
  * file.
  * <p>
  * Handles key and values up to the size of at least 500 chars
@@ -18,25 +18,25 @@ import java.util.stream.Collectors;
  * Supports empty lines in files.
  * Comment lines start with #.
  */
-public class PropertyFileConfigVarReader implements IConfigVarReader {
+public class PropertyFileVarReader implements IEnvVarReader {
     /** A representation of the properties file. */
     final Map<String, String> properties;
 
-    public PropertyFileConfigVarReader(String fileName) {
+    public PropertyFileVarReader(String fileName) {
         try {
             Thrower.throwIfVarEmpty(fileName, "fileName");
             Thrower.throwIfTrue(!new File(fileName).exists(), "No file named '" + fileName + "' exists");
             //Read argument properties file from file system
             properties = getProperties(fileName);
         } catch (Exception e) {
-            String errorMessage = "Error creating " + PropertyFileConfigVarReader.class.getSimpleName() + ". " + e.getMessage();
+            String errorMessage = "Error creating " + PropertyFileVarReader.class.getSimpleName() + ". " + e.getMessage();
             throw new RuntimeException(errorMessage);
         }
     }
 
     @Override
-    public String getValue(String keyName) {
-        return properties.get(keyName);
+    public String getValue(String key) {
+        return properties.get(key);
     }
 
 
