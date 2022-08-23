@@ -1,7 +1,7 @@
-package io.schinzel.basicutils.configvar2;
+package io.schinzel.basicutils.env_var;
 
 import io.schinzel.basicutils.configvar.IName;
-import io.schinzel.basicutils.configvar2.readers.IConfigVarReader;
+import io.schinzel.basicutils.env_var.readers.IEnvVarReader;
 import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class ConfigVarV2Test {
+public class EnvironmentVariablesTest {
 
     @Test
     public void getValue_2readersKeyIsInBothReaders_returnValueFromFirst() {
@@ -17,9 +17,9 @@ public class ConfigVarV2Test {
                 .add("ape", "chimp");
         TestReader reader2 = new TestReader()
                 .add("ape", "gorilla");
-        String value = ConfigVarV2.builder()
-                .configVarReader(reader1)
-                .configVarReader(reader2)
+        String value = EnvironmentVariables.builder()
+                .varReader(reader1)
+                .varReader(reader2)
                 .build()
                 .getValue("ape");
         assertThat(value).isEqualTo("chimp");
@@ -32,9 +32,9 @@ public class ConfigVarV2Test {
                 .add("ape", "chimp");
         TestReader reader2 = new TestReader()
                 .add("monkey", "gibbon");
-        String value = ConfigVarV2.builder()
-                .configVarReader(reader1)
-                .configVarReader(reader2)
+        String value = EnvironmentVariables.builder()
+                .varReader(reader1)
+                .varReader(reader2)
                 .build()
                 .getValue("monkey");
         assertThat(value).isEqualTo("gibbon");
@@ -47,21 +47,21 @@ public class ConfigVarV2Test {
                 .add("ape", "chimp");
         TestReader reader2 = new TestReader()
                 .add("monkey", "gibbon");
-        ConfigVarV2 configVar = ConfigVarV2.builder()
-                .configVarReader(reader1)
-                .configVarReader(reader2)
+        EnvironmentVariables envVars = EnvironmentVariables.builder()
+                .varReader(reader1)
+                .varReader(reader2)
                 .build();
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> configVar.getValue("no_such_key"));
+                .isThrownBy(() -> envVars.getValue("no_such_key"));
     }
 
 
     @Test
     public void getValue_noReaders_exception() {
-        ConfigVarV2 configVar = ConfigVarV2.builder()
+        EnvironmentVariables envVars = EnvironmentVariables.builder()
                 .build();
         assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> configVar.getValue("no_such_key"));
+                .isThrownBy(() -> envVars.getValue("no_such_key"));
     }
 
 
@@ -70,8 +70,8 @@ public class ConfigVarV2Test {
         TestReader reader = new TestReader()
                 .add("ape", "chimp")
                 .add("bird", "#EMPTY#");
-        String value = ConfigVarV2.builder()
-                .configVarReader(reader)
+        String value = EnvironmentVariables.builder()
+                .varReader(reader)
                 .build()
                 .getValue("bird");
         assertThat(value).isEmpty();
@@ -82,8 +82,8 @@ public class ConfigVarV2Test {
     public void getValueAsStr_ExistingKey_ValueAsStr() {
         TestReader reader = new TestReader()
                 .add("ape", "chimp");
-        Str value = ConfigVarV2.builder()
-                .configVarReader(reader)
+        Str value = EnvironmentVariables.builder()
+                .varReader(reader)
                 .build()
                 .getValueAsStr("ape");
         assertThat(value).isOfAnyClassIn(Str.class);
@@ -101,15 +101,15 @@ public class ConfigVarV2Test {
 
         TestReader reader = new TestReader()
                 .add("ape", "chimp");
-        String value = ConfigVarV2.builder()
-                .configVarReader(reader)
+        String value = EnvironmentVariables.builder()
+                .varReader(reader)
                 .build()
                 .getValue(new ApeName());
         assertThat(value).isEqualTo("chimp");
     }
 
 
-    private static class TestReader implements IConfigVarReader {
+    private static class TestReader implements IEnvVarReader {
         private final Map<String, String> mProperties = new HashMap<>();
 
         TestReader add(String keyName, String value) {
@@ -118,8 +118,8 @@ public class ConfigVarV2Test {
         }
 
         @Override
-        public String getValue(String keyName) {
-            return mProperties.get(keyName);
+        public String getValue(String key) {
+            return mProperties.get(key);
         }
     }
 }

@@ -1,25 +1,25 @@
-package io.schinzel.basicutils.configvar2;
+package io.schinzel.basicutils.env_var;
 
-import io.schinzel.basicutils.configvar.IConfigVar;
-import io.schinzel.basicutils.configvar2.readers.IConfigVarReader;
+import io.schinzel.basicutils.env_var.readers.IEnvVarReader;
 import io.schinzel.basicutils.str.Str;
 import lombok.Builder;
 import lombok.Singular;
 import java.util.List;
 
 /**
- * The purpose of this class is to read configuration variables.
+ * The purpose of this class is to read environment variables.
  * <p>
- * ConfigVar version 1 was hard coded to first check for config variables among
- * environment variables and if not there in a properties file.
+ * ConfigVar - which was the first version of this class -  was hard coded
+ * to first check for variables among environment variables and
+ * if not there in a properties file.
  * <p>
- * This class takes an arbitrary number of config variable readers and
+ * This class takes an arbitrary number of variable readers and
  * checks them in added order for the value of an argument key-name
  */
 @Builder
-public class ConfigVarV2 implements IConfigVar {
+public class EnvironmentVariables implements IEnvironmentVariables {
     @Singular
-    private List<IConfigVarReader> configVarReaders;
+    private List<IEnvVarReader> varReaders;
     /**
      * String to use in properties file or in environment variable if empty
      * string should be returned as value.
@@ -28,18 +28,18 @@ public class ConfigVarV2 implements IConfigVar {
 
 
     /**
-     * This method tries to find the argument key in the configuration
+     * This method tries to find the argument key among the environment
      * variable readers in the order the readers where added.
      *
-     * @param keyName The name of the key of the configuration variable
-     * @return The value of the configuration variable. An empty string if
+     * @param keyName The key of the environment variable
+     * @return The value of the environment variable. An empty string if
      * the empty-value-placeholder "#EMPTY#" was encountered.
      * @throws RuntimeException If the argument key is not encountered in any
      *                          of the readers.
      */
     public String getValue(String keyName) {
         // Go through all readers
-        for (IConfigVarReader reader : configVarReaders) {
+        for (IEnvVarReader reader : varReaders) {
             // Get the value of the argument key
             String value = reader.getValue(keyName);
             // If there was such a key-value pair with the argument key-name
@@ -51,7 +51,7 @@ public class ConfigVarV2 implements IConfigVar {
             }
         }
         // If got here there was no key-value pair with argument key in any of the readers
-        throw new RuntimeException("Configuration variable for key '" + keyName + "' missing. ");
+        throw new RuntimeException("Environment variable with key '" + keyName + "' does not exist. ");
     }
 
 

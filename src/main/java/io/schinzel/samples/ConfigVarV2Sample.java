@@ -1,8 +1,8 @@
 package io.schinzel.samples;
 
-import io.schinzel.basicutils.configvar2.ConfigVarV2;
-import io.schinzel.basicutils.configvar2.readers.EnvironmentConfigVarReader;
-import io.schinzel.basicutils.configvar2.readers.PropertyFileConfigVarReader;
+import io.schinzel.basicutils.env_var.EnvironmentVariables;
+import io.schinzel.basicutils.env_var.readers.SystemEnvVarReader;
+import io.schinzel.basicutils.env_var.readers.PropertyFileVarReader;
 
 /**
  * The purpose of this class is to provide sample usage of ConfigVar2
@@ -10,15 +10,15 @@ import io.schinzel.basicutils.configvar2.readers.PropertyFileConfigVarReader;
 public class ConfigVarV2Sample {
 
     public static void main(String[] args) {
-        final ConfigVarV2 configVarV2 = ConfigVarV2.builder()
+        final EnvironmentVariables environmentVariables = EnvironmentVariables.builder()
                 // Add a property file reader
-                .configVarReader(new PropertyFileConfigVarReader("src/main/resources/io/schinzel/samples/sample_properties.txt"))
+                .varReader(new PropertyFileVarReader("src/main/resources/io/schinzel/samples/sample_properties.txt"))
                 // Add a reader that reads from environment variables
-                .configVarReader(new EnvironmentConfigVarReader())
+                .varReader(new SystemEnvVarReader())
                 .build();
         // The config var will go through its readers and the first reader to
         // contain the argument key, will return its value
-        configVarV2.getValueAsStr("ape").writeToSystemOut();
-        configVarV2.getValueAsStr("JAVA_HOME").writeToSystemOut();
+        environmentVariables.getValueAsStr("ape").writeToSystemOut();
+        environmentVariables.getValueAsStr("JAVA_HOME").writeToSystemOut();
     }
 }

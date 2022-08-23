@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.configvar2.readers;
+package io.schinzel.basicutils.env_var.readers;
 
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
@@ -6,14 +6,14 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 
-public class EnvironmentConfigVarReaderTest {
+public class SystemEnvVarReaderTest {
     @Test
     public void getValue_AnExistingKey_TheCorrespondingValue() {
         Map<String, String> salary = ImmutableMap.<String, String>builder()
                 .put("John", "1000")
                 .put("Jane", "1500")
                 .build();
-        String value = new EnvironmentConfigVarReader(salary).getValue("Jane");
+        String value = new SystemEnvVarReader(salary).getValue("Jane");
         assertThat(value).isEqualTo("1500");
     }
 
@@ -23,7 +23,7 @@ public class EnvironmentConfigVarReaderTest {
                 .put("John", "1000")
                 .put("Jane", "1500")
                 .build();
-        String value = new EnvironmentConfigVarReader(salary).getValue("Thomas");
+        String value = new SystemEnvVarReader(salary).getValue("Thomas");
         assertThat(value).isNull();
     }
 }
