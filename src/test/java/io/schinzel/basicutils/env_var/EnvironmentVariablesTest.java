@@ -42,26 +42,26 @@ public class EnvironmentVariablesTest {
 
 
     @Test
-    public void getValue_2readersNoReaderHasKey_exception() {
+    public void getValue_2readersNoReaderHasKey_null() {
         TestReader reader1 = new TestReader()
                 .add("ape", "chimp");
         TestReader reader2 = new TestReader()
                 .add("monkey", "gibbon");
-        EnvironmentVariables envVars = EnvironmentVariables.builder()
+        String value = EnvironmentVariables.builder()
                 .varReader(reader1)
                 .varReader(reader2)
-                .build();
-        assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> envVars.getValue("no_such_key"));
+                .build()
+                .getValue("no_such_key");
+        assertThat(value).isNull();
     }
 
 
     @Test
     public void getValue_noReaders_exception() {
-        EnvironmentVariables envVars = EnvironmentVariables.builder()
-                .build();
-        assertThatExceptionOfType(RuntimeException.class)
-                .isThrownBy(() -> envVars.getValue("no_such_key"));
+        String value = EnvironmentVariables.builder()
+                .build()
+                .getValue("no_such_key");
+        assertThat(value).isNull();
     }
 
 

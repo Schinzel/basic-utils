@@ -32,10 +32,10 @@ public class EnvironmentVariables implements IEnvironmentVariables {
      * variable readers in the order the readers where added.
      *
      * @param keyName The key of the environment variable
-     * @return The value of the environment variable. An empty string if
-     * the empty-value-placeholder "#EMPTY#" was encountered.
-     * @throws RuntimeException If the argument key is not encountered in any
-     *                          of the readers.
+     * @return The value of the environment variable. Returns an empty string if
+     * the empty-value-placeholder "#EMPTY#" was encountered. Returns null
+     * if no environment variable with argument key-name was found in any of
+     * the environment variable readers.
      */
     public String getValue(String keyName) {
         // Go through all readers
@@ -51,7 +51,7 @@ public class EnvironmentVariables implements IEnvironmentVariables {
             }
         }
         // If got here there was no key-value pair with argument key in any of the readers
-        throw new RuntimeException("Environment variable with key '" + keyName + "' does not exist. ");
+        return null;
     }
 
 
