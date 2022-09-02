@@ -267,6 +267,22 @@ public class ThrowerInstanceTest {
                 .doesNotThrowAnyException();
     }
 
+    @Test
+    public void throwIfVarTooSmallForLong_Val9Min10_ThrowsException() {
+        val instance = Thrower.createInstance();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> instance.throwIfVarTooSmall(9L, "myVariable", 10L))
+                .withMessage("The value 9 in variable 'myVariable' is too small. Min value is 10.");
+    }
+
+
+    @Test
+    public void testThrowIfTooSmallForLong_Val10Min10_NoException() {
+        val instance = Thrower.createInstance();
+        assertThatCode(() -> instance.throwIfVarTooSmall(10L, "myVariable", 10L))
+                .doesNotThrowAnyException();
+    }
+
 
     @Test
     public void throwIfVarTooLarge_Val11Max10_ThrowsException() {
@@ -285,4 +301,19 @@ public class ThrowerInstanceTest {
     }
 
 
+    @Test
+    public void throwIfVarTooLargeForLong_Val11Max10_ThrowsException() {
+        val instance = Thrower.createInstance();
+        assertThatExceptionOfType(RuntimeException.class)
+                .isThrownBy(() -> instance.throwIfVarTooLarge(11L, "myVariable", 10L))
+                .withMessageStartingWith("The value 11 in variable 'myVariable' is too large. Max value is 10.");
+    }
+
+
+    @Test
+    public void throwIfVarTooLargeForLing_Val10Max10_NoException() {
+        val instance = Thrower.createInstance();
+        assertThatCode(() -> instance.throwIfVarTooLarge(10L, "myVariable", 10L))
+                .doesNotThrowAnyException();
+    }
 }
