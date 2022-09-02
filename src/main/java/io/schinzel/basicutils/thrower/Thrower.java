@@ -103,6 +103,21 @@ public class Thrower {
      * @return The argument value checked
      */
     public static int throwIfVarTooSmall(int valueToCheck, String variableName, int min) {
+        throwIfVarTooSmall(valueToCheck, variableName, (long) min);
+        return valueToCheck;
+    }
+
+
+    /**
+     * Throws a runtime exception if argument value is less than argument min.
+     *
+     * @param valueToCheck The value to check.
+     * @param variableName The name of the variable that holds the value to
+     *                     check. Used to create more useful exception message.
+     * @param min          The min value the argument value should not be less than.
+     * @return The argument value checked
+     */
+    public static long throwIfVarTooSmall(long valueToCheck, String variableName, long min) {
         Thrower.throwIfTrue(valueToCheck < min)
                 .message("The value %1$d in variable '%2$s' is too small. Min value is %3$d.", valueToCheck, variableName, min);
         return valueToCheck;
@@ -119,6 +134,21 @@ public class Thrower {
      * @return The argument value checked
      */
     public static int throwIfVarTooLarge(int valueToCheck, String variableName, int max) {
+        throwIfVarTooLarge(valueToCheck, variableName, (long)max);
+        return valueToCheck;
+    }
+
+
+    /**
+     * Throws a runtime exception if argument value is less than argument min.
+     *
+     * @param valueToCheck The value to check.
+     * @param variableName The name of the variable that holds the value to
+     *                     check. Used to create more useful exception message.
+     * @param max          The max value the argument value should not be larger than.
+     * @return The argument value checked
+     */
+    public static long throwIfVarTooLarge(long valueToCheck, String variableName, long max) {
         Thrower.throwIfTrue(valueToCheck > max)
                 .message("The value %1$d in variable '%2$s' is too large. Max value is %3$d.", valueToCheck, variableName, max);
         return valueToCheck;
@@ -137,13 +167,28 @@ public class Thrower {
      * @return The argument value checked
      */
     public static int throwIfVarOutsideRange(int valueToCheck, String variableName, int min, int max) {
+        throwIfVarOutsideRange(valueToCheck, variableName, min, (long) max);
+        return valueToCheck;
+    }
+
+    /**
+     * Throws runtime exception if argument value is less than argument min or
+     * larger than argument max.
+     *
+     * @param valueToCheck The value to check
+     * @param variableName The name of the variable that holds the value to
+     *                     check. Used to create more useful exception message.
+     * @param min          The minimum allowed value that the argument value can have
+     * @param max          The maximum allowed value that the argument value can have
+     * @return The argument value checked
+     */
+    public static long throwIfVarOutsideRange(long valueToCheck, String variableName, long min, long max) {
         Thrower.throwIfTrue((max < min), "Error using method. Max cannot be smaller than min.");
         Thrower.throwIfVarEmpty(variableName, "variable");
         Thrower.throwIfVarTooSmall(valueToCheck, variableName, min);
         Thrower.throwIfVarTooLarge(valueToCheck, variableName, max);
         return valueToCheck;
     }
-
 
     /**
      * Throw runtime exception if argument expression is false.

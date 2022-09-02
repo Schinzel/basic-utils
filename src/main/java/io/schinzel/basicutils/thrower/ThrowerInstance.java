@@ -91,8 +91,35 @@ public class ThrowerInstance {
      * @return This for chaining
      */
     public ThrowerInstance throwIfVarTooSmall(int valueToCheck, String variableName, int min) {
+        return throwIfVarTooSmall(valueToCheck, variableName, (long)min);
+    }
+
+
+    /**
+     * Throws a runtime exception if argument value is less than argument min.
+     *
+     * @param valueToCheck The value to check.
+     * @param variableName The name of the variable that holds the value to
+     *                     check. Used to create more useful exception message.
+     * @param min          The min value the argument value should not be less than.
+     * @return This for chaining
+     */
+    public ThrowerInstance throwIfVarTooSmall(long valueToCheck, String variableName, long min) {
         Thrower.throwIfVarTooSmall(valueToCheck, variableName, min);
         return this;
+    }
+
+    /**
+     * Throws a runtime exception if argument value is less than argument min.
+     *
+     * @param valueToCheck The value to check.
+     * @param variableName The name of the variable that holds the value to
+     *                     check. Used to create more useful exception message.
+     * @param max          The max value the argument value should not be larger than.
+     * @return This for chaining
+     */
+    public ThrowerInstance throwIfVarTooLarge(int valueToCheck, String variableName, int max) {
+        return throwIfVarTooLarge(valueToCheck, variableName, (long) max);
     }
 
 
@@ -105,11 +132,10 @@ public class ThrowerInstance {
      * @param max          The max value the argument value should not be larger than.
      * @return This for chaining
      */
-    public ThrowerInstance throwIfVarTooLarge(int valueToCheck, String variableName, int max) {
+    public ThrowerInstance throwIfVarTooLarge(long valueToCheck, String variableName, long max) {
         Thrower.throwIfVarTooLarge(valueToCheck, variableName, max);
         return this;
     }
-
 
     /**
      * Throws runtime exception if argument value is less than argument min or
@@ -123,10 +149,24 @@ public class ThrowerInstance {
      * @return This for chaining
      */
     public ThrowerInstance throwIfVarOutsideRange(int valueToCheck, String variableName, int min, int max) {
+        return throwIfVarOutsideRange(valueToCheck, variableName, min, (long)max);
+    }
+
+    /**
+     * Throws runtime exception if argument value is less than argument min or
+     * larger than argument max.
+     *
+     * @param valueToCheck The value to check
+     * @param variableName The name of the variable that holds the value to
+     *                     check. Used to create more useful exception message.
+     * @param min          The minimum allowed value that the argument value can have
+     * @param max          The maximum allowed value that the argument value can have
+     * @return This for chaining
+     */
+    public ThrowerInstance throwIfVarOutsideRange(long valueToCheck, String variableName, long min, long max) {
         Thrower.throwIfVarOutsideRange(valueToCheck, variableName, min, max);
         return this;
     }
-
 
     /**
      * Throw runtime exception if argument expression is false.
