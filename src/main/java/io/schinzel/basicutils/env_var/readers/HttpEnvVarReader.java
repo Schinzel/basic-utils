@@ -24,7 +24,8 @@ public class HttpEnvVarReader implements IEnvVarReader {
     @NonNull String url;
     @NonNull String username;
     @NonNull String password;
-    @Builder.Default private boolean enableCache = false;
+    @Builder.Default int timeout = 2_000;
+    @Builder.Default boolean enableCache = false;
     // Set to final so that is not included in lombok builder
     final Cache<String, String> mCache = new Cache<>();
 
@@ -43,7 +44,7 @@ public class HttpEnvVarReader implements IEnvVarReader {
             String base64login = getBase64Login(username, password);
             Map<String, String> data = Collections.singletonMap("key", key);
             // Create a connection
-            Connection connection = getConnection(url, base64login, data);
+            Connection connection = getConnection(url, base64login, data, timeout);
             // Execute request
             String keyValue = getConnectionBody(connection);
             // If the cache is enabled
@@ -61,13 +62,14 @@ public class HttpEnvVarReader implements IEnvVarReader {
 
     private static Connection getConnection(String url,
                                             String base64login,
-                                            Map<String, String> data) {
+                                            Map<String, String> data,
+                                            int timeout) {
         return Jsoup
                 .connect(url)
                 .method(Connection.Method.POST)
                 .header("Authorization", "Basic " + base64login)
                 .data(data)
-                .timeout(500)
+                .timeout(timeout)
                 .ignoreContentType(true)
                 .ignoreHttpErrors(true)
                 .followRedirects(false);
