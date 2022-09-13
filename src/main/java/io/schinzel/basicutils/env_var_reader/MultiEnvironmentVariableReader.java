@@ -1,25 +1,25 @@
-package io.schinzel.basicutils.env_var;
+package io.schinzel.basicutils.env_var_reader;
 
-import io.schinzel.basicutils.env_var.readers.IEnvVarReader;
 import io.schinzel.basicutils.str.Str;
 import lombok.Builder;
 import lombok.Singular;
 import java.util.List;
 
 /**
- * The purpose of this class is to read environment variables.
+ * The purpose of this class is to read environment variables using one or
+ * more other environment variable readers.
  * <p>
  * ConfigVar - which was the first version of this class -  was hard coded
  * to first check for variables among environment variables and
  * if not there in a properties file.
  * <p>
- * This class takes an arbitrary number of variable readers and
+ * This class takes an arbitrary number of environment variable readers and
  * checks them in added order for the value of an argument key-name
  */
 @Builder
-public class EnvironmentVariables implements IEnvironmentVariables {
+public class MultiEnvironmentVariableReader implements IEnvironmentVariableReader {
     @Singular
-    private List<IEnvVarReader> varReaders;
+    private List<IEnvironmentVariableReader> varReaders;
     /**
      * String to use in properties file or in environment variable if empty
      * string should be returned as value.
@@ -31,17 +31,17 @@ public class EnvironmentVariables implements IEnvironmentVariables {
      * This method tries to find the argument key among the environment
      * variable readers in the order the readers where added.
      *
-     * @param keyName The key of the environment variable
+     * @param key The key of the environment variable
      * @return The value of the environment variable. Returns an empty string if
      * the empty-value-placeholder "#EMPTY#" was encountered. Returns null
      * if no environment variable with argument key-name was found in any of
      * the environment variable readers.
      */
-    public String getValue(String keyName) {
+    public String getValue(String key) {
         // Go through all readers
-        for (IEnvVarReader reader : varReaders) {
+        for (IEnvironmentVariableReader reader : varReaders) {
             // Get the value of the argument key
-            String value = reader.getValue(keyName);
+            String value = reader.getValue(key);
             // If there was such a key-value pair with the argument key-name
             if (value != null) {
                 // If the value was the empty-value-placeholder
@@ -59,7 +59,7 @@ public class EnvironmentVariables implements IEnvironmentVariables {
      * Same as getValue(String). The only difference is that the return is a
      * Str instead of a String.
      */
-    public Str getValueAsStr(String keyName){
-        return Str.create(this.getValue(keyName));
+    public Str getValueAsStr(String key){
+        return Str.create(this.getValue(key));
     }
 }

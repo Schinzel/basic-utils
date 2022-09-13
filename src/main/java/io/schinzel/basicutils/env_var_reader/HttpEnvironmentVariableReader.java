@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.env_var.readers;
+package io.schinzel.basicutils.env_var_reader;
 
 import io.schinzel.basicutils.collections.Cache;
 import io.schinzel.basicutils.thrower.Thrower;
@@ -20,7 +20,7 @@ import java.util.Map;
  * value of the environment variable. The name of the variable is "key".
  */
 @Builder
-public class HttpEnvVarReader implements IEnvVarReader {
+public class HttpEnvironmentVariableReader implements IEnvironmentVariableReader {
     @NonNull String url;
     @NonNull String username;
     @NonNull String password;

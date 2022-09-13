@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.env_var.readers;
+package io.schinzel.basicutils.env_var_reader;
 
 import io.javalin.Javalin;
 import io.javalin.core.security.AccessManager;
@@ -65,7 +65,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_normalCase() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        String value = HttpEnvVarReader.builder()
+        String value = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -77,7 +77,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_cachedDisabledValueChanges_returnedUpdatedKeyValue() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        HttpEnvVarReader reader = HttpEnvVarReader.builder()
+        HttpEnvironmentVariableReader reader = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -93,7 +93,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_cachedEnabledValueChanges_cachedKeyValue() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        HttpEnvVarReader reader = HttpEnvVarReader.builder()
+        HttpEnvironmentVariableReader reader = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -109,7 +109,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_polishCharsInKeyAndValue() {
         environmentVariables = Collections.singletonMap("źż", FunnyChars.POLISH_LETTERS.getString());
-        String value = HttpEnvVarReader.builder()
+        String value = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -121,7 +121,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_oneCharKeyAndValue() {
         environmentVariables = Collections.singletonMap("a", "b");
-        String value = HttpEnvVarReader.builder()
+        String value = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -134,7 +134,7 @@ public class HttpEnvVarReader_getValue_Test {
     public void getValue_longKeyAndValue() {
         String longString = FunnyChars.LONG_STRING.getString();
         environmentVariables = Collections.singletonMap(longString, longString);
-        String value = HttpEnvVarReader.builder()
+        String value = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -150,7 +150,7 @@ public class HttpEnvVarReader_getValue_Test {
         APP_USERNAME = username;
         APP_PASSWORD = password;
         environmentVariables = Collections.singletonMap("my_key", "my_value");
-        String value = HttpEnvVarReader.builder()
+        String value = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username(username)
                 .password(password)
@@ -166,7 +166,7 @@ public class HttpEnvVarReader_getValue_Test {
         APP_USERNAME = username;
         APP_PASSWORD = password;
         environmentVariables = Collections.singletonMap("my_key", "my_value");
-        String value = HttpEnvVarReader.builder()
+        String value = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username(username)
                 .password(password)
@@ -184,7 +184,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_incorrectCredentials() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        final HttpEnvVarReader reader = HttpEnvVarReader.builder()
+        final HttpEnvironmentVariableReader reader = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("wrong_password")
@@ -196,7 +196,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_noEntryForKey_exception() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        final HttpEnvVarReader reader = HttpEnvVarReader.builder()
+        final HttpEnvironmentVariableReader reader = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -208,7 +208,7 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_incorrectUrl_exception() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        final HttpEnvVarReader reader = HttpEnvVarReader.builder()
+        final HttpEnvironmentVariableReader reader = HttpEnvironmentVariableReader.builder()
                 .url("http://192.0.2.0:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
@@ -220,20 +220,20 @@ public class HttpEnvVarReader_getValue_Test {
     @Test
     public void getValue_argumentNull() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        HttpEnvVarReader reader = HttpEnvVarReader.builder()
+        HttpEnvironmentVariableReader reader = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")
                 .build();
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                reader.getValue(null)
+                reader.getValue((String)null)
         );
     }
 
     @Test
     public void getValue_argumentEmptyString() {
         environmentVariables = Collections.singletonMap("key_name_1", "key_value_1");
-        HttpEnvVarReader reader = HttpEnvVarReader.builder()
+        HttpEnvironmentVariableReader reader = HttpEnvironmentVariableReader.builder()
                 .url("http://127.0.0.1:7070/getEnvVar")
                 .username("my_username")
                 .password("my_password")

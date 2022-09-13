@@ -1,15 +1,15 @@
-package io.schinzel.basicutils.env_var.readers;
+package io.schinzel.basicutils.env_var_reader;
 
 import java.util.Map;
 
 /**
  * The purpose of this class is to read environment variables from the OS
  */
-public class SystemEnvVarReader implements IEnvVarReader {
+public class SystemEnvironmentVariableReader implements IEnvironmentVariableReader {
     /** A representation of the system variables. */
     private final Map<String, String> environmentVariables;
 
-    public SystemEnvVarReader() {
+    public SystemEnvironmentVariableReader() {
         this(System.getenv());
     }
 
@@ -19,7 +19,7 @@ public class SystemEnvVarReader implements IEnvVarReader {
      *
      * @param environmentVariables A collection of environment variables
      */
-    SystemEnvVarReader(Map<String, String> environmentVariables) {
+    SystemEnvironmentVariableReader(Map<String, String> environmentVariables) {
         this.environmentVariables = environmentVariables;
     }
 

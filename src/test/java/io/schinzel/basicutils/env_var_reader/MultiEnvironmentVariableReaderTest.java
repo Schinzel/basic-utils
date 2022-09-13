@@ -1,15 +1,13 @@
-package io.schinzel.basicutils.env_var;
+package io.schinzel.basicutils.env_var_reader;
 
 import io.schinzel.basicutils.configvar.IName;
-import io.schinzel.basicutils.env_var.readers.IEnvVarReader;
 import io.schinzel.basicutils.str.Str;
 import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class EnvironmentVariablesTest {
+public class MultiEnvironmentVariableReaderTest {
 
     @Test
     public void getValue_2readersKeyIsInBothReaders_returnValueFromFirst() {
@@ -17,7 +15,7 @@ public class EnvironmentVariablesTest {
                 .add("ape", "chimp");
         TestReader reader2 = new TestReader()
                 .add("ape", "gorilla");
-        String value = EnvironmentVariables.builder()
+        String value = MultiEnvironmentVariableReader.builder()
                 .varReader(reader1)
                 .varReader(reader2)
                 .build()
@@ -32,7 +30,7 @@ public class EnvironmentVariablesTest {
                 .add("ape", "chimp");
         TestReader reader2 = new TestReader()
                 .add("monkey", "gibbon");
-        String value = EnvironmentVariables.builder()
+        String value = MultiEnvironmentVariableReader.builder()
                 .varReader(reader1)
                 .varReader(reader2)
                 .build()
@@ -47,7 +45,7 @@ public class EnvironmentVariablesTest {
                 .add("ape", "chimp");
         TestReader reader2 = new TestReader()
                 .add("monkey", "gibbon");
-        String value = EnvironmentVariables.builder()
+        String value = MultiEnvironmentVariableReader.builder()
                 .varReader(reader1)
                 .varReader(reader2)
                 .build()
@@ -58,7 +56,7 @@ public class EnvironmentVariablesTest {
 
     @Test
     public void getValue_noReaders_exception() {
-        String value = EnvironmentVariables.builder()
+        String value = MultiEnvironmentVariableReader.builder()
                 .build()
                 .getValue("no_such_key");
         assertThat(value).isNull();
@@ -70,7 +68,7 @@ public class EnvironmentVariablesTest {
         TestReader reader = new TestReader()
                 .add("ape", "chimp")
                 .add("bird", "#EMPTY#");
-        String value = EnvironmentVariables.builder()
+        String value = MultiEnvironmentVariableReader.builder()
                 .varReader(reader)
                 .build()
                 .getValue("bird");
@@ -82,7 +80,7 @@ public class EnvironmentVariablesTest {
     public void getValueAsStr_ExistingKey_ValueAsStr() {
         TestReader reader = new TestReader()
                 .add("ape", "chimp");
-        Str value = EnvironmentVariables.builder()
+        Str value = MultiEnvironmentVariableReader.builder()
                 .varReader(reader)
                 .build()
                 .getValueAsStr("ape");
@@ -101,7 +99,7 @@ public class EnvironmentVariablesTest {
 
         TestReader reader = new TestReader()
                 .add("ape", "chimp");
-        String value = EnvironmentVariables.builder()
+        String value = MultiEnvironmentVariableReader.builder()
                 .varReader(reader)
                 .build()
                 .getValue(new ApeName());
@@ -109,7 +107,7 @@ public class EnvironmentVariablesTest {
     }
 
 
-    private static class TestReader implements IEnvVarReader {
+    private static class TestReader implements IEnvironmentVariableReader {
         private final Map<String, String> mProperties = new HashMap<>();
 
         TestReader add(String keyName, String value) {
