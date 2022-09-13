@@ -1,5 +1,6 @@
 package io.schinzel.basicutils.env_var.readers;
 
+import io.schinzel.basicutils.configvar.IName;
 import io.schinzel.basicutils.thrower.Thrower;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -37,6 +38,10 @@ public class PropertyFileEnvVarReader implements IEnvVarReader {
     @Override
     public String getValue(String key) {
         return properties.get(key);
+    }
+
+    public String getValue(IName keyAsObject){
+        return this.getValue(keyAsObject.getMyName());
     }
 
 
