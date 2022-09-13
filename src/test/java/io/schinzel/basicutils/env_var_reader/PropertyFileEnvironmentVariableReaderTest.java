@@ -1,4 +1,4 @@
-package io.schinzel.basicutils.env_var.readers;
+package io.schinzel.basicutils.env_var_reader;
 
 import io.schinzel.basicutils.FunnyChars;
 import io.schinzel.basicutils.str.Str;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class PropertyFileEnvVarReaderTest {
+public class PropertyFileEnvironmentVariableReaderTest {
 
     //------------------------------------------------------------------------
     // constructor
@@ -15,19 +15,19 @@ public class PropertyFileEnvVarReaderTest {
     @Test
     public void constructor_fileDoesNotExist_exception() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                new PropertyFileEnvVarReader("no_such_file"));
+                new PropertyFileEnvironmentVariableReader("no_such_file"));
     }
 
     @Test
     public void constructor_emptyFileName_exception() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                new PropertyFileEnvVarReader(""));
+                new PropertyFileEnvironmentVariableReader(""));
     }
 
     @Test
     public void constructor_nullFileName_exception() {
         assertThatExceptionOfType(RuntimeException.class).isThrownBy(() ->
-                new PropertyFileEnvVarReader(null));
+                new PropertyFileEnvironmentVariableReader(null));
     }
 
 
@@ -41,7 +41,7 @@ public class PropertyFileEnvVarReaderTest {
                 .anl("ape=gorilla")
                 .anl("bird=falcon")
                 .writeToTempFile();
-        String value = new PropertyFileEnvVarReader(fileName).getValue("ape");
+        String value = new PropertyFileEnvironmentVariableReader(fileName).getValue("ape");
         assertThat(value).isEqualTo("gorilla");
     }
 
@@ -52,7 +52,7 @@ public class PropertyFileEnvVarReaderTest {
                 .anl("bird=falcon")
                 .anl("ape=chimp")
                 .writeToTempFile();
-        String value = new PropertyFileEnvVarReader(fileName).getValue("ape");
+        String value = new PropertyFileEnvironmentVariableReader(fileName).getValue("ape");
         assertThat(value).isEqualTo("chimp");
     }
 
@@ -61,7 +61,7 @@ public class PropertyFileEnvVarReaderTest {
         String fileName = Str.create()
                 .a("źż=").anl(FunnyChars.POLISH_LETTERS.getString())
                 .writeToTempFile();
-        String value = new PropertyFileEnvVarReader(fileName)
+        String value = new PropertyFileEnvironmentVariableReader(fileName)
                 .getValue("źż");
         assertThat(value).isEqualTo(FunnyChars.POLISH_LETTERS.getString());
     }
@@ -72,7 +72,7 @@ public class PropertyFileEnvVarReaderTest {
                 .anl("ape=")
                 .anl("bird=falcon")
                 .writeToTempFile();
-        String value = new PropertyFileEnvVarReader(fileName).getValue("ape");
+        String value = new PropertyFileEnvironmentVariableReader(fileName).getValue("ape");
         assertThat(value).isEmpty();
     }
 
@@ -81,7 +81,7 @@ public class PropertyFileEnvVarReaderTest {
         String fileName = Str.create()
                 .anl("a=b")
                 .writeToTempFile();
-        String value = new PropertyFileEnvVarReader(fileName).getValue("a");
+        String value = new PropertyFileEnvironmentVariableReader(fileName).getValue("a");
         assertThat(value).isEqualTo("b");
     }
 
@@ -90,7 +90,7 @@ public class PropertyFileEnvVarReaderTest {
         String fileName = Str.create()
                 .anl("a=b")
                 .writeToTempFile();
-        String value = new PropertyFileEnvVarReader(fileName).getValue("no_such_key");
+        String value = new PropertyFileEnvironmentVariableReader(fileName).getValue("no_such_key");
         assertThat(value).isNull();
     }
 
@@ -100,7 +100,7 @@ public class PropertyFileEnvVarReaderTest {
         String fileName = Str.create()
                 .anl(longString + "=" + longString)
                 .writeToTempFile();
-        String value = new PropertyFileEnvVarReader(fileName).getValue(longString);
+        String value = new PropertyFileEnvironmentVariableReader(fileName).getValue(longString);
         assertThat(value).isEqualTo(longString);
     }
 
@@ -120,7 +120,7 @@ public class PropertyFileEnvVarReaderTest {
                 .anl("#Comment")
                 .anl()
                 .writeToTempFile();
-        Integer numberOfProperties = PropertyFileEnvVarReader.getProperties(fileName)
+        Integer numberOfProperties = PropertyFileEnvironmentVariableReader.getProperties(fileName)
                 .size();
         assertThat(numberOfProperties).isEqualTo(2);
     }
@@ -129,7 +129,7 @@ public class PropertyFileEnvVarReaderTest {
     public void getProperties_emptyFile_emptyMap(){
         String fileName = Str.create()
                 .writeToTempFile();
-        Integer numberOfProperties = PropertyFileEnvVarReader.getProperties(fileName)
+        Integer numberOfProperties = PropertyFileEnvironmentVariableReader.getProperties(fileName)
                 .size();
         assertThat(numberOfProperties).isZero();
     }
@@ -143,7 +143,7 @@ public class PropertyFileEnvVarReaderTest {
                 .anl("#Comment")
                 .anl()
                 .writeToTempFile();
-        Integer numberOfProperties = PropertyFileEnvVarReader.getProperties(fileName)
+        Integer numberOfProperties = PropertyFileEnvironmentVariableReader.getProperties(fileName)
                 .size();
         assertThat(numberOfProperties).isZero();
     }

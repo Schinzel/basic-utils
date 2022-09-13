@@ -1,6 +1,5 @@
-package io.schinzel.basicutils.env_var.readers;
+package io.schinzel.basicutils.env_var_reader;
 
-import io.schinzel.basicutils.configvar.IName;
 import io.schinzel.basicutils.thrower.Thrower;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -19,18 +18,18 @@ import java.util.stream.Collectors;
  * Supports empty lines in files.
  * Comment lines start with #.
  */
-public class PropertyFileEnvVarReader implements IEnvVarReader {
+public class PropertyFileEnvironmentVariableReader implements IEnvironmentVariableReader {
     /** A representation of the properties file. */
     final Map<String, String> properties;
 
-    public PropertyFileEnvVarReader(String fileName) {
+    public PropertyFileEnvironmentVariableReader(String fileName) {
         try {
             Thrower.throwIfVarEmpty(fileName, "fileName");
             Thrower.throwIfTrue(!new File(fileName).exists(), "No file named '" + fileName + "' exists");
             //Read argument properties file from file system
             properties = getProperties(fileName);
         } catch (Exception e) {
-            String errorMessage = "Error creating " + PropertyFileEnvVarReader.class.getSimpleName() + ". " + e.getMessage();
+            String errorMessage = "Error creating " + PropertyFileEnvironmentVariableReader.class.getSimpleName() + ". " + e.getMessage();
             throw new RuntimeException(errorMessage);
         }
     }
@@ -38,10 +37,6 @@ public class PropertyFileEnvVarReader implements IEnvVarReader {
     @Override
     public String getValue(String key) {
         return properties.get(key);
-    }
-
-    public String getValue(IName keyAsObject){
-        return this.getValue(keyAsObject.getMyName());
     }
 
 
