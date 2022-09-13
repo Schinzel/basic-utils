@@ -14,10 +14,10 @@ public interface IEnvironmentVariableReader {
     String getValue(String key);
 
     /**
-     * @param objectWithName An object with a name
+     * @param key An object with a name
      * @return Returns the value of the environment variable with the argument key.
      */
-    default String getValue(IName objectWithName) {
-        return this.getValue(objectWithName.getMyName());
+    default String getValue(IName key) {
+        return this.getValue(key.getMyName());
     }
 }

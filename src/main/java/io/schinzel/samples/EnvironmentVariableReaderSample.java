@@ -8,7 +8,7 @@ import io.schinzel.basicutils.env_var_reader.SystemEnvironmentVariableReader;
  * The purpose of this class is to provide sample usages of environment
  * variable readers
  */
-public class EnvironmentVariablesReaderSample {
+public class EnvironmentVariableReaderSample {
 
     public static void main(String[] args) {
         final MultiEnvironmentVariableReader multiEnvironmentVariableReader = MultiEnvironmentVariableReader.builder()
