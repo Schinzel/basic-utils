@@ -1,6 +1,7 @@
 package io.schinzel.basicutils.state;
 
 import com.google.common.base.Strings;
+import io.schinzel.basicutils.json.JsonOrdered;
 import io.schinzel.basicutils.str.Str;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -97,7 +98,7 @@ public class State {
      * @return A snapshot of the state of this object and its children.
      */
     public JSONObject getJson() {
-        JSONObject json = new JSONObject(new LinkedHashMap<>());
+        JSONObject json = new JsonOrdered();
         //Add all properties to return
         for (Property prop : mProperties) {
             json.put(prop.getKey(), prop.getObject());
