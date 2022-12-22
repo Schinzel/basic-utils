@@ -8,6 +8,7 @@
     <groupId>io.schinzel</groupId>
     <version>1.6.1</version>
 
+
     <name>Basic Utils</name>
     <description>Some basic utilities. Most commonly less verbose versions of common code
         snippets.
@@ -22,6 +23,7 @@
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
+
     <distributionManagement>
         <snapshotRepository>
             <id>${deploy-repo}</id>
@@ -32,6 +34,84 @@
             <url>s3://${deploy-repo}/release</url>
         </repository>
     </distributionManagement>
+
+
+    <dependencies>
+
+        <!-- RUNTIME DEPENDENCIES -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>31.1-jre</version>
+        </dependency>
+        <dependency>
+            <!-- Dependency for external JSON requests -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.3</version>
+        </dependency>
+
+        <!-- DEV DEPENDENCIES -->
+        <dependency>
+            <!-- Annotations that generates getters, setters and more that
+            are not visible in source code.
+            https://projectlombok.org/index.html -->
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- TEST DEPENDENCIES -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>4.10.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Fluid assertions http://joel-costigliola.github.io/assertj -->
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.23.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Parameterized unit tests. https://github.com/Pragmatists/JUnitParams -->
+            <groupId>pl.pragmatists</groupId>
+            <artifactId>JUnitParams</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Javalin requires this dependency -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Javalin requires this dependency -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>2.0.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- A web server for testing HttpReader-->
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>4.6.7</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
 
     <build>
         <pluginManagement>
@@ -135,79 +215,4 @@
             </plugin>
         </plugins>
     </build>
-
-
-    <dependencies>
-        <!-- RUNTIME DEPENDENCIES -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
-        </dependency>
-        <dependency>
-            <!-- Dependency for external JSON requests -->
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.15.3</version>
-        </dependency>
-        <!-- DEV DEPENDENCIES -->
-        <dependency>
-            <!-- Annotations that generates getters, setters and more that
-            are not visible in source code.
-            https://projectlombok.org/index.html -->
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.24</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- TEST DEPENDENCIES -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>4.8.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- Fluid assertions http://joel-costigliola.github.io/assertj -->
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.23.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <!-- Parameterized unit tests. https://github.com/Pragmatists/JUnitParams -->
-            <groupId>pl.pragmatists</groupId>
-            <artifactId>JUnitParams</artifactId>
-            <version>1.1.1</version>
-            <scope>test</scope>
-        </dependency>
-
-
-        <dependency>
-            <!-- Javalin requires this dependency -->
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>2.0.5</version>
-        </dependency>
-        <dependency>
-            <!-- Javalin requires this dependency -->
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.5</version>
-        </dependency>
-
-        <dependency>
-            <!-- A web server for testing HttpReader-->
-            <groupId>io.javalin</groupId>
-            <artifactId>javalin</artifactId>
-            <version>4.6.7</version>
-        </dependency>
-    </dependencies>
-
 </project>
