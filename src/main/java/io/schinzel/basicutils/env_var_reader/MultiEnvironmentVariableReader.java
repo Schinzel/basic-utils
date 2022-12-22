@@ -58,8 +58,11 @@ public class MultiEnvironmentVariableReader implements IEnvironmentVariableReade
     /**
      * Same as getValue(String). The only difference is that the return is a
      * Str instead of a String.
+     *
+     * @param key The key of the environment variable
+     * @return The value of the environment variable as a Str. See getValue(String)
      */
-    public Str getValueAsStr(String key){
+    public Str getValueAsStr(String key) {
         return Str.create(this.getValue(key));
     }
 }
