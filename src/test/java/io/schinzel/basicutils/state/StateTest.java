@@ -30,8 +30,8 @@ public class StateTest {
                 .addChildren(coll2)
                 .build();
         assertThat(state.getChildLists()).containsKeys("MyCollName1", "MyCollName2");
-        assertThat(state.getChildLists().get("MyCollName1").size()).isEqualTo(3);
-        assertThat(state.getChildLists().get("MyCollName2").size()).isEqualTo(1);
+        assertThat(state.getChildLists().get("MyCollName1")).hasSize(3);
+        assertThat(state.getChildLists().get("MyCollName2")).hasSize(1);
     }
 
 
@@ -55,19 +55,19 @@ public class StateTest {
         Assert.assertEquals("the_int", props.get(0).getKey());
         Assert.assertEquals("123,456,789", props.get(0).getValueAsString());
         Assert.assertEquals("the_int:123,456,789", props.get(0).getString());
-        Assert.assertEquals(new Long(123456789), props.get(0).getObject());
+        Assert.assertEquals(123456789L, props.get(0).getObject());
     }
 
 
     @Test
     public void testLongProperty() {
         List<Property> props = State.getBuilder()
-                .addProp().key("the_long").val(1234567890l).buildProp()
+                .addProp().key("the_long").val(1234567890L).buildProp()
                 .build().getProperties();
         Assert.assertEquals("the_long", props.get(0).getKey());
         Assert.assertEquals("1,234,567,890", props.get(0).getValueAsString());
         Assert.assertEquals("the_long:1,234,567,890", props.get(0).getString());
-        Assert.assertEquals(new Long(1234567890), props.get(0).getObject());
+        Assert.assertEquals(1234567890L, props.get(0).getObject());
     }
 
 
@@ -79,7 +79,7 @@ public class StateTest {
         Assert.assertEquals("the_double", props.get(0).getKey());
         Assert.assertEquals("0.44", props.get(0).getValueAsString());
         Assert.assertEquals("the_double:0.44", props.get(0).getString());
-        Assert.assertEquals(new Double(0.4444d), props.get(0).getObject());
+        Assert.assertEquals(0.4444d, props.get(0).getObject());
     }
 
 
@@ -91,7 +91,7 @@ public class StateTest {
         Assert.assertEquals("the_float", props.get(0).getKey());
         Assert.assertEquals("12,356.667", props.get(0).getValueAsString());
         Assert.assertEquals("the_float:12,356.667", props.get(0).getString());
-        Assert.assertEquals(new Double(12356.6666f), props.get(0).getObject());
+        Assert.assertEquals(12356.6669921875, props.get(0).getObject());
     }
 
 
@@ -115,7 +115,7 @@ public class StateTest {
                 .addProp().key("D").val(4).buildProp()
                 .addProp().key("E").val(5).buildProp()
                 .build().getProperties();
-        Long prevValue = 0l;
+        Long prevValue = 0L;
         for (Property prop : props) {
             assertThat((Long) prop.getObject()).isGreaterThan(prevValue);
             prevValue = (Long) prop.getObject();
