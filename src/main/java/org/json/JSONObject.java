@@ -145,6 +145,7 @@ public class JSONObject {
      */
     protected Map<String, Object> map;
 
+    @SuppressWarnings("rawtypes")
     public Class<? extends Map> getMapType() {
         return map.getClass();
     }
