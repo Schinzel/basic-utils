@@ -1,7 +1,7 @@
 package io.schinzel.basicutils.env_var_reader;
 
 import io.javalin.Javalin;
-import io.javalin.core.security.AccessManager;
+import io.javalin.security.AccessManager;
 import io.schinzel.basicutils.FunnyChars;
 import org.junit.After;
 import org.junit.Before;
