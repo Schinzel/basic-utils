@@ -107,7 +107,7 @@
             <!-- A web server for testing HttpReader-->
             <groupId>io.javalin</groupId>
             <artifactId>javalin</artifactId>
-            <version>6.3.0</version>
+            <version>5.3.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
